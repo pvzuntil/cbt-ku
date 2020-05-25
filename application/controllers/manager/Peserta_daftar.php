@@ -40,26 +40,67 @@ class Peserta_daftar extends Member_Controller
 	{
 		$this->load->library('form_validation');
 
-		$this->form_validation->set_rules('tambah-username', 'Username', 'required|strip_tags');
+		// $this->form_validation->set_rules('tambah-username', 'Username', 'required|strip_tags');
 		$this->form_validation->set_rules('tambah-password', 'Password', 'required|strip_tags');
 		$this->form_validation->set_rules('tambah-nama', 'Nama Lengkap', 'required|strip_tags');
-		$this->form_validation->set_rules('tambah-email', 'Email', 'strip_tags');
+		$this->form_validation->set_rules('tambah-email', 'Email', 'strip_tags|valid_emails');
 		$this->form_validation->set_rules('tambah-detail', 'Keterangan', 'strip_tags|max_length[30]');
 		$this->form_validation->set_rules('tambah-group', 'Group', 'required|strip_tags');
 
 		if ($this->form_validation->run() == TRUE) {
+			$randomNumber = rand(000001, 999999);
+			$email = $this->input->post('tambah-email', true);
+
 			$data['user_name'] = $this->input->post('tambah-username', true);
 			$data['user_password'] = $this->input->post('tambah-password', true);
-			$data['user_email'] = $this->input->post('tambah-email', true);
+			$data['user_email'] = $email;
 			$data['user_firstname'] = $this->input->post('tambah-nama', true);
 			$data['user_detail'] = $this->input->post('tambah-detail', true);
 			$data['user_grup_id'] = $this->input->post('tambah-group', true);
 
+			$data['active'] = 0;
+			$data['kode'] = $randomNumber;
+
 			if ($this->cbt_user_grup_model->count_by_kolom('grup_id', $data['user_grup_id'])->row()->hasil > 0) {
-				if ($this->cbt_user_model->count_by_kolom('user_name', $data['user_name'])->row()->hasil > 0) {
+				if ($this->cbt_user_model->count_by_kolom('user_email', $data['user_email'])->row()->hasil > 0) {
 					$status['status'] = 0;
 					$status['pesan'] = 'Username sudah terpakai !';
 				} else {
+					$config = [
+						'mailtype'  => 'html',
+						'charset'   => 'utf-8',
+						'protocol'  => 'smtp',
+						'smtp_host' => 'smtp.gmail.com',
+						'smtp_user' => 'penyimpanan13@gmail.com',  // Email gmail
+						'smtp_pass'   => 'DriveData',  // Password gmail
+						'smtp_crypto' => 'ssl',
+						'smtp_port'   => 465,
+						'crlf'    => "\r\n",
+						'newline' => "\r\n"
+					];
+					$this->load->library('email', $config);
+					$this->email->from('no-reply@kompetisi.com', 'Kompetisi On line Matematika Sains');
+					$this->email->to($email);
+					$this->email->subject('Kode Verifikasi Akun Kompetinsi On line Matematika Sains');
+
+					$url = base64_encode($email . ';' . $randomNumber);
+					$url = base64_encode($url);
+
+					$emailMessage = '';
+					$emailMessage .= '<h2 style="color: black">Hallo, ' . $data['user_firstname'] . ' .!</h2>';
+					$emailMessage .= '<p style="color: black">Silakan tekan tombol di bawah ini untuk verifikasi alamat email.</p>';
+					$emailMessage .= '<br />';
+					$emailMessage .= '<a href="' . base_url() . 'index.php/welcome/verifikasi/' . $url . '" style="background-color: #55b9f3; padding: 10px 20px 10px 20px; margin-bottom: 10px; text-decoration: none; color: white">Verifikasi</a>';
+					$emailMessage .= '<br />';
+					$emailMessage .= '<br />';
+					$emailMessage .= '<p style="color: black">Jika kamu tidak merasa mendaftar akun di QEC, abaikan saja email ini</p>';
+					$emailMessage .= '<p style="color: black">Terimakasih,</p>';
+					$emailMessage .= '<p style="color: black">Panitia QEC.</p>';
+					$this->email->message($emailMessage);
+
+					$this->email->send();
+
+
 					$this->cbt_user_model->save($data);
 
 					$status['status'] = 1;
@@ -129,7 +170,7 @@ class Peserta_daftar extends Member_Controller
 
 		$this->form_validation->set_rules('edit-id', 'ID', 'required|strip_tags');
 		$this->form_validation->set_rules('edit-pilihan', 'Pilihan', 'required|strip_tags');
-		$this->form_validation->set_rules('edit-username', 'Username', 'required|strip_tags');
+		// $this->form_validation->set_rules('edit-username', 'Username', 'required|strip_tags');
 		$this->form_validation->set_rules('edit-password', 'Password', 'required|strip_tags');
 		$this->form_validation->set_rules('edit-nama', 'Nama Lengkap', 'required|strip_tags');
 		$this->form_validation->set_rules('edit-email', 'Email', 'strip_tags');

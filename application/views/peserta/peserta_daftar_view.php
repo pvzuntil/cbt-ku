@@ -123,9 +123,18 @@
                     <div class="row-fluid">
                         <div class="box-body">
                             <div id="form-pesan"></div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label>Username</label>
                                 <input type="text" class="form-control" id="tambah-username" name="tambah-username" placeholder="Username Peserta">
+                            </div> -->
+                            <div class="form-group">
+                                <label>Nama Lengkap</label>
+                                <input type="text" class="form-control" id="tambah-nama" name="tambah-nama" placeholder="Nama Lengkap Peserta">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" class="form-control" id="tambah-email" name="tambah-email" placeholder="Email Peserta">
                             </div>
 
                             <div class="form-group">
@@ -134,23 +143,12 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Nama Lengkap</label>
-                                <input type="text" class="form-control" id="tambah-nama" name="tambah-nama" placeholder="Nama Lengkap Peserta">
+                                <label>Asal Sekolah</label>
+                                <input type="text" class="form-control" id="tambah-detail" name="tambah-detail" placeholder="Asal Sekolah">
                             </div>
 
                             <div class="form-group">
-                                <label>Email</label>
-                                <input type="text" class="form-control" id="tambah-email" name="tambah-email" placeholder="Email Peserta (Boleh dikosongkan)">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Keterangan</label>
-                                <input type="text" class="form-control" id="tambah-detail" name="tambah-detail" placeholder="Keterangan peserta. (Bisa disi ruang dan sesi)">
-                                <p class="help-block">Dapat diisi Ruang dan Sesi Peserta. Contoh : Ruang 1, Sesi 1</p>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Group</label>
+                                <label>Level</label>
                                 <select name="tambah-group" id="tambah-group" class="form-control input-sm">
                                     <?php if (!empty($select_group)) {
                                         echo $select_group;
@@ -182,11 +180,12 @@
                     <div class="row-fluid">
                         <div class="box-body">
                             <div id="form-pesan-edit"></div>
+                            <input type="hidden" name="edit-id" id="edit-id">
+                            <input type="hidden" name="edit-pilihan" id="edit-pilihan">
+
                             <div class="form-group">
-                                <label>Username</label>
-                                <input type="hidden" name="edit-id" id="edit-id">
-                                <input type="hidden" name="edit-pilihan" id="edit-pilihan">
-                                <input type="text" class="form-control" id="edit-username" name="edit-username" readonly>
+                                <label>Email</label>
+                                <input type="text" class="form-control" id="edit-email" name="edit-email" placeholder="Email Peserta" readonly>
                             </div>
 
                             <div class="form-group">
@@ -205,18 +204,12 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Email</label>
-                                <input type="text" class="form-control" id="edit-email" name="edit-email" placeholder="Email Peserta (Boleh dikosongkan)">
+                                <label>Asal Sekolah</label>
+                                <input type="text" class="form-control" id="edit-detail" name="edit-detail" placeholder="Asal sekolah peserta">
                             </div>
 
                             <div class="form-group">
-                                <label>Keterangan</label>
-                                <input type="text" class="form-control" id="edit-detail" name="edit-detail" placeholder="Keterangan peserta. (Bisa disi ruang dan sesi)">
-                                <p class="help-block">Dapat diisi Ruang dan Sesi Peserta. Contoh : Ruang 1, Sesi 1</p>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Group</label>
+                                <label>Level</label>
                                 <select name="edit-group" id="edit-group" class="form-control input-sm">
                                     <?php if (!empty($select_group)) {
                                         echo $select_group;

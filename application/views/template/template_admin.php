@@ -288,8 +288,6 @@
           <div style="text-align: center;">
             <img width="50" src="<?php echo base_url(); ?>public/images/loading.gif" /> <br />Data Sedang diproses...
           </div>
-          <br />
-          Catatan : Refresh Halaman jika proses terlalu Lama.
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
