@@ -113,7 +113,7 @@ class Welcome extends CI_Controller
 			$this->form_validation->set_message('check_login', 'Password yang dimasukkan salah');
 			return FALSE;
 		} else if ($login == 3) {
-			$this->form_validation->set_message('check_login', 'Akun ini belum di aktivasi, silahkan aktivasi terlebih dahulu !');
+			$this->form_validation->set_message('check_login', 'Akun ini belum di aktivasi, silahkan aktivasi terlebih dahulu ! Cek juga folder spam email anda');
 			return FALSE;
 		} else {
 			$this->form_validation->set_message('check_login', 'Email yang dimasukkan tidak dikenal');
