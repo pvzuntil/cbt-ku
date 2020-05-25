@@ -436,8 +436,22 @@ class Tes_dashboard extends Tes_Controller
 						}
 					}
 				} else {
-					$record[] = '';
-					$record[] = '<a href="' . site_url() . '/' . $this->url . '/konfirmasi_test/' . $temp->tes_id . '" style="cursor: pointer;" class="btn btn-success btn-xs">Kerjakan</a>';
+					$waktuMulaiTes = $temp->tes_begin_time;
+					$waktuSelesaiTes = $temp->tes_end_time;
+					$waktuNow = date("Y-m-d H:i:s");
+
+					if ($waktuNow >= $waktuMulaiTes && $waktuNow <= $waktuSelesaiTes) {
+						$record[] = '';
+						$record[] = '<a href="' . site_url() . '/' . $this->url . '/konfirmasi_test/' . $temp->tes_id . '" style="cursor: pointer;" class="btn btn-success btn-xs">Kerjakan</a>';
+					} else {
+						if ($waktuNow >= $waktuSelesaiTes) {
+							$record[] = '';
+							$record[] = '<a href="#" style="cursor: pointer;" class="btn btn-warning btn-xs btn-disabled" disabled>Tes sudah selesai</a>';
+						} else {
+							$record[] = '';
+							$record[] = '<a href="#" style="cursor: pointer;" class="btn btn-success btn-xs btn-disabled" disabled>Belum dimulai</a>';
+						}
+					}
 				}
 
 				$output['aaData'][] = $record;
