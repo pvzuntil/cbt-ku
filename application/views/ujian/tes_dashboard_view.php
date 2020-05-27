@@ -22,7 +22,7 @@
             <h4>Informasi</h4>
             <p>Silahkan pilih Mapel yang diikuti dari daftar lomba yang tersedia dibawah ini. Apabila tidak muncul, silahkan menghubungi Panitia.</p>
         </div>
-        <div class="box box-success box-solid">
+        <div class="box box-warning box-solid">
             <div class="box-header with-border">
                 <h3 class="box-title">Daftar Lomba</h3>
             </div><!-- /.box-header -->

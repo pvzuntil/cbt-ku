@@ -18,7 +18,7 @@
         <h4>Informasi</h4>
         <p>Ini adalah area administratif, yang memiliki platform dan bahasa user-friendly untuk membuat, mengelola dan melaksanakan ujian online.</p>
     </div>
-    <div class="box">
+    <div class="box box-warning box-solid">
         <div class="box-header with-border">
             <div class="box-title">Konfigurasi System</div>
         </div><!-- /.box-header -->
@@ -63,7 +63,7 @@
             </p>
         </div>
     </div>
-    <div class="box box-success box-solid">
+    <div class="box box-warning box-solid">
         <div class="box-header with-border">
             <h3 class="box-title">Petunjuk Penggunaan</h3>
         </div><!-- /.box-header -->
