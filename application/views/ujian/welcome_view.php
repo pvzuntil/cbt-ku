@@ -22,10 +22,10 @@
 		</div>
 		<div class="row">
 			<div class="login-box">
-				<div class="login-logo">
-					<b>User Login</b>
-				</div><!-- /.login-logo -->
-				<div class="login-box-body">
+				<div class="login-box-body shadow-box">
+					<div class="login-logo shadow-text">
+						<b class="">User Login</b>
+					</div><!-- /.login-logo -->
 					<p class="login-box-msg">Masukkan Email dan Password</p>
 					<?php if ($this->session->flashdata('verif')) : ?>
 						<div class="alert alert-info">
@@ -50,7 +50,7 @@
 							</div>
 						</div><!-- /.col -->
 						<div class="col-xs-6" style="display: flex; align-items: center; justify-content: flex-end; position: relative; top: 10px">
-							<a href="">Lupa password</a>
+							<a href="" data-toggle="modal" data-target="#modal-lupa">Lupa password</a>
 						</div><!-- /.col -->
 
 					</div>
@@ -117,6 +117,35 @@
 						</div>
 						<div class="modal-footer">
 							<button type="submit" id="tambah-simpan" class="btn btn-success">Daftar</button>
+							<a href="#" class="btn btn-danger" data-dismiss="modal">Batal</a>
+						</div>
+					</div>
+				</div>
+
+				</form>
+			</div>
+
+			<!-- MODAL LUPA PASSWORD -->
+			<div style="max-height: 100%;overflow-y:auto;" class="modal" id="modal-lupa" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+				<?php echo form_open($url . '/request_lupa', 'id="form-lupa"'); ?>
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h3 id="trx-judul text-center text-bold" style="font-weight: bold; text-align: center">Lupa password</h3>
+						</div>
+						<div class="modal-body">
+							<div class="row-fluid">
+								<div class="box-body">
+									<div id="form-pesan-lupa"></div>
+									<div class="form-group">
+										<label>Email</label>
+										<input type="email" class="form-control" name="lupa-email" placeholder="Email Peserta" autocomplete="off">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" id="tambah-simpan" class="btn btn-success">Kirim</button>
 							<a href="#" class="btn btn-danger" data-dismiss="modal">Batal</a>
 						</div>
 					</div>
@@ -192,6 +221,28 @@
 				} else {
 					$("#modal-proses").modal('hide');
 					$('#form-pesan-tambah').html(pesan_err(obj.pesan));
+				}
+			}
+		});
+		return false;
+	});
+
+	$('#form-lupa').submit(function() {
+		$("#modal-proses").modal('show');
+		$.ajax({
+			url: "<?php echo site_url() . '/' . $url; ?>/request_lupa",
+			type: "POST",
+			data: $('#form-lupa').serialize(),
+			cache: false,
+			success: function(respon) {
+				var obj = $.parseJSON(respon);
+				if (obj.status == 1) {
+					$("#modal-proses").modal('hide');
+					$("#modal-lupa").modal('hide');
+					notify_success(obj.error);
+				} else {
+					$("#modal-proses").modal('hide');
+					$('#form-pesan-lupa').html(pesan_err(obj.error));
 				}
 			}
 		});

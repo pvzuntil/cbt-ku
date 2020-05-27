@@ -129,7 +129,7 @@
   </script>
 </head>
 
-<body class="skin-green sidebar-mini">
+<body class="skin-yellow sidebar-mini">
   <div class="wrapper">
 
     <header class="main-header">

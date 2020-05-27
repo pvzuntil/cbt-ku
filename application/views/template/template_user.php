@@ -46,6 +46,19 @@
 
   <script src="<?php echo base_url(); ?>public/plugins/pnotify/pnotify.custom.min.js" type="text/javascript"></script>
 
+  <?php if (@$url == 'welcome') : ?>
+    <style>
+      .back-body {
+        background-image: url('<?php echo base_url(); ?>public/images/back.jpg');
+        background-position: center;
+        background-size: cover;
+      }
+
+      .shadow-box {
+        box-shadow: 6px 6px 10px 0px #00000070;
+      }
+    </style>
+  <?php endif ?>
 
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
@@ -73,7 +86,7 @@
 
     <?php endif ?>
     <!-- Full Width Column -->
-    <div class="content-wrapper">
+    <div class="content-wrapper back-body">
       <?php
       if (!empty($content)) {
         echo $content;
@@ -81,21 +94,23 @@
       ?>
     </div><!-- /.content-wrapper -->
     <footer class="main-footer no-print">
-      <div class="pull-right hidden-xs">
-        <?php
-        if (!empty($link_login_operator)) {
-          if ($link_login_operator == 'ya') {
-        ?>
+      <?php if (@$url != 'welcome') : ?>
+        <div class="pull-right hidden-xs">
+          <?php
+          if (!empty($link_login_operator)) {
+            if ($link_login_operator == 'ya') {
+          ?>
+              <strong> <a href="<?php echo site_url(); ?>/manager/">Log In Operator</a></strong>
+            <?php
+            }
+          } else {
+            ?>
             <strong> <a href="<?php echo site_url(); ?>/manager/">Log In Operator</a></strong>
           <?php
           }
-        } else {
           ?>
-          <strong> <a href="<?php echo site_url(); ?>/manager/">Log In Operator</a></strong>
-        <?php
-        }
-        ?>
-      </div>
+        </div>
+      <?php endif ?>
       <div class="container">
         <strong>&copy; Copyright 2020 QEC - Quantum Education Center</strong>
       </div><!-- /.container -->
