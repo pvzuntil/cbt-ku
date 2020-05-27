@@ -203,5 +203,20 @@ class Cbt_user_model extends CI_Model
     {
         $this->db->where('user_email', $email)
             ->update('cbt_user', ['active' => 1]);
+
+        $this->db->where('user_email', $email)
+            ->update('cbt_user', ['url_verif' => NULL]);
+    }
+
+    function get_verif($email, $url)
+    {
+        $get_email = $this->count_by_kolom('user_email', $email);
+        $get_url = $this->count_by_kolom('url_verif', $url);
+
+        if ((int) $get_email->row()->hasil > 0 && (int) $get_url->row()->hasil > 0) {
+            return true;
+        }
+
+        return false;
     }
 }

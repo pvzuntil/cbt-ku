@@ -126,7 +126,7 @@ class Welcome extends CI_Controller
 		$this->load->library('form_validation');
 
 		$this->form_validation->set_rules('tambah-email', 'Email', 'required|strip_tags|valid_emails');
-		$this->form_validation->set_rules('tambah-password', 'Password', 'required|strip_tags');
+		$this->form_validation->set_rules('tambah-password', 'Password', 'required|strip_tags|min_length[8]');
 		$this->form_validation->set_rules('tambah-nama', 'Nama Lengkap', 'required|strip_tags');
 		$this->form_validation->set_rules('tambah-detail', 'Nama Sekolah', 'required|strip_tags|max_length[30]');
 		$this->form_validation->set_rules('tambah-group', 'Level', 'required|strip_tags');
@@ -147,44 +147,24 @@ class Welcome extends CI_Controller
 					$status['status'] = 0;
 					$status['pesan'] = 'Email sudah terpakai !';
 				} else {
-					$this->cbt_user_model->save($data);
 
-					$config = [
-						'mailtype'  => 'html',
-						'charset'   => 'utf-8',
-						'protocol'  => 'smtp',
-						'smtp_host' => 'smtp.gmail.com',
-						'smtp_user' => 'penyimpanan13@gmail.com',  // Email gmail
-						'smtp_pass'   => 'DriveData',  // Password gmail
-						'smtp_crypto' => 'ssl',
-						'smtp_port'   => 465,
-						'crlf'    => "\r\n",
-						'newline' => "\r\n"
-					];
-					$this->load->library('email', $config);
-					$this->email->from('no-reply@kompetisi.com', 'Kompetisi On line Matematika Sains');
-					$this->email->to($email);
-					$this->email->subject('Kode Verifikasi Akun Kompetinsi On line Matematika Sains');
+					$this->load->library('Send_email');
+					$send = new Send_email();
+					$send = $send->send($email, 'verif', [
+						'randomNumber' => $randomNumber,
+						'user_firstname' => $data['user_firstname']
+					]);
 
-					$url = base64_encode($email . ';' . $randomNumber);
-					$url = base64_encode($url);
+					if ($send['status']) {
+						$data['url_verif'] = $send['url'];
+						$this->cbt_user_model->save($data);
 
-					$emailMessage = '';
-					$emailMessage .= '<h2 style="color: black">Hallo, ' . $data['user_firstname'] . ' .!</h2>';
-					$emailMessage .= '<p style="color: black">Silakan tekan tombol di bawah ini untuk verifikasi alamat email.</p>';
-					$emailMessage .= '<br />';
-					$emailMessage .= '<a href="' . base_url() . 'index.php/welcome/verifikasi/' . $url . '" style="background-color: #55b9f3; padding: 10px 20px 10px 20px; margin-bottom: 10px; text-decoration: none; color: white">Verifikasi</a>';
-					$emailMessage .= '<br />';
-					$emailMessage .= '<br />';
-					$emailMessage .= '<p style="color: black">Jika kamu tidak merasa mendaftar akun di QEC, abaikan saja email ini</p>';
-					$emailMessage .= '<p style="color: black">Terimakasih,</p>';
-					$emailMessage .= '<p style="color: black">Panitia QEC.</p>';
-					$this->email->message($emailMessage);
-
-					$this->email->send();
-
-					$status['status'] = 1;
-					$status['pesan'] = 'Berhasil mendaftar, silahkan cek email anda untuk memverifikasi akun';
+						$status['status'] = 1;
+						$status['pesan'] = 'Berhasil mendaftar, silahkan cek email anda untuk memverifikasi akun';
+					} else {
+						$status['status'] = 0;
+						$status['pesan'] = 'Silahkan periksa koneksi internet anda !';
+					}
 				}
 			} else {
 				$status['status'] = 0;
@@ -200,20 +180,110 @@ class Welcome extends CI_Controller
 
 	function verifikasi($param = null)
 	{
+
 		$stepOne = base64_decode($param);
 		$stepTwo = base64_decode($stepOne);
 
 		$explodeParam = explode(';', $stepTwo);
-		$email = $explodeParam[0];
-		$kode = $explodeParam[1];
 
-		if ($this->cbt_user_model->count_by_kolom('user_email', $email)->row()->hasil > 0 && $this->cbt_user_model->count_by_kolom('kode', $kode)->row()->hasil > 0) {
-			$this->cbt_user_model->activation($email);
-			$this->session->set_flashdata('verif', 'Akun anda berhasil diverifikasi, silahkan login untuk melanjutkan !');
-			return redirect('welcome');
-		} else {
-			echo 'gak';
+
+		$email = $explodeParam[1];
+		$kode = $explodeParam[2];
+
+		$get_verif = $this->cbt_user_model->get_verif($email, $param);
+
+		if ($get_verif) {
+
+			if ($this->cbt_user_model->count_by_kolom('user_email', $email)->row()->hasil > 0 && $this->cbt_user_model->count_by_kolom('kode', $kode)->row()->hasil > 0) {
+				$this->cbt_user_model->activation($email);
+				$this->session->set_flashdata('verif', 'Akun anda berhasil diverifikasi, silahkan login untuk melanjutkan !');
+				return redirect('welcome');
+			}
 		}
+
+		return redirect('welcome');
+	}
+
+	function request_lupa()
+	{
+		$email = $this->input->post('lupa-email', true);
+
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_rules('lupa-email', 'Email', 'required|strip_tags|valid_emails');
+		if ($this->form_validation->run() == TRUE) {
+			$isEmail = $this->cbt_user_model->get_by_username($email);
+
+			if ($isEmail == false) {
+				$status['status'] = 0;
+				$status['error'] = 'Email tidak ditemukan !';
+			} else if ($isEmail != false && $isEmail->active == 0) {
+				$status['status'] = 0;
+				$status['error'] = 'Email anda belum diaktivasi, silahkan aktavasi terlebih dahulu ! dan pastikan cek juga folder spam pada email anda.';
+			} else {
+				$this->load->library('Send_email');
+				$send = new Send_email();
+				$send->send($email, 'lupa', [
+					'user_firstname' => $isEmail->user_firstname,
+					'kode' => $isEmail->kode,
+					'old' => $isEmail->user_password
+				]);
+
+				$status['status'] = 1;
+				$status['error'] = 'Permintaan anda sudah terkirim, silahkan cek email anda !';
+			}
+			// echo $isEmail;
+			// $status['status'] = 1;
+		} else {
+			$status['status'] = 0;
+			$status['error'] = validation_errors();
+		}
+		// echo json_encode($isEmail);
+		echo json_encode($status);
+	}
+
+	function reset($param = null)
+	{
+		$stepOne = base64_decode($param);
+		$stepTwo = base64_decode($stepOne);
+		$passdata = explode(';', $stepTwo);
+
+
+		$email = $passdata[1];
+		$data['url'] = $this->url;
+		$data['email'] = $email;
+		$data['timestamp'] = strtotime(date('Y-m-d H:i:s'));
+
+
+		$this->template->display_user($this->kelompok . '/reset_view', 'Selamat Datang', $data);
+	}
+
+	function do_reset()
+	{
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_rules('email', 'Email', 'required|strip_tags|valid_emails');
+		$this->form_validation->set_rules('password', 'Password', 'required|min_length[8]');
+		$this->form_validation->set_rules('password-konfirmasi', 'Password konfirmasi', 'required|min_length[8]|matches[password]');
+
+		$email = $this->input->post('email', true);
+		$pass = $this->input->post('password', true);
+
+
+		if ($this->form_validation->run() == TRUE) {
+			$this->cbt_user_model->update('user_email', $email, [
+				'user_password' => $pass
+			]);
+
+			// $this->session->set_flashdata('verif', 'Password anda berhasil diubah, silahkan login untuk melanjutkan !');
+			$status['status'] = 1;
+			$status['pesan'] = 'Password anda berhasil diubah, silahkan login untuk melanjutkan !';
+			// return redirect('welcome');
+		} else {
+			$status['status'] = 0;
+			$status['pesan'] = validation_errors();
+		}
+		echo json_encode($status);
 	}
 }
 
