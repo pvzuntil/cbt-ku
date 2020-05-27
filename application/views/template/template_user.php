@@ -46,6 +46,8 @@
 
   <script src="<?php echo base_url(); ?>public/plugins/pnotify/pnotify.custom.min.js" type="text/javascript"></script>
 
+  <script src="<?php echo base_url(); ?>public/plugins/swal/swal.js" type="text/javascript"></script>
+
   <?php if (@$url == 'welcome') : ?>
     <style>
       .back-body {
