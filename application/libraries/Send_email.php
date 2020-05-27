@@ -10,6 +10,7 @@ class Send_email
 
     function send($email, $type, $data = [])
     {
+        $curtime =  time();
         $config = [
             'mailtype'  => 'html',
             'charset'   => 'utf-8',
@@ -34,9 +35,9 @@ class Send_email
         }
 
         if ($type == 'lupa') {
-            $url = base64_encode('reset;' . $email . ';' . $data['kode'] . ';' . $data['old']);
+            $url = base64_encode('reset;' . $email . ';' . $data['kode'] . ';' . $data['old'] . ';' . $curtime);
         } else {
-            $url = base64_encode('verif;' . $email . ';' . $data['randomNumber']);
+            $url = base64_encode('verif;' . $email . ';' . $data['randomNumber'] . ';' . $curtime);
         }
 
         $url = base64_encode($url);

@@ -26,35 +26,45 @@
                     <div class="login-logo">
                         <b>Reset Password</b>
                     </div><!-- /.login-logo -->
-                    <p class="login-box-msg">Masukkan Password Baru</p>
-                    <?php if ($this->session->flashdata('verif')) : ?>
-                        <div class="alert alert-info">
-                            <?= $this->session->flashdata('verif'); ?>
+
+                    <?php if ($exp) : ?>
+                        <div class="text-center">
+                            <h3>Link Kadaluarsa</h3>
+                        </div>
+
+                    <?php else : ?>
+                        <div>
+                            <p class="login-box-msg">Masukkan Password Baru</p>
+                            <?php if ($this->session->flashdata('verif')) : ?>
+                                <div class="alert alert-info">
+                                    <?= $this->session->flashdata('verif'); ?>
+                                </div>
+                            <?php endif ?>
+                            <div id="form-pesan"></div>
+                            <div class="form-group has-feedback">
+                                <label>Email</label>
+                                <input id="username" autocomplete="off" name="email" class="form-control" placeholder="Email" type="email" readonly value="<?= $email ?>" />
+                                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label>Password baru</label>
+                                <input type="password" id="password" autocomplete="off" name="password" class="form-control" placeholder="Masukkan password baru anda" />
+                                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                            </div>
+
+                            <div class="form-group has-feedback">
+                                <label>Konfirmasi password</label>
+                                <input type="password" id="password-konfirmasi" autocomplete="off" name="password-konfirmasi" class="form-control" placeholder="Ketik ulang password baru anda" />
+                                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12" style="margin-bottom: 10px">
+                                    <button type="submit" class="btn btn-primary btn-block btn-flat">Ubah</button>
+
+                                </div><!-- /.col -->
+                            </div>
                         </div>
                     <?php endif ?>
-                    <div id="form-pesan"></div>
-                    <div class="form-group has-feedback">
-                        <label>Email</label>
-                        <input id="username" autocomplete="off" name="email" class="form-control" placeholder="Email" type="email" readonly value="<?= $email ?>" />
-                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                    </div>
-                    <div class="form-group has-feedback">
-                        <label>Password baru</label>
-                        <input type="password" id="password" autocomplete="off" name="password" class="form-control" placeholder="Masukkan password baru anda" />
-                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                    </div>
-
-                    <div class="form-group has-feedback">
-                        <label>Konfirmasi password</label>
-                        <input type="password" id="password-konfirmasi" autocomplete="off" name="password-konfirmasi" class="form-control" placeholder="Ketik ulang password baru anda" />
-                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12" style="margin-bottom: 10px">
-                            <button type="submit" class="btn btn-primary btn-block btn-flat">Ubah</button>
-
-                        </div><!-- /.col -->
-                    </div>
                 </div><!-- /.login-box -->
             </div>
             </form>

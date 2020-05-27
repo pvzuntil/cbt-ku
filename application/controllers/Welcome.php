@@ -223,14 +223,20 @@ class Welcome extends CI_Controller
 			} else {
 				$this->load->library('Send_email');
 				$send = new Send_email();
-				$send->send($email, 'lupa', [
+				$send  = $send->send($email, 'lupa', [
 					'user_firstname' => $isEmail->user_firstname,
 					'kode' => $isEmail->kode,
 					'old' => $isEmail->user_password
 				]);
 
-				$status['status'] = 1;
-				$status['error'] = 'Permintaan anda sudah terkirim, silahkan cek email anda !';
+				if ($send['status']) {
+					$this->cbt_user_model->update('user_email', $email, [
+						'url_lupa' => $send['url']
+					]);
+
+					$status['status'] = 1;
+					$status['error'] = 'Permintaan anda sudah terkirim, silahkan cek email anda !';
+				}
 			}
 			// echo $isEmail;
 			// $status['status'] = 1;
@@ -244,18 +250,32 @@ class Welcome extends CI_Controller
 
 	function reset($param = null)
 	{
+		if ($param == '') {
+			return redirect('welcome');
+		}
+
+		$ceklink = $this->cbt_user_model->count_by_kolom('url_lupa', $param);
+
+		$data['url'] = $this->url;
+
+		$data['timestamp'] = strtotime(date('Y-m-d H:i:s'));
+		if ($ceklink->row()->hasil == 0) {
+			$data['exp'] = true;
+
+			return $this->template->display_user($this->kelompok . '/reset_view', 'Selamat Datang', $data);
+		}
+
+		$data['exp'] = false;
 		$stepOne = base64_decode($param);
 		$stepTwo = base64_decode($stepOne);
 		$passdata = explode(';', $stepTwo);
 
 
 		$email = $passdata[1];
-		$data['url'] = $this->url;
 		$data['email'] = $email;
-		$data['timestamp'] = strtotime(date('Y-m-d H:i:s'));
 
 
-		$this->template->display_user($this->kelompok . '/reset_view', 'Selamat Datang', $data);
+		return $this->template->display_user($this->kelompok . '/reset_view', 'Selamat Datang', $data);
 	}
 
 	function do_reset()
@@ -272,7 +292,8 @@ class Welcome extends CI_Controller
 
 		if ($this->form_validation->run() == TRUE) {
 			$this->cbt_user_model->update('user_email', $email, [
-				'user_password' => $pass
+				'user_password' => $pass,
+				'url_lupa' => NULL
 			]);
 
 			// $this->session->set_flashdata('verif', 'Password anda berhasil diubah, silahkan login untuk melanjutkan !');
