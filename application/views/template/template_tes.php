@@ -93,7 +93,7 @@
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
 
-<body class="skin-green layout-top-nav">
+<body class="skin-yellow layout-top-nav">
   <div class="wrapper">
 
     <header class="main-header">
