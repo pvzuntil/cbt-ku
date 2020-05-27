@@ -23,6 +23,8 @@
 
   <link href="<?php echo base_url(); ?>public/plugins/pnotify/pnotify.custom.min.css" rel="stylesheet" type="text/css" />
 
+  <link rel="shortcut icon" href="<?php echo base_url(); ?>public/images/icon.png" type="image/x-icon">
+
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

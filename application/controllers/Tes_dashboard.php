@@ -446,7 +446,7 @@ class Tes_dashboard extends Tes_Controller
 					} else {
 						if ($waktuNow >= $waktuSelesaiTes) {
 							$record[] = '';
-							$record[] = '<a href="#" style="cursor: pointer;" class="btn btn-warning btn-xs btn-disabled" disabled>Tes sudah selesai</a>';
+							$record[] = '<a href="#" style="cursor: pointer;" class="btn btn-warning btn-xs btn-disabled" disabled>Expired</a>';
 						} else {
 							$record[] = '';
 							$record[] = '<a href="#" style="cursor: pointer;" class="btn btn-success btn-xs btn-disabled" disabled>Belum dimulai</a>';
