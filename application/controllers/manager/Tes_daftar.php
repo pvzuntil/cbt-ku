@@ -10,6 +10,8 @@ class Tes_daftar extends Member_Controller
 	{
 		parent::__construct();
 		$this->load->model('cbt_tes_model');
+		$this->load->model('cbt_tesgrup_model');
+		$this->load->model('cbt_user_grup_model');
 
 		parent::cek_akses($this->kode_menu);
 	}
@@ -144,10 +146,14 @@ class Tes_daftar extends Member_Controller
 		$i = $start;
 		$query = $query->result();
 		foreach ($query as $temp) {
+			$tes_id = $temp->tes_id;
+			$group_id = $this->cbt_tesgrup_model->get_by_kolom('tstgrp_tes_id', $tes_id)->row()->tstgrp_grup_id;
+			$group_nama = $this->cbt_user_grup_model->get_by_kolom('grup_id', $group_id)->row()->grup_nama;
 			$record = array();
 
 			$record[] = ++$i;
 			$record[] = $temp->tes_nama;
+			$record[] = $group_nama;
 			$record[] = $temp->tes_max_score;
 			$record[] = $temp->tes_begin_time;
 			$record[] = $temp->tes_end_time;
