@@ -1,5 +1,9 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
+// use PhpOffice\PhpSpreadsheet\Spreadsheet;
+// use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 class Tes_hasil extends Member_Controller
 {
 	private $kode_menu = 'tes-hasil';
@@ -133,35 +137,48 @@ class Tes_hasil extends Member_Controller
 			} else {
 				$query = $this->cbt_user_model->get_by_tes_group_urut_tanggal($tes_id, $grup_id, $urutkan, $tanggal, $keterangan);
 			}
+
 			$inputFileName = './public/form/form-data-hasil-tes.xls';
-			$excel = PHPExcel_IOFactory::load($inputFileName);
-			$worksheet = $excel->getSheet(0);
+			$spreadsheet = IOFactory::load($inputFileName);
+			$spreadsheet->setActiveSheetIndex(0);
 
 			if ($query->num_rows() > 0) {
 				$query = $query->result();
 				$row = 2;
 				foreach ($query as $temp) {
-					$worksheet->setCellValueByColumnAndRow(0, $row, ($row - 1));
-					$worksheet->setCellValueByColumnAndRow(1, $row, $temp->tesuser_creation_time);
-					$worksheet->setCellValueByColumnAndRow(2, $row, $temp->tes_nama);
-					$worksheet->setCellValueByColumnAndRow(3, $row, $temp->user_name);
-					$worksheet->setCellValueByColumnAndRow(4, $row, stripslashes($temp->user_firstname));
-					$worksheet->setCellValueByColumnAndRow(5, $row, $temp->grup_nama);
-					$worksheet->setCellValueByColumnAndRow(6, $row, $temp->nilai);
+					$spreadsheet->setActiveSheetIndex(0)->setCellValue('A' . $row, ($row - 1));
+					$spreadsheet->setActiveSheetIndex(0)->setCellValue('B' . $row, $temp->tesuser_creation_time);
+					$spreadsheet->setActiveSheetIndex(0)->setCellValue('C' . $row, $temp->tes_nama);
+					$spreadsheet->setActiveSheetIndex(0)->setCellValue('D' . $row, $temp->user_name);
+					$spreadsheet->setActiveSheetIndex(0)->setCellValue('E' . $row, stripslashes($temp->user_firstname));
+					$spreadsheet->setActiveSheetIndex(0)->setCellValue('F' . $row, $temp->grup_nama);
+					$spreadsheet->setActiveSheetIndex(0)->setCellValue('G' . $row, $temp->nilai);
 
 					$row++;
 				}
 			}
-			$filename = 'Data Hasil Tes - ' . date('Y-m-d H:i') . '.xls'; //save our workbook as this file name
-			header('Content-Type: application/vnd.ms-excel'); //mime type
-			header('Content-Disposition: attachment;filename="' . $filename . '"'); //tell browser what's the file name
-			header('Cache-Control: max-age=0'); //no cache
 
-			//save it to Excel5 format (excel 2003 .XLS file), change this to 'Excel2007' (and adjust the filename extension, also the header mime type)
-			//if you want to save it as .XLSX Excel 2007 format
-			$objWriter = PHPExcel_IOFactory::createWriter($excel, 'Excel5');
-			//force user to download the Excel file without writing it to server's HD
-			$objWriter->save('php://output');
+			// Rename worksheet
+			$spreadsheet->getActiveSheet()->setTitle('Report');
+
+			// Set active sheet index to the first sheet, so Excel opens this as the first sheet
+			$spreadsheet->setActiveSheetIndex(0);
+
+			// Redirect output to a client’s web browser (Xlsx)
+			header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+			header('Content-Disposition: attachment;filename="Data Hasil Tes - ' . date('Y-m-d H-i') . '.xlsx"');
+			header('Cache-Control: max-age=0');
+			// If you're serving to IE 9, then the following may be needed
+			header('Cache-Control: max-age=1');
+
+			// If you're serving to IE over SSL, then the following may be needed
+			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+			header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
+			header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+			header('Pragma: public'); // HTTP/1.0
+
+			$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+			$writer->save('php://output');
 		}
 	}
 
