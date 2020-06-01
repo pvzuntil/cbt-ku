@@ -33,4 +33,14 @@ class Tools
 		$date = "{$date} {$suffix}";
 		return $date;
 	}
+
+	function getAlpha($index)
+	{
+		$alpha = [
+			'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y',
+			'Z'
+		];
+
+		return $alpha[$index];
+	}
 }
