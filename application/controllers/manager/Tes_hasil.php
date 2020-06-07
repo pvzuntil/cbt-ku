@@ -231,13 +231,25 @@ class Tes_hasil extends Member_Controller
 			$record = array();
 
 			$record[] = ++$i;
+
 			if (empty($temp->tesuser_creation_time)) {
 				$record[] = 'Belum memulai tes';
-				$record[] = '0';
 			} else {
 				$record[] = $temp->tesuser_creation_time;
+			}
+
+			if (empty($temp->end_time)) {
+				$record[] = 'Belum selesai tes';
+			} else {
+				$record[] = $temp->end_time . ' (' . $temp->time_span . ' Menit)';
+			}
+
+			if (empty($temp->tesuser_creation_time)) {
+				$record[] = '0';
+			} else {
 				$record[] = $temp->tes_duration_time . ' menit';
 			}
+
 			$record[] = $temp->tes_nama;
 			$record[] = $temp->grup_nama;
 			if (empty($temp->tesuser_id)) {

@@ -113,10 +113,24 @@ class Tes_kerjakan extends Tes_Controller
 
         if ($this->form_validation->run() == TRUE) {
             $tesuser_id = $this->input->post('hentikan-tes-user-id', TRUE);
+            $tes_id = $this->input->post('hentikan-tes-id', TRUE);
 
             $centang = $this->input->post('hentikan-centang', TRUE);
             if (!empty($centang)) {
                 $data_tes['tesuser_status'] = 4;
+
+                $datenow = date('Y-m-d H:i:s');
+                $data_tes['end_time'] = $datenow;
+
+                $getData  = $this->cbt_tes_user_model->get_by_user_tes_kus($tesuser_id, $tes_id)->row();
+
+                $mulai = new DateTime($getData->tesuser_creation_time);
+                $selesai = new DateTime($datenow);
+
+                $intervalDate  = $selesai->diff($mulai);
+
+                $data_tes['time_span'] = $intervalDate->i;
+
                 $this->cbt_tes_user_model->update('tesuser_id', $tesuser_id, $data_tes);
 
                 $status['status'] = 1;

@@ -335,4 +335,12 @@ class Cbt_tes_user_model extends CI_Model
             ->from($this->table);
         return $this->db->get();
     }
+
+    function get_by_user_tes_kus($user_id, $tes_id)
+    {
+        $this->db->where('tesuser_id="' . $user_id . '" AND tesuser_tes_id="' . $tes_id . '"')
+            ->from($this->table)
+            ->limit(1);
+        return $this->db->get();
+    }
 }
