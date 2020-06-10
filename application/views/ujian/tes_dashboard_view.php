@@ -86,6 +86,7 @@
 <script type="text/javascript">
     $(function() {
         $('#table-tes').DataTable({
+            'dom': 'ftipr',
             "paging": true,
             "iDisplayLength": 10,
             "bProcessing": false,

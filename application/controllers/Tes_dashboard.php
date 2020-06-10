@@ -368,7 +368,7 @@ class Tes_dashboard extends Tes_Controller
 		// variable initialization
 		$search = "";
 		$start = 0;
-		$rows = 10;
+		$rows = 499;
 
 		$group = $this->access_tes->get_group();
 		$grup_id = $this->cbt_user_grup_model->get_by_kolom_limit('grup_nama', $group, 1)->row()->grup_id;
