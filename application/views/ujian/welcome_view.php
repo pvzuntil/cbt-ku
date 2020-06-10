@@ -24,7 +24,7 @@
 			<div class="login-box">
 				<div class="login-box-body shadow-box">
 					<div class="login-logo shadow-text">
-						<b class="">User Login</b>
+						<b class="">User Logins</b>
 					</div><!-- /.login-logo -->
 					<p class="login-box-msg">Masukkan Email dan Password</p>
 					<?php if ($this->session->flashdata('verif')) : ?>
