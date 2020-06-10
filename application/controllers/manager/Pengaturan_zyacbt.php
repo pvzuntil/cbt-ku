@@ -30,6 +30,7 @@ class Pengaturan_zyacbt extends Member_Controller
 		$this->form_validation->set_rules('zyacbt-keterangan', 'Keterangan ZYACBT', 'required|strip_tags');
 		$this->form_validation->set_rules('zyacbt-link-login', 'Link Login Operator', 'required|strip_tags');
 		$this->form_validation->set_rules('zyacbt-mobile-lock-xambro', 'Lock Mobile Exam Browser', 'required|strip_tags');
+		$this->form_validation->set_rules('main-mode', 'Maintenance mode', 'required|strip_tags');
 
 		if ($this->form_validation->run() == TRUE) {
 			$data['konfigurasi_isi'] = $this->input->post('zyacbt-nama', true);
@@ -43,6 +44,9 @@ class Pengaturan_zyacbt extends Member_Controller
 
 			$data['konfigurasi_isi'] = $this->input->post('zyacbt-mobile-lock-xambro', true);
 			$this->cbt_konfigurasi_model->update('konfigurasi_kode', 'cbt_mobile_lock_xambro', $data);
+
+			$data['konfigurasi_isi'] = $this->input->post('main-mode', true);
+			$this->cbt_konfigurasi_model->update('konfigurasi_kode', 'main_mode', $data);
 
 			$status['status'] = 1;
 			$status['pesan'] = 'Pengaturan berhasil disimpan ';
@@ -79,6 +83,12 @@ class Pengaturan_zyacbt extends Member_Controller
 		$data['mobile_lock_xambro'] = 'ya';
 		if ($query->num_rows() > 0) {
 			$data['mobile_lock_xambro'] = $query->row()->konfigurasi_isi;
+		}
+
+		$query = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'main_mode', 1);
+		$data['main_mode'] = 'ya';
+		if ($query->num_rows() > 0) {
+			$data['main_mode'] = $query->row()->konfigurasi_isi;
 		}
 		echo json_encode($data);
 	}

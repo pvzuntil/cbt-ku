@@ -65,6 +65,16 @@
                             </p>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Mode Perbaikan</label>
+                        <div class="col-sm-8">
+                            <select class="form-control input-sm" id="main-mode" name="main-mode">
+                                <option value="tidak">Tidak</option>
+                                <option value="ya">Ya</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div class="box-footer">
                     <button type="submit" id="btn-simpan" class="btn btn-primary pull-right">Simpan Pengaturan</button>
@@ -86,6 +96,7 @@
                 $('#zyacbt-keterangan').val(data.cbt_keterangan);
                 $('#zyacbt-link-login').val(data.link_login_operator);
                 $('#zyacbt-mobile-lock-xambro').val(data.mobile_lock_xambro);
+                $('#main-mode').val(data.main_mode);
             }
             $("#modal-proses").modal('hide');
         });

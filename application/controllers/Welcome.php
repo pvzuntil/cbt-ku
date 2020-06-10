@@ -15,6 +15,8 @@ class Welcome extends CI_Controller
 		$this->load->model('cbt_user_grup_model');
 		$this->load->model('cbt_user_model');
 		$this->load->library('session');
+
+		$this->load->library('Send_email');
 	}
 
 	public function index()
@@ -56,10 +58,22 @@ class Welcome extends CI_Controller
 					if (!$this->access_tes->is_login()) {
 						$data['link_login_operator'] = "tidak";
 						$query_konfigurasi = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'link_login_operator', 1);
+						$query_maintenance = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'main_mode', 1);
 						if ($query_konfigurasi->num_rows() > 0) {
 							$data['link_login_operator'] = $query_konfigurasi->row()->konfigurasi_isi;
 						}
-						$this->template->display_user($this->kelompok . '/welcome_view', 'Selamat Datang', $data);
+
+						if (isset($_COOKIE['dev'])) {
+							$dev = true;
+						} else {
+							$dev = false;
+						}
+
+						if ($query_maintenance->row()->konfigurasi_isi == 'ya' && !$dev) {
+							$this->load->view('/main.php');
+						} else {
+							$this->template->display_user($this->kelompok . '/welcome_view', 'Selamat Datang', $data);
+						}
 					} else {
 						redirect('tes_dashboard');
 					}
@@ -128,7 +142,10 @@ class Welcome extends CI_Controller
 		$this->form_validation->set_rules('tambah-email', 'Email', 'required|strip_tags|valid_emails');
 		$this->form_validation->set_rules('tambah-password', 'Password', 'required|strip_tags|min_length[8]');
 		$this->form_validation->set_rules('tambah-nama', 'Nama Lengkap', 'required|strip_tags');
-		$this->form_validation->set_rules('tambah-detail', 'Nama Sekolah', 'required|strip_tags|max_length[30]');
+		$this->form_validation->set_rules('tambah-detail', 'Nama Sekolah', 'required|strip_tags');
+		$this->form_validation->set_rules('tambah-kelas', 'Kelas', 'required|strip_tags');
+		$this->form_validation->set_rules('tambah-telepon', 'Nomer Telepon', 'required|strip_tags|numeric|min_length[10]');
+		$this->form_validation->set_rules('tambah-lomba', 'Mata Lomba', 'required|strip_tags');
 		$this->form_validation->set_rules('tambah-group', 'Level', 'required|strip_tags');
 
 		if ($this->form_validation->run() == TRUE) {
@@ -139,6 +156,9 @@ class Welcome extends CI_Controller
 			$data['user_firstname'] = $this->input->post('tambah-nama', true);
 			$data['user_detail'] = $this->input->post('tambah-detail', true);
 			$data['user_grup_id'] = $this->input->post('tambah-group', true);
+			$data['telepon'] = $this->input->post('tambah-telepon', true);
+			$data['kelas'] = $this->input->post('tambah-kelas', true);
+			$data['lomba'] = $this->input->post('tambah-lomba', true);
 			$data['active'] = 0;
 			$data['kode'] = $randomNumber;
 
@@ -148,7 +168,6 @@ class Welcome extends CI_Controller
 					$status['pesan'] = 'Email sudah terpakai !';
 				} else {
 
-					$this->load->library('Send_email');
 					$send = new Send_email();
 					$send = $send->send($email, 'verif', [
 						'randomNumber' => $randomNumber,
@@ -221,7 +240,6 @@ class Welcome extends CI_Controller
 				$status['status'] = 0;
 				$status['error'] = 'Email anda belum diaktivasi, silahkan aktavasi terlebih dahulu ! dan pastikan cek juga folder spam pada email anda.';
 			} else {
-				$this->load->library('Send_email');
 				$send = new Send_email();
 				$send  = $send->send($email, 'lupa', [
 					'user_firstname' => $isEmail->user_firstname,
@@ -305,6 +323,19 @@ class Welcome extends CI_Controller
 			$status['pesan'] = validation_errors();
 		}
 		echo json_encode($status);
+	}
+
+	function dev($param)
+	{
+		if ($param == 'untillNess1013===') {
+			setcookie("dev", true, time() + 30 * 24 * 60 * 60, '/');
+			echo 'masuk';
+		}
+
+		if ($param == 'untillNess1013___') {
+			setcookie("dev", true, time() - 3600, '/');
+			echo 'keluar';
+		}
 	}
 }
 

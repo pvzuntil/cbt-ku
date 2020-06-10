@@ -129,7 +129,7 @@ class Tes_kerjakan extends Tes_Controller
 
                 $intervalDate  = $selesai->diff($mulai);
 
-                $data_tes['time_span'] = $intervalDate->i;
+                $data_tes['time_span'] = $intervalDate->i . "," . $intervalDate->s;
 
                 $this->cbt_tes_user_model->update('tesuser_id', $tesuser_id, $data_tes);
 

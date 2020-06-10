@@ -10,10 +10,22 @@
     </ol>
 </section>
 
+<style>
+    .badge-success {
+        color: #fff;
+        background-color: #28a745 !important;
+    }
+
+    .badge-danger {
+        color: #fff;
+        background-color: #dc3545 !important;
+    }
+</style>
+
 <!-- Main content -->
 <section class="content">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-sm-12">
             <div class="box">
                 <div class="box-header with-border">
                     <div class="box-title">Pilih Group</div>
@@ -38,13 +50,14 @@
             </div>
         </div>
 
-        <div class="col-md-9">
+        <div class="col-sm-12">
             <div class="box">
                 <div class="box-header with-border">
                     <div class="box-title">Daftar Peserta</div>
                     <div class="box-tools pull-right">
                         <div class="dropdown pull-right">
-                            <a style="cursor: pointer;" onclick="tambah()">Tambah Peserta</a>
+                            <a style="cursor: pointer;" onclick="tambah()" class="btn btn-success">Tambah Peserta</a>
+                            <a style="cursor: pointer;" onclick="export_excel()" class="btn btn-primary">Eksport Data</a>
                         </div>
                     </div>
                 </div><!-- /.box-header -->
@@ -60,12 +73,16 @@
                                 <th class="all">Nama</th>
                                 <th>Kelompok</th>
                                 <th>Asal sekolah</th>
+                                <th>Nomer Telepon</th>
+                                <th>Status</th>
                                 <th class="all">Action</th>
                                 <th class="all"></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
+                                <td> </td>
+                                <td> </td>
                                 <td> </td>
                                 <td> </td>
                                 <td> </td>
@@ -128,18 +145,18 @@
                                 <input type="text" class="form-control" id="tambah-username" name="tambah-username" placeholder="Username Peserta">
                             </div> -->
                             <div class="form-group">
-                                <label>Nama Lengkap</label>
-                                <input type="text" class="form-control" id="tambah-nama" name="tambah-nama" placeholder="Nama Lengkap Peserta">
-                            </div>
-
-                            <div class="form-group">
                                 <label>Email</label>
                                 <input type="email" class="form-control" id="tambah-email" name="tambah-email" placeholder="Email Peserta">
                             </div>
 
                             <div class="form-group">
                                 <label>Password</label>
-                                <input type="password" class="form-control" id="tambah-password" name="tambah-password">
+                                <input type="password" class="form-control" id="tambah-password" name="tambah-password" placeholder="Password">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Nama Lengkap</label>
+                                <input type="text" class="form-control" id="tambah-nama" name="tambah-nama" placeholder="Nama Lengkap Peserta">
                             </div>
 
                             <div class="form-group">
@@ -148,12 +165,40 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Level</label>
-                                <select name="tambah-group" id="tambah-group" class="form-control input-sm">
-                                    <?php if (!empty($select_group)) {
-                                        echo $select_group;
-                                    } ?>
+                                <label>Kelas</label>
+                                <select name="tambah-kelas" id="tambah-kelas" class="form-control input-sm">
+                                    <option value="">-- Pilih Kelas (TA. 2019/2020) --</option>
+                                    <?php for ($i = 1; $i < 10; $i++) : ?>
+                                        <option value="<?= $i ?>" 0>Kelas <?= $i ?></option>
+                                    <?php endfor ?>
                                 </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Nomer Telepon (WhatsApp)</label>
+                                <input type="text" class="form-control" id="tambah-telepon" name="tambah-telepon" placeholder="Nomer Telepon">
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label>Pilihan Mata Lomba</label>
+                                    <select name="tambah-lomba" id="tambah-lomba" class="form-control input-sm">
+                                        <option value="">-- Pilih Mata Lomba --</option>
+                                        <option value="matematika">Matematika</option>
+                                        <option value="sains">Sains</option>
+                                        <option value="all">Matematika & Sains</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-sm-6">
+                                    <label>Level</label>
+                                    <select name="tambah-group" id="tambah-group" class="form-control input-sm">
+                                        <option value="">-- Pilih Level --</option>
+                                        <?php if (!empty($select_group)) {
+                                            echo $select_group;
+                                        } ?>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -191,7 +236,7 @@
                             <div class="form-group">
                                 <label>Password</label>
                                 <div class="input-group">
-                                    <input type="password" id="edit-password" name="edit-password" class="form-control">
+                                    <input type="password" id="edit-password" name="edit-password" class="form-control" readonly>
                                     <span class="input-group-btn">
                                         <button class="btn btn-flat" id="btn-show-password" title="Tampilkan Password" type="button"><i id="icon-show-password" class="fa fa-eye"></i></button>
                                     </span>
@@ -209,11 +254,47 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Level</label>
-                                <select name="edit-group" id="edit-group" class="form-control input-sm">
-                                    <?php if (!empty($select_group)) {
-                                        echo $select_group;
-                                    } ?>
+                                <label>Kelas</label>
+                                <select name="edit-kelas" id="edit-kelas" class="form-control input-sm">
+                                    <option value="">-- Pilih Kelas (TA. 2019/2020) --</option>
+                                    <?php for ($i = 1; $i < 10; $i++) : ?>
+                                        <option value="<?= $i ?>" 0>Kelas <?= $i ?></option>
+                                    <?php endfor ?>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Nomer Telepon (WhatsApp)</label>
+                                <input type="text" class="form-control" id="edit-telepon" name="edit-telepon" placeholder="Nomer Telepon">
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label>Pilihan Lomba</label>
+                                    <select name="edit-lomba" id="edit-lomba" class="form-control input-sm">
+                                        <option value="">-- Pilih Lomba --</option>
+                                        <option value="matematika">Matematika</option>
+                                        <option value="sains">Sains</option>
+                                        <option value="all">Matematika & Sains</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-sm-6">
+                                    <label>Level</label>
+                                    <select name="edit-group" id="edit-group" class="form-control input-sm">
+                                        <option value="">-- Pilih Level --</option>
+                                        <?php if (!empty($select_group)) {
+                                            echo $select_group;
+                                        } ?>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select name="edit-active" id="edit-active" class="form-control input-sm">
+                                    <option value="1">Aktif</option>
+                                    <option value="0">Belum aktif</option>
                                 </select>
                             </div>
                             <p>NB : Peserta yang dihapus, maka semua hasil tes akan ikut terhapus !</p>
@@ -274,7 +355,11 @@
                 $('#edit-nama').val(data.nama);
                 $('#edit-email').val(data.email);
                 $('#edit-detail').val(data.detail);
+                $('#edit-telepon').val(data.telepon);
                 $('#edit-group').val(data.group);
+                $('#edit-active').val(data.active);
+                $('#edit-kelas').val(data.kelas);
+                $('#edit-lomba').val(data.lomba);
 
                 $("#modal-edit").modal("show");
             }
@@ -419,6 +504,15 @@
                 },
                 {
                     "bSearchable": false,
+                    "bSortable": false
+                },
+                {
+                    "bSearchable": false,
+                    "bSortable": false,
+                    'sAlign': 'center'
+                },
+                {
+                    "bSearchable": false,
                     "bSortable": false,
                     "sWidth": "30px"
                 },
@@ -438,5 +532,12 @@
                 });
             }
         });
+
     });
+
+    function export_excel() {
+        let groupName = $('#group').val()
+
+        window.open("<?php echo site_url() . '/' . $url; ?>/export/" + groupName, "_self");
+    }
 </script>

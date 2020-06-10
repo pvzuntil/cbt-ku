@@ -1,37 +1,42 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
+require_once('function.php');
+
+
 class Send_email
 {
     function __construct()
     {
-        $this->CI = &get_instance();
+        // $this->CI = &get_instance();
     }
 
     function send($email, $type, $data = [])
     {
+        // die();
         $curtime =  time();
-        $config = [
-            'mailtype'  => 'html',
-            'charset'   => 'utf-8',
-            'protocol'  => 'smtp',
-            'smtp_host' => 'smtp.gmail.com',
-            'smtp_user' => 'penyimpanan13@gmail.com',  // Email gmail
-            'smtp_pass'   => 'DriveData',  // Password gmail
-            'smtp_crypto' => 'ssl',
-            'smtp_port'   => 465,
-            'crlf'    => "\r\n",
-            'newline' => "\r\n"
-        ];
-        $this->CI->load->library('email', $config);
-        $this->CI->email->from('no-reply@qec.com', 'Quantum Educational Center');
-        $this->CI->email->to($email);
+        // $config = [
+        //     'mailtype'  => 'html',
+        //     'charset'   => 'utf-8',
+        //     'protocol'  => 'smtp',
+        //     'smtp_host' => 'mail.langkahjuara.com',
+        //     'smtp_user' => 'untillness@langkahjuara.com',  // Email gmail
+        //     'smtp_pass'   => 'untillNess1013',  // Password gmail
+        //     'smtp_crypto' => 'tls',
+        //     'smtp_port'   => 587,
+        //     'crlf'    => "\r\n",
+        //     'newline' => "\r\n"
+        // ];
+        // $this->CI->load->library('email', $config);
+        // $this->CI->email->from('no-reply@qec.com', 'Quantum Educational Center');
+        // $this->CI->email->to($email);
 
         if ($type == 'lupa') {
-            $this->CI->email->subject('Reset Password Akun - Quantum Educational Center');
+            // $this->CI->email->subject('Reset Password Akun - Quantum Educational Center');
+            $subject = 'Reset Password Akun - Quantum Educational Center';
         } else {
-
-            $this->CI->email->subject('Kode Verifikasi Akun - Quantum Educational Center');
+            // $this->CI->email->subject('Kode Verifikasi Akun - Quantum Educational Center');
+            $subject = 'Kode Verifikasi Akun - Quantum Educational Center';
         }
 
         if ($type == 'lupa') {
@@ -45,10 +50,8 @@ class Send_email
         $emailMessage = '';
         $emailMessage .= '<h2 style="color: black">Hallo, ' . $data['user_firstname'] . ' .!</h2>';
         if ($type == 'lupa') {
-
             $emailMessage .= '<p style="color: black">Anda meminta untuk mengubah password anda, silahkan klik tombol dibawah !</p>';
         } else {
-
             $emailMessage .= '<p style="color: black">Silakan tekan tombol di bawah ini untuk verifikasi alamat email.</p>';
         }
         $emailMessage .= '<br />';
@@ -64,10 +67,14 @@ class Send_email
         }
         $emailMessage .= '<p style="color: black">Terimakasih,</p>';
         $emailMessage .= '<p style="color: black">Panitia QEC.</p>';
-        $this->CI->email->message($emailMessage);
+        // $this->CI->email->message($emailMessage);
 
-        $res = $this->CI->email->send();
+        // $res = $this->CI->email->send();
 
-        return $res ? ['status' => true, 'url' => $url] : ['status' => false];
+        // $subject  = 'Subject Pengiriman Email Uji Coba';
+        $res = smtp_mail($email, $subject, $emailMessage, '', '', 0, 0);
+        // var_dump($res);
+        // die();
+        return $res == 1 ? ['status' => true, 'url' => $url] : ['status' => false];
     }
 }

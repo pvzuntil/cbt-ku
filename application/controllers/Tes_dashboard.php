@@ -19,6 +19,8 @@ class Tes_dashboard extends Tes_Controller
 		$this->load->model('cbt_jawaban_model');
 		$this->load->model('cbt_tes_soal_model');
 		$this->load->model('cbt_tes_soal_jawaban_model');
+
+		// echo strftime("%A, %d %B %Y");
 	}
 
 	public function index()
@@ -30,8 +32,13 @@ class Tes_dashboard extends Tes_Controller
 		$data['timestamp'] = strtotime(date('Y-m-d H:i:s'));
 
 		$username = $this->access_tes->get_username();
-		$user_id = $this->cbt_user_model->get_by_kolom_limit('user_email', $username, 1)->row()->user_id;
+		$currentUser = $this->cbt_user_model->get_by_kolom_limit('user_email', $username, 1)->row();
+		$user_id = $currentUser->user_id;
 		$query_tes = $this->cbt_tes_user_model->get_by_user_status($user_id);
+
+		$tel = $currentUser->telepon;
+		$data['telepon'] = $tel;
+
 		if ($query_tes->num_rows() > 0) {
 			$query_tes = $query_tes->result();
 			$tanggal = new DateTime();
@@ -356,6 +363,8 @@ class Tes_dashboard extends Tes_Controller
 	 */
 	function get_datatable()
 	{
+		setlocale(LC_ALL, 'id-ID', 'id_ID');
+
 		// variable initialization
 		$search = "";
 		$start = 0;
@@ -398,8 +407,18 @@ class Tes_dashboard extends Tes_Controller
 			if ($this->cbt_tes_topik_set_model->count_by_kolom('tset_tes_id', $temp->tes_id)->row()->hasil > 0) {
 				$record[] = ++$i;
 				$record[] = $temp->tes_nama;
-				$record[] = $temp->tes_begin_time;
-				$record[] = $temp->tes_end_time;
+
+				$mulai = $temp->tes_begin_time;
+				$explodeMulai = explode(' ', $mulai);
+				$explodeMulaiJam = explode(':', $explodeMulai[1]);
+
+				$record[] = strftime("%A, %d %B %Y", strtotime($explodeMulai[0])) . ' ' . $explodeMulaiJam[0] . ':' . $explodeMulaiJam[1];
+
+				$selesai = $temp->tes_end_time;
+				$explodeSelesai = explode(' ', $selesai);
+				$explodeSelesaiJam = explode(':', $explodeSelesai[1]);
+
+				$record[] = strftime("%A, %d %B %Y", strtotime($explodeSelesai[0])) . ' ' . $explodeSelesaiJam[0] . ':' . $explodeSelesaiJam[1];
 
 				// Cek apakah sudah mengikuti tes tetapi belum selesai
 				if ($this->cbt_tes_user_model->count_by_user_tes($user_id, $temp->tes_id)->row()->hasil > 0) {
@@ -500,5 +519,30 @@ class Tes_dashboard extends Tes_Controller
 		}
 
 		return $sort_dir;
+	}
+
+	function optional()
+	{
+		$nomer = $this->input->post('telepon', true);
+
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_rules('telepon', 'Nomer telepon', 'required|strip_tags|numeric|min_length[10]');
+		if ($this->form_validation->run() == TRUE) {
+			$username = $this->access_tes->get_username();
+			$currentUser = $this->cbt_user_model->get_by_kolom_limit('user_email', $username, 1)->row();
+
+			$this->cbt_user_model->update('user_id', $currentUser->user_id, [
+				'telepon' => $nomer
+			]);
+
+			$status['status'] = 1;
+			$status['error'] = 'Terimakasih sudah mencantumkan nomer telepon.';
+		} else {
+			$status['status'] = 0;
+			$status['error'] = validation_errors();
+		}
+		// echo json_encode($isEmail);
+		echo json_encode($status);
 	}
 }

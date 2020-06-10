@@ -1,2 +1,2 @@
-/vendor/
-zyacbt.zip
+application/config/database.php
+application/libraries/PHPMailer/PHPMailerAutoload.php

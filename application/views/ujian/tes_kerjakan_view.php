@@ -1,4 +1,55 @@
 <div class="container">
+
+    <style>
+        .blink_text {
+
+            animation: 1s blinker linear infinite;
+            -webkit-animation: 1s blinker linear infinite;
+            -moz-animation: 1s blinker linear infinite;
+        }
+
+        @-moz-keyframes blinker {
+            0% {
+                opacity: 1.0;
+            }
+
+            50% {
+                opacity: 0.0;
+            }
+
+            100% {
+                opacity: 1.0;
+            }
+        }
+
+        @-webkit-keyframes blinker {
+            0% {
+                opacity: 1.0;
+            }
+
+            50% {
+                opacity: 0.0;
+            }
+
+            100% {
+                opacity: 1.0;
+            }
+        }
+
+        @keyframes blinker {
+            0% {
+                opacity: 1.0;
+            }
+
+            50% {
+                opacity: 0.0;
+            }
+
+            100% {
+                opacity: 1.0;
+            }
+        }
+    </style>
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
@@ -41,7 +92,7 @@
                                                                         } ?></span></h3>
                     <div class="box-tools pull-right">
                         <div class="pull-right">
-                            <div id="sisa-waktu"></div>
+                            <div id="sisa-waktu" class="blink_text"></div>
                         </div>
                     </div>
                 </div><!-- /.box-header -->

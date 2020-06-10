@@ -1,3 +1,5 @@
+<!-- Made with ♥ By pvzuntill.github.io -->
+
 <!DOCTYPE html>
 <html>
 
@@ -59,6 +61,16 @@
       display: block;
       max-width: 100%;
       height: auto;
+    }
+
+    .back-body {
+      background-image: url('<?php echo base_url(); ?>public/images/back.jpg');
+      background-position: center;
+      background-size: cover;
+    }
+
+    .shadow-box {
+      box-shadow: 6px 6px 10px 0px #00000070;
     }
   </style>
 

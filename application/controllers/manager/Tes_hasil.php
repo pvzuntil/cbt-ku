@@ -241,7 +241,8 @@ class Tes_hasil extends Member_Controller
 			if (empty($temp->end_time)) {
 				$record[] = 'Belum selesai tes';
 			} else {
-				$record[] = $temp->end_time . ' (' . $temp->time_span . ' Menit)';
+				$pecah = explode(',', $temp->time_span);
+				$record[] = $temp->end_time . ' (' . $pecah[0] . ' Menit ' . $pecah[1] . ' Detik)';
 			}
 
 			if (empty($temp->tesuser_creation_time)) {

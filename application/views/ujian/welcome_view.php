@@ -99,18 +99,45 @@
 									</div>
 
 									<div class="form-group">
-										<label>Nama Sekolah</label>
-										<input type="text" class="form-control" id="tambah-detail" name="tambah-detail" placeholder="Nama Sekolah" autocomplete="off">
+										<label>Asal Sekolah</label>
+										<input type="text" class="form-control" id="tambah-detail" name="tambah-detail" placeholder="Asal Sekolah" autocomplete="off">
 									</div>
 
 									<div class="form-group">
-										<label>Level</label>
-										<select name="tambah-group" id="tambah-group" class="form-control input-sm">
-											<option value="">-- Pilih Level --</option>
-											<?php if (!empty($select_group)) {
-												echo $select_group;
-											} ?>
+										<label>Kelas</label>
+										<select name="tambah-kelas" id="tambah-kelas" class="form-control input-sm">
+											<option value="">-- Pilih Kelas (TA. 2019/2020) --</option>
+											<?php for ($i = 1; $i < 10; $i++) : ?>
+												<option value="<?= $i ?>" 0>Kelas <?= $i ?></option>
+											<?php endfor ?>
 										</select>
+									</div>
+
+									<div class="form-group">
+										<label>Nomer Telepon (WhatsApp)</label>
+										<input type="text" class="form-control" id="tambah-telepon" name="tambah-telepon" placeholder="Masukkan Nomer Telepon" autocomplete="off">
+									</div>
+
+									<div class="row">
+										<div class="form-group col-sm-6">
+											<label>Pilihan Lomba</label>
+											<select name="tambah-lomba" id="tambah-lomba" class="form-control input-sm">
+												<option value="">-- Pilih Lomba --</option>
+												<option value="matematika">Matematika</option>
+												<option value="sains">Sains</option>
+												<option value="all">Matematika & Sains</option>
+											</select>
+										</div>
+
+										<div class="form-group col-sm-6">
+											<label>Level</label>
+											<select name="tambah-group" id="tambah-group" class="form-control input-sm">
+												<option value="">-- Pilih Level --</option>
+												<?php if (!empty($select_group)) {
+													echo $select_group;
+												} ?>
+											</select>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -145,7 +172,7 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="submit" id="tambah-simpan" class="btn btn-success">Kirim</button>
+							<button type="submit" id="lupa-simpan" class="btn btn-success">Kirim</button>
 							<a href="#" class="btn btn-danger" data-dismiss="modal">Batal</a>
 						</div>
 					</div>
