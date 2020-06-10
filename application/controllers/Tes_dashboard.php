@@ -4,6 +4,29 @@ class Tes_dashboard extends Tes_Controller
 {
 	private $kelompok = 'ujian';
 	private $url = 'tes_dashboard';
+	private $willCheck = [
+		[
+			'tableName' => 'telepon',
+			'displayName' => 'Nomer Telepon (WhatsApp)',
+			'value' => false,
+			'type' => 'text',
+			'rule' => 'required|numeric|min_length[10]',
+		],
+		[
+			'tableName' => 'kelas',
+			'displayName' => 'Kelas',
+			'value' => false,
+			'type' => 'kelas',
+			'rule' => 'required',
+		],
+		[
+			'tableName' => 'lomba',
+			'displayName' => 'Lomba',
+			'value' => false,
+			'type' => 'lomba',
+			'rule' => 'required'
+		]
+	];
 
 	function __construct()
 	{
@@ -19,8 +42,6 @@ class Tes_dashboard extends Tes_Controller
 		$this->load->model('cbt_jawaban_model');
 		$this->load->model('cbt_tes_soal_model');
 		$this->load->model('cbt_tes_soal_jawaban_model');
-
-		// echo strftime("%A, %d %B %Y");
 	}
 
 	public function index()
@@ -36,8 +57,26 @@ class Tes_dashboard extends Tes_Controller
 		$user_id = $currentUser->user_id;
 		$query_tes = $this->cbt_tes_user_model->get_by_user_status($user_id);
 
-		$tel = $currentUser->telepon;
-		$data['telepon'] = $tel;
+		$parseCurrentUser = json_decode(json_encode($currentUser), true);
+
+		$newWillCheck = [];
+		$item = '';
+
+		for ($i = 0; $i < count($this->willCheck); $i++) {
+			$getValue = $parseCurrentUser[$this->willCheck[$i]['tableName']];
+			$this->willCheck[$i]['value'] = $getValue == null ? false : true;
+
+			if (!$this->willCheck[$i]['value']) {
+				array_push($newWillCheck, $this->willCheck[$i]);
+				$item .= $this->willCheck[$i]['tableName'] . ',';
+			}
+		}
+
+		// var_dump($newWillCheck);
+		// die();
+
+		$data['willCheck'] = $newWillCheck;
+		$data['item'] = $item;
 
 		if ($query_tes->num_rows() > 0) {
 			$query_tes = $query_tes->result();
@@ -523,26 +562,30 @@ class Tes_dashboard extends Tes_Controller
 
 	function optional()
 	{
-		$nomer = $this->input->post('telepon', true);
+
+		$secureCheck = json_decode(base64_decode($this->input->post('secureCheck', true)));
 
 		$this->load->library('form_validation');
+		foreach ($secureCheck as $check) {
+			$this->form_validation->set_rules($check->tableName, $check->displayName, $check->rule);
+		}
 
-		$this->form_validation->set_rules('telepon', 'Nomer telepon', 'required|strip_tags|numeric|min_length[10]');
 		if ($this->form_validation->run() == TRUE) {
 			$username = $this->access_tes->get_username();
 			$currentUser = $this->cbt_user_model->get_by_kolom_limit('user_email', $username, 1)->row();
 
-			$this->cbt_user_model->update('user_id', $currentUser->user_id, [
-				'telepon' => $nomer
-			]);
+			$data = [];
+			foreach ($secureCheck as $check) {
+				$data[$check->tableName] = $this->input->post($check->tableName, true);
+			}
+			$this->cbt_user_model->update('user_id', $currentUser->user_id, $data);
 
 			$status['status'] = 1;
-			$status['error'] = 'Terimakasih sudah mencantumkan nomer telepon.';
+			$status['error'] = 'Terimakasih sudah melengkapi data.';
 		} else {
 			$status['status'] = 0;
 			$status['error'] = validation_errors();
 		}
-		// echo json_encode($isEmail);
 		echo json_encode($status);
 	}
 }

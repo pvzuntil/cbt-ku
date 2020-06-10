@@ -1,80 +1,107 @@
 <div class="container">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <h1>
-            <?php if (!empty($nama)) {
-                echo $nama;
-            }
-            if (!empty($group)) {
-                echo ' | ' . $group;
-            } ?>
-            <small></small>
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">dashboard</li>
-        </ol>
-    </section>
+    <div class="box shadow-box" style="margin-top: 20px;">
+        <section class="content-header">
+            <h1>
+                <?php if (!empty($nama)) {
+                    echo $nama;
+                }
+                if (!empty($group)) {
+                    echo ' | ' . $group;
+                } ?>
+                <small></small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">dashboard</li>
+            </ol>
+        </section>
 
-    <!-- Main content -->
-    <section class="content">
-        <div class="callout callout-info">
-            <h4>Informasi</h4>
-            <p>Silahkan pilih Mapel yang diikuti dari daftar lomba yang tersedia dibawah ini. Apabila tidak muncul, silahkan menghubungi Panitia.</p>
-        </div>
-        <div class="box box-warning box-solid">
-            <div class="box-header with-border">
-                <h3 class="box-title">Daftar Lomba</h3>
-            </div><!-- /.box-header -->
-            <div class="box-body">
-                <table id="table-tes" class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th class="all">Lomba</th>
-                            <th>Waktu Mulai</th>
-                            <th>Waktu Selesai</th>
-                            <th>Status</th>
-                            <th class="all">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div><!-- /.box-body -->
-        </div><!-- /.box -->
-    </section><!-- /.content -->
+        <!-- Main content -->
+        <section class="content">
+            <div class="callout callout-info">
+                <h4>Informasi</h4>
+                <p>Silahkan pilih Mapel yang diikuti dari daftar lomba yang tersedia dibawah ini. Apabila tidak muncul, silahkan menghubungi Panitia.</p>
+            </div>
+            <div class="box box-warning box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Daftar Lomba</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <table id="table-tes" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th class="all">Lomba</th>
+                                <th>Waktu Mulai</th>
+                                <th>Waktu Selesai</th>
+                                <th>Status</th>
+                                <th class="all">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </section><!-- /.content -->
+    </div>
 </div><!-- /.container -->
 
-<?php if ($telepon == '' || $telepon == null) : ?>
+<?php if (count($willCheck) > 0) : ?>
     <div style="max-height: 100%;overflow-y:auto; display: block;" class="modal" id="modal-optional" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
         <?php echo form_open($url . '/', 'id="form-optional"'); ?>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 id="trx-judul text-center text-bold" style="font-weight: bold; text-align: center">Uppsss ! ada yang lupa</h3>
-                    <p class="text-center">Anda belum mencantumkan nomer telepon (WhatsApp) saat mendaftar</p>
+                    <p class="text-center">Ada yang ketinggalan saat proses pendaftaran, silahkan lengkapi form dibawah untuk melanjutkan</p>
                 </div>
                 <div class="modal-body">
                     <div class="row-fluid">
                         <div class="box-body">
                             <div id="form-pesan-optional"></div>
-                            <div class="form-group">
-                                <label>Nomer Telepon (WhatsApp)</label>
-                                <input type="text" class="form-control" name="telepon" placeholder="Nomer telepon" autocomplete="off">
-                            </div>
+                            <?php foreach ($willCheck as $check) : ?>
+                                <div class="form-group">
+                                    <label><?= $check['displayName'] ?></label>
+                                    <?php if ($check['type'] == 'kelas') : ?>
+                                        <select name="<?= $check['tableName'] ?>" class="form-control input-sm">
+                                            <option value="">-- Pilih Kelas (TA. 2019/2020) --</option>
+                                            <?php for ($i = 1; $i < 10; $i++) : ?>
+                                                <option value="<?= $i ?>" 0>Kelas <?= $i ?></option>
+                                            <?php endfor ?>
+                                        </select>
+                                    <?php elseif ($check['type'] == 'lomba') : ?>
+                                        <select name="<?= $check['tableName'] ?>" class="form-control input-sm">
+                                            <option value="">-- Pilih Lomba --</option>
+                                            <option value="matematika">Matematika</option>
+                                            <option value="sains">Sains</option>
+                                            <option value="all">Matematika & Sains</option>
+                                        </select>
+                                    <?php else :  ?>
+                                        <input type="text" class="form-control" name="<?= $check['tableName'] ?>" placeholder="<?= $check['displayName'] ?>" autocomplete="off">
+                                    <?php endif ?>
+                                </div>
+                            <?php endforeach ?>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <?php
+                    $securedCheck = base64_encode(json_encode($willCheck));
+                    ?>
+                    <input type="hidden" name="item" value="<?= $item ?>">
+                    <textArea name="secureCheck" style="display: none;">
+                        <?= $securedCheck ?>
+                    </textArea>
                     <button type="submit" id="tambah-simpan" class="btn btn-success">Kirim</button>
                 </div>
             </div>

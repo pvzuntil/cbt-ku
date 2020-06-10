@@ -182,7 +182,7 @@
       </nav>
     </header>
     <!-- Full Width Column -->
-    <div class="content-wrapper">
+    <div class="content-wrapper <?= $url == 'tes_dashboard' ? 'back-body' : '' ?>">
       <?php
       if (!empty($content)) {
         echo $content;
