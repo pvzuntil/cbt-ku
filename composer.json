@@ -1,12 +1,13 @@
 {
-    "name": "untillness/zyacbt",
-    "authors": [
-        {
-            "name": "untillNess",
-            "email": "pvzuntil@gmail.com"
-        }
-    ],
-    "require": {
-        "phpoffice/phpspreadsheet": "^1.12"
+  "description": "",
+  "name": "untillness/zyacbt",
+  "authors": [
+    {
+      "name": "untillNess",
+      "email": "pvzuntil@gmail.com"
     }
+  ],
+  "require": {
+    "phpoffice/phpspreadsheet": "^1.12"
+  }
 }
