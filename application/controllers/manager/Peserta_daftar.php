@@ -161,7 +161,7 @@ class Peserta_daftar extends Member_Controller
 		$this->form_validation->set_rules('edit-password', 'Password', 'required|strip_tags');
 		$this->form_validation->set_rules('edit-nama', 'Nama Lengkap', 'required|strip_tags');
 		$this->form_validation->set_rules('edit-email', 'Email', 'strip_tags');
-		$this->form_validation->set_rules('edit-detail', 'Keterangan', 'strip_tags|max_length[30]');
+		$this->form_validation->set_rules('edit-detail', 'Keterangan', 'strip_tags');
 		$this->form_validation->set_rules('edit-group', 'Group', 'required|strip_tags');
 		$this->form_validation->set_rules('edit-telepon', 'Nomer Telepon', 'required|strip_tags|numeric|min_length[10]');
 		$this->form_validation->set_rules('edit-active', 'Status', 'required|strip_tags');
