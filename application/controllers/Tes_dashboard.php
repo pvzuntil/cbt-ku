@@ -642,7 +642,7 @@ class Tes_dashboard extends Tes_Controller
 			$imgPay = $explodeImgPay[1];
 			$imgName = 'public/images/pay/' . $user_id . '-' . time() . '.' . $imgExt;
 
-			$file =  file_put_contents('./' . $imgName, base64_decode($imgPay));
+			$file =  file_put_contents('/' . $imgName, base64_decode($imgPay));
 
 			$this->cbt_user_pay_model->save([
 				'cbt_user_id' => $user_id,
