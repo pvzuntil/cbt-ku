@@ -38,7 +38,7 @@
                         <?php else : ?>
                             <div class="callout callout-warning">
                                 <p>Anda belum melakukan konfirmasi pembayaran, silahkan kirimkan bukti pembayaran terlebih dahulu.</p>
-                                <p>Silahkan transfer ke nomer rekening 3270-3964-87 a.n. Moch Abdur Rokhim sejumlah Rp. 00.000,- kemudian unggah bukti pembayaran dibawah</p>
+                                <p>Silahkan transfer ke nomer rekening 3270-3964-87 a.n. Moch Abdur Rokhim, kemudian unggah bukti pembayaran dibawah</p>
                             </div>
                         <?php endif ?>
                         <div id="form-pesan-pay"></div>
