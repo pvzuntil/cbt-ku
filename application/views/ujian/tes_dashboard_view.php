@@ -45,7 +45,7 @@
                         <hr>
                         <div class="row" style="display: flex; justify-content: center; flex-direction: column; align-items: center; flex-wrap: wrap;">
                             <div class="col-sm-6" style="margin-bottom: 15px; display: flex; justify-content: center;">
-                                <img src="<?= $userPay_status == 'none'  ? site_url() . 'public/images/placeholder.png' : site_url() . $userPay->img_pay ?>" alt="" class="img-responsive zoom" style="border-radius: 5px; cursor: pointer; box-shadow: 0px 4px 8px 0px #00000026;" id="imagePay">
+                                <img src="<?= $userPay_status == 'none'  ? site_url() . 'public/images/placeholder.png' : site_url() . $userPay->img_pay ?>" alt="" class="img-responsive <?= $userPay_status == 'wait' ? 'zoom' : '' ?>" style="border-radius: 5px; cursor: pointer; box-shadow: 0px 4px 8px 0px #00000026;" id="imagePay">
                             </div>
                             <?php if ($userPay_status != 'wait') : ?>
                                 <p>Klik gambar untuk memilih foto</p>
