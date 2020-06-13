@@ -54,6 +54,10 @@
 
   <?php if (@$url == 'welcome') : ?>
     <style>
+      .swal2-popup {
+        font-size: 1.6rem !important;
+      }
+
       .back-body {
         background-image: url('<?php echo base_url(); ?>public/images/back.jpg');
         background-position: center;

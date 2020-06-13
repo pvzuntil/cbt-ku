@@ -19,39 +19,92 @@
 
         <!-- Main content -->
         <section class="content">
-            <div class="callout callout-info">
-                <h4>Informasi</h4>
-                <p>Silahkan pilih Mapel yang diikuti dari daftar lomba yang tersedia dibawah ini. Apabila tidak muncul, silahkan menghubungi Panitia.</p>
-            </div>
-            <div class="box box-warning box-solid">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Daftar Lomba</h3>
-                </div><!-- /.box-header -->
-                <div class="box-body">
-                    <table id="table-tes" class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th class="all">Lomba</th>
-                                <th>Waktu Mulai</th>
-                                <th>Waktu Selesai</th>
-                                <th>Status</th>
-                                <th class="all">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div><!-- /.box-body -->
-            </div><!-- /.box -->
+            <?php if ($showPay) : ?>
+                <div class="box box-warning box-solid">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Konfirmasi pembayaran</h3>
+                    </div><!-- /.box-header -->
+                    <?php echo form_open($url . '/pay', 'id="form-pay" enctype="multipart/form-data"'); ?>
+                    <div class="box-body">
+                        <?php if ($userPay_status == 'wait') : ?>
+                            <div class="callout callout-info">
+                                <p>Anda telah mengirimkan bukti pembayaran pada <?= $date_pay ?>, tunggu pihak panitia untuk mengkonfirmasi pembayaran anda</p>
+                            </div>
+                        <?php elseif ($userPay_status == 'deny') : ?>
+                            <div class="callout callout-danger">
+                                <p>Bukti pembayaran anda pada <?= $date_pay ?> ditolak panitia karena "<?= $userPay->message ?>"</p>
+                                <p>Silahkan unggah kembali bukti pembayaran dengan tepat.</p>
+                            </div>
+                        <?php else : ?>
+                            <div class="callout callout-warning">
+                                <p>Anda belum melakukan konfirmasi pembayaran, silahkan kirimkan bukti pembayaran terlebih dahulu.</p>
+                                <p>Silahkan transfer ke nomer rekening 3270-3964-87 a.n. Moch Abdur Rokhim sejumlah Rp. 00.000,- kemudian unggah bukti pembayaran dibawah</p>
+                            </div>
+                        <?php endif ?>
+                        <div id="form-pesan-pay"></div>
+                        <hr>
+                        <div class="row" style="display: flex; justify-content: center; flex-direction: column; align-items: center; flex-wrap: wrap;">
+                            <div class="col-sm-6" style="margin-bottom: 15px; display: flex; justify-content: center;">
+                                <img src="<?= $userPay_status == 'none'  ? site_url() . 'public/images/placeholder.png' : site_url() . $userPay->img_pay ?>" alt="" class="img-responsive zoom" style="border-radius: 5px; cursor: pointer; box-shadow: 0px 4px 8px 0px #00000026;" id="imagePay">
+                            </div>
+                            <?php if ($userPay_status != 'wait') : ?>
+                                <p>Klik gambar untuk memilih foto</p>
+                                <input type="file" name="uplaodImgPay" id="uplaodImgPay" accept="image/*" style="display: none;">
+                                <input type="hidden" name="uploadImgPayText" id="uploadImgPayText" style="display: none;">
+                            <?php endif ?>
+                        </div>
+                    </div><!-- /.box-body -->
+                    <?php if ($userPay_status != 'wait') : ?>
+                        <div class="box-footer">
+                            <div class="pull-right">
+                                <button class="btn btn-success btn-sm">Kirim</button>
+                            </div>
+                        </div>
+                    <?php endif ?>
+                    </form>
+                </div><!-- /.box -->
+            <?php else : ?>
+                <div class="callout callout-info">
+                    <h4>Informasi</h4>
+                    <?php if ($isShow  == 0) : ?>
+                        <p>Bukti pembayaran anda sudah kami konfirmasi, terima kasih :)</p>
+                    <?php endif ?>
+
+                    <p>Silahkan pilih Mapel yang diikuti dari daftar lomba yang tersedia dibawah ini. Apabila tidak muncul, silahkan menghubungi Panitia.</p>
+                </div>
+                <div class="box box-warning box-solid">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Daftar Lomba</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="table-tes" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th class="all">Lomba</th>
+                                    <th>Waktu Mulai Tes</th>
+                                    <th>Waktu Selesai Tes</th>
+                                    <!-- <th>Waktu Mulai mengerjakan - Waktu Selesai mengerjakan</th> -->
+                                    <th>Lama Mengerjakan</th>
+                                    <th>Score</th>
+                                    <th class="all">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            <?php endif ?>
         </section><!-- /.content -->
     </div>
 </div><!-- /.container -->
@@ -112,6 +165,7 @@
 
 <script type="text/javascript">
     $(function() {
+
         $('#table-tes').DataTable({
             'dom': 'ftipr',
             "paging": true,
@@ -126,7 +180,7 @@
                 },
                 {
                     "bSearchable": false,
-                    "bSortable": false
+                    "bSortable": false,
                 },
                 {
                     "bSearchable": false,
@@ -141,7 +195,12 @@
                 {
                     "bSearchable": false,
                     "bSortable": false,
-                    "sWidth": "100px"
+                    "sWidth": "130px"
+                },
+                {
+                    "bSearchable": false,
+                    "bSortable": false,
+                    "sWidth": "50px"
                 },
                 {
                     "bSearchable": false,
@@ -153,6 +212,10 @@
             "autoWidth": false,
             "responsive": true
         });
+
+        $('#imagePay').on('click', function() {
+            $('#uplaodImgPay').click()
+        })
 
         $('#form-optional').submit(function() {
             $("#modal-proses").modal('show');
@@ -176,5 +239,105 @@
             });
             return false;
         });
+
+        $('#form-pay').submit(function() {
+            $("#modal-proses").modal('show');
+            $.ajax({
+                url: "<?php echo site_url() . '/' . $url; ?>/pay",
+                type: "POST",
+                data: $('#form-pay').serialize(),
+                cache: false,
+                success: function(respon) {
+                    var obj = $.parseJSON(respon);
+                    if (obj.status == 1) {
+                        $("#modal-proses").modal('hide');
+                        Swal.fire({
+                            title: 'Berhasil !',
+                            text: obj.pesan,
+                            icon: 'success'
+                        }).then(() => {
+                            window.location.reload()
+                        })
+                    } else {
+                        $("#modal-proses").modal('hide');
+                        $('#form-pesan-pay').html(pesan_err(obj.pesan));
+                        $('html, body').animate({
+                            scrollTop: 0
+                        })
+                    }
+                }
+            });
+            return false;
+        });
     });
+
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#imagePay').attr('src', e.target.result);
+                $('#uploadImgPayText').val(e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]); // convert to base64 string
+        }
+    }
+
+    $("#uplaodImgPay").change(function() {
+        loadImageFile()
+    });
+
+    var fileReader = new FileReader();
+    var filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+
+    fileReader.onload = function(event) {
+        var image = new Image();
+
+        image.onload = function() {
+            // document.getElementById("original-Img").src = image.src;
+            var canvas = document.createElement("canvas");
+            var context = canvas.getContext("2d");
+            canvas.width = image.width / 3;
+            canvas.height = image.height / 3;
+            context.drawImage(image,
+                0,
+                0,
+                image.width,
+                image.height,
+                0,
+                0,
+                canvas.width,
+                canvas.height
+            );
+
+            document.getElementById("imagePay").src = canvas.toDataURL();
+            $('#uploadImgPayText').val(canvas.toDataURL());
+
+        }
+        image.src = event.target.result;
+    };
+
+    var loadImageFile = function() {
+        var uploadImage = document.getElementById("uplaodImgPay");
+
+        //check and retuns the length of uploded file.
+        if (uploadImage.files.length === 0) {
+            return;
+        }
+
+        //Is Used for validate a valid file.
+        var uploadFile = document.getElementById("uplaodImgPay").files[0];
+        if (!filterType.test(uploadFile.type)) {
+            Swal.fire({
+                title: 'Peringatan !',
+                text: 'Pilih gambar dengan format JPG atau PNG',
+                icon: 'error'
+            });
+            return;
+        }
+
+        fileReader.readAsDataURL(uploadFile);
+    }
 </script>

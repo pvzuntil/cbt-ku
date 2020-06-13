@@ -25,7 +25,7 @@ class Template
 		}
 		$data['site_version'] = $this->_ci->config->item('site_version');
 		$data['nama'] = $this->_ci->access->get_nama();
-		$data['sidemenu'] = $this->_ci->users_model->get_menu($data['kode_menu'], $this->_ci->access->get_level());;
+		$data['sidemenu'] = $this->_ci->users_model->get_menu($data['kode_menu'], $this->_ci->access->get_level());
 		$data['content'] = $this->_ci->load->view($template, $data, true);
 		$data['title'] = $title;
 		$this->_ci->load->view('template/template_admin.php', $data);

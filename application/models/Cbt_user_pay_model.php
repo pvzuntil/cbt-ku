@@ -1,8 +1,8 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Cbt_user_model extends CI_Model
+class Cbt_user_pay_model extends CI_Model
 {
-    public $table = 'cbt_user';
+    public $table = 'cbt_user_pay';
 
     function __construct()
     {
@@ -36,15 +36,18 @@ class Cbt_user_model extends CI_Model
 
     function get_by_kolom($kolom, $isi)
     {
-        $this->db->select('user_id,user_grup_id,user_name,user_password,user_email,user_firstname,user_detail,user_regdate, telepon, active, kelas, lomba')
+        $this->db->select('*')
             ->where($kolom, $isi)
-            ->from($this->table);
+            ->from($this->table)
+            ->join('cbt_user', $this->table . '.cbt_user_id = cbt_user.user_id')
+            ->join('cbt_user_grup', 'cbt_user.user_grup_id = cbt_user_grup.grup_id')
+            ->order_by('date_pay', 'DESC');
         return $this->db->get();
     }
 
     function get_by_kolom_limit($kolom, $isi, $limit)
     {
-        $this->db->select('user_id,user_grup_id,user_name,user_password,user_email,user_firstname,user_detail,user_regdate, telepon, kelas, lomba')
+        $this->db->select('*')
             ->where($kolom, $isi)
             ->from($this->table)
             ->limit($limit);
@@ -74,9 +77,11 @@ class Cbt_user_model extends CI_Model
         if ($group != 'semua') {
             $query = 'AND user_grup_id=' . $group;
         }
-        $this->db->where('(' . $kolom . ' LIKE "%' . $isi . '%" ' . $query . ')')
+        $this->db
+            ->where('(cbt_user.user_email LIKE "%' . $isi . '%" OR cbt_user.' . $kolom . ' LIKE "%' . $isi . '%" ' . $query . ')')
             ->from($this->table)
-            ->order_by('user_regdate', 'ASC')
+            ->join('cbt_user', $this->table . '.cbt_user_id = cbt_user.user_id')
+            ->order_by('date_pay', 'DESC')
             ->limit($rows, $start);
         return $this->db->get();
     }
@@ -88,8 +93,9 @@ class Cbt_user_model extends CI_Model
             $query = 'AND user_grup_id=' . $group;
         }
         $this->db->select('COUNT(*) AS hasil')
-            ->where('(' . $kolom . ' LIKE "%' . $isi . '%" ' . $query . ')')
-            ->from($this->table);
+            ->where('(cbt_user.user_email LIKE "%' . $isi . '%" OR cbt_user.' . $kolom . ' LIKE "%' . $isi . '%" ' . $query . ')')
+            ->from($this->table)
+            ->join('cbt_user', $this->table . '.cbt_user_id = cbt_user.user_id');
         return $this->db->get();
     }
 
@@ -227,13 +233,5 @@ class Cbt_user_model extends CI_Model
             ->from($this->table)
             ->order_by('user_regdate', 'ASC');
         return $this->db->get();
-    }
-
-    function get_all_user()
-    {
-        $data = $this->db->select('user_id, user_firstname, status, user_email')
-            ->from($this->table)
-            ->join('cbt_user_pay', 'cbt_user.user_id = cbt_user_pay.cbt_user_id', 'left');
-        return  $this->db->get();
     }
 }

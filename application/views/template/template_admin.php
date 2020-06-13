@@ -89,9 +89,15 @@
 
   <!-- select2 -->
   <script src="<?php echo base_url(); ?>public/plugins/select2-4.0.5/js/select2.min.js" type="text/javascript"></script>
+  <script src="<?php echo base_url(); ?>public/plugins/swal/swal.js" type="text/javascript"></script>
+
 
   <!-- membuat gambar responsive pada table -->
   <style type="text/css">
+    .swal2-popup {
+      font-size: 1.6rem !important;
+    }
+
     table img {
       display: block;
       max-width: 100%;

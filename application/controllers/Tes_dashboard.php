@@ -32,6 +32,7 @@ class Tes_dashboard extends Tes_Controller
 	{
 		parent::__construct();
 		$this->load->model('cbt_user_model');
+		$this->load->model('cbt_user_pay_model');
 		$this->load->model('cbt_user_grup_model');
 		$this->load->model('cbt_tes_model');
 		$this->load->model('cbt_tes_token_model');
@@ -42,6 +43,8 @@ class Tes_dashboard extends Tes_Controller
 		$this->load->model('cbt_jawaban_model');
 		$this->load->model('cbt_tes_soal_model');
 		$this->load->model('cbt_tes_soal_jawaban_model');
+
+		setlocale(LC_ALL, 'id-ID', 'id_ID');
 	}
 
 	public function index()
@@ -72,9 +75,6 @@ class Tes_dashboard extends Tes_Controller
 			}
 		}
 
-		// var_dump($newWillCheck);
-		// die();
-
 		$data['willCheck'] = $newWillCheck;
 		$data['item'] = $item;
 
@@ -93,6 +93,34 @@ class Tes_dashboard extends Tes_Controller
 			}
 		}
 
+		$userPay = $this->cbt_user_pay_model->get_by_kolom('cbt_user_id', $user_id)->row();
+
+		if ($userPay != null) {
+			if ($userPay->status == 'allow') {
+				$data['showPay'] = false;
+				if ($userPay->isShow == 0) {
+					$data['isShow'] = $userPay->isShow;
+					$this->cbt_user_pay_model->update('id', $userPay->id, ['isShow' => 1]);
+				} else {
+					$data['isShow'] = 1;
+				}
+			} else {
+				$data['showPay'] = true;
+				$data['userPay'] = $userPay;
+				$data['userPay_status'] = $userPay->status;
+
+				$date_pay = $userPay->date_pay;
+				$explodeMulai = explode(' ', $date_pay);
+				$explodeMulaiJam = explode(':', $explodeMulai[1]);
+
+				$data['date_pay'] = strftime("%A, %d %B %Y", strtotime($explodeMulai[0])) . ' ' . $explodeMulaiJam[0] . ':' . $explodeMulaiJam[1];
+			}
+		}
+
+		if ($userPay == null) {
+			$data['showPay'] = true;
+			$data['userPay_status'] = 'none';
+		}
 
 		$this->template->display_tes($this->kelompok . '/tes_dashboard_view', 'Dashboard', $data);
 	}
@@ -402,7 +430,6 @@ class Tes_dashboard extends Tes_Controller
 	 */
 	function get_datatable()
 	{
-		setlocale(LC_ALL, 'id-ID', 'id_ID');
 
 		// variable initialization
 		$search = "";
@@ -459,6 +486,7 @@ class Tes_dashboard extends Tes_Controller
 
 				$record[] = strftime("%A, %d %B %Y", strtotime($explodeSelesai[0])) . ' ' . $explodeSelesaiJam[0] . ':' . $explodeSelesaiJam[1];
 
+
 				// Cek apakah sudah mengikuti tes tetapi belum selesai
 				if ($this->cbt_tes_user_model->count_by_user_tes($user_id, $temp->tes_id)->row()->hasil > 0) {
 					// Cek apakah sudah selesai atau belum, jika blum selesai maka tes bisa dilanjutkan
@@ -470,9 +498,13 @@ class Tes_dashboard extends Tes_Controller
 					if ($tanggal < $tanggal_tes and $query_test_user->tesuser_status != 4) {
 						// nilai kosong karena masih dalam pengerjaan
 						$record[] = '';
+						$record[] = '';
 						// Jika masih dalam waktu pengerjaan, maka tes dilanjutkan
 						$record[] = '<a href="' . site_url() . '/tes_kerjakan/index/' . $temp->tes_id . '" style="cursor: pointer;" class="btn btn-default btn-xs">Lanjutkan</a>';
 					} else {
+						$pecah = explode(',', $temp->time_span);
+						$record[] = ' (' . $pecah[0] . ' Menit ' . $pecah[1] . ' Detik)';
+
 						// menampilkan nilai
 						// Cek apakah tes yang selesai ditampilkan nilainya
 						if ($temp->tes_results_to_users == 1) {
@@ -495,12 +527,15 @@ class Tes_dashboard extends Tes_Controller
 
 					if ($waktuNow >= $waktuMulaiTes && $waktuNow <= $waktuSelesaiTes) {
 						$record[] = '';
+						$record[] = '';
 						$record[] = '<a href="' . site_url() . '/' . $this->url . '/konfirmasi_test/' . $temp->tes_id . '" style="cursor: pointer;" class="btn btn-success btn-xs">Kerjakan</a>';
 					} else {
 						if ($waktuNow >= $waktuSelesaiTes) {
 							$record[] = '';
+							$record[] = '';
 							$record[] = '<a href="#" style="cursor: pointer;" class="btn btn-warning btn-xs btn-disabled" disabled>Expired</a>';
 						} else {
+							$record[] = '';
 							$record[] = '';
 							$record[] = '<a href="#" style="cursor: pointer;" class="btn btn-success btn-xs btn-disabled" disabled>Belum dimulai</a>';
 						}
@@ -585,6 +620,43 @@ class Tes_dashboard extends Tes_Controller
 		} else {
 			$status['status'] = 0;
 			$status['error'] = validation_errors();
+		}
+		echo json_encode($status);
+	}
+
+	function pay()
+	{
+		$username = $this->access_tes->get_username();
+		$currentUser = $this->cbt_user_model->get_by_kolom_limit('user_email', $username, 1)->row();
+		$user_id = $currentUser->user_id;
+
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_rules('uploadImgPayText', 'Gambar', 'required');
+
+		if ($this->form_validation->run() == TRUE) {
+			$imgPay = $this->input->post('uploadImgPayText');
+			$explodeImgPay = explode('data:image/', $imgPay);
+			$explodeImgPay = explode(';base64,', $explodeImgPay[1]);
+			$imgExt = $explodeImgPay[0];
+			$imgPay = $explodeImgPay[1];
+			$imgName = 'public/images/pay/' . $user_id . '-' . time() . '.' . $imgExt;
+
+			$file =  file_put_contents('./' . $imgName, base64_decode($imgPay));
+
+			$this->cbt_user_pay_model->save([
+				'cbt_user_id' => $user_id,
+				'pay' => 1,
+				'status' => 'wait',
+				'date_pay' => date('Y-m-d H:i:s'),
+				'img_pay' => $imgName
+			]);
+
+			$status['status'] = 1;
+			$status['pesan'] = 'Berhasil mengirim bukti pembayaran. Silahkan tunggu paling lambat 24 Jam untuk admin mengkonfirmasi bukti pembayaran anda. Jika belum dikonfirmasi dalam 24 jam, silahkan hubungi panitia.';
+		} else {
+			$status['status'] = 0;
+			$status['pesan'] = validation_errors();
 		}
 		echo json_encode($status);
 	}

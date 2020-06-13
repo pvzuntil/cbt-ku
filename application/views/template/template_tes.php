@@ -54,9 +54,15 @@
 
   <script src="<?php echo base_url(); ?>public/plugins/pnotify/pnotify.custom.min.js" type="text/javascript"></script>
   <script src="<?php echo base_url(); ?>public/app.js" type="text/javascript"></script>
+  <script src="<?php echo base_url(); ?>public/plugins/swal/swal.js" type="text/javascript"></script>
+
 
   <!-- membuat gambar responsive pada soal -->
   <style type="text/css">
+    .swal2-popup {
+      font-size: 1.6rem !important;
+    }
+
     #isi-tes-soal img {
       display: block;
       max-width: 100%;
@@ -71,6 +77,17 @@
 
     .shadow-box {
       box-shadow: 6px 6px 10px 0px #00000070;
+    }
+
+    .zoom {
+      transition: transform .2s;
+      /* Animation */
+      margin: 0 auto;
+    }
+
+    .zoom:hover {
+      transform: scale(1.7);
+      /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
     }
   </style>
 
