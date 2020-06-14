@@ -148,9 +148,9 @@
         </form>
     </div>
 
-    <div style="max-height: 100%;overflow-y:auto;" class="modal" id="modal-showDoc" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModalEdit" aria-hidden="true">
-        <?php echo form_open($url . '/edit', 'id="form-edit"'); ?>
+    <div style="max-height: 100%;overflow-y:auto;" class="modal" id="modal-showDoc" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModalShowDoc" aria-hidden="true">
         <div class="modal-dialog modal-lg">
+            <?php echo form_open($url . '/edit', 'id="form-edit"'); ?>
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal">&times;</button>
@@ -208,9 +208,9 @@
                     <a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>
                 </div>
             </div>
+            </form>
         </div>
 
-        </form>
     </div>
 </section><!-- /.content -->
 
