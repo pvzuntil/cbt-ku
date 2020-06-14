@@ -74,7 +74,8 @@ class Cbt_user_model extends CI_Model
         if ($group != 'semua') {
             $query = 'AND user_grup_id=' . $group;
         }
-        $this->db->where('(' . $kolom . ' LIKE "%' . $isi . '%" ' . $query . ')')
+        $this->db
+            ->where('(' . $kolom . ' LIKE "%' . $isi . '%" ' . $query . ' OR user_email LIKE "%' . $isi . '%")')
             ->from($this->table)
             ->order_by('user_regdate', 'ASC')
             ->limit($rows, $start);
@@ -233,6 +234,7 @@ class Cbt_user_model extends CI_Model
     {
         $data = $this->db->select('user_id, user_firstname, status, user_email')
             ->from($this->table)
+            ->where('cbt_user.active = 1')
             ->join('cbt_user_pay', 'cbt_user.user_id = cbt_user_pay.cbt_user_id', 'left');
         return  $this->db->get();
     }

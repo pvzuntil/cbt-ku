@@ -56,8 +56,8 @@
                     <div class="box-title">Daftar Peserta</div>
                     <div class="box-tools pull-right">
                         <div class="dropdown pull-right">
-                            <a style="cursor: pointer;" onclick="tambah()" class="btn btn-success">Tambah Peserta</a>
                             <a style="cursor: pointer;" onclick="export_excel()" class="btn btn-primary">Eksport Data</a>
+                            <a style="cursor: pointer;" onclick="tambah()" class="btn btn-success">Tambah Peserta</a>
                         </div>
                     </div>
                 </div><!-- /.box-header -->
