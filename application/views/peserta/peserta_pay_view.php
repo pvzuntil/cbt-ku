@@ -271,7 +271,6 @@
 
     $(function() {
         $('#tambah-pay').select2({
-            tags: true,
             dropdownParent: $("#modal-tambah")
         });
 
