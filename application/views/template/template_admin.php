@@ -264,7 +264,7 @@
                           echo $site_version;
                         } ?>
       </div>
-      <strong>&copy; 2020 Copyright QEC - Quantum Education Center</strong>
+      <strong>&copy; 2020 QEC - Quantum Education Competition</strong>
     </footer>
 
   </div><!-- ./wrapper -->

@@ -135,7 +135,7 @@
         </div>
       <?php endif ?>
       <div class="container">
-        <strong>&copy; Copyright 2020 QEC - Quantum Education Center</strong>
+        <strong>&copy; 2020 QEC - Quantum Education Competition</strong>
       </div><!-- /.container -->
     </footer>
   </div><!-- ./wrapper -->
