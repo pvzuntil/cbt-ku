@@ -111,22 +111,27 @@
                     <div class="row-fluid">
                         <div class="box-body">
                             <div id="form-pesan"></div>
-                            <div class="row">
-                                <div class="form-group col-sm-12">
+                            <div class="form-group row">
+                                <div class="col-xs-12">
                                     <label>Nama Peserta</label>
-                                    <select name="tambah-pay" id="tambah-pay" class="form-control input-sm">
-                                        <option value="">-- Pilih Peserta --</option>
-                                        <?php if (!empty($select_group)) {
-                                            echo $select_group;
-                                        } ?>
-                                    </select>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div>
+                                        <select name="tambah-pay" id="tambah-pay" class="form-control input-sm" style="width: 100%;">
+                                            <!-- < value="">-- Pilih Peserta --</option> -->
+                                            <optgroup label="Pilih peserta"> <?php if (!empty($select_group)) {
+                                                                                    echo $select_group;
+                                                                                } ?>
+                                            </optgroup>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Opsi</label>
                                 <select name="tambah-opsi" id="tambah-opsi" class="form-control input-sm">
                                     <option value="">-- Pilih Opsi --</option>
-                                    <option value="allow">Tidak usah membayar</option>
+                                    <option value="allow">Sudah membayar</option>
                                     <option value="deny">Tolak membayar</option>
                                 </select>
                             </div>
@@ -223,6 +228,8 @@
     }
 
     function showDoc(id) {
+        $('#imagePay').attr('src', '<?= site_url() ?>' + 'public/images/loading.gif');
+
         $("#modal-proses").modal('show');
         $.getJSON('<?php echo site_url() . '/' . $url; ?>/get_by_id/' + id + '', function(data) {
             if (data.data == 1) {
@@ -263,6 +270,11 @@
     }
 
     $(function() {
+        $('#tambah-pay').select2({
+            tags: true,
+            dropdownParent: $("#modal-tambah")
+        });
+
         $('#show-allow').on('click', function() {
             Swal.fire({
                 title: 'Harap diperhatikan !',

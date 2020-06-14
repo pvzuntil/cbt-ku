@@ -38,7 +38,7 @@
                         <?php else : ?>
                             <div class="callout callout-warning">
                                 <p>Anda belum melakukan konfirmasi pembayaran, silahkan kirimkan bukti pembayaran terlebih dahulu.</p>
-                                <p>Silahkan transfer ke nomer rekening BCA 3270-3964-87 a.n. Moch Abdur Rokhim, kemudian unggah bukti pembayaran dibawah</p>
+                                <p>Silakan Transfer biaya pendaftaran ke rekening BCA 3270 3964 87 an Moch Abdur Rokhim, kemudian unggah bukti pembayaran dibawah</p>
                             </div>
                         <?php endif ?>
                         <div id="form-pesan-pay"></div>
@@ -299,8 +299,8 @@
             // document.getElementById("original-Img").src = image.src;
             var canvas = document.createElement("canvas");
             var context = canvas.getContext("2d");
-            canvas.width = image.width / 3;
-            canvas.height = image.height / 3;
+            canvas.width = image.width / 2;
+            canvas.height = image.height / 2;
             context.drawImage(image,
                 0,
                 0,

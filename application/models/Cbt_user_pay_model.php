@@ -81,7 +81,7 @@ class Cbt_user_pay_model extends CI_Model
             ->where('(cbt_user.user_email LIKE "%' . $isi . '%" OR cbt_user.' . $kolom . ' LIKE "%' . $isi . '%" ' . $query . ')')
             ->from($this->table)
             ->join('cbt_user', $this->table . '.cbt_user_id = cbt_user.user_id')
-            ->order_by('date_pay', 'DESC')
+            ->order_by('status DESC, date_pay DESC')
             ->limit($rows, $start);
         return $this->db->get();
     }
