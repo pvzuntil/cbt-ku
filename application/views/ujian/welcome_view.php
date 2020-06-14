@@ -248,6 +248,9 @@
 				} else {
 					$("#modal-proses").modal('hide');
 					$('#form-pesan-tambah').html(pesan_err(obj.pesan));
+					$('#modal-tambah').animate({
+						scrollTop: 0
+					})
 				}
 			}
 		});
