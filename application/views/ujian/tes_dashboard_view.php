@@ -37,7 +37,7 @@
                             </div>
                         <?php else : ?>
                             <div class="callout callout-warning">
-                                <p>Silakan Transfer biaya pendaftaran dan kirim bukti transfer. Rekening BCA no 3270 3964 87 an Moch Abdur Rokhim, kemudian unggah bukti pembayaran dibawah</p>
+                                <p>Silahkan Transfer biaya pendaftaran dan kirim bukti transfer. Rekening BCA no 3270 3964 87 an Moch Abdur Rokhim, kemudian unggah bukti pembayaran dibawah</p>
                             </div>
                         <?php endif ?>
                         <div id="form-pesan-pay"></div>
