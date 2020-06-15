@@ -74,7 +74,7 @@
 
 			<div style="max-height: 100%;overflow-y:auto;" class="modal" id="modal-tambah" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
 				<?php echo form_open($url . '/tambah', 'id="form-tambah"'); ?>
-				<div class="modal-dialog modal-lg">
+				<div class="modal-dialog modal-md">
 					<div class="modal-content">
 						<div class="modal-header">
 							<h3 id="trx-judul text-center text-bold" style="font-weight: bold; text-align: center">Form Pendaftaran Peserta</h3>
@@ -142,15 +142,17 @@
 									<hr>
 									<div class="row">
 										<div class="col-xs-12">
-											<div class="custom-control custom-checkbox">
-												<input type="checkbox" class="custom-control-input" id="customCheck1" value="ya">
-												<label class="custom-control-label" for="customCheck1">Saya akan menyediakan sendiri semua fasilitas untuk mengikuti lomba (laptop/komputer, internet dan perangkat lainnya).</label>
+											<div class="custom-control custom-checkbox" style="display: flex;">
+												<input type="checkbox" class="custom-control-input" style="margin-right: 10px;" id="customCheck1" value="ya">
+												<label class="custom-control-label" for="customCheck1" style="text-align: justify;">Saya akan menyediakan sendiri semua fasilitas untuk mengikuti lomba (laptop/komputer, internet dan perangkat lainnya).</label>
 											</div>
 										</div>
+									</div>
+									<div class="row">
 										<div class="col-xs-12">
-											<div class="custom-control custom-checkbox">
-												<input type="checkbox" class="custom-control-input" id="customCheck2" value="ya">
-												<label class="custom-control-label" for="customCheck2">Saya akan jujur selama proses pendaftaran dan selama lomba berlangsung.</label>
+											<div class="custom-control custom-checkbox" style="display: flex;">
+												<input type="checkbox" class="custom-control-input" style="margin-right: 10px;" id="customCheck2" value="ya">
+												<label class="custom-control-label" for="customCheck2" style="text-align: justify;">Saya akan jujur selama proses pendaftaran dan selama lomba berlangsung.</label>
 											</div>
 										</div>
 									</div>

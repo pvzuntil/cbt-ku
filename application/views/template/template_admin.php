@@ -103,6 +103,12 @@
       max-width: 100%;
       height: auto;
     }
+
+    .logo {
+      line-height: 14px !important;
+      padding-top: 10px !important;
+      /* overflow: ; */
+    }
   </style>
 
   <script type="text/javascript">
@@ -160,9 +166,9 @@
       <!-- Logo -->
       <a href="<?php echo site_url(); ?>/manager" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>CBT</b></span>
+        <span class="logo-mini"><b>QEC</b></span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>QEC CBT</b></span>
+        <span class="logo-lg" style="font-size: 12px; word-wrap: break-word !important;"><b>Quantum <br> Education Competition</b></span>
       </a>
 
       <!-- Header Navbar: style can be found in header.less -->
