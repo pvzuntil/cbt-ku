@@ -38,7 +38,7 @@
                         <?php else : ?>
                             <div class="callout callout-warning">
                                 <p>Anda belum melakukan konfirmasi pembayaran, silahkan kirimkan bukti pembayaran terlebih dahulu.</p>
-                                <p>Silakan Transfer biaya pendaftaran ke rekening BCA 3270 3964 87 an Moch Abdur Rokhim, kemudian unggah bukti pembayaran dibawah</p>
+                                <p>Silakan Transfer biaya pendaftaran dan kirim bukti transfer. Rekening BCA no 3270 3964 87 an Moch Abdur Rokhim, kemudian unggah bukti pembayaran dibawah</p>
                             </div>
                         <?php endif ?>
                         <div id="form-pesan-pay"></div>
