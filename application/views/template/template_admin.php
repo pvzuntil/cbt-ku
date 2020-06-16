@@ -109,6 +109,10 @@
       padding-top: 10px !important;
       /* overflow: ; */
     }
+
+    .logo-mini {
+      margin-top: 8px;
+    }
   </style>
 
   <script type="text/javascript">

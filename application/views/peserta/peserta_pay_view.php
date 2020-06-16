@@ -36,29 +36,26 @@
 <!-- Main content -->
 <section class="content">
     <div class="row">
-        <!-- <div class="col-sm-12">
+        <div class="col-sm-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <div class="box-title">Pilih Group</div>
+                    <div class="box-title">Pilih status</div>
                 </div>
                 <div class="box-body">
                     <div class="form-group">
-                        <label>Group</label>
+                        <label>Status</label>
                         <div id="data-kelas">
-                            <select name="group" id="group" class="form-control input-sm">
-                                <option value="semua">Semua Group</option>
-                                <?php if (!empty($select_group)) {
-                                    echo $select_group;
-                                } ?>
+                            <select name="status" id="status" class="form-control input-sm">
+                                <option value="semua">Semua Status</option>
+                                <option value="wait">Menunggu Konfirmasi</option>
+                                <option value="allow">Diterima</option>
+                                <option value="deny">Ditolak</option>
                             </select>
                         </div>
                     </div>
                 </div>
-                <div class="box-footer">
-                    <p>Pilih group terlebih dahulu untuk menampilkan dan menambah data Peserta</p>
-                </div>
             </div>
-        </div> -->
+        </div>
 
         <div class="col-sm-12">
             <div class="box">
@@ -66,7 +63,8 @@
                     <div class="box-title">Bukti Pembayaran yang terkirim</div>
                     <div class="box-tools pull-right">
                         <div class="dropdown pull-right">
-                            <a style="cursor: pointer;" onclick="tambah()" class="btn btn-success">Tambah Pembayaran peserta</a>
+                            <a style="cursor: pointer;" onclick="export_excel()" class="btn btn-primary btn-xs">Eksport Data</a>
+                            <a style="cursor: pointer;" onclick="tambah()" class="btn btn-success btn-xs">Tambah Pembayaran peserta</a>
                         </div>
                     </div>
                 </div><!-- /.box-header -->
@@ -78,13 +76,15 @@
                                 <th>No.</th>
                                 <th>Email</th>
                                 <th class="all">Nama</th>
-                                <th>Level</th>
+                                <th>Kelompok</th>
+                                <th>Pilihan Lomba</th>
                                 <th class="all">Status</th>
                                 <th class="all">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
+                                <td> </td>
                                 <td> </td>
                                 <td> </td>
                                 <td> </td>
@@ -270,6 +270,10 @@
     }
 
     $(function() {
+        $('#status').change(function() {
+            refresh_table()
+        })
+
         $('#tambah-pay').select2({
             dropdownParent: $("#modal-tambah")
         });
@@ -420,6 +424,10 @@
                 },
                 {
                     "bSearchable": false,
+                    "bSortable": false
+                },
+                {
+                    "bSearchable": false,
                     "bSortable": false,
                     'sAlign': 'center'
                 },
@@ -434,8 +442,8 @@
             "responsive": true,
             "fnServerParams": function(aoData) {
                 aoData.push({
-                    "name": "group",
-                    "value": $('#group').val()
+                    "name": "status",
+                    "value": $('#status').val()
                 });
             }
         });
@@ -443,8 +451,8 @@
     });
 
     function export_excel() {
-        let groupName = $('#group').val()
+        let status = $('#status').val()
 
-        window.open("<?php echo site_url() . '/' . $url; ?>/export/" + groupName, "_self");
+        window.open("<?php echo site_url() . '/' . $url; ?>/export/" + status, "_self");
     }
 </script>

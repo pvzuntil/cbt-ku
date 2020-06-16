@@ -32,20 +32,31 @@
                 </div><!-- /.box-header -->
 
                 <div class="box-body">
-                    <div class="form-group">
-                        <label>Group</label>
-                        <div id="data-kelas">
-                            <select name="group" id="group" class="form-control input-sm">
-                                <option value="semua">Semua Group</option>
-                                <?php if (!empty($select_group)) {
-                                    echo $select_group;
-                                } ?>
-                            </select>
+                    <div class="row">
+                        <div class="form-group col-md-6 col-xs-12">
+                            <label>Level</label>
+                            <div id="data-level">
+                                <select name="level" id="level" class="form-control input-sm">
+                                    <option value="semua">Semua level</option>
+                                    <?php if (!empty($select_group)) {
+                                        echo $select_group;
+                                    } ?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-6 col-xs-12">
+                            <label>Kelas</label>
+                            <div id="data-kelas">
+                                <select name="kelas" id="kelas" class="form-control input-sm">
+                                    <option value="semua">Semua kelas</option>
+                                    <?php for ($i = 1; $i <= 9; $i++) : ?>
+                                        <option value="<?= $i ?>">Kelas <?= $i ?></option>
+                                    <?php endfor ?>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="box-footer">
-                    <p>Pilih group terlebih dahulu untuk menampilkan dan menambah data Peserta</p>
                 </div>
             </div>
         </div>
@@ -56,8 +67,8 @@
                     <div class="box-title">Daftar Peserta</div>
                     <div class="box-tools pull-right">
                         <div class="dropdown pull-right">
-                            <a style="cursor: pointer;" onclick="export_excel()" class="btn btn-primary">Eksport Data</a>
-                            <a style="cursor: pointer;" onclick="tambah()" class="btn btn-success">Tambah Peserta</a>
+                            <a style="cursor: pointer;" onclick="export_excel()" class="btn btn-primary btn-xs">Eksport Data</a>
+                            <a style="cursor: pointer;" onclick="tambah()" class="btn btn-success btn-xs">Tambah Peserta</a>
                         </div>
                     </div>
                 </div><!-- /.box-header -->
@@ -69,11 +80,11 @@
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Email</th>
                                 <th class="all">Nama</th>
                                 <th>Kelompok</th>
-                                <th>Asal sekolah</th>
-                                <th>Nomer Telepon</th>
+                                <th>Kelas</th>
+                                <th>Pilihan Lomba</th>
+                                <th>Asal Sekolah</th>
                                 <th>Status</th>
                                 <th class="all">Action</th>
                                 <th class="all"></th>
@@ -364,6 +375,8 @@
                 $("#modal-edit").modal("show");
             }
             $("#modal-proses").modal('hide');
+            $('#form-pesan-edit').html('');
+
         });
     }
 
@@ -372,9 +385,13 @@
             showpassword();
         });
 
-        $("#group").change(function() {
-            refresh_table();
+        $("#level").change(function() {
+            refresh_table()
         });
+
+        $('#kelas').change(function() {
+            refresh_table()
+        })
 
         $('#edit-simpan').click(function() {
             $('#edit-pilihan').val('simpan');
@@ -445,6 +462,9 @@
                     } else {
                         $("#modal-proses").modal('hide');
                         $('#form-pesan-edit').html(pesan_err(obj.pesan));
+                        $('#modal-edit').animate({
+                            scrollTop: 0
+                        })
                     }
                 }
             });
@@ -496,7 +516,7 @@
                 {
                     "bSearchable": false,
                     "bSortable": false,
-                    "sWidth": "80px"
+                    "sWidth": "20px"
                 },
                 {
                     "bSearchable": false,
@@ -528,7 +548,12 @@
             "fnServerParams": function(aoData) {
                 aoData.push({
                     "name": "group",
-                    "value": $('#group').val()
+                    "value": $('#level').val()
+                });
+
+                aoData.push({
+                    "name": "kelas",
+                    "value": $('#kelas').val()
                 });
             }
         });
@@ -536,8 +561,10 @@
     });
 
     function export_excel() {
-        let groupName = $('#group').val()
+        // TODO
+        let level = $('#level').val()
+        let kelas = $('#kelas').val()
 
-        window.open("<?php echo site_url() . '/' . $url; ?>/export/" + groupName, "_self");
+        window.open("<?php echo site_url() . '/' . $url; ?>/export/" + level + '/' + kelas, "_self");
     }
 </script>

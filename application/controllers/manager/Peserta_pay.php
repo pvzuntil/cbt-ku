@@ -169,7 +169,7 @@ class Peserta_pay extends Member_Controller
 	function get_datatable()
 	{
 		// variable initialization
-		$group = $this->input->get('group') ?? 'semua';
+		$status = $this->input->get('status') ?? 'semua';
 
 		$search = "";
 		$start = 0;
@@ -185,10 +185,10 @@ class Peserta_pay extends Member_Controller
 		$rows = $this->get_rows();
 
 		// run query to get user listing
-		$query = $this->cbt_user_pay_model->get_datatable($start, $rows, 'user_firstname', $search, $group);
+		$query = $this->cbt_user_pay_model->get_datatable($start, $rows, 'user_firstname', $search, $status);
 		$iFilteredTotal = $query->num_rows();
 
-		$iTotal = $this->cbt_user_pay_model->get_datatable_count('user_firstname', $search, $group)->row()->hasil;
+		$iTotal = $this->cbt_user_pay_model->get_datatable_count('user_firstname', $search, $status)->row()->hasil;
 
 		$output = array(
 			"sEcho" => intval($_GET['sEcho']),
@@ -210,6 +210,7 @@ class Peserta_pay extends Member_Controller
 			$query_group = $this->cbt_user_grup_model->get_by_kolom_limit('grup_id', $temp->user_grup_id, 1)->row();
 
 			$record[] = $query_group->grup_nama;
+			$record[] = $temp->lomba == 'all' ? "Matematika & Sains" : ucfirst($temp->lomba);
 
 			if ($temp->status == 'wait') {
 				$record[] = '<div class="badge">MENUNGGU KONFIRMASI</div>';
@@ -274,13 +275,13 @@ class Peserta_pay extends Member_Controller
 		return $sort_dir;
 	}
 
-	function export($groupName)
+	function export($status)
 	{
-		$query = $this->cbt_user_model->get_data_export($groupName);
+		$query = $this->cbt_user_pay_model->get_data_export($status);
 
 		$this->load->library('excel');
 
-		$inputFileName = './public/form/form-data-peserta.xls';
+		$inputFileName = './public/form/form-data-pembayaran-peserta.xls';
 		$spreadsheet = IOFactory::load($inputFileName);
 		$spreadsheet->setActiveSheetIndex(0);
 
@@ -295,9 +296,9 @@ class Peserta_pay extends Member_Controller
 				$spreadsheet->setActiveSheetIndex(0)->setCellValue('E' . $row, $temp->user_detail);
 				$spreadsheet->setActiveSheetIndex(0)->setCellValue('F' . $row, $temp->kelas);
 				$spreadsheet->setActiveSheetIndex(0)->setCellValue('G' . $row, $temp->lomba == 'all' ? 'Matematika & Sains' : $temp->lomba);
-				$spreadsheet->setActiveSheetIndex(0)->setCellValue('H' . $row, $temp->telepon);
-				$spreadsheet->setActiveSheetIndex(0)->setCellValue('I' . $row, $temp->active == '1' ? 'AKTIF' : 'BELUM AKTIF');
-				$spreadsheet->setActiveSheetIndex(0)->setCellValue('J' . $row, $temp->user_regdate);
+				$spreadsheet->setActiveSheetIndex(0)->setCellValue('H' . $row, $temp->status == 'allow' ? 'Diterima' : ($temp->status == 'deny' ? 'Ditolak' : 'Menunggu Konfirmasi'));
+				// $spreadsheet->setActiveSheetIndex(0)->setCellValue('I' . $row, $temp->active == '1' ? 'AKTIF' : 'BELUM AKTIF');
+				$spreadsheet->setActiveSheetIndex(0)->setCellValue('I' . $row, $temp->date_pay);
 
 				$row++;
 			}
@@ -311,7 +312,7 @@ class Peserta_pay extends Member_Controller
 
 		// Redirect output to a client’s web browser (Xlsx)
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-		header('Content-Disposition: attachment;filename="Data Peserta - ' . date('Y-m-d H-i') . '.xlsx"');
+		header('Content-Disposition: attachment;filename="Data Pembayaran Peserta - ' . date('Y-m-d H-i') . '.xlsx"');
 		header('Cache-Control: max-age=0');
 		// If you're serving to IE 9, then the following may be needed
 		header('Cache-Control: max-age=1');

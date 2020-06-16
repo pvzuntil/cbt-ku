@@ -71,14 +71,14 @@ class Cbt_user_pay_model extends CI_Model
         return ($query->num_rows() > 0) ? $query->row() : FALSE;
     }
 
-    function get_datatable($start, $rows, $kolom, $isi, $group)
+    function get_datatable($start, $rows, $kolom, $isi, $status)
     {
         $query = '';
-        if ($group != 'semua') {
-            $query = 'AND user_grup_id=' . $group;
+        if ($status != 'semua') {
+            $query = 'AND status= "' . $status . '"';
         }
         $this->db
-            ->where('(cbt_user.user_email LIKE "%' . $isi . '%" OR cbt_user.' . $kolom . ' LIKE "%' . $isi . '%" ' . $query . ')')
+            ->where('(cbt_user.' . $kolom . ' LIKE "%' . $isi . '%" ' . $query . ')')
             ->from($this->table)
             ->join('cbt_user', $this->table . '.cbt_user_id = cbt_user.user_id')
             ->order_by('status DESC, date_pay DESC')
@@ -86,14 +86,14 @@ class Cbt_user_pay_model extends CI_Model
         return $this->db->get();
     }
 
-    function get_datatable_count($kolom, $isi, $group)
+    function get_datatable_count($kolom, $isi, $status)
     {
         $query = '';
-        if ($group != 'semua') {
-            $query = 'AND user_grup_id=' . $group;
+        if ($status != 'semua') {
+            $query = 'AND status= "' . $status . '"';
         }
         $this->db->select('COUNT(*) AS hasil')
-            ->where('(cbt_user.user_email LIKE "%' . $isi . '%" OR cbt_user.' . $kolom . ' LIKE "%' . $isi . '%" ' . $query . ')')
+            ->where('(cbt_user.' . $kolom . ' LIKE "%' . $isi . '%" ' . $query . ')')
             ->from($this->table)
             ->join('cbt_user', $this->table . '.cbt_user_id = cbt_user.user_id');
         return $this->db->get();
@@ -223,15 +223,18 @@ class Cbt_user_pay_model extends CI_Model
 
     function get_data_export($groupName)
     {
-        $data = $this->db->select('user_id,user_grup_id,user_name,user_password,user_email,user_firstname,user_detail,user_regdate, telepon, active, grup_nama, kelas, lomba');
+        $data = $this->db->select('user_id, user_email, user_firstname, grup_nama, user_detail, kelas, lomba, status, date_pay');
 
         if ($groupName != 'semua') {
-            $data->where('user_grup_id', $groupName);
+            $data->where('status', $groupName);
         }
 
-        $data->join('cbt_user_grup', 'cbt_user.user_grup_id = cbt_user_grup.grup_id')
+        $data
+            ->join('cbt_user', 'cbt_user_pay.cbt_user_id = cbt_user.user_id')
+            ->join('cbt_user_grup', 'cbt_user.user_grup_id = cbt_user_grup.grup_id')
             ->from($this->table)
-            ->order_by('user_regdate', 'ASC');
+            ->order_by('status DESC, date_pay DESC');
+
         return $this->db->get();
     }
 }

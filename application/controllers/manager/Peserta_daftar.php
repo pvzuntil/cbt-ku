@@ -204,6 +204,7 @@ class Peserta_daftar extends Member_Controller
 	{
 		// variable initialization
 		$group = $this->input->get('group');
+		$kelas = $this->input->get('kelas');
 
 		$search = "";
 		$start = 0;
@@ -219,10 +220,10 @@ class Peserta_daftar extends Member_Controller
 		$rows = $this->get_rows();
 
 		// run query to get user listing
-		$query = $this->cbt_user_model->get_datatable($start, $rows, 'user_firstname', $search, $group);
+		$query = $this->cbt_user_model->get_datatable($start, $rows, 'user_firstname', $search, $group, $kelas);
 		$iFilteredTotal = $query->num_rows();
 
-		$iTotal = $this->cbt_user_model->get_datatable_count('user_firstname', $search, $group)->row()->hasil;
+		$iTotal = $this->cbt_user_model->get_datatable_count('user_firstname', $search, $group, $kelas)->row()->hasil;
 
 		$output = array(
 			"sEcho" => intval($_GET['sEcho']),
@@ -238,14 +239,14 @@ class Peserta_daftar extends Member_Controller
 			$record = array();
 
 			$record[] = ++$i;
-			$record[] = $temp->user_email;
 			$record[] = $temp->user_firstname;
 
 			$query_group = $this->cbt_user_grup_model->get_by_kolom_limit('grup_id', $temp->user_grup_id, 1)->row();
 
 			$record[] = $query_group->grup_nama;
+			$record[] = $temp->kelas;
+			$record[] = $temp->lomba == 'all' ? "Matematika & Sains" : ucfirst($temp->lomba);
 			$record[] = $temp->user_detail;
-			$record[] = $temp->telepon;
 			$record[] = $temp->active == 1 ? '<div class="badge badge-success">AKTIF</div>' : '<div class="badge badge-danger">BELUM AKTIF</div>';
 
 			$record[] = '<a onclick="edit(\'' . $temp->user_id . '\')" style="cursor: pointer;" class="btn btn-default btn-xs">Edit</a>';
@@ -303,9 +304,9 @@ class Peserta_daftar extends Member_Controller
 		return $sort_dir;
 	}
 
-	function export($groupName)
+	function export($groupName, $kelas)
 	{
-		$query = $this->cbt_user_model->get_data_export($groupName);
+		$query = $this->cbt_user_model->get_data_export($groupName, $kelas);
 
 		$this->load->library('excel');
 

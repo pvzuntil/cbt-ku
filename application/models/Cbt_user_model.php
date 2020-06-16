@@ -68,12 +68,17 @@ class Cbt_user_model extends CI_Model
         return ($query->num_rows() > 0) ? $query->row() : FALSE;
     }
 
-    function get_datatable($start, $rows, $kolom, $isi, $group)
+    function get_datatable($start, $rows, $kolom, $isi, $group, $kelas)
     {
         $query = '';
         if ($group != 'semua') {
             $query = 'AND user_grup_id=' . $group;
         }
+
+        if ($kelas != 'semua') {
+            $query .= ' AND kelas=' . $kelas;
+        }
+
         $this->db
             ->where('(' . $kolom . ' LIKE "%' . $isi . '%" ' . $query . ' )')
             ->from($this->table)
@@ -82,12 +87,17 @@ class Cbt_user_model extends CI_Model
         return $this->db->get();
     }
 
-    function get_datatable_count($kolom, $isi, $group)
+    function get_datatable_count($kolom, $isi, $group, $kelas)
     {
         $query = '';
         if ($group != 'semua') {
             $query = 'AND user_grup_id=' . $group;
         }
+
+        if ($kelas != 'semua') {
+            $query .= ' AND kelas=' . $kelas;
+        }
+
         $this->db->select('COUNT(*) AS hasil')
             ->where('(' . $kolom . ' LIKE "%' . $isi . '%" ' . $query . ')')
             ->from($this->table);
@@ -216,12 +226,16 @@ class Cbt_user_model extends CI_Model
         return false;
     }
 
-    function get_data_export($groupName)
+    function get_data_export($groupName, $kelas)
     {
         $data = $this->db->select('user_id,user_grup_id,user_name,user_password,user_email,user_firstname,user_detail,user_regdate, telepon, active, grup_nama, kelas, lomba');
 
         if ($groupName != 'semua') {
             $data->where('user_grup_id', $groupName);
+        }
+
+        if ($kelas != 'semua') {
+            $data->where('kelas', $kelas);
         }
 
         $data->join('cbt_user_grup', 'cbt_user.user_grup_id = cbt_user_grup.grup_id')
