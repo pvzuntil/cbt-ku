@@ -89,6 +89,17 @@ class Tes_hasil extends Member_Controller
 				foreach ($tesuser_id as $kunci => $isi) {
 					if ($isi == "on") {
 						$data_tes['tesuser_status'] = 4;
+						$datenow = date('Y-m-d H:i:s');
+						$data_tes['end_time'] = $datenow;
+
+						$query_tes = $this->cbt_tes_user_model->get_by_kolom('tesuser_id', $kunci, 1)->row();
+						$mulai = new DateTime($query_tes->tesuser_creation_time);
+						$selesai = new DateTime($datenow);
+
+						$intervalDate  = $selesai->diff($mulai);
+
+						$data_tes['time_span'] = $intervalDate->i . "," . $intervalDate->s;
+
 						$this->cbt_tes_user_model->update('tesuser_id', $kunci, $data_tes);
 					}
 				}

@@ -439,7 +439,9 @@ class Tes_dashboard extends Tes_Controller
 		$group = $this->access_tes->get_group();
 		$grup_id = $this->cbt_user_grup_model->get_by_kolom_limit('grup_nama', $group, 1)->row()->grup_id;
 		$username = $this->access_tes->get_username();
-		$user_id = $this->cbt_user_model->get_by_kolom_limit('user_email', $username, 1)->row()->user_id;
+		$currentUser = $this->cbt_user_model->get_by_kolom_limit('user_email', $username, 1)->row();
+		$user_id = $currentUser->user_id;
+		$mataLomba = $currentUser->lomba;
 
 		// get search value (if any)
 		if (isset($_GET['sSearch']) && $_GET['sSearch'] != "") {
@@ -451,10 +453,10 @@ class Tes_dashboard extends Tes_Controller
 		$rows = $this->get_rows();
 
 		// run query to get user listing
-		$query = $this->cbt_tesgrup_model->get_datatable($start, $rows, $grup_id);
+		$query = $this->cbt_tesgrup_model->get_datatable($start, $rows, $grup_id, $mataLomba);
 		$iFilteredTotal = $query->num_rows();
 
-		$iTotal = $this->cbt_tesgrup_model->get_datatable_count($grup_id)->row()->hasil;
+		$iTotal = $this->cbt_tesgrup_model->get_datatable_count($grup_id, $mataLomba)->row()->hasil;
 
 		$output = array(
 			"sEcho" => intval($_GET['sEcho']),
@@ -502,8 +504,13 @@ class Tes_dashboard extends Tes_Controller
 						// Jika masih dalam waktu pengerjaan, maka tes dilanjutkan
 						$record[] = '<a href="' . site_url() . '/tes_kerjakan/index/' . $temp->tes_id . '" style="cursor: pointer;" class="btn btn-default btn-xs">Lanjutkan</a>';
 					} else {
-						$pecah = explode(',', $temp->time_span);
-						$record[] = ' (' . $pecah[0] . ' Menit ' . $pecah[1] . ' Detik)';
+						$timeSpan = $temp->time_span ?? false;
+						if ($timeSpan == false) {
+							$record[] = 'Waktu habis';
+						} else {
+							$pecah = explode(',', $timeSpan);
+							$record[] = ' (' . $pecah[0] . ' Menit ' . $pecah[1] . ' Detik)';
+						}
 
 						// menampilkan nilai
 						// Cek apakah tes yang selesai ditampilkan nilainya

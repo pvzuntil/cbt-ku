@@ -75,10 +75,15 @@ class Cbt_tesgrup_model extends CI_Model
         return $this->db->get();
     }
 
-    function get_datatable($start, $rows, $grup_id)
+    function get_datatable($start, $rows, $grup_id, $mataLomba)
     {
-        $this->db->where('(tstgrp_grup_id="' . $grup_id . '")')
-            // where('(tstgrp_grup_id="' . $grup_id . '" AND tes_begin_time<=NOW() AND tes_end_time>=NOW())')
+        if ($mataLomba == 'all') {
+            $this->db->where('(tstgrp_grup_id="' . $grup_id . '")');
+        } else {
+            $this->db->where('(tstgrp_grup_id="' . $grup_id . '" AND cbt_tes.lomba = "' . $mataLomba . '")');
+        }
+        // where('(tstgrp_grup_id="' . $grup_id . '" AND tes_begin_time<=NOW() AND tes_end_time>=NOW())')
+        $this->db
             ->from($this->table)
             ->join('cbt_tes', 'cbt_tesgrup.tstgrp_tes_id = cbt_tes.tes_id')
             ->join('cbt_tes_user', 'cbt_tesgrup.tstgrp_tes_id = cbt_tes_user.tesuser_tes_id', 'left')
@@ -87,11 +92,11 @@ class Cbt_tesgrup_model extends CI_Model
         return $this->db->get();
     }
 
-    function get_datatable_count($grup_id)
+    function get_datatable_count($grup_id, $mataLomba)
     {
         $this->db->select('COUNT(*) AS hasil')
             // ->where('(tstgrp_grup_id="' . $grup_id . '" AND tes_begin_time<=NOW() AND tes_end_time>=NOW())')
-            ->where('(tstgrp_grup_id="' . $grup_id . '")')
+            ->where('(tstgrp_grup_id="' . $grup_id . '" AND cbt_tes.lomba = "' . $mataLomba . '")')
             ->join('cbt_tes', 'cbt_tesgrup.tstgrp_tes_id = cbt_tes.tes_id')
             ->from($this->table);
         return $this->db->get();

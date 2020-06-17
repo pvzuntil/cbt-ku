@@ -43,6 +43,20 @@ class Tes_kerjakan extends Tes_Controller
                 $tanggal_tes->modify('+' . $query_tes->tes_duration_time . ' minutes');
                 if ($tanggal >= $tanggal_tes) {
                     // jika waktu sudah melebihi waktu ketentuan, maka diarahkan ke dashboard
+                    if ($query_tes->end_time == '' || $query_tes->end_time == null) {
+                        $datenow = date('Y-m-d H:i:s');
+                        $data_tes['end_time'] = $datenow;
+
+                        $mulai = new DateTime($query_tes->tesuser_creation_time);
+                        $selesai = new DateTime($datenow);
+
+                        $intervalDate  = $selesai->diff($mulai);
+
+                        $data_tes['time_span'] = $intervalDate->i . "," . $intervalDate->s;
+
+                        $this->cbt_tes_user_model->update('tesuser_id', $query_tes->tesuser_id, $data_tes);
+                    }
+
                     redirect('tes_dashboard');
                 } else {
                     // mengambil soal sesuai dengan tes yang dikerjakan

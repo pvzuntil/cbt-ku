@@ -60,11 +60,17 @@
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Group</label>
-                            <div class="col-sm-9">
+                            <div class="col-sm-5">
                                 <select class="form-control input-sm" id="tambah-group" name="tambah-group[]">
                                     <?php if (!empty($select_group)) {
                                         echo $select_group;
                                     } ?>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <select class="form-control input-sm" id="tambah-lomba" name="tambah-lomba">
+                                    <option value="matematika">Matematika</option>
+                                    <option value="sains">Sains</option>
                                 </select>
                             </div>
                         </div>
@@ -271,6 +277,7 @@
                 $('#tambah-poin-kosong').val(data.poin_kosong);
                 $('#tambah-poin-salah').val(data.poin_salah);
                 $('#tambah-rentang-waktu').val(data.rentang_waktu);
+                $('#tambah-lomba').val(data.lomba);
                 if (data.tunjukkan_hasil == 1) {
                     $('#tambah-tunjukkan-hasil').prop("checked", true);
                 } else {

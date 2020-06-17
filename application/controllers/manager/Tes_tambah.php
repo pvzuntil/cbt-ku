@@ -117,6 +117,7 @@ class Tes_tambah extends Member_Controller
         $this->form_validation->set_rules('tambah-rentang-waktu', 'Rentang Waktu Pengerjaan Tes', 'required|strip_tags');
         $this->form_validation->set_rules('tambah-waktu', 'Waktu Pengerjaan Tes', 'required|integer|strip_tags');
         $this->form_validation->set_rules('tambah-group[]', 'Grup', 'required|strip_tags');
+        $this->form_validation->set_rules('tambah-lomba', 'Pilihan lomba', 'required|strip_tags');
         $this->form_validation->set_rules('tambah-poin', 'Poin Dasar', 'required|numeric|strip_tags');
         $this->form_validation->set_rules('tambah-poin-salah', 'Poin Jawaban Salah', 'required|numeric|strip_tags');
         $this->form_validation->set_rules('tambah-poin-kosong', 'Poin Jawaban Kosong', 'required|numeric|strip_tags');
@@ -171,6 +172,8 @@ class Tes_tambah extends Member_Controller
                 $is_process = 1;
                 // Menyimpan data tes
                 if (empty($tes_id)) {
+                    $data['lomba'] = $this->input->post('tambah-lomba', true);
+
                     $tes_id = $this->cbt_tes_model->save($data);
                 } else {
                     // Cek dulu apakah kondisi tes sudah berjalan
@@ -183,6 +186,7 @@ class Tes_tambah extends Member_Controller
                         $status['pesan'] = 'Rentang Waktu Tes saja yang dapat diubah, karena Tes masih digunakan.';
                         $is_process = 0;
                     } else {
+                        $data['lomba'] = $this->input->post('tambah-lomba', true);
                         $this->cbt_tes_model->update('tes_id', $tes_id, $data);
                     }
                 }
@@ -358,6 +362,7 @@ class Tes_tambah extends Member_Controller
                 $data['detail_hasil'] = $query->tes_detail_to_users;
                 $data['token'] = $query->tes_token;
                 $data['rentang_waktu'] = $query->tes_begin_time . ' - ' . $query->tes_end_time;
+                $data['lomba'] = $query->lomba;
             }
         }
         echo json_encode($data);
