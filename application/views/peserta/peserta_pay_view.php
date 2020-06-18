@@ -78,12 +78,14 @@
                                 <th class="all">Nama</th>
                                 <th>Kelompok</th>
                                 <th>Pilihan Lomba</th>
+                                <th>Tanggal upload</th>
                                 <th class="all">Status</th>
                                 <th class="all">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
+                                <td> </td>
                                 <td> </td>
                                 <td> </td>
                                 <td> </td>
@@ -421,6 +423,10 @@
                     "bSearchable": false,
                     "bSortable": false,
                     "sWidth": "100px"
+                },
+                {
+                    "bSearchable": false,
+                    "bSortable": false
                 },
                 {
                     "bSearchable": false,

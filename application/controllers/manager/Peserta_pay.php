@@ -18,6 +18,7 @@ class Peserta_pay extends Member_Controller
 		$this->load->library('Send_email');
 
 		parent::cek_akses($this->kode_menu);
+		setlocale(LC_ALL, 'id-ID', 'id_ID');
 	}
 
 	public function index()
@@ -211,6 +212,7 @@ class Peserta_pay extends Member_Controller
 
 			$record[] = $query_group->grup_nama;
 			$record[] = $temp->lomba == 'all' ? "Matematika & Sains" : ucfirst($temp->lomba);
+			$record[] = strftime("%A, %d %B %Y", strtotime($temp->date_pay));
 
 			if ($temp->status == 'wait') {
 				$record[] = '<div class="badge">MENUNGGU KONFIRMASI</div>';
@@ -220,6 +222,7 @@ class Peserta_pay extends Member_Controller
 			} else {
 				$record[] = '<div class="badge badge-danger">DITOLAK</div>';
 			}
+
 
 			$record[] = '<button onclick="showDoc(\'' . $temp->id . '\')" style="cursor: pointer;" class="btn btn-default btn-xs">Lihat Dokumen</button>';
 
