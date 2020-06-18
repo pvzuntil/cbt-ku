@@ -56,9 +56,11 @@
 					</div>
 					<div class="row">
 
+						<div class="col-xs-12" style="margin-bottom: 10px; display: flex; justify-content: center;">
+							<div id="gchap"></div>
+						</div>
 						<div class="col-xs-12" style="margin-bottom: 10px">
 							<button type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
-
 						</div><!-- /.col -->
 
 						<div class="col-xs-12">
@@ -156,6 +158,11 @@
 											</div>
 										</div>
 									</div>
+									<div class="row">
+										<div class="col-xs-12" style="margin-bottom: 10px; display: flex; justify-content: flex-start;">
+											<div id="gchap2"></div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -201,6 +208,18 @@
 </div><!-- /.container -->
 
 <script type="text/javascript">
+	let gchap, gchap2;
+	var onloadCallback = function() {
+		gchap =
+			grecaptcha.render('gchap', {
+				'sitekey': '6LfwH6YZAAAAAKJDW9B51NeACPfGXewFNtyFmlSR',
+			});
+		gchap2 =
+			grecaptcha.render('gchap2', {
+				'sitekey': '6LfwH6YZAAAAAKJDW9B51NeACPfGXewFNtyFmlSR',
+			});
+	};
+
 	function showpassword() {
 		var x = document.getElementById("password");
 		if (x.type === "password") {
@@ -223,6 +242,16 @@
 		});
 
 		$('#form-login').submit(function() {
+			if (grecaptcha.getResponse(gchap) == '' || grecaptcha.getResponse(gchap) == null) {
+				Swal.fire({
+					toast: true,
+					timer: 2000,
+					showConfirmButton: false,
+					title: 'Captcha harus diisi.',
+					icon: 'warning'
+				})
+				return false;
+			}
 			$("#modal-proses").modal('show');
 			$.ajax({
 				url: "<?php echo site_url(); ?>/welcome/login",
@@ -250,6 +279,16 @@
 	})
 
 	$('#form-tambah').submit(function() {
+		if (grecaptcha.getResponse(gchap2) == '' || grecaptcha.getResponse(gchap2) == null) {
+			Swal.fire({
+				toast: true,
+				timer: 2000,
+				showConfirmButton: false,
+				title: 'Captcha harus diisi.',
+				icon: 'warning'
+			})
+			return false;
+		}
 		$("#modal-proses").modal('show');
 
 		let check1 = $('#customCheck1').is(':checked')

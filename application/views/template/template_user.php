@@ -52,6 +52,10 @@
 
   <script src="<?php echo base_url(); ?>public/plugins/swal/swal.js" type="text/javascript"></script>
 
+  <!-- <script src="https://www.google.com/recaptcha/api.js?render=6LcIHqYZAAAAAAjrpAdAIn2iqNyPNFsj8Tdcg4iY"></script> -->
+  <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+
+
   <?php if (@$url == 'welcome') : ?>
     <style>
       .swal2-popup {
