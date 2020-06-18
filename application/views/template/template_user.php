@@ -71,6 +71,24 @@
       .shadow-box {
         box-shadow: 6px 6px 10px 0px #00000070;
       }
+
+      .counter {
+        margin-bottom: 0px;
+      }
+
+      .counter li {
+        display: inline-block;
+        /* font-size: 1.5em; */
+        list-style-type: none;
+        padding: 0 .6em;
+        text-transform: uppercase;
+        text-align: center;
+      }
+
+      .counter li span {
+        display: block;
+        /* font-size: 4.5rem; */
+      }
     </style>
   <?php endif ?>
 
@@ -139,7 +157,21 @@
         </div>
       <?php endif ?>
       <div class="container">
-        <strong>&copy; 2020 QEC - Quantum Education Competition</strong>
+        <div class="row" style="display: flex; align-items: center;">
+          <div class="col-sm-6">
+            <strong>&copy; 2020 QEC - Quantum Education Competition</strong>
+          </div>
+          <div class="col-sm-6">
+            <div class="pull-right">
+              <ul class="counter">
+                <li><span id="days"></span>hari</li>
+                <li><span id="hours"></span>jam</li>
+                <li><span id="minutes"></span>menit</li>
+                <li><span id="seconds"></span>detik</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div><!-- /.container -->
     </footer>
   </div><!-- ./wrapper -->
@@ -173,6 +205,30 @@
         time = date.toLocaleTimeString();
         $("#timestamp").html(time);
       }, 1000);
+
+      const second = 1000,
+        minute = second * 60,
+        hour = minute * 60,
+        day = hour * 24;
+
+      let countDown = new Date('7 7 2020').getTime(),
+        x = setInterval(function() {
+
+          let now = new Date().getTime(),
+            distance = countDown - now;
+
+          document.getElementById('days').innerText = Math.floor(distance / (day)),
+            document.getElementById('hours').innerText = Math.floor((distance % (day)) / (hour)),
+            document.getElementById('minutes').innerText = Math.floor((distance % (hour)) / (minute)),
+            document.getElementById('seconds').innerText = Math.floor((distance % (minute)) / second);
+
+          //do something later when date is reached
+          //if (distance < 0) {
+          //  clearInterval(x);
+          //  'IT'S MY BIRTHDAY!;
+          //}
+
+        }, second)
     });
   </script>
 </body>
