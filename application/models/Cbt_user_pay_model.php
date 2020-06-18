@@ -237,4 +237,13 @@ class Cbt_user_pay_model extends CI_Model
 
         return $this->db->get();
     }
+
+    function countDashboard($column, $args = null)
+    {
+        $data = $this->db->select('COUNT(' . $column . ') as hasil')->from($this->table);
+        if ($args != null) {
+            $data->where($args[0], $args[1]);
+        }
+        return $this->db->get()->row()->hasil;
+    }
 }

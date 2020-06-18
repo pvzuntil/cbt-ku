@@ -10,6 +10,10 @@ class Dashboard extends Member_Controller
     public function index()
     {
         $this->load->helper('form');
+        $this->load->model('cbt_user_model');
+        $this->load->model('cbt_user_pay_model');
+        $this->load->model('cbt_tes_model');
+
         $data['nama'] = $this->access->get_nama();
 
         $data['post_max_size'] = ini_get('post_max_size');
@@ -29,6 +33,13 @@ class Dashboard extends Member_Controller
             $data['dir_uploads'] = 'Writeable';
         }
 
+        $data['countPeserta'] = $this->cbt_user_model->countDashboard('user_id');
+        $data['countPesertaAktif'] = $this->cbt_user_model->countDashboard('user_id', ['active', 1]);
+        $data['countPesertaPayIsPay'] = $this->cbt_user_pay_model->countDashboard('id', ['status', 'allow']);
+        $data['countPesertaPayIsNope'] = $data['countPesertaAktif'] - $data['countPesertaPayIsPay'];
+        $data['countTes'] = $this->cbt_tes_model->countDashboard('tes_id');
+        // var_dump($countTes);
+        // die();
         $this->template->display_admin('manager/dashboard_view', 'Dashboard', $data);
     }
 

@@ -18,6 +18,54 @@
         <h4>Informasi</h4>
         <p>Ini adalah area administratif, yang memiliki platform dan bahasa user-friendly untuk membuat, mengelola dan melaksanakan ujian online.</p>
     </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="info-box bg-aqua">
+                <span class="info-box-icon"><i class="fa fa-users"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Peserta terdaftar</span>
+                    <span class="info-box-number"><?= $countPeserta ?></span>
+                    <!-- The progress section is optional -->
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 70%"></div>
+                    </div>
+                    <span class="progress-description">
+                        <div class="badge bg-green">AKTIF : <?= $countPesertaAktif ?></div>
+                        <div class="badge bg-red">BELUM AKTIF : <?= $countPeserta - $countPesertaAktif ?></div>
+                    </span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div>
+
+        <div class="col-sm-4">
+            <div class="info-box bg-green">
+                <span class="info-box-icon"><i class="fa fa-money"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Peserta membayar</span>
+                    <span class="info-box-number"><?= $countPesertaPayIsPay ?></span>
+                    <!-- The progress section is optional -->
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 70%"></div>
+                    </div>
+                    <span class="progress-description">
+                        <div class="badge bg-red">BELUM MEMBAYAR : <?= $countPesertaPayIsNope ?> Peserta</div>
+                    </span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div>
+
+        <div class="col-sm-4">
+            <div class="info-box bg-aqua">
+                <span class="info-box-icon"><i class="fa fa-users"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Jumlah tes</span>
+                    <span class="info-box-number"><?= $countTes ?></span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div>
+    </div>
+
     <div class="box box-warning box-solid">
         <div class="box-header with-border">
             <div class="box-title">Konfigurasi System</div>

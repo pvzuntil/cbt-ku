@@ -252,4 +252,13 @@ class Cbt_user_model extends CI_Model
             ->join('cbt_user_pay', 'cbt_user.user_id = cbt_user_pay.cbt_user_id', 'left');
         return  $this->db->get();
     }
+
+    function countDashboard($column, $args = null)
+    {
+        $data = $this->db->select('COUNT(' . $column . ') as hasil')->from($this->table);
+        if ($args != null) {
+            $data->where($args[0], $args[1]);
+        }
+        return $this->db->get()->row()->hasil;
+    }
 }
