@@ -5,12 +5,11 @@
             <h1>
                 <?php if (!empty($nama)) {
                     echo $nama;
-                }
-                if (!empty($group)) {
-                    echo ' | ' . $group;
                 } ?>
-                <small></small>
             </h1>
+            <div class="badge">Kelas <?= $kelas ?></div>
+            <div class="badge">Lomba : <?= $lomba == 'all' ? 'Matematika & Sains' : ucfirst($lomba) ?></div>
+            <div class="badge"><?= explode('-', $group)[0] ?></div>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                 <li class="active">dashboard</li>
@@ -229,7 +228,13 @@
                         $("#modal-proses").modal('hide');
                         $("#modal-optional").modal('hide');
                         $("#modal-optional").remove();
-                        notify_success(obj.error);
+                        Swal.fire({
+                            title: 'Berhasil !',
+                            text: obj.error,
+                            icon: 'success'
+                        }).then(() => {
+                            window.location.reload()
+                        })
                     } else {
                         $("#modal-proses").modal('hide');
                         $('#form-pesan-optional').html(pesan_err(obj.error));

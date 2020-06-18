@@ -1,185 +1,186 @@
 <div class="container">
+    <div class="box" style="margin-top: 20px;">
+        <style>
+            .blink_text {
 
-    <style>
-        .blink_text {
-
-            animation: 1s blinker linear infinite;
-            -webkit-animation: 1s blinker linear infinite;
-            -moz-animation: 1s blinker linear infinite;
-        }
-
-        @-moz-keyframes blinker {
-            0% {
-                opacity: 1.0;
+                animation: 1s blinker linear infinite;
+                -webkit-animation: 1s blinker linear infinite;
+                -moz-animation: 1s blinker linear infinite;
             }
 
-            50% {
-                opacity: 0.0;
+            @-moz-keyframes blinker {
+                0% {
+                    opacity: 1.0;
+                }
+
+                50% {
+                    opacity: 0.0;
+                }
+
+                100% {
+                    opacity: 1.0;
+                }
             }
 
-            100% {
-                opacity: 1.0;
-            }
-        }
+            @-webkit-keyframes blinker {
+                0% {
+                    opacity: 1.0;
+                }
 
-        @-webkit-keyframes blinker {
-            0% {
-                opacity: 1.0;
-            }
+                50% {
+                    opacity: 0.0;
+                }
 
-            50% {
-                opacity: 0.0;
-            }
-
-            100% {
-                opacity: 1.0;
-            }
-        }
-
-        @keyframes blinker {
-            0% {
-                opacity: 1.0;
+                100% {
+                    opacity: 1.0;
+                }
             }
 
-            50% {
-                opacity: 0.0;
-            }
+            @keyframes blinker {
+                0% {
+                    opacity: 1.0;
+                }
 
-            100% {
-                opacity: 1.0;
-            }
-        }
-    </style>
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <h1>
-            Tes : <?php if (!empty($tes_name)) {
-                        echo $tes_name;
-                    } ?>
-        </h1>
-        <div class="breadcrumb">
-            <img src="<?php echo base_url(); ?>public/images/zoom.png" style="cursor: pointer;" height="20" onclick="zoomnormal()" title="Klik ukuran font normal" />&nbsp;&nbsp;
-            <img src="<?php echo base_url(); ?>public/images/zoom.png" style="cursor: pointer;" height="26" onclick="zoombesar()" title="Klik ukuran font lebih besar" />
-        </div>
-    </section>
+                50% {
+                    opacity: 0.0;
+                }
 
-    <!-- Main content -->
-    <section class="content">
-        <div class="row">
-            <?php echo form_open('tes_kerjakan/simpan_jawaban', 'id="form-kerjakan"') ?>
-            <input type="hidden" name="tes-id" id="tes-id" value="<?php if (!empty($tes_id)) {
-                                                                        echo $tes_id;
-                                                                    } ?>">
-            <input type="hidden" name="tes-user-id" id="tes-user-id" value="<?php if (!empty($tes_user_id)) {
-                                                                                echo $tes_user_id;
-                                                                            } ?>">
-            <input type="hidden" name="tes-soal-id" id="tes-soal-id" value="<?php if (!empty($tes_soal_id)) {
-                                                                                echo $tes_soal_id;
-                                                                            } ?>">
-            <input type="hidden" name="tes-soal-nomor" id="tes-soal-nomor" value="<?php if (!empty($tes_soal_nomor)) {
-                                                                                        echo $tes_soal_nomor;
-                                                                                    } ?>">
-            <input type="hidden" name="tes-soal-jml" id="tes-soal-jml" value="<?php if (!empty($tes_soal_jml)) {
-                                                                                    echo $tes_soal_jml;
-                                                                                } ?>">
-            <input type="hidden" name="tes-soal-ragu" id="tes-soal-ragu" value="<?php if (!empty($tes_ragu)) {
-                                                                                    echo $tes_ragu;
-                                                                                } ?>">
-            <div class="box box-success box-solid">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Soal <span id="judul-soal"><?php if (!empty($tes_soal_nomor)) {
-                                                                            echo 'ke ' . $tes_soal_nomor;
-                                                                        } ?></span></h3>
-                    <div class="box-tools pull-right">
-                        <div class="pull-right">
-                            <div id="sisa-waktu" class="blink_text"></div>
-                        </div>
-                    </div>
-                </div><!-- /.box-header -->
-                <div class="box-body">
-                    <div id="isi-tes-soal" style="font-size: 15px;">
-                        <?php if (!empty($tes_soal)) {
-                            echo $tes_soal;
+                100% {
+                    opacity: 1.0;
+                }
+            }
+        </style>
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Tes : <?php if (!empty($tes_name)) {
+                            echo $tes_name;
                         } ?>
+            </h1>
+            <div class="breadcrumb">
+                <img src="<?php echo base_url(); ?>public/images/zoom.png" style="cursor: pointer;" height="20" onclick="zoomnormal()" title="Klik ukuran font normal" />&nbsp;&nbsp;
+                <img src="<?php echo base_url(); ?>public/images/zoom.png" style="cursor: pointer;" height="26" onclick="zoombesar()" title="Klik ukuran font lebih besar" />
+            </div>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row" style="padding: 0px 15px;">
+                <?php echo form_open('tes_kerjakan/simpan_jawaban', 'id="form-kerjakan"') ?>
+                <input type="hidden" name="tes-id" id="tes-id" value="<?php if (!empty($tes_id)) {
+                                                                            echo $tes_id;
+                                                                        } ?>">
+                <input type="hidden" name="tes-user-id" id="tes-user-id" value="<?php if (!empty($tes_user_id)) {
+                                                                                    echo $tes_user_id;
+                                                                                } ?>">
+                <input type="hidden" name="tes-soal-id" id="tes-soal-id" value="<?php if (!empty($tes_soal_id)) {
+                                                                                    echo $tes_soal_id;
+                                                                                } ?>">
+                <input type="hidden" name="tes-soal-nomor" id="tes-soal-nomor" value="<?php if (!empty($tes_soal_nomor)) {
+                                                                                            echo $tes_soal_nomor;
+                                                                                        } ?>">
+                <input type="hidden" name="tes-soal-jml" id="tes-soal-jml" value="<?php if (!empty($tes_soal_jml)) {
+                                                                                        echo $tes_soal_jml;
+                                                                                    } ?>">
+                <input type="hidden" name="tes-soal-ragu" id="tes-soal-ragu" value="<?php if (!empty($tes_ragu)) {
+                                                                                        echo $tes_ragu;
+                                                                                    } ?>">
+                <div class="box box-success box-solid">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Soal <span id="judul-soal"><?php if (!empty($tes_soal_nomor)) {
+                                                                                echo 'ke ' . $tes_soal_nomor;
+                                                                            } ?></span></h3>
+                        <div class="box-tools pull-right">
+                            <div class="pull-right">
+                                <div id="sisa-waktu" class="blink_text"></div>
+                            </div>
+                        </div>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div id="isi-tes-soal" style="font-size: 15px;">
+                            <?php if (!empty($tes_soal)) {
+                                echo $tes_soal;
+                            } ?>
+                        </div>
+                    </div><!-- /.box-body -->
+                    <div class="box-footer">
+                        <button type="button" class="btn btn-default hide" id="btn-sebelumnya">Soal Sebelumnya</button>&nbsp;&nbsp;&nbsp;
+                        <div class="btn btn-warning" id="btn-ragu" onclick="ragu()">
+                            <input type="checkbox" style="width:10px;height:10px;" name="btn-ragu-checkbox" id="btn-ragu-checkbox" <?php if (!empty($tes_ragu)) {
+                                                                                                                                        echo "checked";
+                                                                                                                                    } ?> /> Ragu-ragu
+                        </div>&nbsp;&nbsp;&nbsp;
+                        <button type="button" class="btn btn-default" id="btn-selanjutnya">Soal Selanjutnya</button>
                     </div>
-                </div><!-- /.box-body -->
-                <div class="box-footer">
-                    <button type="button" class="btn btn-default hide" id="btn-sebelumnya">Soal Sebelumnya</button>&nbsp;&nbsp;&nbsp;
-                    <div class="btn btn-warning" id="btn-ragu" onclick="ragu()">
-                        <input type="checkbox" style="width:10px;height:10px;" name="btn-ragu-checkbox" id="btn-ragu-checkbox" <?php if (!empty($tes_ragu)) {
-                                                                                                                                    echo "checked";
-                                                                                                                                } ?> /> Ragu-ragu
-                    </div>&nbsp;&nbsp;&nbsp;
-                    <button type="button" class="btn btn-default" id="btn-selanjutnya">Soal Selanjutnya</button>
-                </div>
-            </div><!-- /.box -->
-            </form>
-        </div>
-        <div class="row">
-            <div class="box box-success box-solid">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Daftar Soal</h3>
-                </div><!-- /.box-header -->
-                <div class="box-body">
-                    <?php if (!empty($tes_daftar_soal)) {
-                        echo $tes_daftar_soal;
-                    } ?>
-                    <p class="help-block">Soal yang sudah dijawab akan berwarna Biru.</p>
-                </div><!-- /.box-body -->
-                <div class="box-footer">
-                    <button class="btn btn-default pull-right" id="btn-hentikan">Selesai mengerjakan</button>
-                </div>
-            </div><!-- /.box -->
-        </div>
-    </section><!-- /.content -->
+                </div><!-- /.box -->
+                </form>
+            </div>
+            <div class="row" style="padding: 0px 15px;">
+                <div class="box box-success box-solid">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Daftar Soal</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <?php if (!empty($tes_daftar_soal)) {
+                            echo $tes_daftar_soal;
+                        } ?>
+                        <p class="help-block">Soal yang sudah dijawab akan berwarna Biru.</p>
+                    </div><!-- /.box-body -->
+                    <div class="box-footer">
+                        <button class="btn btn-default pull-right" id="btn-hentikan">Selesai mengerjakan</button>
+                    </div>
+                </div><!-- /.box -->
+            </div>
+        </section><!-- /.content -->
 
-    <div class="modal" style="max-height: 100%;overflow-y: auto;" id="modal-hentikan" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-        <?php echo form_open($url . '/hentikan_tes', 'id="form-hentikan"'); ?>
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="close" type="button" data-dismiss="modal">&times;</button>
-                    <div id="trx-judul">Konfirmasi Selesai mengerjakan</div>
-                </div>
-                <div class="modal-body">
-                    <div class="row-fluid">
-                        <div class="box-body">
-                            <div id="form-pesan"></div>
-                            <div class="callout callout-info">
-                                <p>Apakah anda yakin selesai mengerjakan ?
-                                    <br />Jawaban yang sudah selesai tidak dapat diubah.
-                                </p>
+        <div class="modal" style="max-height: 100%;overflow-y: auto;" id="modal-hentikan" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+            <?php echo form_open($url . '/hentikan_tes', 'id="form-hentikan"'); ?>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" type="button" data-dismiss="modal">&times;</button>
+                        <div id="trx-judul">Konfirmasi Selesai mengerjakan</div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row-fluid">
+                            <div class="box-body">
+                                <div id="form-pesan"></div>
+                                <div class="callout callout-info">
+                                    <p>Apakah anda yakin selesai mengerjakan ?
+                                        <br />Jawaban yang sudah selesai tidak dapat diubah.
+                                    </p>
 
-                            </div>
-                            <div class="form-group">
-                                <label>Nama Tes</label>
-                                <input type="hidden" name="hentikan-tes-id" id="hentikan-tes-id">
-                                <input type="hidden" name="hentikan-tes-user-id" id="hentikan-tes-user-id">
-                                <input type="text" class="form-control" id="hentikan-tes-nama" name="hentikan-tes-nama" readonly>
-                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nama Tes</label>
+                                    <input type="hidden" name="hentikan-tes-id" id="hentikan-tes-id">
+                                    <input type="hidden" name="hentikan-tes-user-id" id="hentikan-tes-user-id">
+                                    <input type="text" class="form-control" id="hentikan-tes-nama" name="hentikan-tes-nama" readonly>
+                                </div>
 
-                            <div class="form-group">
-                                <label>Keterangan Soal</label>
-                                <input type="text" class="form-control" id="hentikan-dijawab" name="hentikan-dijawab" readonly>
-                            </div>
-                            <div class="form-group">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" id="hentikan-centang" name="hentikan-centang" value="1"> Centang dan klik tombol Selesai mengerjakan.
-                                    </label>
+                                <div class="form-group">
+                                    <label>Keterangan Soal</label>
+                                    <input type="text" class="form-control" id="hentikan-dijawab" name="hentikan-dijawab" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" id="hentikan-centang" name="hentikan-centang" value="1"> Centang dan klik tombol Selesai mengerjakan.
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="box-footer">
-                    <button type="submit" id="tambah-simpan" class="btn btn-primary">Selesai mengerjakan</button>
-                    <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
+                    <div class="box-footer">
+                        <button type="submit" id="tambah-simpan" class="btn btn-primary">Selesai mengerjakan</button>
+                        <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        </form>
+            </form>
+        </div>
     </div>
 </div><!-- /.container -->
 

@@ -107,6 +107,19 @@ class Tes_kerjakan extends Tes_Controller
                     $this->template->display_tes($this->kelompok . '/tes_kerjakan_view', 'Kerjakan Tes', $data);
                 }
             } else {
+                if ($query_tes->end_time == '' || $query_tes->end_time == null) {
+                    $datenow = date('Y-m-d H:i:s');
+                    $data_tes['end_time'] = $datenow;
+
+                    $mulai = new DateTime($query_tes->tesuser_creation_time);
+                    $selesai = new DateTime($datenow);
+
+                    $intervalDate  = $selesai->diff($mulai);
+
+                    $data_tes['time_span'] = $intervalDate->i . "," . $intervalDate->s;
+
+                    $this->cbt_tes_user_model->update('tesuser_id', $query_tes->tesuser_id, $data_tes);
+                }
                 redirect('tes_dashboard');
             }
         } else {

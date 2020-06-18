@@ -59,6 +59,8 @@ class Tes_dashboard extends Tes_Controller
 		$currentUser = $this->cbt_user_model->get_by_kolom_limit('user_email', $username, 1)->row();
 		$user_id = $currentUser->user_id;
 		$query_tes = $this->cbt_tes_user_model->get_by_user_status($user_id);
+		$data['kelas'] = $currentUser->kelas;
+		$data['lomba'] = $currentUser->lomba;
 
 		$parseCurrentUser = json_decode(json_encode($currentUser), true);
 
