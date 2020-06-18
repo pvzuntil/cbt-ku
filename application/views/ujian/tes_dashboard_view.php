@@ -7,9 +7,10 @@
                     echo $nama;
                 } ?>
             </h1>
-            <div class="badge">Kelas <?= $kelas ?></div>
-            <div class="badge">Lomba : <?= $lomba == 'all' ? 'Matematika & Sains' : ucfirst($lomba) ?></div>
+            <div class="badge">Kelas <?= $currentUser->kelas ?></div>
+            <div class="badge">Lomba : <?= $currentUser->lomba == 'all' ? 'Matematika & Sains' : ucfirst($currentUser->lomba) ?></div>
             <div class="badge"><?= explode('-', $group)[0] ?></div>
+            <!-- <div class="btn btn-link btn-xs">Lihat profil</div> -->
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                 <li class="active">dashboard</li>
@@ -106,6 +107,65 @@
         </section><!-- /.content -->
     </div>
 </div><!-- /.container -->
+
+
+<div style="max-height: 100%;overflow-y:auto;" class="modal" id="modal-profile" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">&times;</button>
+                <div id="trx-judul">Profil</div>
+            </div>
+            <div class="modal-body">
+                <div class="row-fluid">
+                    <div class="box-body">
+                        <div id="form-pesan"></div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" class="form-control" placeholder="Email Peserta" value="<?= $currentUser->user_email ?>" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Nama Lengkap</label>
+                            <input type="text" class="form-control" placeholder="Nama Lengkap Peserta" value="<?= $currentUser->user_firstname ?>" readonly>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-xs-12 col-md-6">
+                                <label>Asal Sekolah</label>
+                                <input type="text" class="form-control" placeholder="Asal Sekolah" value="<?= $currentUser->user_detail ?>" readonly>
+                            </div>
+
+                            <div class="form-group col-xs-12 col-md-6">
+                                <label>Kelas</label>
+                                <input type="text" class="form-control" placeholder="Kelas" value="<?= $currentUser->kelas ?>" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Nomer Telepon (WhatsApp)</label>
+                            <input type="text" class="form-control" placeholder="Nomer Telepon" value="<?= $currentUser->telepon ?>" readonly>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label>Pilihan Lomba</label>
+                                <input type="text" class="form-control" placeholder="Lomba" value="<?= $currentUser->lomba == 'all'  ? 'Matematika & Sains' : ucfirst($currentUser->lomba) ?>" readonly>
+                            </div>
+
+                            <div class="form-group col-sm-6">
+                                <label>Level</label>
+                                <input type="text" class="form-control" placeholder="Level" value="<?= $group ?>" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php if (count($willCheck) > 0) : ?>
     <div style="max-height: 100%;overflow-y:auto; display: block;" class="modal" id="modal-optional" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">

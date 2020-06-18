@@ -185,6 +185,7 @@
                   <!-- Menu Footer-->
                   <li class="user-footer">
                     <div class="pull-left">
+                      <a data-toggle="modal" href="#modal-profile" class="btn btn-default btn-flat">Profile</a>
                       <a data-toggle="modal" href="#modal-password" class="btn btn-default btn-flat">Password</a>
                     </div>
                     <div class="pull-right">
