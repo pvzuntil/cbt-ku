@@ -55,13 +55,13 @@
   <!-- <script src="https://www.google.com/recaptcha/api.js?render=6LcIHqYZAAAAAAjrpAdAIn2iqNyPNFsj8Tdcg4iY"></script> -->
   <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
 
-
+  <style>
+    .swal2-popup {
+      font-size: 1.6rem !important;
+    }
+  </style>
   <?php if (@$url == 'welcome') : ?>
     <style>
-      .swal2-popup {
-        font-size: 1.6rem !important;
-      }
-
       .back-body {
         background-image: url('<?php echo base_url(); ?>public/images/back.jpg');
         background-position: center;
@@ -161,16 +161,18 @@
           <div class="col-sm-6">
             <strong>&copy; 2020 QEC - Quantum Education Competition</strong>
           </div>
-          <div class="col-sm-6">
-            <div class="pull-right">
-              <ul class="counter">
-                <li><span id="days"></span>hari</li>
-                <li><span id="hours"></span>jam</li>
-                <li><span id="minutes"></span>menit</li>
-                <li><span id="seconds"></span>detik</li>
-              </ul>
+          <?php if (@$url == 'welcome') : ?>
+            <div class="col-sm-6">
+              <div class="pull-right">
+                <ul class="counter">
+                  <li><span id="days"></span>hari</li>
+                  <li><span id="hours"></span>jam</li>
+                  <li><span id="minutes"></span>menit</li>
+                  <li><span id="seconds"></span>detik</li>
+                </ul>
+              </div>
             </div>
-          </div>
+          <?php endif ?>
         </div>
       </div><!-- /.container -->
     </footer>
@@ -192,43 +194,47 @@
     $(function() {
       var serverTime = <?php if (!empty($timestamp)) {
                           echo $timestamp;
+                        } else {
+                          echo 0;
                         } ?>;
       var counterTime = 0;
       var date;
 
-      setInterval(function() {
-        date = new Date();
+      if (serverTime != 0) {
+        setInterval(function() {
+          date = new Date();
+          serverTime = serverTime + 1;
+          date.setTime(serverTime * 1000);
+          time = date.toLocaleTimeString();
+          $("#timestamp").html(time);
+        }, 1000);
+      }
+      <?php if (@$url == 'welcome') : ?>
+        const second = 1000,
+          minute = second * 60,
+          hour = minute * 60,
+          day = hour * 24;
 
-        serverTime = serverTime + 1;
+        let countDown = new Date('7 4 2020').getTime(),
+          x = setInterval(function() {
 
-        date.setTime(serverTime * 1000);
-        time = date.toLocaleTimeString();
-        $("#timestamp").html(time);
-      }, 1000);
+            let now = new Date().getTime(),
+              distance = countDown - now;
 
-      const second = 1000,
-        minute = second * 60,
-        hour = minute * 60,
-        day = hour * 24;
+            document.getElementById('days').innerText = Math.floor(distance / (day)),
+              document.getElementById('hours').innerText = Math.floor((distance % (day)) / (hour)),
+              document.getElementById('minutes').innerText = Math.floor((distance % (hour)) / (minute)),
+              document.getElementById('seconds').innerText = Math.floor((distance % (minute)) / second);
 
-      let countDown = new Date('7 7 2020').getTime(),
-        x = setInterval(function() {
+            //do something later when date is reached
+            //if (distance < 0) {
+            //  clearInterval(x);
+            //  'IT'S MY BIRTHDAY!;
+            //}
 
-          let now = new Date().getTime(),
-            distance = countDown - now;
+          }, second)
+      <?php endif ?>
 
-          document.getElementById('days').innerText = Math.floor(distance / (day)),
-            document.getElementById('hours').innerText = Math.floor((distance % (day)) / (hour)),
-            document.getElementById('minutes').innerText = Math.floor((distance % (hour)) / (minute)),
-            document.getElementById('seconds').innerText = Math.floor((distance % (minute)) / second);
-
-          //do something later when date is reached
-          //if (distance < 0) {
-          //  clearInterval(x);
-          //  'IT'S MY BIRTHDAY!;
-          //}
-
-        }, second)
     });
   </script>
 </body>
