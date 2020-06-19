@@ -46,6 +46,12 @@
                                 <input type="password" class="form-control" id="password" name="password" placeholder="Password" />
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-8" style="margin-bottom: 10px; display: flex; justify-content: flex-start;">
+                                <div id="gchap"></div>
+                            </div>
+                        </div>
                     </div><!-- /.box-body -->
                     <div class="box-footer">
                         <button type="submit" id="btn-login" class="btn btn-info pull-right">Login</button>
@@ -68,7 +74,15 @@
 </div><!-- /.modal -->
 
 <script type="text/javascript">
+    let gchap;
+    var onloadCallback = function() {
+        gchap =
+            grecaptcha.render('gchap', {
+                'sitekey': '6LfwH6YZAAAAAKJDW9B51NeACPfGXewFNtyFmlSR',
+            });
+    };
     $(function() {
+
         $('#username').focus();
 
         $('#btn-login').click(function() {
@@ -76,6 +90,16 @@
         });
 
         $('#form-login').submit(function() {
+            if (grecaptcha.getResponse(gchap) == '' || grecaptcha.getResponse(gchap) == null) {
+                Swal.fire({
+                    toast: true,
+                    timer: 2000,
+                    showConfirmButton: false,
+                    title: 'Captcha harus diisi.',
+                    icon: 'warning'
+                })
+                return false;
+            }
             $("#modal-proses").modal('show');
             $.ajax({
                 url: "<?php echo site_url(); ?>/manager/welcome/login",
