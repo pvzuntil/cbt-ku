@@ -74,10 +74,11 @@
 
       .counter {
         margin-bottom: 0px;
+        display: flex;
       }
 
       .counter li {
-        display: inline-block;
+        /* display: inline-block; */
         /* font-size: 1.5em; */
         list-style-type: none;
         padding: 0 .6em;
@@ -86,8 +87,9 @@
       }
 
       .counter li span {
-        display: block;
+        /* display: block; */
         /* font-size: 4.5rem; */
+        margin-right: 3px;
       }
     </style>
   <?php endif ?>
@@ -105,10 +107,44 @@
     gtag('config', 'UA-104089728-1');
   </script>
 
+  <style>
+    .flyover {
+      display: flex;
+      width: 100%;
+      position: fixed;
+      background-color: #fcc604;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 10px 100px;
+    }
+
+    .close-button-flyover {
+      position: absolute;
+      right: 20px;
+    }
+  </style>
+
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
 
 <body class="skin-yellow layout-top-nav">
+  <?php if (@$url == 'welcome') : ?>
+    <!-- <div class="flyover">
+      <button type="button" class="close close-button-flyover">×</button>
+      <ul class="counter">
+        <li><span id="days"></span>hari</li>
+        <li><span id="hours"></span>jam</li>
+        <li><span id="minutes"></span>menit</li>
+        <li><span id="seconds"></span>detik</li>
+      </ul>
+      <div>Menuju pelaksanaan kompetisi Matematika & Sains Online</div>
+    </div> -->
+  <?php endif ?>
+
   <div class="wrapper">
 
     <?php if (@$url != 'welcome') : ?>
@@ -157,22 +193,10 @@
         </div>
       <?php endif ?>
       <div class="container">
-        <div class="row" style="display: flex; align-items: center;">
-          <div class="col-sm-6">
+        <div class="row">
+          <div class="col-md-6">
             <strong>&copy; 2020 QEC - Quantum Education Competition</strong>
           </div>
-          <?php if (@$url == 'welcome') : ?>
-            <div class="col-sm-6">
-              <div class="pull-right">
-                <ul class="counter">
-                  <li><span id="days"></span>hari</li>
-                  <li><span id="hours"></span>jam</li>
-                  <li><span id="minutes"></span>menit</li>
-                  <li><span id="seconds"></span>detik</li>
-                </ul>
-              </div>
-            </div>
-          <?php endif ?>
         </div>
       </div><!-- /.container -->
     </footer>
@@ -210,29 +234,22 @@
         }, 1000);
       }
       <?php if (@$url == 'welcome') : ?>
-        const second = 1000,
-          minute = second * 60,
-          hour = minute * 60,
-          day = hour * 24;
+        // const second = 1000,
+        //   minute = second * 60,
+        //   hour = minute * 60,
+        //   day = hour * 24;
 
-        let countDown = new Date('7 4 2020').getTime(),
-          x = setInterval(function() {
+        // let countDown = new Date('7 4 2020').getTime(),
+        //   x = setInterval(function() {
 
-            let now = new Date().getTime(),
-              distance = countDown - now;
+        //     let now = new Date().getTime(),
+        //       distance = countDown - now;
 
-            document.getElementById('days').innerText = Math.floor(distance / (day)),
-              document.getElementById('hours').innerText = Math.floor((distance % (day)) / (hour)),
-              document.getElementById('minutes').innerText = Math.floor((distance % (hour)) / (minute)),
-              document.getElementById('seconds').innerText = Math.floor((distance % (minute)) / second);
-
-            //do something later when date is reached
-            //if (distance < 0) {
-            //  clearInterval(x);
-            //  'IT'S MY BIRTHDAY!;
-            //}
-
-          }, second)
+        //     document.getElementById('days').innerText = Math.floor(distance / (day)),
+        //       document.getElementById('hours').innerText = Math.floor((distance % (day)) / (hour)),
+        //       document.getElementById('minutes').innerText = Math.floor((distance % (hour)) / (minute)),
+        //       document.getElementById('seconds').innerText = Math.floor((distance % (minute)) / second);
+        //   }, second)
       <?php endif ?>
 
     });
