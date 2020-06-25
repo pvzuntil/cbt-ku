@@ -437,12 +437,13 @@ class Tes_dashboard extends Tes_Controller
 		$start = 0;
 		$rows = 499;
 
-		$group = $this->access_tes->get_group();
-		$grup_id = $this->cbt_user_grup_model->get_by_kolom_limit('grup_nama', $group, 1)->row()->grup_id;
 		$username = $this->access_tes->get_username();
 		$currentUser = $this->cbt_user_model->get_by_kolom_limit('user_email', $username, 1)->row();
 		$user_id = $currentUser->user_id;
 		$mataLomba = $currentUser->lomba;
+		$group = $this->access_tes->get_group();
+		// $grup_id = $this->cbt_user_grup_model->get_by_kolom_limit('grup_nama', $group, 1)->row()->grup_id;
+		$grup_id = $currentUser->user_grup_id;
 
 		// get search value (if any)
 		if (isset($_GET['sSearch']) && $_GET['sSearch'] != "") {
