@@ -507,7 +507,8 @@ class Tes_dashboard extends Tes_Controller
 					} else {
 						$timeSpan = $temp->time_span ?? false;
 						if ($timeSpan == false) {
-							$record[] = 'Waktu habis';
+							// $record[] = 'Waktu habis';
+							$record[] = '(' . $temp->tes_duration_time . ' Menit 0 Detik)';
 						} else {
 							$pecah = explode(',', $timeSpan);
 							$record[] = ' (' . $pecah[0] . ' Menit ' . $pecah[1] . ' Detik)';
