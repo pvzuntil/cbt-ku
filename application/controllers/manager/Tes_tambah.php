@@ -194,6 +194,8 @@ class Tes_tambah extends Member_Controller
                 if ($is_process == 1) {
                     // Menyimpan data group yang mengikuti tes
                     $groups = $this->input->post('tambah-group', true);
+                    $data_group['lomba'] = $this->input->post('tambah-lomba', true);
+
                     // menghapus data group berdasarkan tes terlebih dahulu
                     $this->cbt_tesgrup_model->delete('tstgrp_tes_id', $tes_id);
                     foreach ($groups as $group) {
