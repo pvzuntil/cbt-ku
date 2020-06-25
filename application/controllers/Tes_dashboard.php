@@ -458,10 +458,10 @@ class Tes_dashboard extends Tes_Controller
 		$query = $this->cbt_tesgrup_model->get_datatable($start, $rows, $grup_id, $mataLomba);
 		$iFilteredTotal = $query->num_rows();
 
-		$iTotal = $this->cbt_tesgrup_model->get_datatable_count($grup_id, $mataLomba)->row()->hasil;
+		$iTotal = count($query->result());
 
 		$output = array(
-			"sEcho" => intval($_GET['sEcho']),
+			"sEcho" => isset($_GET['sEcho']) ? intval($_GET['sEcho']) : '',
 			"iTotalRecords" => $iTotal,
 			"iTotalDisplayRecords" => $iTotal,
 			"aaData" => array()
@@ -470,11 +470,17 @@ class Tes_dashboard extends Tes_Controller
 		// get result after running query and put it in array
 		$i = $start;
 		$query = $query->result();
+
 		foreach ($query as $temp) {
 			$record = array();
 
-			// Cek apakah tes yang terdaftar pada group memiliki soal sesuai topik yang ada
-			if ($this->cbt_tes_topik_set_model->count_by_kolom('tset_tes_id', $temp->tes_id)->row()->hasil > 0) {
+			$adaSoal = $this->cbt_tes_topik_set_model->count_by_kolom('tset_tes_id', $temp->tes_id)->row()->hasil;
+
+			if ($adaSoal > 0) {
+				$sedangMengerjakan = $this->cbt_tes_user_model->get_sedang_mengerjakan($user_id, $temp->tes_id)->row();
+				// echo json_encode($sedangMengerjakan);
+				// die();
+
 				$record[] = ++$i;
 				$record[] = $temp->tes_nama;
 
@@ -490,10 +496,28 @@ class Tes_dashboard extends Tes_Controller
 
 				$record[] = strftime("%A, %d %B %Y", strtotime($explodeSelesai[0])) . ' ' . $explodeSelesaiJam[0] . ':' . $explodeSelesaiJam[1];
 
+				if ($sedangMengerjakan == null) {
 
-				// Cek apakah sudah mengikuti tes tetapi belum selesai
-				if ($this->cbt_tes_user_model->count_by_user_tes($user_id, $temp->tes_id)->row()->hasil > 0) {
-					// Cek apakah sudah selesai atau belum, jika blum selesai maka tes bisa dilanjutkan
+					$waktuMulaiTes = $temp->tes_begin_time;
+					$waktuSelesaiTes = $temp->tes_end_time;
+					$waktuNow = date("Y-m-d H:i:s");
+
+					if ($waktuNow >= $waktuMulaiTes && $waktuNow <= $waktuSelesaiTes) {
+						$record[] = '';
+						$record[] = '';
+						$record[] = '<a href="' . site_url() . '/' . $this->url . '/konfirmasi_test/' . $temp->tes_id . '" style="cursor: pointer;" class="btn btn-success btn-xs">Kerjakan</a>';
+					} else {
+						if ($waktuNow >= $waktuSelesaiTes) {
+							$record[] = '';
+							$record[] = '';
+							$record[] = '<a href="#" style="cursor: pointer;" class="btn btn-warning btn-xs btn-disabled" disabled>Expired</a>';
+						} else {
+							$record[] = '';
+							$record[] = '';
+							$record[] = '<a href="#" style="cursor: pointer;" class="btn btn-success btn-xs btn-disabled" disabled>Belum dimulai</a>';
+						}
+					}
+				} else {
 					$tanggal = new DateTime();
 					$query_test_user = $this->cbt_tes_user_model->get_by_user_tes($user_id, $temp->tes_id)->row();
 					$tanggal_tes = new DateTime($query_test_user->tesuser_creation_time);
@@ -530,31 +554,95 @@ class Tes_dashboard extends Tes_Controller
 							$record[] = '';
 						}
 					}
-				} else {
-					$waktuMulaiTes = $temp->tes_begin_time;
-					$waktuSelesaiTes = $temp->tes_end_time;
-					$waktuNow = date("Y-m-d H:i:s");
-
-					if ($waktuNow >= $waktuMulaiTes && $waktuNow <= $waktuSelesaiTes) {
-						$record[] = '';
-						$record[] = '';
-						$record[] = '<a href="' . site_url() . '/' . $this->url . '/konfirmasi_test/' . $temp->tes_id . '" style="cursor: pointer;" class="btn btn-success btn-xs">Kerjakan</a>';
-					} else {
-						if ($waktuNow >= $waktuSelesaiTes) {
-							$record[] = '';
-							$record[] = '';
-							$record[] = '<a href="#" style="cursor: pointer;" class="btn btn-warning btn-xs btn-disabled" disabled>Expired</a>';
-						} else {
-							$record[] = '';
-							$record[] = '';
-							$record[] = '<a href="#" style="cursor: pointer;" class="btn btn-success btn-xs btn-disabled" disabled>Belum dimulai</a>';
-						}
-					}
 				}
 
 				$output['aaData'][] = $record;
 			}
 		}
+		// ============== END NEW LOGIC
+
+		// Cek apakah tes yang terdaftar pada group memiliki soal sesuai topik yang ada
+		// if ($this->cbt_tes_topik_set_model->count_by_kolom('tset_tes_id', $temp->tes_id)->row()->hasil > 0) {
+		// 	$record[] = ++$i;
+		// 	$record[] = $temp->tes_nama . '|' . $temp->tesuser_user_id;
+
+		// 	$mulai = $temp->tes_begin_time;
+		// 	$explodeMulai = explode(' ', $mulai);
+		// 	$explodeMulaiJam = explode(':', $explodeMulai[1]);
+
+		// 	$record[] = strftime("%A, %d %B %Y", strtotime($explodeMulai[0])) . ' ' . $explodeMulaiJam[0] . ':' . $explodeMulaiJam[1];
+
+		// 	$selesai = $temp->tes_end_time;
+		// 	$explodeSelesai = explode(' ', $selesai);
+		// 	$explodeSelesaiJam = explode(':', $explodeSelesai[1]);
+
+		// 	$record[] = strftime("%A, %d %B %Y", strtotime($explodeSelesai[0])) . ' ' . $explodeSelesaiJam[0] . ':' . $explodeSelesaiJam[1];
+
+
+		// 	// Cek apakah sudah mengikuti tes tetapi belum selesai
+		// 	if ($this->cbt_tes_user_model->count_by_user_tes($user_id, $temp->tes_id)->row()->hasil > 0) {
+		// 		// Cek apakah sudah selesai atau belum, jika blum selesai maka tes bisa dilanjutkan
+		// 		$tanggal = new DateTime();
+		// 		$query_test_user = $this->cbt_tes_user_model->get_by_user_tes($user_id, $temp->tes_id)->row();
+		// 		$tanggal_tes = new DateTime($query_test_user->tesuser_creation_time);
+		// 		$tanggal_tes->modify('+' . $temp->tes_duration_time . ' minutes');
+
+		// 		if ($tanggal < $tanggal_tes and $query_test_user->tesuser_status != 4) {
+		// 			// nilai kosong karena masih dalam pengerjaan
+		// 			$record[] = '';
+		// 			$record[] = '';
+		// 			// Jika masih dalam waktu pengerjaan, maka tes dilanjutkan
+		// 			$record[] = '<a href="' . site_url() . '/tes_kerjakan/index/' . $temp->tes_id . '" style="cursor: pointer;" class="btn btn-default btn-xs">Lanjutkan</a>';
+		// 		} else {
+		// 			$timeSpan = $temp->time_span ?? false;
+		// 			if ($timeSpan == false) {
+		// 				// $record[] = 'Waktu habis';
+		// 				$record[] = '(' . $temp->tes_duration_time . ' Menit 0 Detik)';
+		// 			} else {
+		// 				$pecah = explode(',', $timeSpan);
+		// 				$record[] = ' (' . $pecah[0] . ' Menit ' . $pecah[1] . ' Detik)';
+		// 			}
+
+		// 			// menampilkan nilai
+		// 			// Cek apakah tes yang selesai ditampilkan nilainya
+		// 			if ($temp->tes_results_to_users == 1) {
+		// 				$record[] = $this->cbt_tes_soal_model->get_nilai($query_test_user->tesuser_id)->row()->hasil;
+		// 			} else {
+		// 				$record[] = '';
+		// 			}
+
+		// 			// mengecek apakah detail tes ditampilkan
+		// 			if ($temp->tes_detail_to_users == 1) {
+		// 				$record[] = '<a href="' . site_url() . '/tes_hasil_detail/index/' . $query_test_user->tesuser_id . '" style="cursor: pointer;" class="btn btn-default btn-xs">Lihat Detail</a>';
+		// 			} else {
+		// 				$record[] = '';
+		// 			}
+		// 		}
+		// 	} else {
+		// 		$waktuMulaiTes = $temp->tes_begin_time;
+		// 		$waktuSelesaiTes = $temp->tes_end_time;
+		// 		$waktuNow = date("Y-m-d H:i:s");
+
+		// 		if ($waktuNow >= $waktuMulaiTes && $waktuNow <= $waktuSelesaiTes) {
+		// 			$record[] = '';
+		// 			$record[] = '';
+		// 			$record[] = '<a href="' . site_url() . '/' . $this->url . '/konfirmasi_test/' . $temp->tes_id . '" style="cursor: pointer;" class="btn btn-success btn-xs">Kerjakan</a>';
+		// 		} else {
+		// 			if ($waktuNow >= $waktuSelesaiTes) {
+		// 				$record[] = '';
+		// 				$record[] = '';
+		// 				$record[] = '<a href="#" style="cursor: pointer;" class="btn btn-warning btn-xs btn-disabled" disabled>Expired</a>';
+		// 			} else {
+		// 				$record[] = '';
+		// 				$record[] = '';
+		// 				$record[] = '<a href="#" style="cursor: pointer;" class="btn btn-success btn-xs btn-disabled" disabled>Belum dimulai</a>';
+		// 			}
+		// 		}
+		// 	}
+
+		// 	$output['aaData'][] = $record;
+		// }
+		// }
 		// format it to JSON, this output will be displayed in datatable
 
 		echo json_encode($output);

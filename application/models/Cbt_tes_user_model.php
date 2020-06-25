@@ -343,4 +343,12 @@ class Cbt_tes_user_model extends CI_Model
             ->limit(1);
         return $this->db->get();
     }
+
+    function get_sedang_mengerjakan($user_id, $tes_id)
+    {
+        $this->db->where('tesuser_user_id="' . $user_id . '" AND tesuser_tes_id="' . $tes_id . '"')
+            ->from($this->table)
+            ->limit(1);
+        return $this->db->get();
+    }
 }
