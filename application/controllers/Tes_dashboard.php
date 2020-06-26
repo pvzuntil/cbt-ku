@@ -530,10 +530,10 @@ class Tes_dashboard extends Tes_Controller
 						// Jika masih dalam waktu pengerjaan, maka tes dilanjutkan
 						$record[] = '<a href="' . site_url() . '/tes_kerjakan/index/' . $temp->tes_id . '" style="cursor: pointer;" class="btn btn-default btn-xs">Lanjutkan</a>';
 					} else {
-						$timeSpan = $temp->time_span ?? false;
-						if ($timeSpan == false) {
-							// $record[] = 'Waktu habis';
-							$record[] = '(' . $temp->tes_duration_time . ' Menit 0 Detik)';
+						$timeSpan = $query_test_user->time_span;
+						if (empty($timeSpan)) {
+							$record[] = 'Waktu habis';
+							// $record[] = '(' . $query_test_user->tes_duration_time . ' Menit 0 Detik)';
 						} else {
 							$pecah = explode(',', $timeSpan);
 							$record[] = ' (' . $pecah[0] . ' Menit ' . $pecah[1] . ' Detik)';
