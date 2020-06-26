@@ -247,7 +247,19 @@ class Peserta_daftar extends Member_Controller
 			$record[] = $temp->kelas;
 			$record[] = $temp->lomba == 'all' ? "Matematika & Sains" : ucfirst($temp->lomba);
 			$record[] = $temp->user_detail;
-			$record[] = $temp->active == 1 ? '<div class="badge badge-success">AKTIF</div>' : '<div class="badge badge-danger">BELUM AKTIF</div>';
+
+			$details = '';
+			$details .= $temp->active == 1 ? '<div class="badge badge-success" style="margin-right: 5px">AKTIF</div>' : '<div class="badge badge-danger" style="margin-right: 5px">BELUM AKTIF</div>';
+			if ($temp->status == 'wait') {
+				$details .= '<div class="badge">MENUNGGU KONFIRMASI</div>';
+			} else if ($temp->status == 'allow') {
+				$details .=
+					'<div class="badge badge-success">SUDAH MEMBAYAR</div>';
+			} else {
+				$details .= '<div class="badge badge-danger">BELUM MEMBAYAR</div>';
+			}
+
+			$record[] = $details;
 
 			$record[] = '<a onclick="edit(\'' . $temp->user_id . '\')" style="cursor: pointer;" class="btn btn-default btn-xs">Edit</a>';
 			$record[] = '<input type="checkbox" name="edit-user-id[' . $temp->user_id . ']" >';
