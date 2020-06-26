@@ -532,8 +532,8 @@ class Tes_dashboard extends Tes_Controller
 					} else {
 						$timeSpan = $query_test_user->time_span;
 						if (empty($timeSpan)) {
-							$record[] = 'Waktu habis';
-							// $record[] = '(' . $query_test_user->tes_duration_time . ' Menit 0 Detik)';
+							// $record[] = 'Waktu habis';
+							$record[] = '(' . $temp->tes_duration_time . ' Menit 0 Detik)';
 						} else {
 							$pecah = explode(',', $timeSpan);
 							$record[] = ' (' . $pecah[0] . ' Menit ' . $pecah[1] . ' Detik)';
