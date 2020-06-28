@@ -42,29 +42,25 @@ class Pengumuman extends CI_Controller
 					}
 				}
 				if ($akses_cbt == 1) {
-					if (!$this->access_tes->is_login()) {
-						$data['link_login_operator'] = "tidak";
-						$query_konfigurasi = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'link_login_operator', 1);
-						$query_maintenance = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'main_mode', 1);
-						if ($query_konfigurasi->num_rows() > 0) {
-							$data['link_login_operator'] = $query_konfigurasi->row()->konfigurasi_isi;
-						}
+					$data['link_login_operator'] = "tidak";
+					$query_konfigurasi = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'link_login_operator', 1);
+					$query_maintenance = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'main_mode', 1);
+					if ($query_konfigurasi->num_rows() > 0) {
+						$data['link_login_operator'] = $query_konfigurasi->row()->konfigurasi_isi;
+					}
 
-						if (isset($_COOKIE['dev'])) {
-							$dev = true;
-						} else {
-							$dev = false;
-						}
-
-						if ($query_maintenance->row()->konfigurasi_isi == 'ya' && !$dev) {
-							$this->load->view('/main.php');
-						} else {
-							$get_laporan = $this->cbt_juara_model->get_laporan();
-							$data['pengumuman'] = $get_laporan->row();
-							$this->template->display_user($this->kelompok . '/pengumuman_view', 'Selamat Datang', $data);
-						}
+					if (isset($_COOKIE['dev'])) {
+						$dev = true;
 					} else {
-						redirect('tes_dashboard');
+						$dev = false;
+					}
+
+					if ($query_maintenance->row()->konfigurasi_isi == 'ya' && !$dev) {
+						$this->load->view('/main.php');
+					} else {
+						$get_laporan = $this->cbt_juara_model->get_laporan();
+						$data['pengumuman'] = $get_laporan->row();
+						$this->template->display_user($this->kelompok . '/pengumuman_view', 'Selamat Datang', $data);
 					}
 				} else {
 					$this->template->display_user('lockmobile_view', 'Exam Browser');
