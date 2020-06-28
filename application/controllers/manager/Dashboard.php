@@ -36,6 +36,7 @@ class Dashboard extends Member_Controller
         $data['countPeserta'] = $this->cbt_user_model->countDashboard('user_id');
         $data['countPesertaAktif'] = $this->cbt_user_model->countDashboard('user_id', ['active', 1]);
         $data['countPesertaPayIsPay'] = $this->cbt_user_pay_model->countDashboard('id', ['status', 'allow']);
+        $data['countPesertaPayIsWait'] = $this->cbt_user_pay_model->countDashboard('id', ['status', 'wait']);
         $data['countPesertaPayIsNope'] = $data['countPesertaAktif'] - $data['countPesertaPayIsPay'];
         $data['countTes'] = $this->cbt_tes_model->countDashboard('tes_id');
         // var_dump($countTes);

@@ -28,7 +28,7 @@
                     <span class="info-box-number"><?= $countPeserta ?></span>
                     <!-- The progress section is optional -->
                     <div class="progress">
-                        <div class="progress-bar" style="width: 70%"></div>
+                        <div class="progress-bar" style="width: 100%"></div>
                     </div>
                     <span class="progress-description">
                         <div class="badge bg-green">AKTIF : <?= $countPesertaAktif ?></div>
@@ -38,7 +38,7 @@
             </div><!-- /.info-box -->
         </div>
 
-        <div class="col-sm-4">
+        <div class="col-sm-5">
             <div class="info-box bg-green">
                 <span class="info-box-icon"><i class="fa fa-money"></i></span>
                 <div class="info-box-content">
@@ -46,16 +46,17 @@
                     <span class="info-box-number"><?= $countPesertaPayIsPay ?></span>
                     <!-- The progress section is optional -->
                     <div class="progress">
-                        <div class="progress-bar" style="width: 70%"></div>
+                        <div class="progress-bar" style="width: 100%"></div>
                     </div>
                     <span class="progress-description">
                         <div class="badge bg-red">BELUM MEMBAYAR : <?= $countPesertaPayIsNope ?> Peserta</div>
+                        <div class="badge bg-grey">MENUNGGU : <?= $countPesertaPayIsWait ?></div>
                     </span>
                 </div><!-- /.info-box-content -->
             </div><!-- /.info-box -->
         </div>
 
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <div class="info-box bg-aqua">
                 <span class="info-box-icon"><i class="fa fa-users"></i></span>
                 <div class="info-box-content">
