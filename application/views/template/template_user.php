@@ -1,5 +1,3 @@
-<!-- Made with ♥ By pvzuntil.github.io -->
-
 <!DOCTYPE html>
 <html>
 
