@@ -29,6 +29,12 @@ class Welcome extends CI_Controller
 
 		$query_group = $this->cbt_user_grup_model->get_group();
 
+		$query = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'tutup_daftar', 1);
+		$data['tutup_daftar'] = 'ya';
+		if ($query->num_rows() > 0) {
+			$data['tutup_daftar'] = $query->row()->konfigurasi_isi;
+		}
+
 		if ($query_group->num_rows() > 0) {
 			$select = '';
 			$query_group = $query_group->result();

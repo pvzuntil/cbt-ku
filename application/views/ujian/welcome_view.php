@@ -75,105 +75,112 @@
 			<!-- MODAL ADD PESERTA -->
 
 			<div style="max-height: 100%;overflow-y:auto;" class="modal" id="modal-tambah" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-				<?php echo form_open($url . '/tambah', 'id="form-tambah"'); ?>
 				<div class="modal-dialog modal-md">
 					<div class="modal-content">
 						<div class="modal-header">
 							<h3 id="trx-judul text-center text-bold" style="font-weight: bold; text-align: center">Form Pendaftaran Peserta</h3>
 						</div>
-						<div class="modal-body">
-							<div class="row-fluid">
-								<div class="box-body">
-									<div id="form-pesan-tambah"></div>
-									<div class="form-group">
-										<label>Email</label>
-										<input type="email" class="form-control" id="tambah-email" name="tambah-email" placeholder="Email Peserta" autocomplete="off">
-									</div>
+						<?php if ($tutup_daftar == 'tidak') : ?>
+							<?php echo form_open($url . '/tambah', 'id="form-tambah"'); ?>
+							<div class="modal-body">
+								<div class="row-fluid">
+									<div class="box-body">
+										<div id="form-pesan-tambah"></div>
+										<div class="form-group">
+											<label>Email</label>
+											<input type="email" class="form-control" id="tambah-email" name="tambah-email" placeholder="Email Peserta" autocomplete="off">
+										</div>
 
-									<div class="form-group">
-										<label>Password</label>
-										<input type="password" class="form-control" id="tambah-password" name="tambah-password" placeholder="Password" autocomplete="off">
-									</div>
+										<div class="form-group">
+											<label>Password</label>
+											<input type="password" class="form-control" id="tambah-password" name="tambah-password" placeholder="Password" autocomplete="off">
+										</div>
 
-									<div class="form-group">
-										<label>Nama Lengkap</label>
-										<input type="text" class="form-control" id="tambah-nama" name="tambah-nama" placeholder="Nama Lengkap Peserta" autocomplete="off">
-									</div>
+										<div class="form-group">
+											<label>Nama Lengkap</label>
+											<input type="text" class="form-control" id="tambah-nama" name="tambah-nama" placeholder="Nama Lengkap Peserta" autocomplete="off">
+										</div>
 
-									<div class="form-group">
-										<label>Asal Sekolah</label>
-										<input type="text" class="form-control" id="tambah-detail" name="tambah-detail" placeholder="Asal Sekolah" autocomplete="off">
-									</div>
+										<div class="form-group">
+											<label>Asal Sekolah</label>
+											<input type="text" class="form-control" id="tambah-detail" name="tambah-detail" placeholder="Asal Sekolah" autocomplete="off">
+										</div>
 
-									<div class="form-group">
-										<label>Kelas</label>
-										<select name="tambah-kelas" id="tambah-kelas" class="form-control input-sm">
-											<option value="">-- Pilih Kelas (TA. 2019/2020) --</option>
-											<?php for ($i = 1; $i < 10; $i++) : ?>
-												<option value="<?= $i ?>" 0>Kelas <?= $i ?></option>
-											<?php endfor ?>
-										</select>
-									</div>
-
-									<div class="form-group">
-										<label>Nomer Telepon (WhatsApp)</label>
-										<input type="text" class="form-control" id="tambah-telepon" name="tambah-telepon" placeholder="Masukkan Nomer Telepon" autocomplete="off">
-									</div>
-
-									<div class="row">
-										<div class="form-group col-sm-6">
-											<label>Pilihan Lomba</label>
-											<select name="tambah-lomba" id="tambah-lomba" class="form-control input-sm">
-												<option value="">-- Pilih Lomba --</option>
-												<option value="matematika">Matematika</option>
-												<option value="sains">Sains</option>
-												<option value="all">Matematika & Sains</option>
+										<div class="form-group">
+											<label>Kelas</label>
+											<select name="tambah-kelas" id="tambah-kelas" class="form-control input-sm">
+												<option value="">-- Pilih Kelas (TA. 2019/2020) --</option>
+												<?php for ($i = 1; $i < 10; $i++) : ?>
+													<option value="<?= $i ?>" 0>Kelas <?= $i ?></option>
+												<?php endfor ?>
 											</select>
 										</div>
 
-										<div class="form-group col-sm-6">
-											<label>Level</label>
-											<select name="tambah-group" id="tambah-group" class="form-control input-sm">
-												<option value="">-- Pilih Level --</option>
-												<?php if (!empty($select_group)) {
-													echo $select_group;
-												} ?>
-											</select>
+										<div class="form-group">
+											<label>Nomer Telepon (WhatsApp)</label>
+											<input type="text" class="form-control" id="tambah-telepon" name="tambah-telepon" placeholder="Masukkan Nomer Telepon" autocomplete="off">
 										</div>
-									</div>
-									<hr>
-									<div class="row">
-										<div class="col-xs-12">
-											<div class="custom-control custom-checkbox" style="display: flex;">
-												<input type="checkbox" class="custom-control-input" style="margin-right: 10px;" id="customCheck1" value="ya">
-												<label class="custom-control-label" for="customCheck1" style="text-align: justify;">Saya akan menyediakan sendiri semua fasilitas untuk mengikuti lomba (laptop/komputer, internet dan perangkat lainnya).</label>
+
+										<div class="row">
+											<div class="form-group col-sm-6">
+												<label>Pilihan Lomba</label>
+												<select name="tambah-lomba" id="tambah-lomba" class="form-control input-sm">
+													<option value="">-- Pilih Lomba --</option>
+													<option value="matematika">Matematika</option>
+													<option value="sains">Sains</option>
+													<option value="all">Matematika & Sains</option>
+												</select>
+											</div>
+
+											<div class="form-group col-sm-6">
+												<label>Level</label>
+												<select name="tambah-group" id="tambah-group" class="form-control input-sm">
+													<option value="">-- Pilih Level --</option>
+													<?php if (!empty($select_group)) {
+														echo $select_group;
+													} ?>
+												</select>
 											</div>
 										</div>
-									</div>
-									<div class="row">
-										<div class="col-xs-12">
-											<div class="custom-control custom-checkbox" style="display: flex;">
-												<input type="checkbox" class="custom-control-input" style="margin-right: 10px;" id="customCheck2" value="ya">
-												<label class="custom-control-label" for="customCheck2" style="text-align: justify;">Saya akan jujur selama proses pendaftaran dan selama lomba berlangsung.</label>
+										<hr>
+										<div class="row">
+											<div class="col-xs-12">
+												<div class="custom-control custom-checkbox" style="display: flex;">
+													<input type="checkbox" class="custom-control-input" style="margin-right: 10px;" id="customCheck1" value="ya">
+													<label class="custom-control-label" for="customCheck1" style="text-align: justify;">Saya akan menyediakan sendiri semua fasilitas untuk mengikuti lomba (laptop/komputer, internet dan perangkat lainnya).</label>
+												</div>
 											</div>
 										</div>
-									</div>
-									<div class="row">
-										<div class="col-xs-12" style="margin-bottom: 10px; display: flex; justify-content: flex-start;">
-											<div id="gchap2"></div>
+										<div class="row">
+											<div class="col-xs-12">
+												<div class="custom-control custom-checkbox" style="display: flex;">
+													<input type="checkbox" class="custom-control-input" style="margin-right: 10px;" id="customCheck2" value="ya">
+													<label class="custom-control-label" for="customCheck2" style="text-align: justify;">Saya akan jujur selama proses pendaftaran dan selama lomba berlangsung.</label>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-xs-12" style="margin-bottom: 10px; display: flex; justify-content: flex-start;">
+												<div id="gchap2"></div>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="submit" id="tambah-simpan" class="btn btn-success">Daftar</button>
-							<a href="#" class="btn btn-danger" data-dismiss="modal">Batal</a>
-						</div>
+							<div class="modal-footer">
+								<button type="submit" id="tambah-simpan" class="btn btn-success">Daftar</button>
+								<a href="#" class="btn btn-danger" data-dismiss="modal">Batal</a>
+							</div>
+							</form>
+						<?php else : ?>
+							<div class="modal-body">
+								<div class="row-fluid">
+									<h5 style="text-align: center;">Mohon maaf, pendaftaran sudah ditutup, sampai jumpa di acara yang akan datang :)</h5>
+								</div>
+							</div>
+						<?php endif; ?>
 					</div>
 				</div>
-
-				</form>
 			</div>
 
 			<!-- MODAL LUPA PASSWORD -->

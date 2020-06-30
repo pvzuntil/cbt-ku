@@ -75,6 +75,25 @@
                             </select>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4">
+                            <label>Tutup Pendaftaran</label>
+                            <select class="form-control input-sm" id="tutup-daftar" name="tutup-daftar">
+                                <option value="tidak">Tidak</option>
+                                <option value="ya">Ya</option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <label>Tutup Pembayaran</label>
+                            <select class="form-control input-sm" id="tutup-bayar" name="tutup-bayar">
+                                <option value="tidak">Tidak</option>
+                                <option value="ya">Ya</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div class="box-footer">
                     <button type="submit" id="btn-simpan" class="btn btn-primary pull-right">Simpan Pengaturan</button>
@@ -97,6 +116,8 @@
                 $('#zyacbt-link-login').val(data.link_login_operator);
                 $('#zyacbt-mobile-lock-xambro').val(data.mobile_lock_xambro);
                 $('#main-mode').val(data.main_mode);
+                $('#tutup-daftar').val(data.tutup_daftar);
+                $('#tutup-bayar').val(data.tutup_bayar);
             }
             $("#modal-proses").modal('hide');
         });
