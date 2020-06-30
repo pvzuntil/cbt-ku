@@ -178,6 +178,9 @@
 									<h5 style="text-align: center;">Mohon maaf, pendaftaran sudah ditutup, sampai jumpa di acara yang akan datang :)</h5>
 								</div>
 							</div>
+							<div class="modal-footer">
+								<a href="#" class="btn btn-danger" data-dismiss="modal">Tutup</a>
+							</div>
 						<?php endif; ?>
 					</div>
 				</div>
