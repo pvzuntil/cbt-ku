@@ -70,6 +70,10 @@
                     <?php endif ?>
 
                     <p>Silahkan pilih Mapel yang diikuti dari daftar lomba yang tersedia dibawah ini. Apabila tidak muncul, silahkan menghubungi Panitia.</p>
+                    <?php if ($pengumuman->isPublic  == 1) : ?>
+                        <p>Pengumuman juara telah tersedia, klik <a href="pengumuman" target="_blank">disini</a> untuk melihat.</p>
+                        <!-- <a href="pengumuman" class="btn btn-success" target="_blank" style="text-decoration: none;">Lihat !</a> -->
+                    <?php endif ?>
                 </div>
                 <div class="box box-warning box-solid">
                     <div class="box-header with-border">

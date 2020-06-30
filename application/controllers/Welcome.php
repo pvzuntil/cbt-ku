@@ -15,6 +15,8 @@ class Welcome extends CI_Controller
 		$this->load->model('cbt_user_grup_model');
 		$this->load->model('cbt_user_model');
 		$this->load->library('session');
+		$this->load->model('cbt_juara_model');
+
 
 		$this->load->library('Send_email');
 	}
@@ -34,6 +36,9 @@ class Welcome extends CI_Controller
 		if ($query->num_rows() > 0) {
 			$data['tutup_daftar'] = $query->row()->konfigurasi_isi;
 		}
+
+		$get_laporan = $this->cbt_juara_model->get_laporan();
+		$data['pengumuman'] = $get_laporan->row();
 
 		if ($query_group->num_rows() > 0) {
 			$select = '';

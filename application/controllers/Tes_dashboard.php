@@ -43,6 +43,7 @@ class Tes_dashboard extends Tes_Controller
 		$this->load->model('cbt_jawaban_model');
 		$this->load->model('cbt_tes_soal_model');
 		$this->load->model('cbt_tes_soal_jawaban_model');
+		$this->load->model('cbt_juara_model');
 
 		setlocale(LC_ALL, 'id-ID', 'id_ID');
 	}
@@ -65,6 +66,9 @@ class Tes_dashboard extends Tes_Controller
 
 		$newWillCheck = [];
 		$item = '';
+
+		$get_laporan = $this->cbt_juara_model->get_laporan();
+		$data['pengumuman'] = $get_laporan->row();
 
 		for ($i = 0; $i < count($this->willCheck); $i++) {
 			$getValue = $parseCurrentUser[$this->willCheck[$i]['tableName']];

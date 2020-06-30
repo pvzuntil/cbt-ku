@@ -23,6 +23,13 @@
 		<div class="row">
 			<div class="login-box">
 				<div class="login-box-body shadow-box">
+					<?php if ($pengumuman->isPublic  == 1) : ?>
+						<div class="alert alert-info" style="text-align: center;">
+							<h4>Informasi</h4>
+							<p>Pengumuman juara KMSO 2020 telah tersedia, klik <a href="pengumuman" target="_blank">disini</a> untuk melihat.</p>
+							<!-- <a href="pengumuman" class="btn btn-success" target="_blank" style="text-decoration: none;">Lihat !</a> -->
+						</div>
+					<?php endif ?>
 					<div class="login-logo shadow-text">
 						<b class="">User Login</b>
 					</div><!-- /.login-logo -->
