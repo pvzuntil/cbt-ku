@@ -77,6 +77,16 @@
                     </div>
 
                     <div class="form-group">
+                        <label class="col-sm-4 control-label">Tutup Pendaftaran</label>
+                        <div class="col-sm-8">
+                            <select class="form-control input-sm" id="tutup-daftar" name="tutup-daftar">
+                                <option value="tidak">Tidak</option>
+                                <option value="ya">Ya</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-group">
                         <div class="col-sm-4"></div>
                         <div class="col-sm-4">
                             <label>Tutup Pendaftaran</label>
@@ -93,7 +103,7 @@
                                 <option value="ya">Ya</option>
                             </select>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="box-footer">
                     <button type="submit" id="btn-simpan" class="btn btn-primary pull-right">Simpan Pengaturan</button>
@@ -117,7 +127,7 @@
                 $('#zyacbt-mobile-lock-xambro').val(data.mobile_lock_xambro);
                 $('#main-mode').val(data.main_mode);
                 $('#tutup-daftar').val(data.tutup_daftar);
-                $('#tutup-bayar').val(data.tutup_bayar);
+                // $('#tutup-bayar').val(data.tutup_bayar);
             }
             $("#modal-proses").modal('hide');
         });
