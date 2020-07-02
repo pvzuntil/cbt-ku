@@ -496,75 +496,78 @@
     }
 
     function generate_cert(data = {}) {
+        <?php if ($pengumuman->isPublic  == 1 && !$showPay) : ?>
 
-        let doc = new jsPDF({
-            orientation: "l",
-            unit: "mm",
-            format: "a4",
-            putOnlyUsedFonts: true,
-            floatPrecision: 16, // or "smart", default is 16
-        });
-
-        function loadImage(url) {
-            return new Promise((resolve) => {
-                let img = new Image();
-                img.onload = () => resolve(img);
-                img.src = url;
+            let doc = new jsPDF({
+                orientation: "l",
+                unit: "mm",
+                format: "a4",
+                putOnlyUsedFonts: true,
+                floatPrecision: 16, // or "smart", default is 16
             });
-        }
 
-        const toTitleCase = (phrase) => {
-            return phrase
-                .toLowerCase()
-                .split(' ')
-                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                .join(' ');
-        };
-
-        loadImage("<?php echo site_url() . '/'; ?>/public/images/cert/EDIT-CERT-TEMPLATE.png").then((logo) => {
-            // const doc = new jsPDF("p", "mm", "a4");
-            let width = doc.internal.pageSize.getWidth();
-            let height = doc.internal.pageSize.getHeight();
-
-            let halfWidth = width / 2
-            let halfHeight = height / 2
-
-            doc.addImage(logo, "PNG", 0, 0, width, height);
-
-            doc.setFont('Nickainley-Normal');
-            doc.setFontSize(55)
-            let textNama = data.nama;
-            splitedNama = textNama.split(' ')
-
-            if (splitedNama.length > 3) {
-                textNama = ''
-                splitedNama.forEach((el, i) => {
-                    if (i > 2) {
-                        let abjadWordAkhir = el.charAt(0)
-                        textNama += abjadWordAkhir + '. '
-                    } else {
-                        textNama += el + ' '
-                    }
-                })
+            function loadImage(url) {
+                return new Promise((resolve) => {
+                    let img = new Image();
+                    img.onload = () => resolve(img);
+                    img.src = url;
+                });
             }
 
-            textNama = toTitleCase(textNama)
+            const toTitleCase = (phrase) => {
+                return phrase
+                    .toLowerCase()
+                    .split(' ')
+                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(' ');
+            };
 
-            let textSekolah = data.sekolah;
+            loadImage("<?php echo site_url() . '/'; ?>/public/images/cert/EDIT-CERT-TEMPLATE.png").then((logo) => {
+                // const doc = new jsPDF("p", "mm", "a4");
+                let width = doc.internal.pageSize.getWidth();
+                let height = doc.internal.pageSize.getHeight();
 
-            doc.text(textNama, halfWidth, halfHeight + 5, 'center')
+                let halfWidth = width / 2
+                let halfHeight = height / 2
 
-            doc.setFont('OpenSans-Regular');
-            doc.setFontSize(19)
-            doc.text(textSekolah, halfWidth, halfHeight + 20, 'center')
+                doc.addImage(logo, "PNG", 0, 0, width, height);
 
-            doc.save('QEC Certificate', {
-                returnPromise: true
-            }).then(() => {
-                window.location.reload()
+                doc.setFont('Nickainley-Normal');
+                doc.setFontSize(55)
+                let textNama = data.nama;
+                splitedNama = textNama.split(' ')
 
-            })
+                if (splitedNama.length > 3) {
+                    textNama = ''
+                    splitedNama.forEach((el, i) => {
+                        if (i > 2) {
+                            let abjadWordAkhir = el.charAt(0)
+                            textNama += abjadWordAkhir + '. '
+                        } else {
+                            textNama += el + ' '
+                        }
+                    })
+                }
 
-        });
+                textNama = toTitleCase(textNama)
+
+                let textSekolah = data.sekolah;
+
+                doc.text(textNama, halfWidth, halfHeight + 5, 'center')
+
+                doc.setFont('OpenSans-Regular');
+                doc.setFontSize(19)
+                doc.text(textSekolah, halfWidth, halfHeight + 20, 'center')
+
+                doc.save('QEC Certificate', {
+                    returnPromise: true
+                }).then(() => {
+                    window.location.reload()
+
+                })
+
+            });
+        <?php endif ?>
+
     }
 </script>
