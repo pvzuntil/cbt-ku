@@ -51,7 +51,6 @@ class Tes_dashboard extends Tes_Controller
 	public function index()
 	{
 		$this->load->helper('form');
-		$data['nama'] = $this->access_tes->get_nama();
 		$data['group'] = $this->access_tes->get_group();
 		$data['url'] = $this->url;
 		$data['timestamp'] = strtotime(date('Y-m-d H:i:s'));
@@ -59,6 +58,7 @@ class Tes_dashboard extends Tes_Controller
 		$username = $this->access_tes->get_username();
 		$currentUser = $this->cbt_user_model->get_by_kolom_limit('user_email', $username, 1)->row();
 		$user_id = $currentUser->user_id;
+		$data['nama'] = $currentUser->user_firstname;
 		$query_tes = $this->cbt_tes_user_model->get_by_user_status($user_id);
 		$data['currentUser'] = $currentUser;
 
