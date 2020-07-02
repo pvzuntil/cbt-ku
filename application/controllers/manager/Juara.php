@@ -207,7 +207,7 @@ class Juara extends Member_Controller
         // get result after running query and put it in array
         $i = $start;
         $query = $query->result();
-        $juara = ' Terbaik';
+        $juara = 'Emas';
 
         foreach ($query as $temp) {
             $record = array();
@@ -226,11 +226,14 @@ class Juara extends Member_Controller
                 $record[] = ' (' . $pecah[0] . ' Menit ' . $pecah[1] . ' Detik)';
             }
 
-            $record[] = ++$i . $juara;
+            $record[] = 'Medali ' . $juara;
 
-            if ($i == 3) {
-                $i = 0;
-                $juara = ' Harapan';
+            ++$i;
+            if ($i > 0 && $i < 2) {
+                // $i = 0;
+                $juara = 'Perak';
+            } else if ($i > 2) {
+                $juara = 'Perunggu';
             }
 
             // $record[] = '';
