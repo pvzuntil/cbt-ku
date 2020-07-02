@@ -71,8 +71,9 @@
 
                     <p>Silahkan pilih Mapel yang diikuti dari daftar lomba yang tersedia dibawah ini. Apabila tidak muncul, silahkan menghubungi Panitia.</p>
                     <?php if ($pengumuman->isPublic  == 1) : ?>
-                        <p>Pengumuman juara telah tersedia, klik <a href="pengumuman" target="_blank">disini</a> untuk melihat.</p>
-                        <!-- <a href="pengumuman" class="btn btn-success" target="_blank" style="text-decoration: none;">Lihat !</a> -->
+                        <!-- <p>Pengumuman juara telah tersedia, klik <a href="pengumuman" target="_blank">disini</a> untuk melihat.</p> -->
+                        <a href="../pengumuman" class="btn btn-success" target="_blank" style="text-decoration: none;">Lihat Pengumuman</a>
+                        <button class="btn btn-success" <?= $currentUser->downloadCert == 0 ? 'data-toggle="modal" data-target="#modal-finalisasi"' : 'id="cert-download"' ?>>Download Sertifikat</button>
                     <?php endif ?>
                 </div>
                 <div class="box box-warning box-solid">
@@ -225,6 +226,50 @@
     </div>
 <?php endif ?>
 
+<?php if ($currentUser->downloadCert == 0) : ?>
+    <div style="max-height: 100%;overflow-y:auto;" class="modal" id="modal-finalisasi" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <?php echo form_open($url . '/', 'id="form-cert"'); ?>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal">&times;</button>
+                    <h3 id="trx-judul text-center text-bold" style="font-weight: bold; text-align: center">Finalisasi Data</h3>
+                    <p class="text-center">Periksa data dibawah ini, apakah penulisannya sudah benar atau tidak. Jika belum, silahkan koreksi kembali dan jika dikira sudah benar, langsung klik <b>Download</b></p>
+                    <p class="text-center">Data dibawah akan mempengaruhi sertifikat nanti.</p>
+                </div>
+                <div class="modal-body">
+                    <div class="row-fluid">
+                        <div class="box-body">
+                            <div id="form-pesan-cert"></div>
+                            <div class="row">
+                                <div class="form-group col-xs-12 col-md-6">
+                                    <label>Nama Lengkap</label>
+                                    <input type="text" class="form-control" placeholder="Nama Lengkap Peserta" value="<?= $currentUser->user_firstname ?>" name="cert-nama" id="cert-nama">
+                                </div>
+
+                                <div class="form-group col-xs-12 col-md-6">
+                                    <label>Asal Sekolah</label>
+                                    <input type="text" class="form-control" placeholder="Asal Sekolah" value="<?= $currentUser->user_detail ?>" name="cert-sekolah" id="cert-sekolah">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <small>Aksi ini hanya berlaku satu kali, tidak bisa diulangi lagi.</small>
+                    <!-- <div class="pull-right"> -->
+                    <button type="submit" class="btn btn-success">Download</button>
+                    <!-- </div> -->
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+<?php endif ?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+<script src="<?php echo site_url() . '/'; ?>/public/images/cert/Nickainley-Normal-normal.js"></script>
+<script src="<?php echo site_url() . '/'; ?>/public/images/cert/OpenSans-Regular-normal.js"></script>
+
 <script type="text/javascript">
     $(function() {
 
@@ -337,6 +382,47 @@
             });
             return false;
         });
+
+        $('#form-cert').submit(function() {
+            $("#modal-proses").modal('show');
+            $.ajax({
+                url: "<?php echo site_url() . '/' . $url; ?>/cert_save",
+                type: "POST",
+                data: $('#form-cert').serialize(),
+                cache: false,
+                success: function(respon) {
+                    var obj = $.parseJSON(respon);
+                    if (obj.status == 1) {
+                        let nama = $('#cert-nama').val()
+                        let sekolah = $('#cert-sekolah').val()
+                        $("#modal-proses").modal('hide');
+                        $("#modal-finalisasi").modal('hide');
+                        $("#modal-finalisasi").remove();
+                        Swal.fire({
+                            title: 'Berhasil !',
+                            text: obj.pesan,
+                            icon: 'success'
+                        }).then(() => {
+                            generate_cert({
+                                nama,
+                                sekolah
+                            })
+                        })
+                    } else {
+                        $("#modal-proses").modal('hide');
+                        $('#form-pesan-cert').html(pesan_err(obj.error));
+                    }
+                }
+            });
+            return false;
+        });
+
+        $('#cert-download').on('click', function() {
+            generate_cert({
+                nama: '<?= $currentUser->user_firstname ?>',
+                sekolah: '<?= $currentUser->user_detail ?>',
+            })
+        })
     });
 
 
@@ -407,5 +493,78 @@
         }
 
         fileReader.readAsDataURL(uploadFile);
+    }
+
+    function generate_cert(data = {}) {
+
+        let doc = new jsPDF({
+            orientation: "l",
+            unit: "mm",
+            format: "a4",
+            putOnlyUsedFonts: true,
+            floatPrecision: 16, // or "smart", default is 16
+        });
+
+        function loadImage(url) {
+            return new Promise((resolve) => {
+                let img = new Image();
+                img.onload = () => resolve(img);
+                img.src = url;
+            });
+        }
+
+        const toTitleCase = (phrase) => {
+            return phrase
+                .toLowerCase()
+                .split(' ')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
+        };
+
+        loadImage("<?php echo site_url() . '/'; ?>/public/images/cert/EDIT-CERT-TEMPLATE.png").then((logo) => {
+            // const doc = new jsPDF("p", "mm", "a4");
+            let width = doc.internal.pageSize.getWidth();
+            let height = doc.internal.pageSize.getHeight();
+
+            let halfWidth = width / 2
+            let halfHeight = height / 2
+
+            doc.addImage(logo, "PNG", 0, 0, width, height);
+
+            doc.setFont('Nickainley-Normal');
+            doc.setFontSize(55)
+            let textNama = data.nama;
+            splitedNama = textNama.split(' ')
+
+            if (splitedNama.length > 3) {
+                textNama = ''
+                splitedNama.forEach((el, i) => {
+                    if (i > 2) {
+                        let abjadWordAkhir = el.charAt(0)
+                        textNama += abjadWordAkhir + '. '
+                    } else {
+                        textNama += el + ' '
+                    }
+                })
+            }
+
+            textNama = toTitleCase(textNama)
+
+            let textSekolah = data.sekolah;
+
+            doc.text(textNama, halfWidth, halfHeight + 5, 'center')
+
+            doc.setFont('OpenSans-Regular');
+            doc.setFontSize(19)
+            doc.text(textSekolah, halfWidth, halfHeight + 20, 'center')
+
+            doc.save('QEC Certificate', {
+                returnPromise: true
+            }).then(() => {
+                window.location.reload()
+
+            })
+
+        });
     }
 </script>

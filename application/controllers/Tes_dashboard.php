@@ -762,4 +762,29 @@ class Tes_dashboard extends Tes_Controller
 		}
 		echo json_encode($status);
 	}
+	function cert_save()
+	{
+		$username = $this->access_tes->get_username();
+		$currentUser = $this->cbt_user_model->get_by_kolom_limit('user_email', $username, 1)->row();
+		$user_id = $currentUser->user_id;
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_rules('cert-nama', 'Nama Lengkap', 'required|strip_tags');
+		$this->form_validation->set_rules('cert-sekolah', 'Asal Sekolah', 'required|strip_tags');
+
+		if ($this->form_validation->run() == TRUE) {
+			$data['user_firstname'] = $this->input->post('cert-nama', true);
+			$data['user_detail'] = $this->input->post('cert-sekolah', true);
+			$data['downloadCert'] = 1;
+
+			$this->cbt_user_model->update('user_id', $user_id, $data);
+			$status['status'] = 1;
+			$status['pesan'] = 'Perubahan berhasil disimpan';
+		} else {
+			$status['status'] = 0;
+			$status['error'] = validation_errors();
+		}
+
+		echo json_encode($status);
+	}
 }

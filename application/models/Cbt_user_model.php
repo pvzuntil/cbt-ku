@@ -44,7 +44,7 @@ class Cbt_user_model extends CI_Model
 
     function get_by_kolom_limit($kolom, $isi, $limit)
     {
-        $this->db->select('user_id,user_grup_id,user_name,user_password,user_email,user_firstname,user_detail,user_regdate, telepon, kelas, lomba')
+        $this->db->select('user_id,user_grup_id,user_name,user_password,user_email,user_firstname,user_detail,user_regdate, telepon, kelas, lomba, downloadCert')
             ->where($kolom, $isi)
             ->from($this->table)
             ->limit($limit);
