@@ -250,10 +250,14 @@ class Tes_hasil extends Member_Controller
 			}
 
 			if (empty($temp->end_time)) {
-				if ($temp->tesuser_status == 4) {
-					$record[] = 'Kehabisan waktu (' . $temp->tes_duration_time . ' Menit 0 Detik)';
+				if ($status == 'mengerjakan') {
+					if ($temp->tesuser_status == 4) {
+						$record[] = 'Kehabisan waktu (' . $temp->tes_duration_time . ' Menit 0 Detik)';
+					} else {
+						$record[] = 'Belum selesai tes';
+					}
 				} else {
-					$record[] = 'Belum selesai tes';
+					$record[] = '';
 				}
 			} else {
 				$pecah = explode(',', $temp->time_span);
