@@ -419,8 +419,8 @@
 
         $('#cert-download').on('click', function() {
             generate_cert({
-                nama: escape("<?= $currentUser->user_firstname ?>"),
-                sekolah: escape("<?= $currentUser->user_detail ?>"),
+                nama: "<?= $currentUser->user_firstname ?>",
+                sekolah: "<?= $currentUser->user_detail ?>",
             })
         })
     });

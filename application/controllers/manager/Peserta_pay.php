@@ -26,7 +26,7 @@ class Peserta_pay extends Member_Controller
 		$data['kode_menu'] = $this->kode_menu;
 		$data['url'] = $this->url;
 
-		$query_cbt_user = $this->cbt_user_model->get_all_user();
+		$query_cbt_user = $this->cbt_user_model->get_all_user_pay();
 
 		if ($query_cbt_user->num_rows() > 0) {
 			$select = '';

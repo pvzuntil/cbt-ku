@@ -247,6 +247,14 @@ class Cbt_user_model extends CI_Model
 
     function get_all_user()
     {
+        $data = $this->db->select('user_id, user_firstname, user_email, lomba')
+            ->from($this->table)
+            ->where('cbt_user.active = 1');
+        return  $this->db->get();
+    }
+
+    function get_all_user_pay()
+    {
         $data = $this->db->select('user_id, user_firstname, status, user_email')
             ->from($this->table)
             ->where('cbt_user.active = 1')

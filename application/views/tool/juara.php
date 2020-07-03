@@ -12,54 +12,122 @@
 
 <!-- Main content -->
 <section class="content">
-    <div class="row">
-        <div class="col-xs-12">
-            <?php if ($isPublic == 1) : ?>
-                <div class="callout callout-info">
-                    <h4>Informasi</h4>
-                    <p>Data juara telah dirilis dan telah dipublikasikan ke para peserta.</p>
-                </div>
-            <?php else : ?>
-                <div class="callout callout-warning">
-                    <h4>Informasi</h4>
-                    <p>Data juara telah belum dibuat, silahkan buat data juara kemudian klik tombol "PUBLIKASIKAN" untuk menampilkannya ke para peserta.</p>
-                </div>
-            <?php endif ?>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="box">
-                <div class="box-header with-border">
-                    <div class="box-title">Buat Laporan Kejuaraan</div>
-                </div><!-- /.box-header -->
-
-                <div class="box-body">
-                    <span id="form-pesan-database"></span>
-                    <p>Klik tombol <b>Publikasikan</b> untuk menampilkan laporan data kejuaran para peserta, dan diurutkan menurut peringkat nilai tertinggi.</p>
-                    <p>Laporan kejuaraan akan ditampilkan kepada para peserta.</p>
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="margin-bottom: 10px;">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Juara</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Sertifikat</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <div class="row">
+                <div class="col-sm-12">
                     <div class="row">
                         <div class="col-xs-12">
-                            <b>Tulis Laporan</b>
+                            <?php if ($isPublic == 1) : ?>
+                                <div class="callout callout-info">
+                                    <h4>Informasi</h4>
+                                    <p>Data juara telah dirilis dan telah dipublikasikan ke para peserta.</p>
+                                </div>
+                            <?php else : ?>
+                                <div class="callout callout-warning">
+                                    <h4>Informasi</h4>
+                                    <p>Data juara telah belum dibuat, silahkan buat data juara kemudian klik tombol "PUBLIKASIKAN" untuk menampilkannya ke para peserta.</p>
+                                </div>
+                            <?php endif ?>
                         </div>
-                        <div class="col-xs-12">
-                            <textarea class="textarea" id="tulis_laporan" name="tulis_laporan" style="width: 100%; height: 150px; font-size: 13px; line-height: 25px; border: 1px solid #dddddd; padding: 10px;"><?= $isiLaporan ?></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box">
+                                <div class="box-header with-border">
+                                    <div class="box-title">Buat Laporan Kejuaraan</div>
+                                </div><!-- /.box-header -->
+
+                                <div class="box-body">
+                                    <span id="form-pesan-database"></span>
+                                    <p>Klik tombol <b>Publikasikan</b> untuk menampilkan laporan data kejuaran para peserta, dan diurutkan menurut peringkat nilai tertinggi.</p>
+                                    <p>Laporan kejuaraan akan ditampilkan kepada para peserta.</p>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <b>Tulis Laporan</b>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <textarea class="textarea" id="tulis_laporan" name="tulis_laporan" style="width: 100%; height: 150px; font-size: 13px; line-height: 25px; border: 1px solid #dddddd; padding: 10px;"><?= $isiLaporan ?></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="box-footer">
+                                    <button type="button" class="btn btn-primary" id="juara-save">Simpan</button>
+                                    <div class="pull-right">
+                                        <!-- <button type="submit" class="btn btn-primary" id="backup-database">Buat Laporan</button> -->
+                                        <button type="button" class="btn <?= $isPublic == 0 ? 'btn-success' : 'btn-danger' ?>" id="juara-publikasi" value="<?= $isPublic == 0 ? '1' : '0' ?>"><?= $isPublic == 0 ? 'Publikasikan !' : 'Batalkan Publikasi' ?></button>
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="box-footer">
-                    <button type="button" class="btn btn-primary" id="juara-save">Simpan</button>
-                    <div class="pull-right">
-                        <!-- <button type="submit" class="btn btn-primary" id="backup-database">Buat Laporan</button> -->
-                        <button type="button" class="btn <?= $isPublic == 0 ? 'btn-success' : 'btn-danger' ?>" id="juara-publikasi" value="<?= $isPublic == 0 ? '1' : '0' ?>"><?= $isPublic == 0 ? 'Publikasikan !' : 'Batalkan Publikasi' ?></button>
-
+            </div>
+        </div>
+        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group row">
+                                <div class="col-xs-12">
+                                    <label>Nama Peserta</label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div>
+                                        <select name="generate-cert-peserta" id="generate-cert-peserta" class="form-control input-sm" style="width: 100%;">
+                                            <!-- < value="">-- Pilih Peserta --</option> -->
+                                            <optgroup label="Pilih peserta"> <?php if (!empty($select_group)) {
+                                                                                    echo $select_group;
+                                                                                } ?>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>Opsi</label>
+                                <select name="tambah-opsi" id="tambah-opsi" class="form-control input-sm">
+                                    <option value="">-- Pilih Opsi --</option>
+                                    <option value="medali emas">Medali Emas</option>
+                                    <option value="medali perak">Medali Perak</option>
+                                    <option value="medali perunggu">Medali Perunggu</option>
+                                    <option value="peserta">Peserta</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>Lomba</label>
+                                <select name="tambah-lomba" id="tambah-lomba" class="form-control input-sm">
+                                    <option value="">-- Pilih Lomba --</option>
+                                    <option value="matematika">Matematika</option>
+                                    <option value="sains">Sains</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2" style="margin-top: 23px;">
+                            <button id="generate-cert" class="btn btn-primary btn-sm btn-block">Download Setifikat</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
+
+    <div class="row" style="margin-top: 10px;">
         <div class="col-md-12">
             <div class="row">
                 <div class="col-sm-12">
@@ -108,6 +176,7 @@
                                 </div>
                                 <div class="box-footer">
                                     <div class="pull-right">
+                                        <button type="button" class="btn btn-sm btn-default" id="btn-cert-mtk">Cetak semua sertifikat</button>
                                         <button type="button" class="btn btn-sm btn-primary" id="btn-salin-mtk">Salin Data</button>
                                     </div>
                                 </div>
@@ -141,6 +210,7 @@
                                 </div>
                                 <div class="box-footer">
                                     <div class="pull-right">
+                                        <button type="button" class="btn btn-sm btn-default" id="btn-cert-sains">Cetak semua sertifikat</button>
                                         <button type="button" class="btn btn-sm btn-primary" id="btn-salin-sains">Salin Data</button>
                                     </div>
                                 </div>
@@ -246,7 +316,10 @@
 
 </section><!-- /.content -->
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+<script src="<?php echo site_url() . '/'; ?>/public/images/cert/Nickainley-Normal-normal.js"></script>
+<script src="<?php echo site_url() . '/'; ?>/public/images/cert/OpenSans-Regular-normal.js"></script>
+<script src="<?php echo site_url() . '/'; ?>/public/images/cert/OpenSans-Bold-bold.js"></script>
 
 <script lang="javascript">
     function refresh_table() {
@@ -254,7 +327,19 @@
         $('#table-juara-sains').dataTable().fnReloadAjax();
     }
 
+    const toTitleCase = (phrase) => {
+        return phrase
+            .toLowerCase()
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+    };
+
     $(function() {
+        $('#generate-cert-peserta').select2();
+
+        $('#pills-home-tab').click()
+
         $('#form-kelas').on('change', function() {
             $('#kelas').html($(this).val())
             refresh_table()
@@ -425,10 +510,31 @@
         });
 
         $('#btn-salin-mtk').on('click', function() {
-            salinData('matematika')
+            salinData('matematika').then((data) => {
+                insertData(data, 'matematika')
+                Swal.fire({
+                    toast: true,
+                    timer: 2000,
+                    title: 'Berhasil menyalin data',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    position: 'top-right'
+                })
+            })
         })
+
         $('#btn-salin-sains').on('click', function() {
-            salinData('sains')
+            salinData('sains').then((data) => {
+                insertData(data, 'sains')
+                Swal.fire({
+                    toast: true,
+                    timer: 2000,
+                    title: 'Berhasil menyalin data',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    position: 'top-right'
+                })
+            })
         })
 
         $('#juara-save').on('click', function() {
@@ -477,19 +583,77 @@
                 }
             })
         })
+
+        $('#btn-cert-mtk').on('click', function() {
+            salinData('matematika').then(data => {
+                generate_cert(JSON.parse(data), 'juara', 'Matematika')
+            })
+        })
+
+        $('#btn-cert-sains').on('click', function() {
+            salinData('sains').then(data => {
+                generate_cert(JSON.parse(data), 'juara', 'Sains')
+            })
+        })
+
+        $('#generate-cert').on('click', function() {
+            let id = $('#generate-cert-peserta').val()
+            let juara = $('#tambah-opsi').val()
+            let lomba = $('#tambah-lomba').val()
+
+            if (id == '' || juara == '' || lomba == '') {
+                return Swal.fire({
+                    title: 'Wajib diisi semua !',
+                    toast: true,
+                    timer: 2000,
+                    position: 'top-right',
+                    icon: 'error',
+                    showConfirmButton: false
+                })
+            }
+
+            $.ajax({
+                url: '<?= site_url() ?>/manager/peserta_daftar/get_by_id/' + id,
+                beforeSend: function() {
+                    $('#modal-proses').modal('show')
+                },
+                success: function(data) {
+                    $('#modal-proses').modal('hide')
+
+                    let res = JSON.parse(data)
+
+                    if (juara == 'peserta') {
+                        generate_cert([{
+                            nama: res.nama,
+                            sekolah: res.detail
+                        }], 'peserta')
+                    } else {
+                        generate_cert([{
+                            nama: res.nama,
+                            sekolah: res.detail,
+                            juara: toTitleCase(juara)
+                        }], 'juara', lomba.capitalize())
+                    }
+                }
+            })
+
+        })
     });
 
-    function salinData(lomba) {
-        $.ajax({
-            url: "<?php echo site_url() . '/' . $url; ?>/salin_data/",
-            data: {
-                kelas: $('#form-kelas').val(),
-                lomba: lomba
-            },
-            method: 'POST',
-            success: function(data) {
-                insertData(data, lomba)
-            }
+    const salinData = (lomba) => {
+        return new Promise(function(resolve, reject) {
+            $.ajax({
+                url: "<?php echo site_url() . '/' . $url; ?>/salin_data/",
+                data: {
+                    kelas: $('#form-kelas').val(),
+                    lomba: lomba
+                },
+                method: 'POST',
+                success: function(data) {
+                    resolve(data)
+                    // insertData(data, lomba)
+                }
+            })
         })
     }
 
@@ -517,6 +681,7 @@
         });
 
         CKEDITOR.instances.tulis_laporan.insertHtml(dataJuara);
+        $('#pills-home-tab').click()
 
     }
 
@@ -552,5 +717,95 @@
 
     String.prototype.capitalize = function() {
         return this.charAt(0).toUpperCase() + this.slice(1);
+    }
+
+    function generate_cert(data = {}, type = '', lomba = '') {
+
+        let doc = new jsPDF({
+            orientation: "l",
+            unit: "mm",
+            format: "a4",
+            putOnlyUsedFonts: true,
+            floatPrecision: 16, // or "smart", default is 16
+        });
+
+        function loadImage(url) {
+            return new Promise((resolve) => {
+                let img = new Image();
+                img.onload = () => resolve(img);
+                img.src = url;
+            });
+        }
+
+        let linkImage = type == 'peserta' ? "<?php echo site_url() . '/'; ?>/public/images/cert/EDIT-CERT-TEMPLATE.png" : "<?php echo site_url() . '/'; ?>/public/images/cert/CERT-KOSONG-II.png"
+
+        loadImage(linkImage).then((logo) => {
+            // const doc = new jsPDF("p", "mm", "a4");
+            let width = doc.internal.pageSize.getWidth();
+            let height = doc.internal.pageSize.getHeight();
+
+            let halfWidth = width / 2
+            let halfHeight = height / 2
+
+            data.forEach((node, i) => {
+                doc.addImage(logo, "PNG", 0, 0, width, height);
+
+                doc.setFontStyle('normal');
+                doc.setFont('Nickainley-Normal');
+                doc.setFontSize(55)
+                let textNama = node.nama;
+                splitedNama = textNama.split(' ')
+
+                if (splitedNama.length > 3) {
+                    textNama = ''
+                    splitedNama.forEach((el, i) => {
+                        if (i > 2) {
+                            let abjadWordAkhir = el.charAt(0)
+                            textNama += abjadWordAkhir + '. '
+                        } else {
+                            textNama += el + ' '
+                        }
+                    })
+                }
+
+                textNama = toTitleCase(textNama)
+
+                let textSekolah = node.sekolah;
+
+                doc.text(textNama, halfWidth, halfHeight + 5, 'center')
+
+                doc.setFont('OpenSans-Regular');
+                doc.setFontSize(19)
+                doc.text(textSekolah, halfWidth, halfHeight + 20, 'center')
+
+                if (type == 'juara') {
+                    let textJuara = node.juara;
+                    doc.setFontSize(16)
+
+                    doc.setFontStyle('bold');
+                    doc.setFont('OpenSans-Bold');
+                    doc.text('Juara ' + textJuara, halfWidth, halfHeight + 35, 'center')
+
+
+                    doc.setFontSize(14)
+                    doc.text(lomba.toUpperCase(), halfWidth - 3, halfHeight + 52, 'center')
+                }
+
+                doc.addPage()
+            })
+
+
+            doc.save('QEC Certificate ' + type.capitalize() + '-' + lomba + ' Kelas ' + $('#form-kelas').val(), {
+                returnPromise: true
+            }).then(() => {
+                // window.location.reload()
+                Swal.fire({
+                    title: 'Berhasil !',
+                    text: 'Berhasil membuat dokumen sertifikat',
+                    icon: 'success'
+                })
+            })
+
+        });
     }
 </script>

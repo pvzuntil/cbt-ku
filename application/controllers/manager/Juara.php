@@ -11,6 +11,7 @@ class Juara extends Member_Controller
         $this->load->helper('directory');
         $this->load->helper('file');
         $this->load->model('cbt_juara_model');
+        $this->load->model('cbt_user_model');
     }
 
     public function index()
@@ -18,6 +19,20 @@ class Juara extends Member_Controller
         $data['url'] = $this->url;
         $this->load->helper('form');
 
+        $query_cbt_user = $this->cbt_user_model->get_all_user();
+
+        if ($query_cbt_user->num_rows() > 0) {
+            $select = '';
+            $query_cbt_user = $query_cbt_user->result();
+            foreach ($query_cbt_user as $temp) {
+                $lomba = $temp->lomba == 'all' ? 'Matematika & Sains' : ucfirst($temp->lomba);
+                $select = $select . '<option value="' . $temp->user_id . '">' . $temp->user_firstname . ' - ' . $temp->user_email . ' - ' . $lomba . '</option>';
+            }
+        } else {
+            $select = '<option value="100000">KOSONG</option>';
+        }
+
+        $data['select_group'] = $select;
 
         $data['nama'] = $this->access->get_nama();
 
@@ -263,7 +278,7 @@ class Juara extends Member_Controller
 
         $i = $start;
         $query = $query->result();
-        $juara = 'Terbaik ';
+        $juara = 'Emas 🥇';
 
         if (count($query) == 0) {
             return false;
@@ -286,11 +301,14 @@ class Juara extends Member_Controller
                 $record['durasi'] = $pecah[0] . ' Menit ' . $pecah[1] . ' Detik';
             }
 
-            $record['juara'] = $juara . ++$i;
+            $record['juara'] = 'Medali ' . $juara;
 
-            if ($i == 3) {
-                $i = 0;
-                $juara = 'Harapan ';
+            ++$i;
+            if ($i > 0 && $i < 2) {
+                // $i = 0;
+                $juara = 'Perak 🥈';
+            } else if ($i > 2) {
+                $juara = 'Perunggu 🥉';
             }
 
             $output[] = $record;
