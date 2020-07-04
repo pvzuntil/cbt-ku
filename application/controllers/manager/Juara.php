@@ -241,7 +241,11 @@ class Juara extends Member_Controller
                 $record[] = ' (' . $pecah[0] . ' Menit ' . $pecah[1] . ' Detik)';
             }
 
-            $record[] = 'Medali ' . $juara;
+            if ($i > 5) {
+                $record[] = '';
+            } else {
+                $record[] = 'Medali ' . $juara;
+            }
             $medali = 'medali ' . $juara;
 
             // $record[] = '';
