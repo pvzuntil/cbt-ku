@@ -742,6 +742,13 @@
     }
 
     function generate_cert(data = {}, type = '', lomba = '') {
+        Swal.fire({
+            title: 'Harap tunggu tuan !',
+            text: 'Sedang mengerjakan sesuai yang anda minta.',
+            onBeforeOpen: () => {
+                Swal.showLoading()
+            },
+        })
 
         let doc = new jsPDF({
             orientation: "l",
