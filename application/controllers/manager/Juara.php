@@ -242,6 +242,11 @@ class Juara extends Member_Controller
             }
 
             $record[] = 'Medali ' . $juara;
+            $medali = 'medali ' . $juara;
+
+            // $record[] = '';
+            $record[] = '<a onclick="cert(\'' . $temp->user_id . '\', \'' . $lomba . '\', \'' . $medali . '\')" style="cursor: pointer;" class="btn btn-default btn-xs">Cetak sertifikat</a>';
+            // $record[] = '<input type="checkbox" name="edit-user-id[' . $temp->user_id . ']" >';
 
             ++$i;
             if ($i > 0 && $i < 2) {
@@ -250,10 +255,6 @@ class Juara extends Member_Controller
             } else if ($i > 2) {
                 $juara = 'Perunggu';
             }
-
-            // $record[] = '';
-            // $record[] = '<a onclick="edit(\'' . $temp->user_id . '\')" style="cursor: pointer;" class="btn btn-default btn-xs">Edit</a>';
-            // $record[] = '<input type="checkbox" name="edit-user-id[' . $temp->user_id . ']" >';
 
             $output['aaData'][] = $record;
         }

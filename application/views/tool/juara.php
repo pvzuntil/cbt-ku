@@ -161,10 +161,12 @@
                                                 <th>Score</th>
                                                 <th>Waktu mengerjakan</th>
                                                 <th>Juara</th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <td> </td>
                                                 <td> </td>
                                                 <td> </td>
                                                 <td> </td>
@@ -195,10 +197,12 @@
                                                 <th>Score</th>
                                                 <th>Waktu mengerjakan</th>
                                                 <th>Juara</th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <td> </td>
                                                 <td> </td>
                                                 <td> </td>
                                                 <td> </td>
@@ -447,6 +451,10 @@
                     "bSortable": false,
                     "sWidth": "90px"
                 },
+                {
+                    "bSearchable": false,
+                    "bSortable": false
+                },
 
             ],
             "sAjaxSource": "<?php echo site_url() . '/' . $url; ?>/get_datatable_juara/",
@@ -491,6 +499,9 @@
                     "bSearchable": false,
                     "bSortable": false,
                     "sWidth": "90px"
+                }, {
+                    "bSearchable": false,
+                    "bSortable": false
                 },
 
             ],
@@ -654,6 +665,17 @@
                     // insertData(data, lomba)
                 }
             })
+        })
+    }
+
+    function cert(id, lomba, medali) {
+        $('#pills-profile-tab').click()
+        $('#generate-cert-peserta').val(id)
+        $('#generate-cert-peserta').trigger('change');
+        $('#tambah-lomba').val(lomba)
+        $('#tambah-opsi').val(medali.toLowerCase())
+        $('html, body').animate({
+            scrollTop: 0
         })
     }
 
