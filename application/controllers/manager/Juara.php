@@ -275,7 +275,7 @@ class Juara extends Member_Controller
         $lomba = $this->input->post('lomba', true);
 
         // run query to get user listing
-        $query = $this->cbt_juara_model->get_datatable($start, $rows, $search, $lomba, $kelas);
+        $query = $this->cbt_juara_model->get_datatable($start, $rows, $search, $lomba, $kelas, 'salin');
 
         $i = $start;
         $query = $query->result();
