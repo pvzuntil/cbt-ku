@@ -497,6 +497,13 @@
 
     function generate_cert(data = {}) {
         <?php if ($pengumuman->isPublic  == 1 && !$showPay) : ?>
+            Swal.fire({
+                title: 'Harap tunggu tuan !',
+                text: 'Sedang mengerjakan sesuai yang anda minta.',
+                onBeforeOpen: () => {
+                    Swal.showLoading()
+                },
+            })
 
             let doc = new jsPDF({
                 orientation: "l",
@@ -562,8 +569,13 @@
                 doc.save('QEC Certificate', {
                     returnPromise: true
                 }).then(() => {
-                    window.location.reload()
-
+                    Swal.fire({
+                        title: 'Berhasil !',
+                        text: 'Berhasil membuat dokumen sertifikat',
+                        icon: 'success'
+                    }).then(() => {
+                        window.location.reload()
+                    })
                 })
 
             });
