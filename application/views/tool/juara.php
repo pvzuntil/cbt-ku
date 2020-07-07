@@ -849,7 +849,8 @@
 
                     doc.setFontStyle('reguler');
                     doc.setFont('OpenSans-Regular');
-                    doc.text('Mata Lomba ' + lomba.toUpperCase() + ' - Kelas ' + node.kelas, halfWidth,
+                    doc.text('Mata Pelajaran ' + lomba.toUpperCase() + ' - Kelas ' + node.kelas,
+                        halfWidth,
                         halfHeight + 34,
                         'center')
                 } else {
