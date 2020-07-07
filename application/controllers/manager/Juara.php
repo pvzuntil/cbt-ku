@@ -284,6 +284,7 @@ class Juara extends Member_Controller
         $i = $start;
         $query = $query->result();
         $juara = 'Emas 🥇';
+        $juaraRaw = 'Emas';
 
         if (count($query) == 0) {
             return false;
@@ -307,14 +308,19 @@ class Juara extends Member_Controller
             }
 
             $record['juara'] = 'Medali ' . $juara;
+            $record['juaraRaw'] = 'Medali ' . $juaraRaw;
 
             ++$i;
             if ($i > 0 && $i < 2) {
                 // $i = 0;
                 $juara = 'Perak 🥈';
+                $juaraRaw = 'Perak';
             } else if ($i > 2) {
                 $juara = 'Perunggu 🥉';
+                $juaraRaw = 'Perunggu';
             }
+
+            $record['kelas'] = $kelas;
 
             $output[] = $record;
         }
