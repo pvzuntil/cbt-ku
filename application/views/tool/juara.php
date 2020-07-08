@@ -14,12 +14,10 @@
 <section class="content">
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="margin-bottom: 10px;">
         <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
-                aria-controls="pills-home" aria-selected="true">Juara</a>
+            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Juara</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
-                aria-controls="pills-profile" aria-selected="false">Sertifikat</a>
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Sertifikat</a>
         </li>
     </ul>
     <div class="tab-content" id="pills-tabContent">
@@ -29,16 +27,16 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <?php if ($isPublic == 1) : ?>
-                            <div class="callout callout-info">
-                                <h4>Informasi</h4>
-                                <p>Data juara telah dirilis dan telah dipublikasikan ke para peserta.</p>
-                            </div>
+                                <div class="callout callout-info">
+                                    <h4>Informasi</h4>
+                                    <p>Data juara telah dirilis dan telah dipublikasikan ke para peserta.</p>
+                                </div>
                             <?php else : ?>
-                            <div class="callout callout-warning">
-                                <h4>Informasi</h4>
-                                <p>Data juara telah belum dibuat, silahkan buat data juara kemudian klik tombol
-                                    "PUBLIKASIKAN" untuk menampilkannya ke para peserta.</p>
-                            </div>
+                                <div class="callout callout-warning">
+                                    <h4>Informasi</h4>
+                                    <p>Data juara telah belum dibuat, silahkan buat data juara kemudian klik tombol
+                                        "PUBLIKASIKAN" untuk menampilkannya ke para peserta.</p>
+                                </div>
                             <?php endif ?>
                         </div>
                     </div>
@@ -59,8 +57,7 @@
                                             <b>Tulis Laporan</b>
                                         </div>
                                         <div class="col-xs-12">
-                                            <textarea class="textarea" id="tulis_laporan" name="tulis_laporan"
-                                                style="width: 100%; height: 150px; font-size: 13px; line-height: 25px; border: 1px solid #dddddd; padding: 10px;"><?= $isiLaporan ?></textarea>
+                                            <textarea class="textarea" id="tulis_laporan" name="tulis_laporan" style="width: 100%; height: 150px; font-size: 13px; line-height: 25px; border: 1px solid #dddddd; padding: 10px;"><?= $isiLaporan ?></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -69,10 +66,7 @@
                                     <button type="button" class="btn btn-primary" id="juara-save">Simpan</button>
                                     <div class="pull-right">
                                         <!-- <button type="submit" class="btn btn-primary" id="backup-database">Buat Laporan</button> -->
-                                        <button type="button"
-                                            class="btn <?= $isPublic == 0 ? 'btn-success' : 'btn-danger' ?>"
-                                            id="juara-publikasi"
-                                            value="<?= $isPublic == 0 ? '1' : '0' ?>"><?= $isPublic == 0 ? 'Publikasikan !' : 'Batalkan Publikasi' ?></button>
+                                        <button type="button" class="btn <?= $isPublic == 0 ? 'btn-success' : 'btn-danger' ?>" id="juara-publikasi" value="<?= $isPublic == 0 ? '1' : '0' ?>"><?= $isPublic == 0 ? 'Publikasikan !' : 'Batalkan Publikasi' ?></button>
 
                                     </div>
                                 </div>
@@ -93,8 +87,7 @@
                                 </div>
                                 <div class="col-xs-12">
                                     <div>
-                                        <select name="generate-cert-peserta" id="generate-cert-peserta"
-                                            class="form-control input-sm" style="width: 100%;">
+                                        <select name="generate-cert-peserta" id="generate-cert-peserta" class="form-control input-sm" style="width: 100%;">
                                             <!-- < value="">-- Pilih Peserta --</option> -->
                                             <optgroup label="Pilih peserta"> <?php if (!empty($select_group)) {
                                                                                     echo $select_group;
@@ -153,7 +146,7 @@
                                     <?php
                                     for ($i = 1; $i < 10; $i++) :
                                     ?>
-                                    <option value="<?= $i ?>">Kelas <?= $i ?></option>
+                                        <option value="<?= $i ?>">Kelas <?= $i ?></option>
                                     <?php
                                     endfor ?>
                                 </select>
@@ -241,8 +234,7 @@
     </div>
 
 
-    <div class="modal" id="modal-image" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModal"
-        aria-hidden="true">
+    <div class="modal" id="modal-image" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
         <div class="modal-dialog" style="width: 950px">
             <div class="modal-content">
                 <div class="modal-header">
@@ -288,8 +280,7 @@
                                             <div class="row-fluid">
                                                 <div class="box-body" style="height: 132px;">
                                                     <input type="hidden" name="image-isi" id="image-isi">
-                                                    <div id="image-preview"
-                                                        style="text-align: center;vertical-align: middle;"></div>
+                                                    <div id="image-preview" style="text-align: center;vertical-align: middle;"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -339,8 +330,7 @@
 
 </section><!-- /.content -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"
-    integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous">
 </script>
 <script src="<?php echo site_url() . '/'; ?>/public/images/cert/Nickainley-Normal-normal.js"></script>
 <script src="<?php echo site_url() . '/'; ?>/public/images/cert/OpenSans-Regular-normal.js"></script>
@@ -360,12 +350,12 @@
             .join(' ');
     };
 
-    $(function () {
+    $(function() {
         $('#generate-cert-peserta').select2();
 
         $('#pills-home-tab').click()
 
-        $('#form-kelas').on('change', function () {
+        $('#form-kelas').on('change', function() {
             $('#kelas').html($(this).val())
             refresh_table()
 
@@ -373,13 +363,13 @@
 
         CKEDITOR.replace('tulis_laporan');
 
-        $('#btn-image-insert').click(function () {
+        $('#btn-image-insert').click(function() {
             var image = $('#image-isi').val();
             CKEDITOR.instances.tulis_laporan.insertHtml(image);
             $("#modal-image").modal("hide");
         });
 
-        $('#form-upload-image').submit(function () {
+        $('#form-upload-image').submit(function() {
             $("#modal-proses").modal('show');
             $.ajax({
                 url: "<?php echo site_url() . '/' . $url; ?>/upload_file",
@@ -389,7 +379,7 @@
                 contentType: false,
                 cache: false,
                 processData: false,
-                success: function (respon) {
+                success: function(respon) {
                     var obj = $.parseJSON(respon);
                     if (obj.status == 1) {
                         $('#image-preview').html(obj.image);
@@ -481,7 +471,7 @@
             "sAjaxSource": "<?php echo site_url() . '/' . $url; ?>/get_datatable_juara/",
             "autoWidth": false,
             "responsive": true,
-            "fnServerParams": function (aoData) {
+            "fnServerParams": function(aoData) {
                 aoData.push({
                     "name": "kelas",
                     "value": $('#form-kelas').val()
@@ -529,7 +519,7 @@
             "sAjaxSource": "<?php echo site_url() . '/' . $url; ?>/get_datatable_juara/",
             "autoWidth": false,
             "responsive": true,
-            "fnServerParams": function (aoData) {
+            "fnServerParams": function(aoData) {
                 aoData.push({
                     "name": "kelas",
                     "value": $('#form-kelas').val()
@@ -541,7 +531,7 @@
             }
         });
 
-        $('#btn-salin-mtk').on('click', function () {
+        $('#btn-salin-mtk').on('click', function() {
             salinData('matematika').then((data) => {
                 insertData(data, 'matematika')
                 Swal.fire({
@@ -555,7 +545,7 @@
             })
         })
 
-        $('#btn-salin-sains').on('click', function () {
+        $('#btn-salin-sains').on('click', function() {
             salinData('sains').then((data) => {
                 insertData(data, 'sains')
                 Swal.fire({
@@ -569,17 +559,17 @@
             })
         })
 
-        $('#juara-save').on('click', function () {
+        $('#juara-save').on('click', function() {
             $.ajax({
                 url: "<?php echo site_url() . '/' . $url; ?>/save_juara/",
                 data: {
                     isi: CKEDITOR.instances.tulis_laporan.getData()
                 },
                 method: 'POST',
-                beforeSend: function () {
+                beforeSend: function() {
                     $('#modal-proses').modal('show')
                 },
-                success: function () {
+                success: function() {
                     $('#modal-proses').modal('hide')
                     return Swal.fire({
                         title: 'Berhasil menyimpan data laporan',
@@ -593,22 +583,21 @@
             })
         })
 
-        $('#juara-publikasi').on('click', function () {
+        $('#juara-publikasi').on('click', function() {
             $.ajax({
                 url: "<?php echo site_url() . '/' . $url; ?>/publikasi_juara/",
                 data: {
                     isPublic: $('#juara-publikasi').val()
                 },
                 method: 'POST',
-                beforeSend: function () {
+                beforeSend: function() {
                     $('#modal-proses').modal('show')
                 },
-                success: function (data) {
+                success: function(data) {
                     $('#modal-proses').modal('hide')
                     return Swal.fire({
                         title: 'Berhasil',
-                        text: data == 1 ? 'Berhasil mempublikasikan laporan' :
-                            'Berhasil membatalkan publikasi laporan',
+                        text: data == 1 ? 'Berhasil mempublikasikan laporan' : 'Berhasil membatalkan publikasi laporan',
                         icon: 'success',
                     }).then(() => {
                         window.location.reload()
@@ -617,19 +606,19 @@
             })
         })
 
-        $('#btn-cert-mtk').on('click', function () {
+        $('#btn-cert-mtk').on('click', function() {
             salinData('matematika').then(data => {
                 generate_cert(JSON.parse(data), 'juara', 'Matematika')
             })
         })
 
-        $('#btn-cert-sains').on('click', function () {
+        $('#btn-cert-sains').on('click', function() {
             salinData('sains').then(data => {
                 generate_cert(JSON.parse(data), 'juara', 'Sains')
             })
         })
 
-        $('#generate-cert').on('click', function () {
+        $('#generate-cert').on('click', function() {
             let id = $('#generate-cert-peserta').val()
             let juara = $('#tambah-opsi').val()
             let lomba = $('#tambah-lomba').val()
@@ -647,10 +636,10 @@
 
             $.ajax({
                 url: '<?= site_url() ?>/manager/peserta_daftar/get_by_id/' + id,
-                beforeSend: function () {
+                beforeSend: function() {
                     $('#modal-proses').modal('show')
                 },
-                success: function (data) {
+                success: function(data) {
                     $('#modal-proses').modal('hide')
 
                     let res = JSON.parse(data)
@@ -675,7 +664,7 @@
     });
 
     const salinData = (lomba) => {
-        return new Promise(function (resolve, reject) {
+        return new Promise(function(resolve, reject) {
             $.ajax({
                 url: "<?php echo site_url() . '/' . $url; ?>/salin_data/",
                 data: {
@@ -683,7 +672,7 @@
                     lomba: lomba
                 },
                 method: 'POST',
-                success: function (data) {
+                success: function(data) {
                     resolve(data)
                     // insertData(data, lomba)
                 }
@@ -762,7 +751,7 @@
         $('#box-preview').removeClass('hide');
     }
 
-    String.prototype.capitalize = function () {
+    String.prototype.capitalize = function() {
         return this.charAt(0).toUpperCase() + this.slice(1);
     }
 
@@ -837,7 +826,7 @@
                     doc.setFontSize(19)
                     doc.text(textSekolah, halfWidth, halfHeight + 7, 'center')
 
-                    let textJuara = node.juaraRaw;
+                    let textJuara = node.juaraRaw.toUpperCase();
                     doc.setFontSize(18)
 
                     doc.setFontStyle('bold');
