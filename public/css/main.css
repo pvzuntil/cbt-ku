@@ -1,0 +1,53 @@
+.swal2-popup {
+  font-size: 1.6rem !important;
+}
+
+#isi-tes-soal img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.back-body {
+  background-image: url("<?php echo base_url(); ?>public/images/back.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+.shadow-box {
+  box-shadow: 6px 6px 10px 0px #00000070;
+}
+
+.zoom {
+  transition: transform 0.2s;
+  /* Animation */
+  margin: 0 auto;
+}
+
+.zoom:hover {
+  transform: scale(1.7);
+  /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.swal2-popup {
+  font-size: 1.6rem !important;
+}
+
+.flyover {
+  display: flex;
+  width: 100%;
+  position: fixed;
+  background-color: #fcc604;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px 100px;
+}
+
+.close-button-flyover {
+  position: absolute;
+  right: 20px;
+}

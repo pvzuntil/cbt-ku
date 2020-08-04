@@ -10,56 +10,10 @@
           } ?> | <?php echo $title; ?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content='width=device-width, initial-scale=1, maximum-scale=10, user-scalable=yes' name='viewport'>
-  <!-- Bootstrap 3.3.4 -->
-  <link href="<?php echo base_url(); ?>public/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <!-- Font Awesome Icons -->
-  <link href="<?php echo base_url(); ?>public/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
-  <!-- Theme style -->
-  <link href="<?php echo base_url(); ?>public/plugins/adminlte/css/AdminLTE.css" rel="stylesheet" type="text/css" />
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
-  <link href="<?php echo base_url(); ?>public/plugins/adminlte/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+  <?php include 'required/css.php' ?>
+  <?php include 'required/js.php' ?>
 
-  <link href="<?php echo base_url(); ?>public/plugins/iCheck/square/blue.css" rel="stylesheet" type="text/css" />
-
-  <link href="<?php echo base_url(); ?>public/plugins/pnotify/pnotify.custom.min.css" rel="stylesheet" type="text/css" />
-
-  <link rel="shortcut icon" href="<?php echo base_url(); ?>public/images/icon.png" type="image/x-icon">
-
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-
-
-  <!-- jQuery 2.1.4 -->
-  <script src="<?php echo base_url(); ?>public/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-  <!-- Bootstrap 3.3.2 JS -->
-  <script src="<?php echo base_url(); ?>public/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-  <!-- AdminLTE App -->
-  <script src="<?php echo base_url(); ?>public/plugins/adminlte/js/app.min.js" type="text/javascript"></script>
-  <!-- iCheck -->
-  <script src="<?php echo base_url(); ?>public/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
-
-  <script src="<?php echo base_url(); ?>public/app.js" type="text/javascript"></script>
-
-  <script src="<?php echo base_url(); ?>public/plugins/pnotify/pnotify.custom.min.js" type="text/javascript"></script>
-
-  <script src="<?php echo base_url(); ?>public/plugins/swal/swal.js" type="text/javascript"></script>
-
-  <!-- <script src="https://www.google.com/recaptcha/api.js?render=6LcIHqYZAAAAAAjrpAdAIn2iqNyPNFsj8Tdcg4iY"></script> -->
-  <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
-
-  <style>
-    .swal2-popup {
-      font-size: 1.6rem !important;
-    }
-  </style>
   <?php if (@$url == 'welcome') : ?>
     <style>
       .back-body {
@@ -93,41 +47,6 @@
       }
     </style>
   <?php endif ?>
-
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-104089728-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
-
-    gtag('config', 'UA-104089728-1');
-  </script>
-
-  <style>
-    .flyover {
-      display: flex;
-      width: 100%;
-      position: fixed;
-      background-color: #fcc604;
-      top: 0;
-      left: 0;
-      z-index: 9999;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      padding: 10px 100px;
-    }
-
-    .close-button-flyover {
-      position: absolute;
-      right: 20px;
-    }
-  </style>
-
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
 
