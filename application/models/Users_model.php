@@ -152,12 +152,15 @@ class Users_model extends CI_Model
 
         if ($result->num_rows() > 0) {
             foreach ($result->result() as $temp) {
+                $classtreeView = '';
+
                 if (empty($temp->parent)) {
                     $parent = $this->get_menu_detail($temp->kode_menu)->row();
 
                     $parent_active = '';
                     if ($parent->kode_menu == $parent_kode_menu) {
                         $parent_active = ' active ';
+                        $classtreeView = 'menu-open ';
                     }
                 } else {
                     $parent = $this->get_menu_detail($temp->parent)->row();
@@ -165,6 +168,7 @@ class Users_model extends CI_Model
                     $parent_active = '';
                     if ($parent->kode_menu == $parent_kode_menu) {
                         $parent_active = ' active ';
+                        $classtreeView = 'menu-open ';
                     }
                 }
 
@@ -175,30 +179,34 @@ class Users_model extends CI_Model
 
                 $menu_child = '';
                 $menu_child_count = 0;
+                $linkParent = site_url() . '/' . $parent->url;
                 if ($result_child->num_rows() > 0) {
-                    $menu_child = $menu_child . '<ul class="treeview-menu">';
+                    $classtreeView .= ' has-treeview';
+                    $menu_child = $menu_child . '<ul class="nav nav-treeview">';
                     foreach ($result_child->result() as $child) {
                         $child_active = '';
                         if ($kode_menu == $child->kode_menu) {
                             $child_active = 'active';
                         }
                         $menu_child = $menu_child . '
-                            <li class="' . $child_active . '"><a href="' . site_url() . '/' . $child->url . '"><i class="' . $child->icon . '"></i> ' . $child->nama_menu . '</a></li>
+                            <li class="nav-item"><a href="' . site_url() . '/' . $child->url . '" class="nav-link ' . $child_active . '"><i class="nav-icon ' . $child->icon . '"></i> ' . $child->nama_menu . '</a></li>
                         ';
 
                         $menu_child_count++;
                     }
                     $menu_child = $menu_child . '</ul>';
+                    $linkParent = '#';
                 }
 
                 $menu = $menu . '
-                    <li class="treeview ' . $parent_active . '">
-                        <a href="' . site_url() . '/' . $parent->url . '">
-        					<i class="' . $parent->icon . '"></i>
-        					<span>' . $parent->nama_menu . '</span>';
+                    <li class="nav-item ' . $classtreeView . '">
+                        <a href="' . $linkParent . '" class="nav-link' . $parent_active . '">
+        					<i class="nav-icon ' . $parent->icon . '"></i>
+        					<p>' . $parent->nama_menu;
                 if ($menu_child_count > 0) {
-                    $menu = $menu . '<i class="fa fa-angle-left pull-right"></i>';
+                    $menu = $menu . '<i class="fas fa-angle-left right"></i>';
                 }
+                $menu .= '</p>';
 
                 $menu = $menu . '</a>';
 

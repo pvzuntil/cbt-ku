@@ -9,6 +9,7 @@ class Dashboard extends Member_Controller
 
     public function index()
     {
+        $data['url'] = 'dashboard';
         $this->load->helper('form');
         $this->load->model('cbt_user_model');
         $this->load->model('cbt_user_pay_model');

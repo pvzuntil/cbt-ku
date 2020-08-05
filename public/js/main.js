@@ -36,3 +36,33 @@ function notify_error(pesan) {
     delay: 2000,
   });
 }
+
+const SW = {
+  show(opt) {
+    return Swal.fire(opt);
+  },
+  yesno(opt) {
+    return this.show({
+      ...opt,
+      showCancelButton: true,
+    });
+  },
+};
+
+const init = () => {
+  $("#btn-logout").click(() => {
+    SW.yesno({
+      title: "Peringatan !",
+      text: "Apakah anda yakin ingin keluar .?",
+      icon: "warning",
+    }).then((res) => {
+      if (res.value) {
+        console.log("yaa");
+      }
+    });
+  });
+};
+
+$(() => {
+  init();
+});
