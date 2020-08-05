@@ -189,7 +189,7 @@ class Users_model extends CI_Model
                             $child_active = 'active';
                         }
                         $menu_child = $menu_child . '
-                            <li class="nav-item"><a href="' . site_url() . '/' . $child->url . '" class="nav-link ' . $child_active . '"><i class="nav-icon ' . $child->icon . '"></i> ' . $child->nama_menu . '</a></li>
+                            <li class="nav-item"><a href="' . site_url() . '/' . $child->url . '" class="nav-link ' . $child_active . '"><i class="nav-icon ' . $child->icon . '"></i><p>' . $child->nama_menu . '</p></a></li>
                         ';
 
                         $menu_child_count++;
