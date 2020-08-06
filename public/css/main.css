@@ -63,3 +63,11 @@ table img {
 .logo-mini {
   margin-top: 8px;
 }
+
+.select2-container .select2-selection--single {
+  height: 38px !important;
+}
+
+#swal2-title > p {
+  margin: 0 !important;
+}

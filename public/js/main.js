@@ -47,6 +47,29 @@ const SW = {
       showCancelButton: true,
     });
   },
+  loading() {
+    return this.show({
+      title: "Memperoses ...",
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      allowEnterKey: false,
+      onBeforeOpen: () => {
+        Swal.showLoading();
+      },
+    });
+  },
+  close() {
+    return Swal.close();
+  },
+  toast(opt) {
+    return this.show({
+      ...opt,
+      toast: true,
+      timer: 2000,
+      position: "top-right",
+      showConfirmButton: false,
+    });
+  },
 };
 
 const init = () => {

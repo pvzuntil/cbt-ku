@@ -1,218 +1,186 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>
-        Pembayaran Peserta
-        <small>Konfirmasi pembayaran peserta disini.</small>
-    </h1>
-    <ol class="breadcrumb">
-        <li><a href="<?php echo site_url(); ?>/"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Pembayaran Peserta</li>
-    </ol>
+    <div class="container-fluid">
+        <h1>
+            Pembayaran Peserta
+        </h1>
+    </div>
 </section>
-
-<style>
-    .badge-success {
-        color: #fff;
-        background-color: #28a745 !important;
-    }
-
-    .badge-danger {
-        color: #fff;
-        background-color: #dc3545 !important;
-    }
-
-    .zoom {
-        transition: transform .2s;
-        /* Animation */
-        margin: 0 auto;
-    }
-
-    .zoom:hover {
-        transform: scale(2);
-        /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-    }
-</style>
 
 <!-- Main content -->
 <section class="content">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="box">
-                <div class="box-header with-border">
-                    <div class="box-title">Pilih status</div>
-                </div>
-                <div class="box-body">
-                    <div class="form-group">
-                        <label>Status</label>
-                        <div id="data-kelas">
-                            <select name="status" id="status" class="form-control input-sm">
-                                <option value="semua">Semua Status</option>
-                                <option value="wait">Menunggu Konfirmasi</option>
-                                <option value="allow">Diterima</option>
-                                <option value="deny">Ditolak</option>
-                            </select>
-                        </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header with-border">
+                        <div class="card-title">Pilih status</div>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-12">
-            <div class="box">
-                <div class="box-header with-border">
-                    <div class="box-title">Bukti Pembayaran yang terkirim</div>
-                    <div class="box-tools pull-right">
-                        <div class="dropdown pull-right">
-                            <a style="cursor: pointer;" onclick="export_excel()" class="btn btn-primary btn-xs">Eksport Data</a>
-                            <a style="cursor: pointer;" onclick="tambah()" class="btn btn-success btn-xs">Tambah Pembayaran peserta</a>
-                        </div>
-                    </div>
-                </div><!-- /.box-header -->
-
-                <div class="box-body">
-                    <table id="table-peserta" class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>Email</th>
-                                <th class="all">Nama</th>
-                                <th>Kelompok</th>
-                                <th>Pilihan Lomba</th>
-                                <th>Tanggal upload</th>
-                                <th class="all">Status</th>
-                                <th class="all">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div style="max-height: 100%;overflow-y:auto;" class="modal" id="modal-tambah" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-        <?php echo form_open($url . '/tambah', 'id="form-tambah"'); ?>
-        <div class="modal-dialog modal-md">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="close" type="button" data-dismiss="modal">&times;</button>
-                    <div id="trx-judul">Tambah Pembayaran peserta</div>
-                </div>
-                <div class="modal-body">
-                    <div class="row-fluid">
-                        <div class="box-body">
-                            <div id="form-pesan"></div>
-                            <div class="form-group row">
-                                <div class="col-xs-12">
-                                    <label>Nama Peserta</label>
-                                </div>
-                                <div class="col-xs-12">
-                                    <div>
-                                        <select name="tambah-pay" id="tambah-pay" class="form-control input-sm" style="width: 100%;">
-                                            <!-- < value="">-- Pilih Peserta --</option> -->
-                                            <optgroup label="Pilih peserta"> <?php if (!empty($select_group)) {
-                                                                                    echo $select_group;
-                                                                                } ?>
-                                            </optgroup>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Opsi</label>
-                                <select name="tambah-opsi" id="tambah-opsi" class="form-control input-sm">
-                                    <option value="">-- Pilih Opsi --</option>
-                                    <option value="allow">Sudah membayar</option>
-                                    <option value="deny">Tolak membayar</option>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <div id="data-kelas">
+                                <select name="status" id="status" class="form-control input-sm">
+                                    <option value="semua">Semua Status</option>
+                                    <option value="wait">Menunggu Konfirmasi</option>
+                                    <option value="allow">Diterima</option>
+                                    <option value="deny">Ditolak</option>
                                 </select>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" id="tambah-simpan" class="btn btn-primary">Tambah</button>
-                    <a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>
+            </div>
+
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header with-border">
+                        <div class="card-title">Bukti Pembayaran yang terkirim</div>
+                        <div class="card-tools pull-right">
+                            <div class="dropdown pull-right">
+                                <a style="cursor: pointer;" onclick="export_excel()" class="btn btn-primary btn-xs text-white">Eksport Data</a>
+                                <a style="cursor: pointer;" onclick="tambah()" class="btn btn-success btn-xs text-white">Tambah Pembayaran peserta</a>
+                            </div>
+                        </div>
+                    </div><!-- /.card-header -->
+
+                    <div class="card-body">
+                        <table id="table-peserta" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Email</th>
+                                    <th class="all">Nama</th>
+                                    <th>Kelompok</th>
+                                    <th>Pilihan Lomba</th>
+                                    <th>Tanggal upload</th>
+                                    <th class="all">Status</th>
+                                    <th class="all">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
 
-        </form>
-    </div>
-
-    <div style="max-height: 100%;overflow-y:auto;" class="modal" id="modal-showDoc" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModalShowDoc" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <?php echo form_open($url . '/edit', 'id="form-edit"'); ?>
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="close" type="button" data-dismiss="modal">&times;</button>
-                    <div id="trx-judul">Dokumen pembayaran</div>
-                </div>
-                <div class="modal-body">
-                    <div class="row-fluid">
-                        <div class="box-body">
-                            <div id="form-pesan-show"></div>
-                            <input type="hidden" name="show-id" id="show-id">
-
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="text" class="form-control" id="show-email" name="show-email" placeholder="Email Peserta" readonly>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Nama Lengkap</label>
-                                <input type="text" class="form-control" id="show-nama" name="show-nama" readonly>
-                            </div>
-
+        <div style="max-height: 100%;overflow-y:auto;" class="modal fade" id="modal-tambah" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+            <?php echo form_open($url . '/tambah', 'id="form-tambah"'); ?>
+            <div class="modal-dialog modal-md modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div id="trx-judul">Tambah Pembayaran peserta</div>
+                        <button class="close" type="button" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div id="form-pesan"></div>
                             <div class="row">
-                                <div class="form-group col-sm-6">
-                                    <label>Asal Sekolah</label>
-                                    <input type="text" class="form-control" id="show-detail" name="show-detail" readonly>
+                                <div class="form-group col-12">
+                                    <label>Nama Peserta</label>
+                                    <select name="tambah-pay" id="tambah-pay" class="form-control input-sm" style="width: 100%;">
+                                        <optgroup label="Pilih peserta"> <?php if (!empty($select_group)) {
+                                                                                echo $select_group;
+                                                                            } ?>
+                                        </optgroup>
+                                    </select>
                                 </div>
-
-                                <div class="form-group col-sm-6">
-                                    <label>Level</label>
-                                    <input type="text" class="form-control" id="show-level" name="show-level" readonly>
+                                <div class="form-group col-12">
+                                    <label>Opsi</label>
+                                    <select name="tambah-opsi" id="tambah-opsi" class="form-control input-sm">
+                                        <option value="">-- Pilih Opsi --</option>
+                                        <option value="allow">Sudah membayar</option>
+                                        <option value="deny">Tolak membayar</option>
+                                    </select>
                                 </div>
-                            </div>
-
-                            <div class="callout callout-warning" id="msg-wait">
-                                <p>Menunggu untuk dikonfirmasi</p>
-                            </div>
-                            <div class="callout callout-success" id="msg-allow">
-                                <p>Diterima</p>
-                            </div>
-                            <div class="callout callout-danger" id="msg-deny">
-                                <p>Ditolak</p>
-                                <p id="msg-deny-message"></p>
-                            </div>
-                            <div class="col-sm-12" style="margin-bottom: 15px; display: flex; justify-content: center;">
-                                <img src="" alt="" class="img-responsive zoom" style="border-radius: 5px; cursor: pointer; box-shadow: 0px 4px 8px 0px #00000026;" id="imagePay">
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="pull-left" id="buttonActionShowDoc">
-                        <button type="button" id="show-allow" class="btn btn-success">Terima</button>
-                        <button type="button" id="show-deny" class="btn btn-danger">Tolak</button>
+                    <div class="modal-footer">
+                        <button type="submit" id="tambah-simpan" class="btn btn-primary">Tambah</button>
+                        <a href="#" class="btn btn-danger" data-dismiss="modal">Close</a>
                     </div>
-                    <a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>
                 </div>
             </div>
-            </form>
+            <?= form_close() ?>
         </div>
 
+        <div style="max-height: 100%;overflow-y:auto;" class="modal" id="modal-showDoc" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModalShowDoc" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <?php echo form_open($url . '/edit', 'id="form-edit"'); ?>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" type="button" data-dismiss="modal">&times;</button>
+                        <div id="trx-judul">Dokumen pembayaran</div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row-fluid">
+                            <div class="card-body">
+                                <div id="form-pesan-show"></div>
+                                <input type="hidden" name="show-id" id="show-id">
+
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="text" class="form-control" id="show-email" name="show-email" placeholder="Email Peserta" readonly>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Nama Lengkap</label>
+                                    <input type="text" class="form-control" id="show-nama" name="show-nama" readonly>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-6">
+                                        <label>Asal Sekolah</label>
+                                        <input type="text" class="form-control" id="show-detail" name="show-detail" readonly>
+                                    </div>
+
+                                    <div class="form-group col-sm-6">
+                                        <label>Level</label>
+                                        <input type="text" class="form-control" id="show-level" name="show-level" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="callout callout-warning" id="msg-wait">
+                                    <p>Menunggu untuk dikonfirmasi</p>
+                                </div>
+                                <div class="callout callout-success" id="msg-allow">
+                                    <p>Diterima</p>
+                                </div>
+                                <div class="callout callout-danger" id="msg-deny">
+                                    <p>Ditolak</p>
+                                    <p id="msg-deny-message"></p>
+                                </div>
+                                <div class="col-sm-12" style="margin-bottom: 15px; display: flex; justify-content: center;">
+                                    <img src="" alt="" class="img-responsive zoom" style="border-radius: 5px; cursor: pointer; box-shadow: 0px 4px 8px 0px #00000026;" id="imagePay">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="pull-left" id="buttonActionShowDoc">
+                            <button type="button" id="show-allow" class="btn btn-success">Terima</button>
+                            <button type="button" id="show-deny" class="btn btn-danger">Tolak</button>
+                        </div>
+                        <a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>
+                    </div>
+                </div>
+                </form>
+            </div>
+
+        </div>
     </div>
 </section><!-- /.content -->
 
@@ -232,7 +200,7 @@
     function showDoc(id) {
         $('#imagePay').attr('src', '<?= site_url() ?>' + 'public/images/loading.gif');
 
-        $("#modal-proses").modal('show');
+        SW.loading()
         $.getJSON('<?php echo site_url() . '/' . $url; ?>/get_by_id/' + id + '', function(data) {
             if (data.data == 1) {
                 $('#show-id').val(data.id);
@@ -267,7 +235,7 @@
 
                 $("#modal-showDoc").modal("show");
             }
-            $("#modal-proses").modal('hide');
+            SW.close()
         });
     }
 
@@ -290,7 +258,7 @@
                 cancelButtonText: 'Batal'
             }).then((res) => {
                 if (res.value) {
-                    $("#modal-proses").modal('show');
+                    SW.loading()
                     proses_konfirmasi('allow')
                 }
             })
@@ -316,7 +284,7 @@
                         title: 'Tuliskan alasan penolakan'
                     }).then((res) => {
                         if (res.value) {
-                            $("#modal-proses").modal('show');
+                            SW.loading()
                             proses_konfirmasi('deny', res.value)
                         }
                     })
@@ -338,11 +306,11 @@
                     var obj = $.parseJSON(respon);
                     if (obj.status == 1) {
                         refresh_table();
-                        $("#modal-proses").modal('hide');
+                        SW.close()
                         $("#modal-showDoc").modal('hide');
                         notify_success(obj.pesan);
                     } else {
-                        $("#modal-proses").modal('hide');
+                        SW.close()
                         notify_error(obj.pesan);
                     }
                 }
@@ -372,7 +340,7 @@
         });
 
         $('#form-tambah').submit(function() {
-            $("#modal-proses").modal('show');
+            SW.loading()
             $.ajax({
                 url: "<?php echo site_url() . '/' . $url; ?>/tambah",
                 type: "POST",
@@ -382,7 +350,7 @@
                     var obj = $.parseJSON(respon);
                     if (obj.status == 1) {
                         refresh_table();
-                        $("#modal-proses").modal('hide');
+                        SW.close()
                         $("#modal-tambah").modal('hide');
                         Swal.fire({
                             title: 'Berhasil !',
@@ -392,8 +360,10 @@
                             window.location.reload()
                         })
                     } else {
-                        $("#modal-proses").modal('hide');
-                        $('#form-pesan').html(pesan_err(obj.pesan));
+                        SW.toast({
+                            title: obj.pesan,
+                            icon: 'error'
+                        })
                     }
                 }
             });
