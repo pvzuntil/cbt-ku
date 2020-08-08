@@ -1,6 +1,6 @@
 <aside class="main-sidebar elevation-4 sidebar-dark-info">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="<?= base_url()?>/manager/dashboard" class="brand-link">
         <span class="brand-text font-weight-light ml-2">Quantum Education Center</span>
     </a>
 

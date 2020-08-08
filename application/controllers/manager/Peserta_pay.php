@@ -223,8 +223,7 @@ class Peserta_pay extends Member_Controller
 				$record[] = '<div class="badge badge-danger">DITOLAK</div>';
 			}
 
-
-			$record[] = '<button onclick="showDoc(\'' . $temp->id . '\')" style="cursor: pointer;" class="btn btn-default btn-xs">Lihat Dokumen</button>';
+			$record[] = $temp->status == 'allow'  ? '<button onclick="showDoc(\'' . $temp->id . '\')" style="cursor: pointer;" class="btn btn-default btn-xs">Lihat Dokumen</button>' : '';
 
 			$output['aaData'][] = $record;
 		}

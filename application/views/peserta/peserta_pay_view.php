@@ -117,56 +117,51 @@
             <?= form_close() ?>
         </div>
 
-        <div style="max-height: 100%;overflow-y:auto;" class="modal" id="modal-showDoc" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModalShowDoc" aria-hidden="true">
+        <div style="max-height: 100%;overflow-y:auto;" class="modal fade" id="modal-showDoc" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModalShowDoc" aria-hidden="true">
             <div class="modal-dialog modal-lg">
-                <?php echo form_open($url . '/edit', 'id="form-edit"'); ?>
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button class="close" type="button" data-dismiss="modal">&times;</button>
                         <div id="trx-judul">Dokumen pembayaran</div>
+                        <button class="close" type="button" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <div class="row-fluid">
-                            <div class="card-body">
-                                <div id="form-pesan-show"></div>
-                                <input type="hidden" name="show-id" id="show-id">
+                        <div id="form-pesan-show"></div>
+                        <input type="hidden" name="show-id" id="show-id">
 
-                                <div class="form-group">
-                                    <label>Email</label>
-                                    <input type="text" class="form-control" id="show-email" name="show-email" placeholder="Email Peserta" readonly>
-                                </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" class="form-control" id="show-email" name="show-email" placeholder="Email Peserta" readonly>
+                        </div>
 
-                                <div class="form-group">
-                                    <label>Nama Lengkap</label>
-                                    <input type="text" class="form-control" id="show-nama" name="show-nama" readonly>
-                                </div>
+                        <div class="form-group">
+                            <label>Nama Lengkap</label>
+                            <input type="text" class="form-control" id="show-nama" name="show-nama" readonly>
+                        </div>
 
-                                <div class="row">
-                                    <div class="form-group col-sm-6">
-                                        <label>Asal Sekolah</label>
-                                        <input type="text" class="form-control" id="show-detail" name="show-detail" readonly>
-                                    </div>
-
-                                    <div class="form-group col-sm-6">
-                                        <label>Level</label>
-                                        <input type="text" class="form-control" id="show-level" name="show-level" readonly>
-                                    </div>
-                                </div>
-
-                                <div class="callout callout-warning" id="msg-wait">
-                                    <p>Menunggu untuk dikonfirmasi</p>
-                                </div>
-                                <div class="callout callout-success" id="msg-allow">
-                                    <p>Diterima</p>
-                                </div>
-                                <div class="callout callout-danger" id="msg-deny">
-                                    <p>Ditolak</p>
-                                    <p id="msg-deny-message"></p>
-                                </div>
-                                <div class="col-sm-12" style="margin-bottom: 15px; display: flex; justify-content: center;">
-                                    <img src="" alt="" class="img-responsive zoom" style="border-radius: 5px; cursor: pointer; box-shadow: 0px 4px 8px 0px #00000026;" id="imagePay">
-                                </div>
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label>Asal Sekolah</label>
+                                <input type="text" class="form-control" id="show-detail" name="show-detail" readonly>
                             </div>
+
+                            <div class="form-group col-sm-6">
+                                <label>Level</label>
+                                <input type="text" class="form-control" id="show-level" name="show-level" readonly>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-warning" id="msg-wait">
+                            <span>Menunggu untuk dikonfirmasi</span>
+                        </div>
+                        <div class="alert alert-success" id="msg-allow">
+                            <span>Diterima</span>
+                        </div>
+                        <div class="alert alert-danger" id="msg-deny">
+                            <span>Ditolak</span>
+                            <p id="msg-deny-message"></p>
+                        </div>
+                        <div class="col-sm-12" style="margin-bottom: 15px; display: flex; justify-content: center;">
+                            <img src="" alt="" class="img-responsive zoom" style="border-radius: 5px; cursor: pointer; box-shadow: 0px 4px 8px 0px #00000026;" id="imagePay">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -177,9 +172,7 @@
                         <a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>
                     </div>
                 </div>
-                </form>
             </div>
-
         </div>
     </div>
 </section><!-- /.content -->
@@ -421,6 +414,9 @@
                     "name": "status",
                     "value": $('#status').val()
                 });
+            },
+            'fnDrawCallback': function() {
+                callBackDatatable()
             }
         });
 
@@ -428,7 +424,64 @@
 
     function export_excel() {
         let status = $('#status').val()
-
         window.open("<?php echo site_url() . '/' . $url; ?>/export/" + status, "_self");
     }
+
+    const callBackDatatable = () => {
+        let tableWrapper = $('#table-peserta_wrapper')
+        tableWrapper.children('.row').css({
+            width: '100%'
+        })
+
+
+        let dataLength = $('#table-peserta_length')
+        let rowLenght = dataLength.closest('.row')
+        rowLenght.css({
+            width: '100%'
+        })
+
+        let colLength = dataLength.closest('.col-sm-6')
+        colLength.css({
+            display: 'flex',
+            justifyContent: 'flex-start'
+        })
+
+        let dataSearch = $('#table-peserta_filter')
+        let rowSearch = dataSearch.closest('.row')
+        rowSearch.css({
+            width: '100%'
+        })
+
+        let colSearch = dataSearch.closest('.col-sm-6')
+        colSearch.css({
+            display: 'flex',
+            justifyContent: 'flex-end'
+        })
+
+        // repair pagination
+        let paginationWrapper = $('ul.pagination')
+
+        let rowPagination =
+            $('#table-peserta_paginate').closest('.row')
+
+        rowPagination.css({
+            width: '100%'
+        })
+
+        let paginationPrev = $('#table-peserta_previous')
+        paginationPrev.addClass('page-item')
+        paginationPrev.children('a').addClass('page-link')
+
+        let paginationNumber = paginationWrapper.children('li.paginate_button')
+        paginationNumber.addClass('page-item')
+        paginationNumber.children('a').addClass('page-link')
+
+        let paginationNext = $('#table-peserta_next')
+        paginationNext.addClass('page-item')
+        paginationNext.children('a').addClass('page-link')
+    }
+
+    $(() => {
+
+    })
 </script>
