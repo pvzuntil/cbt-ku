@@ -121,7 +121,7 @@ class Modul_import extends Member_Controller
 			}
 		} else {
 			$status['status'] = 0;
-			$status['pesan'] = validation_errors();
+			$status['pesan'] = array_values($this->form_validation->error_array())[0];
 		}
 		echo json_encode($status);
 	}
@@ -133,9 +133,9 @@ class Modul_import extends Member_Controller
 		// BEGIN RE-CODE ==========================================
 		$inputFileName = './public/uploads/' . $inputfile;
 
-		if($fileExt === '.xls'){
+		if ($fileExt === '.xls') {
 			$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
-		}else if($fileExt === '.xlsx'){
+		} else if ($fileExt === '.xlsx') {
 			$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
 		}
 
@@ -147,14 +147,12 @@ class Modul_import extends Member_Controller
 
 		// var_dump($highestRow);
 		// die();
-		
+
 		// $excel = PHPExcel_IOFactory::load($inputFileName);
 		// $worksheet = $excel->getSheet(0);
 		// $highestRow = $worksheet->getHighestRow();
-		
-		$pesan = '<div class="alert alert-info alert-dismissable">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <h4><i class="icon fa fa-info"></i> Informasi!</h4>';
+
+		$pesan = '';
 
 		if ($highestRow > 10) {
 			$jmlsoalsukses = 0;
@@ -168,10 +166,10 @@ class Modul_import extends Member_Controller
 				// $kolomStatusJawaban = $worksheet->getCellByColumnAndRow(4, $row)->getValue();//jawaban benar atau salah
 				// $kolomTingkatKesulitan = $worksheet->getCellByColumnAndRow(5, $row)->getValue();//tingkat kesulitan
 
-				$kolomKode = $spreadsheet[$row][2];//jenis, soal atau jawaban
-				$kolomIsi = $spreadsheet[$row][3];//isi 
-				$kolomStatusJawaban = $spreadsheet[$row][4];//jawaban benar atau salah
-				$kolomTingkatKesulitan = $spreadsheet[$row][5];//tingkat kesulitan
+				$kolomKode = $spreadsheet[$row][2]; //jenis, soal atau jawaban
+				$kolomIsi = $spreadsheet[$row][3]; //isi 
+				$kolomStatusJawaban = $spreadsheet[$row][4]; //jawaban benar atau salah
+				$kolomTingkatKesulitan = $spreadsheet[$row][5]; //tingkat kesulitan
 
 				if (empty($kolomKode)) {
 					$kosong = +2;
@@ -239,7 +237,7 @@ class Modul_import extends Member_Controller
 		} else {
 			$pesan = $pesan . 'Tidak Ada Yang Berhasil Di IMPORT. Cek kembali file excel yang dikirim';
 		}
-		$pesan = $pesan . '</div>';
+		// $pesan = $pesan . '</div>';
 
 		return $pesan;
 	}

@@ -12,7 +12,7 @@
 
 </head>
 
-<body class="sidebar-mini">
+<body class="sidebar-mini pr-0">
   <div class="wrapper">
     <?php include 'required/navbar-admin.php' ?>
 
