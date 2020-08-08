@@ -66,7 +66,7 @@
                                     </div>
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" aria-describedby="inputGroupFileAddon01" id="tambah-audio" name="tambah-audio">
-                                        <label class="custom-file-label" for="inputGroupFile01" id="tambah-nama-audio">Choose file</label>
+                                        <label class="custom-file-label" for="tambah-audio" id="tambah-nama-audio">Choose file</label>
                                     </div>
                                     <small class="text-muted mt-2">File audio yang akan ditambah pada soal. ( mp3). Jika ingin menghapus audio pada soal, maka Soalnya harus dihapus dahulu, setelah itu membuat soal ulang.</small>
                                 </div>
