@@ -65,7 +65,7 @@ const SW = {
     return this.show({
       ...opt,
       toast: true,
-      timer: 2000,
+      timer: 3000,
       position: "top-right",
       showConfirmButton: false,
     });
@@ -84,6 +84,58 @@ const init = () => {
       }
     });
   });
+};
+
+const callBackDatatable = (id) => {
+  let tableWrapper = $("" + id + "_wrapper");
+  tableWrapper.children(".row").css({
+    width: "100%",
+  });
+
+  let dataLength = $("" + id + "_length");
+  let rowLenght = dataLength.closest(".row");
+  rowLenght.css({
+    width: "100%",
+  });
+
+  let colLength = dataLength.closest(".col-sm-6");
+  colLength.css({
+    display: "flex",
+    justifyContent: "flex-start",
+  });
+
+  let dataSearch = $("" + id + "_filter");
+  let rowSearch = dataSearch.closest(".row");
+  rowSearch.css({
+    width: "100%",
+  });
+
+  let colSearch = dataSearch.closest(".col-sm-6");
+  colSearch.css({
+    display: "flex",
+    justifyContent: "flex-end",
+  });
+
+  // repair pagination
+  let paginationWrapper = $("ul.pagination");
+
+  let rowPagination = $("" + id + "_paginate").closest(".row");
+
+  rowPagination.css({
+    width: "100%",
+  });
+
+  let paginationPrev = $("" + id + "_previous");
+  paginationPrev.addClass("page-item");
+  paginationPrev.children("a").addClass("page-link");
+
+  let paginationNumber = paginationWrapper.children("li.paginate_button");
+  paginationNumber.addClass("page-item");
+  paginationNumber.children("a").addClass("page-link");
+
+  let paginationNext = $("" + id + "_next");
+  paginationNext.addClass("page-item");
+  paginationNext.children("a").addClass("page-link");
 };
 
 $(() => {
