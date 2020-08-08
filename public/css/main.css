@@ -71,3 +71,7 @@ table img {
 #swal2-title > p {
   margin: 0 !important;
 }
+
+.hide {
+  display: none;
+}

@@ -69,6 +69,10 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <!-- <script src="{{asset('js/main.js')}}"></script> -->
 
+<!-- ckeditor -->
+<script src="<?php echo base_url(); ?>public/plugins/ckeditor/ckeditor.js" type="text/javascript"></script>
+
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-104089728-1"></script>
 <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
 
