@@ -71,8 +71,6 @@
     </div>
 </section><!-- /.content -->
 
-
-
 <script lang="javascript">
     function batal_tambah() {
         $("#form-pesan").html('');

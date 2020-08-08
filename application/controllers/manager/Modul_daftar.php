@@ -260,7 +260,7 @@ class Modul_daftar extends Member_Controller
 			}
 
 			$jawaban_table = '
-            	<table class="table" border="0">
+            	<table class="table table-striped" border="0">
             		<tr>
                       <td colspan="3">' . $soal . '</td>
                       <td width="15%"><a href="' . site_url() . '/manager/modul_soal/index/' . $temp->soal_id . '" title="Edit Soal" style="cursor: pointer;"><span class="glyphicon glyphicon-edit"></span>Edit Soal</a></td>

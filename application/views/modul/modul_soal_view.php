@@ -570,7 +570,7 @@
                     {
                         "bSearchable": false,
                         "bSortable": false,
-                        "sWidth": "50px"
+                        "sWidth": "80px"
                     }
                 ],
                 "sAjaxSource": "<?php echo site_url() . '/' . $url; ?>/get_datatable/",

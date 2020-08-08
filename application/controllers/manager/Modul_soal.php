@@ -419,16 +419,16 @@ class Modul_soal extends Member_Controller
             ';*/
 
 			if ($temp->soal_tipe != 2 and $temp->soal_tipe != 3) {
-				$record[] = '<div style="text-align: center;">
-	            	<a onclick="jawaban(\'' . $temp->soal_id . '\')" title="Tambah Jawaban" style="cursor: pointer;"><span class="glyphicon glyphicon-question-sign"></span></a>
-	            	<a onclick="edit(\'' . $temp->soal_id . '\')" title="Edit Soal" style="cursor: pointer;"><span class="glyphicon glyphicon-edit"></span></a>
-	            	<a onclick="hapus(\'' . $temp->soal_id . '\')" title="Hapus Soal" style="cursor: pointer;"><span class="glyphicon glyphicon-remove"></span></a>
+				$record[] = '<div style="text-align: right;">
+	            	<a onclick="jawaban(\'' . $temp->soal_id . '\')" title="Tambah Jawaban" style="cursor: pointer;" class="btn btn-sm btn-default"><span class="fas fa-question"></span></a>
+	            	<a onclick="edit(\'' . $temp->soal_id . '\')" title="Edit Soal" style="cursor: pointer;" class="btn btn-sm btn-info text-white"><span class="fas fa-pen"></span></a>
+	            	<a onclick="hapus(\'' . $temp->soal_id . '\')" title="Hapus Soal" style="cursor: pointer;" class="btn btn-sm btn-danger text-white"><span class="fas fa-trash"></span></a>
 	            	</div>
 	            ';
 			} else {
-				$record[] = '<div style="text-align: center;">
-	            	<a onclick="edit(\'' . $temp->soal_id . '\')" title="Edit Soal" style="cursor: pointer;"><span class="glyphicon glyphicon-edit"></span></a>
-	            	<a onclick="hapus(\'' . $temp->soal_id . '\')" title="Hapus Soal" style="cursor: pointer;"><span class="glyphicon glyphicon-remove"></span></a>
+				$record[] = '<div style="text-align: right;">
+	            	<a onclick="edit(\'' . $temp->soal_id . '\')" title="Edit Soal" style="cursor: pointer;" class="btn btn-sm btn-info text-white"><span class="fas fa-pen"></span></a>
+	            	<a onclick="hapus(\'' . $temp->soal_id . '\')" title="Hapus Soal" style="cursor: pointer;" class="btn btn-sm btn-danger text-white"><span class="fas fa-trash"></span></a>
 	            	</div>
 	            ';
 			}
