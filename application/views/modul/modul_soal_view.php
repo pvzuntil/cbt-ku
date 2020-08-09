@@ -220,7 +220,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-xs-12">
+                    <div class="col-12">
                         <div class="card">
                             <div class="card-body" style="max-height: 230px;overflow: auto;">
                                 <table id="table-image" class="table table-bordered table-hover">
