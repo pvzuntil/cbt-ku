@@ -174,7 +174,7 @@
                     <button type="button" id="show-allow" class="btn btn-success">Terima</button>
                     <button type="button" id="show-deny" class="btn btn-danger">Tolak</button>
                 </div>
-                <a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>
+                <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
             </div>
         </div>
     </div>
