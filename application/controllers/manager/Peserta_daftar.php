@@ -96,7 +96,7 @@ class Peserta_daftar extends Member_Controller
 			}
 		} else {
 			$status['status'] = 0;
-			$status['pesan'] = validation_errors();
+			$status['pesan'] = array_values($this->form_validation->error_array())[0];
 		}
 
 		echo json_encode($status);
@@ -146,7 +146,7 @@ class Peserta_daftar extends Member_Controller
 			$status['pesan'] = 'Daftar Siswa berhasil dihapus';
 		} else {
 			$status['status'] = 0;
-			$status['pesan'] = validation_errors();
+			$status['pesan'] = array_values($this->form_validation->error_array())[0];
 		}
 
 		echo json_encode($status);
@@ -194,7 +194,7 @@ class Peserta_daftar extends Member_Controller
 			}
 		} else {
 			$status['status'] = 0;
-			$status['pesan'] = validation_errors();
+			$status['pesan'] = array_values($this->form_validation->error_array())[0];
 		}
 
 		echo json_encode($status);
