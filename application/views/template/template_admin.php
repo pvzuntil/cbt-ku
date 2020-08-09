@@ -7,6 +7,7 @@
             echo $site_name;
           } ?> | <?php echo $title; ?></title>
 
+  <meta name="__base_url" content="<?= base_url() ?>">
   <?php include 'required/css.php' ?>
   <?php include 'required/js.php' ?>
 

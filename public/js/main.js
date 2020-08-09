@@ -1,3 +1,4 @@
+const __BASE_URL = $("meta[name=__base_url]").attr("content");
 window.dataLayer = window.dataLayer || [];
 
 function gtag() {
@@ -80,7 +81,7 @@ const init = () => {
       icon: "warning",
     }).then((res) => {
       if (res.value) {
-        console.log("yaa");
+        window.location.href = __BASE_URL + "manager/welcome/logout";
       }
     });
   });
