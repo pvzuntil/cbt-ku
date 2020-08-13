@@ -68,10 +68,18 @@ table img {
   height: 38px !important;
 }
 
-#swal2-title > p {
+#swal2-title>p {
   margin: 0 !important;
 }
 
 .hide {
   display: none;
+}
+
+.badge>.number {
+  /* background-color: red; */
+  padding-left: 6px;
+  margin-left: 5px;
+  height: 100%;
+  border-left: .5px solid white;
 }

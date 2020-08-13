@@ -228,7 +228,7 @@ class Tes_tambah extends Member_Controller
             }
         } else {
             $status['status'] = 0;
-            $status['pesan'] = validation_errors();
+            $status['pesan'] = array_values($this->form_validation->error_array())[0];
         }
 
         echo json_encode($status);
@@ -299,7 +299,7 @@ class Tes_tambah extends Member_Controller
             }
         } else {
             $status['status'] = 0;
-            $status['pesan'] = validation_errors();
+            $status['pesan'] = array_values($this->form_validation->error_array())[0];
         }
 
         echo json_encode($status);
@@ -409,22 +409,26 @@ class Tes_tambah extends Member_Controller
 
             $record[] = ++$i;
 
+            $keterangan = '
+                <span class="badge badge-pill badge-info m-1">Soal <span class="number">' . $temp->tset_jumlah . '</span></span>
+                <span class="badge badge-pill badge-success m-1">Jawaban <span class="number">' . $temp->tset_jawaban . '</span></span>';
+
             $ket_acak = '';
             if ($temp->tset_acak_soal == 1) {
-                $ket_acak = $ket_acak . ' Acak Soal=YA';
-            } else {
-                $ket_acak = $ket_acak . ' Acak Soal=TDK';
+                $keterangan .= '<span class="badge badge-pill badge-secondary m-1">Acak Soal</span>';
             }
             if ($temp->tset_acak_jawaban == 1) {
-                $ket_acak = $ket_acak . '; Acak JWB=YA';
-            } else {
-                $ket_acak = $ket_acak . '; Acak JWB=TDK';
+                $keterangan .= '<span class="badge badge-pill badge-secondary m-1">Acak Jawaban</span>';
             }
 
             $query_topik = $this->cbt_topik_model->get_by_kolom_limit('topik_id', $temp->tset_topik_id, 1)->row();
 
-            $record[] = $query_topik->topik_nama . ' [' . $temp->tset_jumlah . '] [' . $temp->tset_jawaban . ']' . $ket_acak;
-            $record[] = '<a onclick="hapus_soal(\'' . $temp->tset_id . '\')" title="Hapus Daftar Soal" style="cursor: pointer;" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-remove"></span></a>';
+            // $record[] = $query_topik->topik_nama . ' [' . $temp->tset_jumlah . '] [' . $temp->tset_jawaban . ']' . $ket_acak;
+            $record[] = $query_topik->topik_nama;
+            $record[] = $keterangan;
+            // $record[] = ' [' . $temp->tset_jumlah . '] [' . $temp->tset_jawaban . ']' . $ket_acak;
+
+            $record[] = '<a onclick="hapus_soal(\'' . $temp->tset_id . '\')" title="Hapus Daftar Soal" style="cursor: pointer;" class="btn btn-danger text-white btn-sm"><span class="fas fa-trash"></span></a>';
 
             $output['aaData'][] = $record;
         }
