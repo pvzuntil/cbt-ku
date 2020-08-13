@@ -13,7 +13,7 @@
 
 </head>
 
-<body class="sidebar-mini pr-0">
+<body class="pr-0 sidebar-mini layout-fixed layout-navbar-fixed">
   <div class="wrapper">
     <?php include 'required/navbar-admin.php' ?>
 
