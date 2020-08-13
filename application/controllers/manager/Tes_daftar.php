@@ -49,7 +49,8 @@ class Tes_daftar extends Member_Controller
 			$status['pesan'] = 'Tes berhasil dihapus';
 		} else {
 			$status['status'] = 0;
-			$status['pesan'] = validation_errors();
+			$status['pesan'] =
+				array_values($this->form_validation->error_array())[0];
 		}
 
 		echo json_encode($status);
@@ -81,7 +82,7 @@ class Tes_daftar extends Member_Controller
 				$status = 1;
 				$pesan = 'Tes yang dipilih berhasil dihapus';
 			} else {
-				$pesan = 'Centang pernyataan bahwa anda yakin untuk menghapus Tes=';
+				$pesan = 'Centang pernyataan bahwa anda yakin untuk menghapus Tes';
 			}
 		} else {
 			$pesan = 'Pilih terlebih dahulu Tes yang akan dihapus';
@@ -174,8 +175,8 @@ class Tes_daftar extends Member_Controller
 
 
 			$record[] = '
-            	<a onclick="edit(\'' . $temp->tes_id . '\')" style="cursor: pointer;" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-edit"></span></a>
-            	<a onclick="hapus(\'' . $temp->tes_id . '\')" style="cursor: pointer;" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-remove"></a>
+            	<a onclick="edit(\'' . $temp->tes_id . '\')" style="cursor: pointer;" class="btn btn-default btn-sm"><span class="fas fa-pen"></span></a>
+            	<a onclick="hapus(\'' . $temp->tes_id . '\')" style="cursor: pointer;" class="btn btn-danger btn-sm text-white"><span class="fas fa-trash"></a>
             ';
 
 			$record[] = '<input type="checkbox" name="edit-tes-id[' . $temp->tes_id . ']" >';

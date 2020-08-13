@@ -94,6 +94,12 @@ const callBackDatatable = (id) => {
   });
 
   let dataLength = $("" + id + "_length");
+  dataLength.find('select').css({
+    margin: '0px 10px'
+  })
+  // console.log(dataLength.find('select'));
+
+
   let rowLenght = dataLength.closest(".row");
   rowLenght.css({
     width: "100%",
