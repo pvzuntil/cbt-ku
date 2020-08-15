@@ -28,15 +28,25 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 col-md-4">
-                                <div class="info-box">
+                                <div class="small-box bg-info">
+                                    <div class="inner">
+                                        <h3 id="isi-token">-</h3>
+
+                                        <p>Token Tes</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fas fa-barcode"></i>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="info-box">
                                     <span class="info-box-icon bg-info"><i class="fas fa-barcode"></i></span>
 
                                     <div class="info-box-content">
                                         <span class="info-box-text">Token Tes</span>
                                         <h4 class="info-box-number" id="isi-token">0</h4>
                                     </div>
-                                    <!-- /.info-box-content -->
-                                </div>
+                                </div> -->
                             </div>
                             <div class="col-12 col-md-8">
                                 <div class="form-group">
