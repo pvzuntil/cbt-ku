@@ -1,115 +1,121 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>
-        Pengaturan CBT
-        <small>Melakukan pengaturan Identitas CBT</small>
-    </h1>
-    <ol class="breadcrumb">
-        <li><a href="<?php echo site_url(); ?>/"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Pengaturan CBT</li>
-    </ol>
+    <div class="container-fluid">
+        <h1>
+            Pengaturan CBT
+        </h1>
+    </div>
 </section>
 
 <!-- Main content -->
 <section class="content">
-    <div class="row">
-        <div class="col-xs-12">
-            <?php echo form_open($url . '/simpan', 'id="form-pengaturan"'); ?>
-            <div class="box">
-                <div class="box-header with-border">
-                    <div class="box-title">Daftar Pengaturan CBT</div>
-                </div><!-- /.box-header -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <?php echo form_open($url . '/simpan', 'id="form-pengaturan"'); ?>
+                <div class="card">
+                    <div class="card-header with-border">
+                        <div class="card-title">Daftar Pengaturan CBT</div>
+                    </div><!-- /.card-header -->
 
-                <div class="box-body form-horizontal">
-                    <div id="form-pesan"></div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Nama</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control input-sm" id="zyacbt-nama" name="zyacbt-nama">
-                            <p class="help-block">
-                                Nama Pelaksana CBT.<br />
-                                Digunakan sebagai identitas pelaksanaan Tes.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Keterangan</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control input-sm" id="zyacbt-keterangan" name="zyacbt-keterangan">
-                            <p class="help-block">
-                                Keterangan Pelaksana bisa diisi dengan Slogan ataupun Alamat dari Organisasi.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Link Login Operator</label>
-                        <div class="col-sm-8">
-                            <select class="form-control input-sm" id="zyacbt-link-login" name="zyacbt-link-login">
-                                <option value="tidak">Tidak</option>
-                                <option value="ya">Ya</option>
-                            </select>
-                            <p class="help-block">
-                                Menampilkan Link <b>Log In Operator</b> pada Halaman login user.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Lock Mobile Exam Browser</label>
-                        <div class="col-sm-8">
-                            <select class="form-control input-sm" id="zyacbt-mobile-lock-xambro" name="zyacbt-mobile-lock-xambro">
-                                <option value="tidak">Tidak</option>
-                                <option value="ya">Ya</option>
-                            </select>
-                            <p class="help-block">
-                                Lock Browser Mobile / Browser Android agar hanya dapat digunakan melalui Exam Browser
-                            </p>
-                        </div>
-                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 col-md-6">
 
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Mode Perbaikan</label>
-                        <div class="col-sm-8">
-                            <select class="form-control input-sm" id="main-mode" name="main-mode">
-                                <option value="tidak">Tidak</option>
-                                <option value="ya">Ya</option>
-                            </select>
-                        </div>
-                    </div>
+                                <div id="form-pesan"></div>
+                                <div class="form-group">
+                                    <label class="control-label">Nama</label>
+                                    <input type="text" class="form-control input-sm" id="zyacbt-nama" name="zyacbt-nama">
+                                    <small class="text-muted">
+                                        Nama Pelaksana CBT. Digunakan sebagai identitas pelaksanaan Tes.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
 
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Tutup Pendaftaran</label>
-                        <div class="col-sm-8">
-                            <select class="form-control input-sm" id="tutup-daftar" name="tutup-daftar">
-                                <option value="tidak">Tidak</option>
-                                <option value="ya">Ya</option>
-                            </select>
-                        </div>
-                    </div>
+                                <div class="form-group">
+                                    <label class="control-label">Keterangan</label>
+                                    <input type="text" class="form-control input-sm" id="zyacbt-keterangan" name="zyacbt-keterangan">
+                                    <small class="text-muted">
+                                        Keterangan Pelaksana bisa diisi dengan Slogan ataupun Alamat dari Organisasi.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
 
-                    <!-- <div class="form-group">
-                        <div class="col-sm-4"></div>
-                        <div class="col-sm-4">
-                            <label>Tutup Pendaftaran</label>
-                            <select class="form-control input-sm" id="tutup-daftar" name="tutup-daftar">
-                                <option value="tidak">Tidak</option>
-                                <option value="ya">Ya</option>
-                            </select>
+                                <div class="form-group">
+                                    <label class="control-label">Link Login Operator</label>
+                                    <select class="form-control input-sm" id="zyacbt-link-login" name="zyacbt-link-login">
+                                        <option value="tidak">Tidak</option>
+                                        <option value="ya">Ya</option>
+                                    </select>
+                                    <small class="text-muted">
+                                        Menampilkan Link <b>Log In Operator</b> pada Halaman login user.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+
+                                <div class="form-group">
+                                    <label class="control-label">Lock Mobile Exam Browser</label>
+                                    <select class="form-control input-sm" id="zyacbt-mobile-lock-xambro" name="zyacbt-mobile-lock-xambro">
+                                        <option value="tidak">Tidak</option>
+                                        <option value="ya">Ya</option>
+                                    </select>
+                                    <small class="text-muted">
+                                        Lock Browser Mobile / Browser Android agar hanya dapat digunakan melalui Exam Browser
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+
+                                <div class="form-group">
+                                    <label class="control-label">Mode Perbaikan</label>
+                                    <select class="form-control input-sm" id="main-mode" name="main-mode">
+                                        <option value="tidak">Tidak</option>
+                                        <option value="ya">Ya</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+
+                                <div class="form-group">
+                                    <label class="control-label">Tutup Pendaftaran</label>
+                                    <select class="form-control input-sm" id="tutup-daftar" name="tutup-daftar">
+                                        <option value="tidak">Tidak</option>
+                                        <option value="ya">Ya</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="col-sm-4">
-                            <label>Tutup Pembayaran</label>
-                            <select class="form-control input-sm" id="tutup-bayar" name="tutup-bayar">
-                                <option value="tidak">Tidak</option>
-                                <option value="ya">Ya</option>
-                            </select>
-                        </div>
-                    </div> -->
+
+
+                        <!-- <div class="form-group">
+                            <div class="></div>
+                            <div class=">
+                                <label>Tutup Pendaftaran</label>
+                                <select class="form-control input-sm" id="tutup-daftar" name="tutup-daftar">
+                                    <option value="tidak">Tidak</option>
+                                    <option value="ya">Ya</option>
+                                </select>
+                            </div>
+    
+                            <div class=">
+                                <label>Tutup Pembayaran</label>
+                                <select class="form-control input-sm" id="tutup-bayar" name="tutup-bayar">
+                                    <option value="tidak">Tidak</option>
+                                    <option value="ya">Ya</option>
+                                </select>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" id="btn-simpan" class="btn btn-primary btn-sm">Simpan Pengaturan</button>
+                    </div>
                 </div>
-                <div class="box-footer">
-                    <button type="submit" id="btn-simpan" class="btn btn-primary pull-right">Simpan Pengaturan</button>
-                </div>
+                </form>
             </div>
-            </form>
         </div>
     </div>
 </section><!-- /.content -->
@@ -118,7 +124,7 @@
 
 <script lang="javascript">
     function load_data() {
-        $("#modal-proses").modal('show');
+        SW.loading()
         $.getJSON('<?php echo site_url() . '/' . $url; ?>/get_pengaturan_zyacbt', function(data) {
             if (data.data == 1) {
                 $('#zyacbt-nama').val(data.cbt_nama);
@@ -129,14 +135,14 @@
                 $('#tutup-daftar').val(data.tutup_daftar);
                 // $('#tutup-bayar').val(data.tutup_bayar);
             }
-            $("#modal-proses").modal('hide');
+            SW.close()
         });
     }
 
     $(function() {
         load_data();
         $('#form-pengaturan').submit(function() {
-            $("#modal-proses").modal('show');
+            SW.loading()
             $.ajax({
                 url: "<?php echo site_url() . '/' . $url; ?>/simpan",
                 type: "POST",
@@ -145,11 +151,15 @@
                 success: function(respon) {
                     var obj = $.parseJSON(respon);
                     if (obj.status == 1) {
-                        $("#modal-proses").modal('hide');
-                        notify_success(obj.pesan);
+                        SW.toast({
+                            title: obj.pesan,
+                            icon: 'success'
+                        });
                     } else {
-                        $("#modal-proses").modal('hide');
-                        $('#form-pesan').html(pesan_err(obj.pesan));
+                        SW.toast({
+                            title: obj.pesan,
+                            icon: 'error'
+                        })
                     }
                 }
             });
