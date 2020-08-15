@@ -1,6 +1,6 @@
 <aside class="main-sidebar elevation-4 sidebar-dark-info">
     <!-- Brand Logo -->
-    <a href="<?= base_url()?>/manager/dashboard" class="brand-link">
+    <a href="<?= base_url() ?>/manager/dashboard" class="brand-link">
         <span class="brand-text font-weight-light ml-2">Quantum Education Center</span>
     </a>
 
@@ -20,7 +20,7 @@
                     <nav class="mt-2">
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                             <li class="nav-item">
-                                <a href="<?= base_url() ?>manager/dashboard" class="nav-link <?= $url == 'dashboard' ? 'active' : '' ?>">
+                                <a href="<?= base_url() ?>manager/dashboard" class="nav-link <?= @$url == 'dashboard' ? 'active' : '' ?>">
                                     <i class="nav-icon fas fa-tachometer-alt"></i>
                                     <p>
                                         Dashboard
