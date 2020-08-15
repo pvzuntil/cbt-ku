@@ -1,321 +1,233 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>
-        Juara
-        <small>Membuat laporan kejuaraan dan menampilkan ke para peserta.</small>
-    </h1>
-    <ol class="breadcrumb">
-        <li><a href="<?php echo site_url(); ?>/"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Juara</li>
-    </ol>
+    <div class="container-fluid">
+        <h1>
+            Juara
+        </h1>
+    </div>
 </section>
 
 <!-- Main content -->
 <section class="content">
-    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="margin-bottom: 10px;">
-        <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Juara</a>
-        </li>
-        <li class="nav-item" role="presentation">
-            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Sertifikat</a>
-        </li>
-    </ul>
-    <div class="tab-content" id="pills-tabContent">
-        <div class="tab-pane fade active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <?php if ($isPublic == 1) : ?>
-                                <div class="callout callout-info">
-                                    <h4>Informasi</h4>
-                                    <p>Data juara telah dirilis dan telah dipublikasikan ke para peserta.</p>
-                                </div>
-                            <?php else : ?>
-                                <div class="callout callout-warning">
-                                    <h4>Informasi</h4>
-                                    <p>Data juara telah belum dibuat, silahkan buat data juara kemudian klik tombol
-                                        "PUBLIKASIKAN" untuk menampilkannya ke para peserta.</p>
-                                </div>
-                            <?php endif ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="box">
-                                <div class="box-header with-border">
-                                    <div class="box-title">Buat Laporan Kejuaraan</div>
-                                </div><!-- /.box-header -->
-
-                                <div class="box-body">
-                                    <span id="form-pesan-database"></span>
-                                    <p>Klik tombol <b>Publikasikan</b> untuk menampilkan laporan data kejuaran para
-                                        peserta, dan diurutkan menurut peringkat nilai tertinggi.</p>
-                                    <p>Laporan kejuaraan akan ditampilkan kepada para peserta.</p>
-                                    <div class="row">
-                                        <div class="col-xs-12">
-                                            <b>Tulis Laporan</b>
-                                        </div>
-                                        <div class="col-xs-12">
-                                            <textarea class="textarea" id="tulis_laporan" name="tulis_laporan" style="width: 100%; height: 150px; font-size: 13px; line-height: 25px; border: 1px solid #dddddd; padding: 10px;"><?= $isiLaporan ?></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="box-footer">
-                                    <button type="button" class="btn btn-primary" id="juara-save">Simpan</button>
-                                    <div class="pull-right">
-                                        <!-- <button type="submit" class="btn btn-primary" id="backup-database">Buat Laporan</button> -->
-                                        <button type="button" class="btn <?= $isPublic == 0 ? 'btn-success' : 'btn-danger' ?>" id="juara-publikasi" value="<?= $isPublic == 0 ? '1' : '0' ?>"><?= $isPublic == 0 ? 'Publikasikan !' : 'Batalkan Publikasi' ?></button>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="container-fluid">
+        <div class="card card-primary card-outline card-outline-tabs">
+            <div class="card-header p-0 border-bottom-0">
+                <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="custom-tabs-three-home-tab" data-toggle="pill" href="#custom-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home" aria-selected="true">Juara</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="custom-tabs-three-profile-tab" data-toggle="pill" href="#custom-tabs-three-profile" role="tab" aria-controls="custom-tabs-three-profile" aria-selected="false">Sertifikat</a>
+                    </li>
+                </ul>
             </div>
-        </div>
-        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group row">
-                                <div class="col-xs-12">
-                                    <label>Nama Peserta</label>
-                                </div>
-                                <div class="col-xs-12">
-                                    <div>
-                                        <select name="generate-cert-peserta" id="generate-cert-peserta" class="form-control input-sm" style="width: 100%;">
-                                            <!-- < value="">-- Pilih Peserta --</option> -->
-                                            <optgroup label="Pilih peserta"> <?php if (!empty($select_group)) {
-                                                                                    echo $select_group;
-                                                                                } ?>
-                                            </optgroup>
-                                        </select>
+            <div class="card-body">
+                <div class="tab-content" id="custom-tabs-three-tabContent">
+                    <div class="tab-pane fade active show" id="custom-tabs-three-home" role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <?php if ($isPublic == 1) : ?>
+                                            <div class="callout callout-info">
+                                                <h4>Informasi</h4>
+                                                <p>Data juara telah dirilis dan telah dipublikasikan ke para peserta.</p>
+                                            </div>
+                                        <?php else : ?>
+                                            <div class="callout callout-warning">
+                                                <h4>Informasi</h4>
+                                                <p>Data juara telah belum dibuat, silahkan buat data juara kemudian klik tombol
+                                                    <b>PUBLIKASIKAN</b> untuk menampilkannya ke para peserta.</p>
+                                            </div>
+                                        <?php endif ?>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <label>Opsi</label>
-                                <select name="tambah-opsi" id="tambah-opsi" class="form-control input-sm">
-                                    <option value="">-- Pilih Opsi --</option>
-                                    <option value="medali emas">Medali Emas</option>
-                                    <option value="medali perak">Medali Perak</option>
-                                    <option value="medali perunggu">Medali Perunggu</option>
-                                    <option value="peserta">Peserta</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <label>Lomba</label>
-                                <select name="tambah-lomba" id="tambah-lomba" class="form-control input-sm">
-                                    <option value="">-- Pilih Lomba --</option>
-                                    <option value="matematika">Matematika</option>
-                                    <option value="sains">Sains</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-2" style="margin-top: 23px;">
-                            <button id="generate-cert" class="btn btn-primary btn-sm btn-block">Download
-                                Setifikat</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card">
+                                            <div class="card-header with-border">
+                                                <div class="card-title">Buat Laporan Kejuaraan</div>
+                                            </div><!-- /.card-header -->
 
-    <div class="row" style="margin-top: 10px;">
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="box box-warning box-solid">
-                        <div class="box-header with-border">
-                            <div class="box-title">Data kejuaraan kelas <span id="kelas">1</span></div>
-                        </div><!-- /.box-header -->
-
-                        <div class="box-body">
-                            <div class="form-group">
-                                <label for="">Pilih kelas</label>
-                                <select name="keals" id="form-kelas" class="form-control">
-                                    <?php
-                                    for ($i = 1; $i < 10; $i++) :
-                                    ?>
-                                        <option value="<?= $i ?>">Kelas <?= $i ?></option>
-                                    <?php
-                                    endfor ?>
-                                </select>
-                            </div>
-                            <div class="box box-success">
-                                <div class="box-header with-border">
-                                    <div class="box-title"><b>Matematika</b></div>
-                                </div>
-                                <div class="box-body">
-                                    <table id="table-juara-mtk" class="table table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Nama Peserta</th>
-                                                <th>Asal Sekolah</th>
-                                                <th>Score</th>
-                                                <th>Waktu mengerjakan</th>
-                                                <th>Juara</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td> </td>
-                                                <td> </td>
-                                                <td> </td>
-                                                <td> </td>
-                                                <td> </td>
-                                                <td> </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="box-footer">
-                                    <div class="pull-right">
-                                        <button type="button" class="btn btn-sm btn-default" id="btn-cert-mtk">Cetak
-                                            semua sertifikat</button>
-                                        <button type="button" class="btn btn-sm btn-primary" id="btn-salin-mtk">Salin
-                                            Data</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--  -->
-                            <div class="box box-success">
-                                <div class="box-header with-border">
-                                    <div class="box-title"><b>Sains</b></div>
-                                </div>
-                                <div class="box-body">
-                                    <table id="table-juara-sains" class="table table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Nama Peserta</th>
-                                                <th>Asal Sekolah</th>
-                                                <th>Score</th>
-                                                <th>Waktu mengerjakan</th>
-                                                <th>Juara</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td> </td>
-                                                <td> </td>
-                                                <td> </td>
-                                                <td> </td>
-                                                <td> </td>
-                                                <td> </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="box-footer">
-                                    <div class="pull-right">
-                                        <button type="button" class="btn btn-sm btn-default" id="btn-cert-sains">Cetak
-                                            semua sertifikat</button>
-                                        <button type="button" class="btn btn-sm btn-primary" id="btn-salin-sains">Salin
-                                            Data</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="modal" id="modal-image" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-        <div class="modal-dialog" style="width: 950px">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="close" type="button" data-dismiss="modal">&times;</button>
-                    <div id="trx-judul">Insert Image</div>
-                </div>
-                <div class="modal-body">
-                    <div class="row-fluid">
-                        <div class="box-body">
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <?php echo form_open_multipart($url . '/upload_file', 'id="form-upload-image" class="form-horizontal"'); ?>
-                                    <div class="box">
-                                        <div class="box-header with-border">
-                                            <div class="box-title">Upload File</div>
-                                        </div><!-- /.box-header -->
-
-                                        <div class="box-body">
-                                            <div class="row-fluid">
-                                                <div class="box-body">
-                                                    <div id="form-pesan-upload-image"></div>
-                                                    <div class="form-group">
-                                                        <label class="col-sm-2 control-label">File</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="file" id="image-file" name="image-file">
-                                                            <p class="help-block">File yang didukung adalah jpg, jpeg,
-                                                                png</p>
+                                            <div class="card-body">
+                                                <span id="form-pesan-database"></span>
+                                                <p>Klik tombol <b>Publikasikan</b> untuk menampilkan laporan data kejuaran para
+                                                    peserta, dan diurutkan menurut peringkat nilai tertinggi.</p>
+                                                <p>Laporan kejuaraan akan ditampilkan kepada para peserta.</p>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label>Tulis Laporan</label>
+                                                            <textarea class="textarea" id="tulis_laporan" name="tulis_laporan" style="width: 100%; height: 150px; font-size: 13px; line-height: 25px; border: 1px solid #dddddd; padding: 10px;"><?= $isiLaporan ?></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" id="image-upload" class="btn btn-primary">Upload
-                                                File</button>
-                                        </div>
-                                    </div>
-                                    </form>
-                                </div>
-                                <div class="col-xs-6">
-                                    <div class="box hide" id="box-preview">
-                                        <div class="box-body">
-                                            <div class="row-fluid">
-                                                <div class="box-body" style="height: 132px;">
-                                                    <input type="hidden" name="image-isi" id="image-isi">
-                                                    <div id="image-preview" style="text-align: center;vertical-align: middle;"></div>
+
+                                            <div class="card-footer">
+                                                <div class="row d-flex" style="justify-content: space-between;">
+                                                    <button type="button" class="btn btn-primary" id="juara-save">Simpan</button>
+                                                    <!-- <button type="submit" class="btn btn-primary" id="backup-database">Buat Laporan</button> -->
+                                                    <button type="button" class="btn <?= $isPublic == 0 ? 'btn-success' : 'btn-danger' ?>" id="juara-publikasi" value="<?= $isPublic == 0 ? '1' : '0' ?>"><?= $isPublic == 0 ? 'Publikasikan !' : 'Batalkan Publikasi' ?></button>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" id="btn-image-insert" class="btn btn-primary">Masukkan
-                                                Gambar</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="custom-tabs-three-profile" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <div class="col-12">
+                                                <label>Nama Peserta</label>
+                                            </div>
+                                            <div class="col-12">
+                                                <div>
+                                                    <select name="generate-cert-peserta" id="generate-cert-peserta" class="form-control input-sm" style="width: 100%;">
+                                                        <!-- < value="">-- Pilih Peserta --</option> -->
+                                                        <optgroup label="Pilih peserta"> <?php if (!empty($select_group)) {
+                                                                                                echo $select_group;
+                                                                                            } ?>
+                                                        </optgroup>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Opsi</label>
+                                            <select name="tambah-opsi" id="tambah-opsi" class="form-control input-sm">
+                                                <option value="">-- Pilih Opsi --</option>
+                                                <option value="medali emas">Medali Emas</option>
+                                                <option value="medali perak">Medali Perak</option>
+                                                <option value="medali perunggu">Medali Perunggu</option>
+                                                <option value="peserta">Peserta</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Lomba</label>
+                                            <select name="tambah-lomba" id="tambah-lomba" class="form-control input-sm">
+                                                <option value="">-- Pilih Lomba --</option>
+                                                <option value="matematika">Matematika</option>
+                                                <option value="sains">Sains</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <button id="generate-cert" class="btn btn-primary btn-sm btn-block">Download
+                                            Setifikat</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+        <!--  -->
+        <!-- TODO buat laporan juara nanti -->
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card card-info card-solid">
+                            <div class="card-header with-border">
+                                <div class="card-title">Data kejuaraan kelas <span id="kelas">1</span></div>
+                            </div><!-- /.card-header -->
 
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <div class="box">
-                                        <div class="box-body" style="max-height: 230px;overflow: auto;">
-                                            <table id="table-image" class="table table-bordered table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>No.</th>
-                                                        <th>Nama File</th>
-                                                        <th>Preview</th>
-                                                        <th>Tanggal</th>
-                                                        <th> </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td> </td>
-                                                        <td> </td>
-                                                        <td> </td>
-                                                        <td> </td>
-                                                        <td> </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="">Pilih kelas</label>
+                                    <select name="keals" id="form-kelas" class="form-control">
+                                        <?php
+                                        for ($i = 1; $i < 10; $i++) :
+                                        ?>
+                                            <option value="<?= $i ?>">Kelas <?= $i ?></option>
+                                        <?php
+                                        endfor ?>
+                                    </select>
+                                </div>
+                                <div class="card card-success">
+                                    <div class="card-header with-border">
+                                        <div class="card-title"><b>Matematika</b></div>
+                                    </div>
+                                    <div class="card-body">
+                                        <table id="table-juara-mtk" class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nama Peserta</th>
+                                                    <th>Asal Sekolah</th>
+                                                    <th>Score</th>
+                                                    <th>Waktu mengerjakan</th>
+                                                    <th>Juara</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td> </td>
+                                                    <td> </td>
+                                                    <td> </td>
+                                                    <td> </td>
+                                                    <td> </td>
+                                                    <td> </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="pull-right">
+                                            <button type="button" class="btn btn-sm btn-default" id="btn-cert-mtk">Cetak
+                                                semua sertifikat</button>
+                                            <button type="button" class="btn btn-sm btn-primary" id="btn-salin-mtk">Salin
+                                                Data</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  -->
+                                <div class="card card-success">
+                                    <div class="card-header with-border">
+                                        <div class="card-title"><b>Sains</b></div>
+                                    </div>
+                                    <div class="card-body">
+                                        <table id="table-juara-sains" class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nama Peserta</th>
+                                                    <th>Asal Sekolah</th>
+                                                    <th>Score</th>
+                                                    <th>Waktu mengerjakan</th>
+                                                    <th>Juara</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td> </td>
+                                                    <td> </td>
+                                                    <td> </td>
+                                                    <td> </td>
+                                                    <td> </td>
+                                                    <td> </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="pull-right">
+                                            <button type="button" class="btn btn-sm btn-default" id="btn-cert-sains">Cetak
+                                                semua sertifikat</button>
+                                            <button type="button" class="btn btn-sm btn-primary" id="btn-salin-sains">Salin
+                                                Data</button>
                                         </div>
                                     </div>
                                 </div>
@@ -326,9 +238,100 @@
             </div>
         </div>
     </div>
+</section>
 
+<div class="modal" id="modal-image" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog" style="width: 950px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">&times;</button>
+                <div id="trx-judul">Insert Image</div>
+            </div>
+            <div class="modal-body">
+                <div class="row-fluid">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <?php echo form_open_multipart($url . '/upload_file', 'id="form-upload-image" class="form-horizontal"'); ?>
+                                <div class="card">
+                                    <div class="card-header with-border">
+                                        <div class="card-title">Upload File</div>
+                                    </div><!-- /.card-header -->
 
-</section><!-- /.content -->
+                                    <div class="card-body">
+                                        <div class="row-fluid">
+                                            <div class="card-body">
+                                                <div id="form-pesan-upload-image"></div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">File</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="file" id="image-file" name="image-file">
+                                                        <p class="help-block">File yang didukung adalah jpg, jpeg,
+                                                            png</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" id="image-upload" class="btn btn-primary">Upload
+                                            File</button>
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+                            <div class="col-6">
+                                <div class="card hide" id="card-preview">
+                                    <div class="card-body">
+                                        <div class="row-fluid">
+                                            <div class="card-body" style="height: 132px;">
+                                                <input type="hidden" name="image-isi" id="image-isi">
+                                                <div id="image-preview" style="text-align: center;vertical-align: middle;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" id="btn-image-insert" class="btn btn-primary">Masukkan
+                                            Gambar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body" style="max-height: 230px;overflow: auto;">
+                                        <table id="table-image" class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>No.</th>
+                                                    <th>Nama File</th>
+                                                    <th>Preview</th>
+                                                    <th>Tanggal</th>
+                                                    <th> </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td> </td>
+                                                    <td> </td>
+                                                    <td> </td>
+                                                    <td> </td>
+                                                    <td> </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous">
 </script>
@@ -384,7 +387,7 @@
                     if (obj.status == 1) {
                         $('#image-preview').html(obj.image);
                         $('#image-isi').val(obj.image_isi);
-                        $('#box-preview').removeClass('hide');
+                        $('#card-preview').removeClass('hide');
                         $("#modal-proses").modal('hide');
                         $("#form-pesan-upload-image").html('');
                         $('#image-file').val('');
@@ -728,7 +731,7 @@
     }
 
     function imageUpload() {
-        $('#box-preview').addClass('hide');
+        $('#card-preview').addClass('hide');
         $('#image-preview').html('');
         $('#form-pesan-upload-image').html('');
         $('#image-isi').val('');
@@ -748,7 +751,7 @@
             '" style="max-height: 110px;" />');
         $('#image-isi').val('<img src="<?php echo base_url(); ?>' + posisi + '/' + image +
             '" style="max-width: 600px;" />');
-        $('#box-preview').removeClass('hide');
+        $('#card-preview').removeClass('hide');
     }
 
     String.prototype.capitalize = function() {
