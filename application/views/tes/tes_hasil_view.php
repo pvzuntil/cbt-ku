@@ -1,191 +1,186 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>
-        Hasil Tes
-        <small>Hasil tes, menghapus hasil tes, mengunci tes, membuka kunci, dan menambah waktu tes</small>
-    </h1>
-    <ol class="breadcrumb">
-        <li><a href="<?php echo site_url(); ?>/"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Hasil Tes</li>
-    </ol>
+    <div class="container-fluid">
+        <h1>
+            Hasil Tes
+        </h1>
+    </div>
 </section>
 
 <!-- Main content -->
 <section class="content">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box">
-                <div class="box-header with-border">
-                    <div class="box-title">Filter Hasil</div>
-                </div><!-- /.box-header -->
-                <div class="box-body form-horizontal">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">Tes</label>
-                            <div class="col-sm-9">
-                                <input type="hidden" name="check" id="check" value="0">
-                                <select name="pilih-tes" id="pilih-tes" class="form-control input-sm">
-                                    <?php if (!empty($select_tes)) {
-                                        echo $select_tes;
-                                    } ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">Group</label>
-                            <div class="col-sm-9">
-                                <select name="pilih-group" id="pilih-group" class="form-control input-sm">
-                                    <?php if (!empty($select_group)) {
-                                        echo $select_group;
-                                    } ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">Waktu Tes</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-clock-o"></i>
-                                    </div>
-                                    <input type="text" name="pilih-rentang-waktu" id="pilih-rentang-waktu" class="form-control input-sm" value="<?php if (!empty($rentang_waktu)) {
-                                                                                                                                                    echo $rentang_waktu;
-                                                                                                                                                } ?>" readonly />
-                                </div>
-                                <span class="help-block" id="info-waktu">Rentang waktu peserta saat memulai Tes</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">Status Peserta</label>
-                            <div class="col-sm-8">
-                                <select name="pilih-status" id="pilih-status" class="form-control input-sm">
-                                    <option value="mengerjakan">Peserta Mengerjakan Tes</option>
-                                    <option value="tidak">Peserta Belum Mengerjakan Tes</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">Keterangan Peserta</label>
-                            <div class="col-sm-8">
-                                <input type="text" name="pilih-keterangan" id="pilih-keterangan" placeholder="Keterangan Peserta Tes" class="form-control input-sm" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">Urutkan</label>
-                            <div class="col-sm-8">
-                                <select name="pilih-urutkan" id="pilih-urutkan" class="form-control input-sm">
-                                    <option value="tertinggi">Nilai Tertinggi</option>
-                                    <option value="terendah">Nilai Terendah</option>
-                                    <option value="waktu">Waktu Tes</option>
-                                    <option value="nama">Nama User</option>
-                                    <option value="tes">Tes</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="box-footer">
-                    <button type="button" id="btn-pilih" class="btn btn-primary pull-right"><span>Pilih</span></button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <?php echo form_open($url . '/edit_tes', 'id="form-edit"'); ?>
-        <div class="col-xs-12">
-            <div class="box">
-                <div class="box-header with-border">
-                    <div class="box-title">Daftar Hasil Tes</div>
-                    <div class="box-tools pull-right">
-                        <div class="dropdown pull-right">
-                            <a style="cursor: pointer;" onclick="export_excel()">Export ke Excel</a>
-                        </div>
-                    </div>
-                </div><!-- /.box-header -->
-
-                <div class="box-body">
-                    <input type="hidden" name="edit-pilihan" id="edit-pilihan">
-                    <table id="table-hasil" class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th class="all">No.</th>
-                                <th>Waktu Mulai</th>
-                                <th>Waktu Selesai (Lama mengerjakan)</th>
-                                <th>Waktu</th>
-                                <th>Nama Tes</th>
-                                <th>Group</th>
-                                <th class="all">Nama User</th>
-                                <th>Poin</th>
-                                <th>Status</th>
-                                <th class="all"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="box-footer">
-                    <button type="button" id="btn-edit-pilih" title="Pilih Hasil Tes" class="btn btn-default pull-right">Pilih Semua</button>
-                    <button type="button" id="btn-edit-hapus" title="Hapus Hasil" class="btn btn-primary">Hapus</button>
-                    <button type="button" id="btn-edit-hentikan" class="btn btn-primary">Hentikan</button>
-                    <button type="button" id="btn-edit-buka-tes" class="btn btn-primary">Buka Tes</button>
-                    <button type="button" id="btn-edit-waktu" class="btn btn-primary">Tambah Waktu</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal" id="modal-waktu" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button class="close" type="button" data-dismiss="modal">&times;</button>
-                        <div id="trx-judul">Tambah Waktu</div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row-fluid">
-                            <div class="box-body">
-                                <div id="form-pesan-waktu"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header with-border">
+                        <div class="card-title">Filter Hasil</div>
+                    </div><!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Jumlah Waktu</label>
-                                    <input type="text" class="form-control" id="waktu-menit" name="waktu-menit" value="10">
-                                    <p class="help-block">Waktu dalam satuan MENIT</p>
+                                    <label class="control-label">Tes</label>
+                                    <input type="hidden" name="check" id="check" value="0">
+                                    <select name="pilih-tes" id="pilih-tes" class="form-control input-sm">
+                                        <?php if (!empty($select_tes)) {
+                                            echo $select_tes;
+                                        } ?>
+                                    </select>
                                 </div>
-                                <p class="">Menambah Waktu Tes melalui Penambahan "Waktu Mulai" pada user tes yang sudah dicentang sebelumnya.</p>
-                                <p class="">Waktu Mulai pengerjaan Tes hasil penambahan tidak boleh melebihi waktu saat ini.</p>
+                                <div class="form-group">
+                                    <label class="control-label">Group</label>
+                                    <select name="pilih-group" id="pilih-group" class="form-control input-sm">
+                                        <?php if (!empty($select_group)) {
+                                            echo $select_group;
+                                        } ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Waktu Tes</label>
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroup-sizing-default">
+                                                <i class="fas fa-clock"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" name="pilih-rentang-waktu" id="pilih-rentang-waktu" class="form-control input-sm" value="<?php if (!empty($rentang_waktu)) {
+                                                                                                                                                        echo $rentang_waktu;
+                                                                                                                                                    } ?>" readonly />
+                                    </div>
+                                    <small class="text-muted" id="info-waktu">Rentang waktu peserta saat memulai Tes</small>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">Status Peserta</label>
+                                    <select name="pilih-status" id="pilih-status" class="form-control input-sm">
+                                        <option value="mengerjakan">Peserta Mengerjakan Tes</option>
+                                        <option value="tidak">Peserta Belum Mengerjakan Tes</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Keterangan Peserta</label>
+                                    <input type="text" name="pilih-keterangan" id="pilih-keterangan" placeholder="Keterangan Peserta Tes" class="form-control input-sm" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Urutkan</label>
+                                    <select name="pilih-urutkan" id="pilih-urutkan" class="form-control input-sm">
+                                        <option value="tertinggi">Nilai Tertinggi</option>
+                                        <option value="terendah">Nilai Terendah</option>
+                                        <option value="waktu">Waktu Tes</option>
+                                        <option value="nama">Nama User</option>
+                                        <option value="tes">Tes</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" id="btn-edit-waktu-simpan" class="btn btn-primary">Simpan</button>
-                        <a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>
+                    <div class="card-footer d-flex" style="justify-content: flex-end;">
+                        <button type="button" id="btn-pilih" class="btn btn-primary"><span>Cari</span></button>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <?php echo form_open($url . '/edit_tes', 'id="form-edit"'); ?>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header with-border">
+                        <div class="card-title">Daftar Hasil Tes</div>
+                        <div class="card-tools pull-right">
+                            <div class="dropdown pull-right">
+                                <a style="cursor: pointer;" onclick="export_excel()" class="btn btn-sm btn-default">Export ke Excel</a>
+                            </div>
+                        </div>
+                    </div><!-- /.card-header -->
 
-        </form>
-    </div>
+                    <div class="card-body">
+                        <input type="hidden" name="edit-pilihan" id="edit-pilihan">
+                        <table id="table-hasil" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="all">No.</th>
+                                    <th>Waktu Mulai</th>
+                                    <th>Waktu Selesai (Lama mengerjakan)</th>
+                                    <th>Waktu</th>
+                                    <th>Nama Tes</th>
+                                    <th>Group</th>
+                                    <th class="all">Nama User</th>
+                                    <th>Poin</th>
+                                    <th>Status</th>
+                                    <th class="all"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row d-flex" style="justify-content: space-between;">
+                            <div>
+                                <button type="button" id="btn-edit-hapus" title="Hapus Hasil" class="btn btn-danger">Hapus</button>
+                                <button type="button" id="btn-edit-hentikan" class="btn btn-warning">Hentikan</button>
+                                <button type="button" id="btn-edit-buka-tes" class="btn btn-success">Buka Tes</button>
+                                <button type="button" id="btn-edit-waktu" class="btn btn-success">Tambah Waktu</button>
+                            </div>
+                            <div>
+                                <button type="button" id="btn-edit-pilih" title="Pilih Hasil Tes" class="btn btn-default pull-right">Pilih Semua</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 </section><!-- /.content -->
+
+<div class="modal fade" id="modal-waktu" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div id="trx-judul">Tambah Waktu</div>
+                <button class="close" type="button" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="form-pesan-waktu"></div>
+                <div class="form-group">
+                    <label>Jumlah Waktu</label>
+                    <input type="text" class="form-control" id="waktu-menit" name="waktu-menit" value="10">
+                    <small class="text-muted">Waktu dalam satuan MENIT</small>
+                </div>
+                <p class="">Menambah Waktu Tes melalui Penambahan "Waktu Mulai" pada user tes yang sudah dicentang sebelumnya.</p>
+                <p class="">Waktu Mulai pengerjaan Tes hasil penambahan tidak boleh melebihi waktu saat ini.</p>
+            </div>
+            <div class="modal-footer d-flex" style="justify-content: space-between;">
+                <button type="button" id="btn-edit-waktu-simpan" class="btn btn-primary">Simpan</button>
+                <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</form>
+</div>
+</div>
 
 
 
 <script lang="javascript">
     function refresh_table() {
-        $('#table-hasil').dataTable().fnReloadAjax();
+        // TODO promise ini
+        return $('#table-hasil').dataTable().fnReloadAjax();
     }
 
     function detail_tes(tesuser_id) {
@@ -219,10 +214,10 @@
         });
 
         $('#btn-pilih').click(function() {
-            $("#modal-proses").modal('show');
+            SW.loading()
             $('#check').val('0');
             refresh_table();
-            $("#modal-proses").modal('hide');
+            SW.close()
         });
 
         $('#btn-edit-hapus').click(function() {
@@ -265,7 +260,7 @@
         });
 
         $('#form-edit').submit(function() {
-            $("#modal-proses").modal('show');
+            SW.loading()
             $.ajax({
                 url: "<?php echo site_url() . '/' . $url; ?>/edit_tes",
                 type: "POST",
@@ -275,12 +270,16 @@
                     var obj = $.parseJSON(respon);
                     if (obj.status == 1) {
                         refresh_table();
-                        $("#modal-proses").modal('hide');
                         $("#modal-waktu").modal('hide');
-                        notify_success(obj.pesan);
+                        SW.toast({
+                            title: obj.pesan,
+                            icon: 'success'
+                        });
                     } else {
-                        $("#modal-proses").modal('hide');
-                        notify_error(obj.pesan);
+                        SW.toast({
+                            title: obj.pesan,
+                            icon: 'error'
+                        });
                     }
                 }
             });
@@ -370,6 +369,9 @@
                     "name": "keterangan",
                     "value": $('#pilih-keterangan').val()
                 });
+            },
+            'fnDrawCallback': function() {
+                callBackDatatable('#table-hasil')
             }
         });
     });
