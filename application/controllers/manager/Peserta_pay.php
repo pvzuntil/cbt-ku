@@ -215,7 +215,7 @@ class Peserta_pay extends Member_Controller
 			$record[] = strftime("%A, %d %B %Y", strtotime($temp->date_pay));
 
 			if ($temp->status == 'wait') {
-				$record[] = '<div class="badge">MENUNGGU KONFIRMASI</div>';
+				$record[] = '<div class="badge badge-secondary">MENUNGGU KONFIRMASI</div>';
 			} else if ($temp->status == 'allow') {
 				$record[] =
 					'<div class="badge badge-success">DITERIMA</div>';
@@ -223,7 +223,8 @@ class Peserta_pay extends Member_Controller
 				$record[] = '<div class="badge badge-danger">DITOLAK</div>';
 			}
 
-			$record[] = $temp->status == 'allow'  ? '<button onclick="showDoc(\'' . $temp->id . '\')" style="cursor: pointer;" class="btn btn-default btn-xs">Lihat Dokumen</button>' : '';
+			$record[] = '<button onclick="showDoc(\'' . $temp->id . '\')" style="cursor: pointer;" class="btn btn-default btn-xs">Lihat Dokumen</button>';
+			// $record[] = $temp->status == 'allow'  ? '<button onclick="showDoc(\'' . $temp->id . '\')" style="cursor: pointer;" class="btn btn-default btn-xs">Lihat Dokumen</button>' : '';
 
 			$output['aaData'][] = $record;
 		}

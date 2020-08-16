@@ -161,18 +161,17 @@
                     <span>Diterima</span>
                 </div>
                 <div class="alert alert-danger" id="msg-deny">
-                    <span>Ditolak</span>
-                    <p id="msg-deny-message"></p>
+                    <span style="font-weight: bold;">Ditolak</span>
+                    <p id="msg-deny-message" class="m-0"></p>
                 </div>
                 <div class="col-sm-12" style="margin-bottom: 15px; display: flex; justify-content: center;">
-                    <img src="" alt="" class="img-responsive zoom" style="border-radius: 5px; cursor: pointer; box-shadow: 0px 4px 8px 0px #00000026;" id="imagePay">
+                    <img src="" alt="" class="img-responsive img-thumbnail zoom" id="imagePay">
                 </div>
             </div>
-            <div class="modal-footer">
-                <!-- TODO lihat buttonnya dulu -->
-                <div class="pull-left" id="buttonActionShowDoc">
-                    <button type="button" id="show-allow" class="btn btn-success">Terima</button>
+            <div class="modal-footer d-flex" style="justify-content: space-between;">
+                <div class="" id="buttonActionShowDoc">
                     <button type="button" id="show-deny" class="btn btn-danger">Tolak</button>
+                    <button type="button" id="show-allow" class="btn btn-success">Terima</button>
                 </div>
                 <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
             </div>
@@ -244,7 +243,7 @@
         });
 
         $('#show-allow').on('click', function() {
-            Swal.fire({
+            SW.show({
                 title: 'Harap diperhatikan !',
                 text: 'Aksi ini tidak bisa diubah atau diurungkan',
                 icon: 'info',
@@ -260,22 +259,18 @@
         });
 
         $('#show-deny').on('click', function() {
-            Swal.fire({
+            SW.yesno({
                 title: 'Harap diperhatikan !',
                 text: 'Aksi ini tidak bisa diubah atau diurungkan',
                 icon: 'info',
-                showCancelButton: true,
-                confirmButtonText: 'Lanjutkan !',
-                cancelButtonText: 'Batal'
             }).then((res) => {
                 if (res.value) {
-                    Swal.fire({
+                    SW.yesno({
                         input: 'textarea',
                         inputPlaceholder: 'Ditolak karena ...',
                         inputAttributes: {
                             'aria-label': 'Ditolak karena ...'
                         },
-                        showCancelButton: true,
                         title: 'Tuliskan alasan penolakan'
                     }).then((res) => {
                         if (res.value) {
@@ -301,12 +296,16 @@
                     var obj = $.parseJSON(respon);
                     if (obj.status == 1) {
                         refresh_table();
-                        SW.close()
                         $("#modal-showDoc").modal('hide');
-                        notify_success(obj.pesan);
+                        SW.toast({
+                            title: obj.pesan,
+                            icon: 'success'
+                        });
                     } else {
-                        SW.close()
-                        notify_error(obj.pesan);
+                        SW.toast({
+                            title: obj.pesan,
+                            icon: 'error'
+                        })
                     }
                 }
             });
@@ -359,6 +358,10 @@
                 }
             });
             return false;
+        });
+
+        $('#modal-showDoc').on('shown.bs.modal', function() {
+            $(document).off('focusin.modal');
         });
 
         $('#table-peserta').DataTable({
