@@ -75,7 +75,8 @@ class Dashboard extends Member_Controller
             }
         } else {
             $status['status'] = 0;
-            $status['error'] = validation_errors();
+            $status['error'] =
+                array_values($this->form_validation->error_array())[0];
         }
 
         echo json_encode($status);

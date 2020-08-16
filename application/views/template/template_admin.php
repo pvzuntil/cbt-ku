@@ -42,37 +42,33 @@ if ($url == 'login') {
 
   </div><!-- ./wrapper -->
 
-  <div class="modal" id="modal-password" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-    <div class="modal-dialog">
+  <div class="modal fade" id="modal-ubah-password" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
+          <h5 class="modal-title">Change Password</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Change Password</h4>
         </div>
+        <?php echo form_open('manager/dashboard/password', 'id="form-password"') ?>
         <div class="modal-body">
-          <span id="form-pesan-password">
-          </span>
-          <?php echo form_open('manager/dashboard/password', 'id="form-password"') ?>
-          <div class="box-body">
-            <div class="form-group">
-              <label>Old Password</label>
-              <input type="password" class="form-control" id="password-old" name="password-old" placeholder="Old Password">
-            </div>
-            <div class="form-group">
-              <label>New Password</label>
-              <input type="password" class="form-control" id="password-new" name="password-new" placeholder="New Password">
-            </div>
-            <div class="form-group">
-              <label>Confirm Password</label>
-              <input type="password" class="form-control" id="password-confirm" name="password-confirm" placeholder="Confirm Password">
-            </div>
+          <div class="form-group">
+            <label>Old Password</label>
+            <input type="password" class="form-control" id="password-old" name="password-old" placeholder="Old Password">
           </div>
-          <?php echo form_close(); ?>
+          <div class="form-group">
+            <label>New Password</label>
+            <input type="password" class="form-control" id="password-new" name="password-new" placeholder="New Password">
+          </div>
+          <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" class="form-control" id="password-confirm" name="password-confirm" placeholder="Confirm Password">
+          </div>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer d-flex" style="justify-content: space-between;">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id="password-submit">Change</button>
+          <button type="submit" class="btn btn-primary" id="password-submit">Change</button>
         </div>
+        <?php echo form_close(); ?>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
@@ -80,20 +76,15 @@ if ($url == 'login') {
   <script>
     $(function() {
 
-      //TODO Form Ubah Password
-      $('#modal-password').on('shown.bs.modal', function(e) {
-        $('#form-pesan-password').html('');
+      $('#modal-ubah-password').on('shown.bs.modal', function(e) {
         $('#password-old').val('');
         $('#password-new').val('');
         $('#password-confirm').val('');
         $('#password-old').focus();
       });
 
-      $('#password-submit').click(function() {
-        $('#form-password').submit();
-      });
-
       $('#form-password').submit(function() {
+        SW.loading()
         $.ajax({
           url: "<?php echo site_url(); ?>/manager/dashboard/password",
           type: "POST",
@@ -102,12 +93,16 @@ if ($url == 'login') {
           success: function(respon) {
             var obj = $.parseJSON(respon);
             if (obj.status == 1) {
-              $('#form-pesan-password').html(pesan_succ('Password berhasil diubah !'));
-              setTimeout(function() {
-                $('#modal-password').modal('hide')
-              }, 1500);
+              SW.toast({
+                title: 'Berhasil mengubah password',
+                icon: 'success'
+              })
+              $('#modal-ubah-password').modal('hide')
             } else {
-              $('#form-pesan-password').html(pesan_err(obj.error));
+              SW.toast({
+                title: obj.error,
+                icon: 'error'
+              })
             }
           }
         });
