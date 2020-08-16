@@ -21,7 +21,7 @@ if ($url == 'login') {
 }
 ?>
 
-<body class="pr-0 layout-fixed layout-navbar-fixed <?= $classBody ?>">
+<body class="text-sm pr-0 layout-fixed layout-navbar-fixed <?= $classBody ?>">
   <div class="wrapper">
 
     <?php if ($url != 'login') : ?>
