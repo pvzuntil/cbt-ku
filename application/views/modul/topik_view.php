@@ -77,8 +77,8 @@
                     </div>
                     <div class="card-footer">
                         <div class="row d-flex" style="justify-content: space-between;">
+                            <button type="button" id="btn-edit-hapus" class="btn btn-danger" title="Hapus Siswa yang dipilih">Hapus</button>
                             <button type="button" id="btn-edit-pilih" class="btn btn-default">Pilih Semua</button>
-                            <button type="button" id="btn-edit-hapus" class="btn btn-primary" title="Hapus Siswa yang dipilih">Hapus</button>
                         </div>
                     </div>
                 </div>
@@ -179,9 +179,9 @@
                 <br /><br />
                 Apakah anda yakin untuk menghapus data Topik ?
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer d-flex" style="justify-content: space-between;">
                 <button type="button" id="btn-hapus" class="btn btn-danger">Hapus</button>
-                <a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>
+                <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
             </div>
         </div>
     </div>
