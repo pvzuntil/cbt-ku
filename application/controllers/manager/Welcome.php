@@ -6,6 +6,7 @@ class Welcome extends CI_Controller
     public function index()
     {
         $this->load->library('user_agent');
+        $data['url'] = 'login';
 
         if ($this->agent->is_browser()) {
             if ($this->agent->browser() == 'Internet Explorer') {
@@ -13,7 +14,7 @@ class Welcome extends CI_Controller
             } else {
                 if (!$this->access->is_login()) {
                     $data['link_login_operator'] = "tidak";
-                    $this->template->display_user('manager/welcome_view', 'Login', $data);
+                    $this->template->display_admin('manager/welcome_view', 'Login', $data);
                 } else {
                     redirect('manager/dashboard');
                 }
@@ -34,14 +35,14 @@ class Welcome extends CI_Controller
             if ($this->form_validation->run() == FALSE) {
                 //Jika login gagal
                 $status['status'] = 0;
-                $status['error'] = validation_errors();
+                $status['error'] = array_values($this->form_validation->error_array())[0];
             } else {
                 //Jika sukses
                 $status['status'] = 1;
             }
         } else {
             $status['status'] = 0;
-            $status['error'] = validation_errors();
+            $status['error'] = array_values($this->form_validation->error_array())[0];
         }
         echo json_encode($status);
     }

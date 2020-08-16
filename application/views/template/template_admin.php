@@ -13,14 +13,24 @@
 
 </head>
 
-<body class="pr-0 sidebar-mini layout-fixed layout-navbar-fixed">
-  <div class="wrapper">
-    <?php include 'required/navbar-admin.php' ?>
+<?php
 
-    <?php include 'required/sidemenu.php' ?>
+$classBody = '';
+if ($url == 'login') {
+  $classBody = '';
+}
+?>
+
+<body class="pr-0 layout-fixed layout-navbar-fixed <?= $classBody ?>">
+  <div class="wrapper">
+
+    <?php if ($url != 'login') : ?>
+      <?php include 'required/navbar-admin.php' ?>
+      <?php include 'required/sidemenu.php' ?>
+    <?php endif ?>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper" <?php if ($url == 'login') : ?> style="margin-left: 0px !important; margin-top: 0px !important" <?php endif ?>>
       <?php
       if (!empty($content)) {
         echo $content;
