@@ -382,7 +382,7 @@ class Tes_dashboard extends Tes_Controller
 			}
 		} else {
 			$status['status'] = 0;
-			$status['pesan'] = validation_errors();
+			$status['pesan'] = array_values($this->form_validation->error_array())[0];
 		}
 
 		echo json_encode($status);
@@ -424,7 +424,7 @@ class Tes_dashboard extends Tes_Controller
 			}
 		} else {
 			$status['status'] = 0;
-			$status['error'] = validation_errors();
+			$status['error'] = array_values($this->form_validation->error_array())[0];
 		}
 
 		echo json_encode($status);
@@ -721,7 +721,7 @@ class Tes_dashboard extends Tes_Controller
 			$status['error'] = 'Terimakasih sudah melengkapi data.';
 		} else {
 			$status['status'] = 0;
-			$status['error'] = validation_errors();
+			$status['error'] = array_values($this->form_validation->error_array())[0];
 		}
 		echo json_encode($status);
 	}
@@ -758,7 +758,7 @@ class Tes_dashboard extends Tes_Controller
 			$status['pesan'] = 'Berhasil mengirim bukti pembayaran. Silahkan tunggu paling lambat 24 Jam untuk admin mengkonfirmasi bukti pembayaran anda. Jika belum dikonfirmasi dalam 24 jam, silahkan hubungi panitia.';
 		} else {
 			$status['status'] = 0;
-			$status['pesan'] = validation_errors();
+			$status['pesan'] = array_values($this->form_validation->error_array())[0];
 		}
 		echo json_encode($status);
 	}
@@ -782,7 +782,7 @@ class Tes_dashboard extends Tes_Controller
 			$status['pesan'] = 'Perubahan berhasil disimpan';
 		} else {
 			$status['status'] = 0;
-			$status['error'] = validation_errors();
+			$status['error'] = array_values($this->form_validation->error_array())[0];
 		}
 
 		echo json_encode($status);
