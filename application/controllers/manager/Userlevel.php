@@ -459,11 +459,20 @@
                 $akses = $this->userlevel_model->get_menu_by_level($temp->level);
                 if ($akses->num_rows() > 0) {
                     $akses = $akses->result();
-                    $hak_akses = $hak_akses . '<ol>';
+                    $hak_akses = $hak_akses . '<ul style="list-style: none">';
                     foreach ($akses as $temp2) {
-                        $hak_akses = $hak_akses . '<li> Nama Menu : ' . $temp2->nama_menu . '. Add : ' . $temp2->add . '. Edit : ' . $temp2->edit . '.</li>';
+                        $hak_akses = $hak_akses . '<li><span class="badge badge-primary mr-1">' . $temp2->nama_menu . '</span>';
+                        if ($temp2->add == 1) {
+                            $hak_akses .= '<span class="badge badge-secondary mr-1">ADD</span>';
+                        }
+
+                        if ($temp2->edit == 1) {
+                            $hak_akses .= '<span class="badge badge-secondary">EDIT</span>';
+                        }
+
+                        $hak_akses .= '</li>';
                     }
-                    $hak_akses = $hak_akses . '</ol>';
+                    $hak_akses = $hak_akses . '</ul>';
                 } else {
                     $hak_akses = 'Tidak Memiliki Hak Akses';
                 }
