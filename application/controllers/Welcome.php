@@ -108,14 +108,14 @@ class Welcome extends CI_Controller
 			if ($this->form_validation->run() == FALSE) {
 				//Jika login gagal
 				$status['status'] = 0;
-				$status['error'] = validation_errors();
+				$status['error'] = array_values($this->form_validation->error_array())[0];
 			} else {
 				//Jika sukses
 				$status['status'] = 1;
 			}
 		} else {
 			$status['status'] = 0;
-			$status['error'] = validation_errors();
+			$status['error'] = array_values($this->form_validation->error_array())[0];
 		}
 		echo json_encode($status);
 	}
@@ -152,6 +152,7 @@ class Welcome extends CI_Controller
 
 		$this->form_validation->set_rules('tambah-email', 'Email', 'required|strip_tags|valid_emails');
 		$this->form_validation->set_rules('tambah-password', 'Password', 'required|strip_tags|min_length[8]');
+		$this->form_validation->set_rules('tambah-re-password', 'Konfirmasi password', 'required|strip_tags|min_length[8]|matches[tambah-password]');
 		$this->form_validation->set_rules('tambah-nama', 'Nama Lengkap', 'required|strip_tags');
 		$this->form_validation->set_rules('tambah-detail', 'Nama Sekolah', 'required|strip_tags');
 		$this->form_validation->set_rules('tambah-kelas', 'Kelas', 'required|strip_tags');
@@ -202,7 +203,7 @@ class Welcome extends CI_Controller
 			}
 		} else {
 			$status['status'] = 0;
-			$status['pesan'] = validation_errors();
+			$status['pesan'] = array_values($this->form_validation->error_array())[0];
 		}
 
 		echo json_encode($status);
@@ -271,7 +272,7 @@ class Welcome extends CI_Controller
 			// $status['status'] = 1;
 		} else {
 			$status['status'] = 0;
-			$status['error'] = validation_errors();
+			$status['error'] = array_values($this->form_validation->error_array())[0];
 		}
 		// echo json_encode($isEmail);
 		echo json_encode($status);
@@ -331,7 +332,7 @@ class Welcome extends CI_Controller
 			// return redirect('welcome');
 		} else {
 			$status['status'] = 0;
-			$status['pesan'] = validation_errors();
+			$status['pesan'] = array_values($this->form_validation->error_array())[0];
 		}
 		echo json_encode($status);
 	}

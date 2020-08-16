@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -35,7 +36,7 @@
  * @since	Version 1.0.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 $lang['cal_su'] = 'Su';
 $lang['cal_mo'] = 'Mo';
@@ -51,13 +52,13 @@ $lang['cal_wed'] = 'Wed';
 $lang['cal_thu'] = 'Thu';
 $lang['cal_fri'] = 'Fri';
 $lang['cal_sat'] = 'Sat';
-$lang['cal_sunday'] = 'Sunday';
-$lang['cal_monday'] = 'Monday';
-$lang['cal_tuesday'] = 'Tuesday';
-$lang['cal_wednesday'] = 'Wednesday';
-$lang['cal_thursday'] = 'Thursday';
-$lang['cal_friday'] = 'Friday';
-$lang['cal_saturday'] = 'Saturday';
+$lang['cal_sunday'] = 'Minggu';
+$lang['cal_monday'] = 'Senin';
+$lang['cal_tuesday'] = 'Selasa';
+$lang['cal_wednesday'] = 'Rabu';
+$lang['cal_thursday'] = 'Kamis';
+$lang['cal_friday'] = 'Jum\'at';
+$lang['cal_saturday'] = 'Sabtu';
 $lang['cal_jan'] = 'Jan';
 $lang['cal_feb'] = 'Feb';
 $lang['cal_mar'] = 'Mar';

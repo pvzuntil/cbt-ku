@@ -38,7 +38,7 @@ if ($url == 'login') {
       ?>
     </div><!-- /.content-wrapper -->
 
-    <?php include 'required/footer.php' ?>
+    <?php include 'required/footer-admin.php' ?>
 
   </div><!-- ./wrapper -->
 
@@ -77,22 +77,10 @@ if ($url == 'login') {
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
 
-  <div class="modal" id="modal-proses" data-backdrop="static">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-body">
-          <div style="text-align: center;">
-            <img width="50" src="<?php echo base_url(); ?>public/images/loading.gif" /> <br />Data Sedang diproses...
-          </div>
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
-
   <script>
     $(function() {
 
-      //Form Ubah Password
+      //TODO Form Ubah Password
       $('#modal-password').on('shown.bs.modal', function(e) {
         $('#form-pesan-password').html('');
         $('#password-old').val('');

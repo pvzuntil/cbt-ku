@@ -251,7 +251,7 @@ class Peserta_daftar extends Member_Controller
 			$details = '';
 			$details .= $temp->active == 1 ? '<div class="badge badge-success" style="margin-right: 5px">AKTIF</div>' : '<div class="badge badge-danger" style="margin-right: 5px">BELUM AKTIF</div>';
 			if ($temp->status == 'wait') {
-				$details .= '<div class="badge">MENUNGGU KONFIRMASI</div>';
+				$details .= '<div class="badge badge-secondary">MENUNGGU KONFIRMASI</div>';
 			} else if ($temp->status == 'allow') {
 				$details .=
 					'<div class="badge badge-success">SUDAH MEMBAYAR</div>';

@@ -14,7 +14,7 @@
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" id="btn-logout">
+                <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" id="btn-logout-admin">
                     <i class="fas fa-power-off"></i>
                 </a>
             </li>

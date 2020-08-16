@@ -1,67 +1,63 @@
-<div class="container">
-    <!-- Content Header (Page header) -->
-    <div class="box shadow-box" style="margin-top: 20px;">
-        <section class="content-header">
-            <h1>
-                <?php if (!empty($nama)) {
-                    echo $nama;
-                } ?>
-            </h1>
-            <div class="badge">Kelas <?= $currentUser->kelas ?></div>
-            <div class="badge">Lomba : <?= $currentUser->lomba == 'all' ? 'Matematika & Sains' : ucfirst($currentUser->lomba) ?></div>
-            <div class="badge"><?= explode('-', $group)[0] ?></div>
-            <!-- <div class="btn btn-link btn-xs">Lihat profil</div> -->
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">dashboard</li>
-            </ol>
-        </section>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <h1>
+            <?php if (!empty($nama)) {
+                echo $nama;
+            } ?>
+        </h1>
+        <div class="badge badge-primary">Kelas <?= $currentUser->kelas ?></div>
+        <div class="badge badge-primary">Lomba : <?= $currentUser->lomba == 'all' ? 'Matematika & Sains' : ucfirst($currentUser->lomba) ?></div>
+        <div class="badge badge-secondary"><?= explode('-', $group)[0] ?></div>
+    </div>
+</section>
 
+<section class="content">
+    <div class="container-fluid">
+        <!-- Content Header (Page header) -->
         <!-- Main content -->
-        <section class="content">
-            <?php if ($showPay) : ?>
-                <div class="box box-warning box-solid">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Konfirmasi pembayaran</h3>
-                    </div><!-- /.box-header -->
-                    <?php echo form_open($url . '/pay', 'id="form-pay" enctype="multipart/form-data"'); ?>
-                    <div class="box-body">
-                        <?php if ($userPay_status == 'wait') : ?>
-                            <div class="callout callout-info">
-                                <p>Anda telah mengirimkan bukti pembayaran pada <?= $date_pay ?>, tunggu pihak panitia untuk mengkonfirmasi pembayaran anda</p>
-                            </div>
-                        <?php elseif ($userPay_status == 'deny') : ?>
-                            <div class="callout callout-danger">
-                                <p>Bukti pembayaran anda pada <?= $date_pay ?> ditolak panitia karena "<?= $userPay->message ?>"</p>
-                                <p>Silahkan unggah kembali bukti pembayaran dengan tepat.</p>
-                            </div>
-                        <?php else : ?>
-                            <div class="callout callout-warning">
-                                <p>Silahkan Transfer biaya pendaftaran dan kirim bukti transfer. Rekening BCA no 3270 3964 87 an Moch Abdur Rokhim, kemudian unggah bukti pembayaran dibawah</p>
-                            </div>
-                        <?php endif ?>
-                        <div id="form-pesan-pay"></div>
-                        <hr>
-                        <div class="row" style="display: flex; justify-content: center; flex-direction: column; align-items: center; flex-wrap: wrap;">
-                            <div class="col-sm-6" style="margin-bottom: 15px; display: flex; justify-content: center;">
-                                <img src="<?= $userPay_status == 'none'  ? site_url() . 'public/images/placeholder.png' : site_url() . $userPay->img_pay ?>" alt="" class="img-responsive <?= $userPay_status == 'wait' ? 'zoom' : '' ?>" style="border-radius: 5px; cursor: pointer; box-shadow: 0px 4px 8px 0px #00000026;" id="imagePay">
-                            </div>
-                            <?php if ($userPay_status != 'wait') : ?>
-                                <p>Klik gambar untuk memilih foto</p>
-                                <input type="file" name="uplaodImgPay" id="uplaodImgPay" accept="image/*" style="display: none;">
-                                <input type="hidden" name="uploadImgPayText" id="uploadImgPayText" style="display: none;">
-                            <?php endif ?>
+        <?php if ($showPay) : ?>
+            <div class="card">
+                <div class="card-header with-border">
+                    <h3 class="card-title">Konfirmasi pembayaran</h3>
+                </div><!-- /.card-header -->
+                <?php echo form_open($url . '/pay', 'id="form-pay" enctype="multipart/form-data"'); ?>
+                <div class="card-body">
+                    <?php if ($userPay_status == 'wait') : ?>
+                        <div class="callout callout-info">
+                            <p>Anda telah mengirimkan bukti pembayaran pada <?= $date_pay ?>, tunggu pihak panitia untuk mengkonfirmasi pembayaran anda</p>
                         </div>
-                    </div><!-- /.box-body -->
-                    <?php if ($userPay_status != 'wait') : ?>
-                        <div class="box-footer">
-                            <div class="pull-right">
-                                <button class="btn btn-success btn-sm">Kirim</button>
-                            </div>
+                    <?php elseif ($userPay_status == 'deny') : ?>
+                        <div class="callout callout-danger">
+                            <p>Bukti pembayaran anda pada <?= $date_pay ?> ditolak panitia karena "<?= $userPay->message ?>"</p>
+                            <p>Silahkan unggah kembali bukti pembayaran dengan tepat.</p>
+                        </div>
+                    <?php else : ?>
+                        <div class="callout callout-warning">
+                            <p>Silahkan Transfer biaya pendaftaran dan kirim bukti transfer. Rekening BCA no 3270 3964 87 an Moch Abdur Rokhim, kemudian unggah bukti pembayaran dibawah</p>
                         </div>
                     <?php endif ?>
-                    </form>
-                </div><!-- /.box -->
+                    <hr>
+                    <div class="row" style="display: flex; justify-content: center; flex-direction: column; align-items: center; flex-wrap: wrap;">
+                        <input type="hidden" id="user-pay-status" value="<?= $userPay_status ?>">
+                        <div class="col-sm-6 <?= $userPay_status == 'wait' ? 'img-magnifier-container' : '' ?>" style="margin-bottom: 15px; display: flex; justify-content: center;">
+                            <img src="<?= $userPay_status == 'none'  ? site_url() . 'public/images/placeholder.png' : site_url() . $userPay->img_pay ?>" alt="" class="img-responsive elevation-1 img-thumbnail" id="imagePay">
+                        </div>
+                        <?php if ($userPay_status != 'wait') : ?>
+                            <p>Klik gambar untuk memilih foto</p>
+                            <input type="file" name="uplaodImgPay" id="uplaodImgPay" accept="image/*" style="display: none;">
+                            <input type="hidden" name="uploadImgPayText" id="uploadImgPayText" style="display: none;">
+                        <?php endif ?>
+                    </div>
+                </div>
+                <?php if ($userPay_status != 'wait') : ?>
+                    <div class="card-footer">
+                        <div class="row d-flex" style="justify-content: flex-end;">
+                            <button class="btn btn-success btn-sm">Kirim</button>
+                        </div>
+                    </div>
+                <?php endif ?>
+                </form>
             <?php else : ?>
                 <div class="callout callout-info">
                     <h4>Informasi</h4>
@@ -72,16 +68,17 @@
                     <p>Silahkan pilih Mapel yang diikuti dari daftar lomba yang tersedia dibawah ini. Apabila tidak muncul, silahkan menghubungi Panitia.</p>
                     <?php if ($pengumuman->isPublic  == 1) : ?>
                         <!-- <p>Pengumuman juara telah tersedia, klik <a href="pengumuman" target="_blank">disini</a> untuk melihat.</p> -->
+                        <!-- TODO Button pengumuman -->
                         <a href="../pengumuman" class="btn btn-success" target="_blank" style="text-decoration: none;">Lihat Pengumuman</a>
                         <button class="btn btn-success" <?= $currentUser->downloadCert == 0 ? 'data-toggle="modal" data-target="#modal-finalisasi"' : 'id="cert-download"' ?>>Download Sertifikat</button>
                     <?php endif ?>
                 </div>
-                <div class="box box-warning box-solid">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Daftar Lomba</h3>
-                    </div><!-- /.box-header -->
-                    <div class="box-body">
-                        <table id="table-tes" class="table table-bordered table-hover">
+                <div class="card">
+                    <div class="card-header with-border">
+                        <h3 class="card-title">Daftar Lomba</h3>
+                    </div><!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="table-tes" class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -106,13 +103,12 @@
                             </tbody>
                         </table>
 
-                    </div><!-- /.box-body -->
-                </div><!-- /.box -->
+                    </div><!-- /.card-body -->
+                </div><!-- /.card -->
             <?php endif ?>
-        </section><!-- /.content -->
+            </div>
     </div>
-</div><!-- /.container -->
-
+</section>
 
 <div style="max-height: 100%;overflow-y:auto;" class="modal" id="modal-profile" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
     <div class="modal-dialog">
@@ -123,7 +119,7 @@
             </div>
             <div class="modal-body">
                 <div class="row-fluid">
-                    <div class="box-body">
+                    <div class="card-body">
                         <div id="form-pesan"></div>
                         <div class="form-group">
                             <label>Email</label>
@@ -183,7 +179,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="row-fluid">
-                        <div class="box-body">
+                        <div class="card-body">
                             <div id="form-pesan-optional"></div>
                             <?php foreach ($willCheck as $check) : ?>
                                 <div class="form-group">
@@ -239,7 +235,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="row-fluid">
-                        <div class="box-body">
+                        <div class="card-body">
                             <div id="form-pesan-cert"></div>
                             <div class="row">
                                 <div class="form-group col-xs-12 col-md-6">
@@ -266,15 +262,18 @@
         </form>
     </div>
 <?php endif ?>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
 <script src="<?php echo site_url() . '/'; ?>/public/images/cert/Nickainley-Normal-normal.js"></script>
 <script src="<?php echo site_url() . '/'; ?>/public/images/cert/OpenSans-Regular-normal.js"></script>
 
 <script type="text/javascript">
     $(function() {
+        if ($('#user-pay-status').val() == 'wait') {
+            magnify("imagePay", 3);
+        }
 
         $('#table-tes').DataTable({
-            'dom': 'ftipr',
             "paging": true,
             "iDisplayLength": 10,
             "bProcessing": false,
@@ -317,7 +316,10 @@
             ],
             "sAjaxSource": "<?php echo site_url() . '/' . $url; ?>/get_datatable/",
             "autoWidth": false,
-            "responsive": true
+            "responsive": true,
+            'fnDrawCallback': function() {
+                callBackDatatable('#table-tes')
+            }
         });
 
         $('#imagePay').on('click', function() {
@@ -325,7 +327,7 @@
         })
 
         $('#form-optional').submit(function() {
-            $("#modal-proses").modal('show');
+            SW.loading()
             $.ajax({
                 url: "<?php echo site_url() . '/' . $url; ?>/optional",
                 type: "POST",
@@ -334,10 +336,9 @@
                 success: function(respon) {
                     var obj = $.parseJSON(respon);
                     if (obj.status == 1) {
-                        $("#modal-proses").modal('hide');
                         $("#modal-optional").modal('hide');
                         $("#modal-optional").remove();
-                        Swal.fire({
+                        SW.show({
                             title: 'Berhasil !',
                             text: obj.error,
                             icon: 'success'
@@ -345,8 +346,10 @@
                             window.location.reload()
                         })
                     } else {
-                        $("#modal-proses").modal('hide');
-                        $('#form-pesan-optional').html(pesan_err(obj.error));
+                        SW.toast({
+                            title: obj.pesan,
+                            icon: 'error'
+                        })
                     }
                 }
             });
@@ -354,7 +357,7 @@
         });
 
         $('#form-pay').submit(function() {
-            $("#modal-proses").modal('show');
+            SW.loading()
             $.ajax({
                 url: "<?php echo site_url() . '/' . $url; ?>/pay",
                 type: "POST",
@@ -363,8 +366,7 @@
                 success: function(respon) {
                     var obj = $.parseJSON(respon);
                     if (obj.status == 1) {
-                        $("#modal-proses").modal('hide');
-                        Swal.fire({
+                        SW.show({
                             title: 'Berhasil !',
                             text: obj.pesan,
                             icon: 'success'
@@ -372,10 +374,9 @@
                             window.location.reload()
                         })
                     } else {
-                        $("#modal-proses").modal('hide');
-                        $('#form-pesan-pay').html(pesan_err(obj.pesan));
-                        $('html, body').animate({
-                            scrollTop: 0
+                        SW.toast({
+                            title: obj.pesan,
+                            icon: 'error'
                         })
                     }
                 }
@@ -384,7 +385,7 @@
         });
 
         $('#form-cert').submit(function() {
-            $("#modal-proses").modal('show');
+            SW.loading()
             $.ajax({
                 url: "<?php echo site_url() . '/' . $url; ?>/cert_save",
                 type: "POST",
@@ -395,10 +396,9 @@
                     if (obj.status == 1) {
                         let nama = $('#cert-nama').val()
                         let sekolah = $('#cert-sekolah').val()
-                        $("#modal-proses").modal('hide');
                         $("#modal-finalisasi").modal('hide');
                         $("#modal-finalisasi").remove();
-                        Swal.fire({
+                        SW.show({
                             title: 'Berhasil !',
                             text: obj.pesan,
                             icon: 'success'
@@ -409,8 +409,10 @@
                             })
                         })
                     } else {
-                        $("#modal-proses").modal('hide');
-                        $('#form-pesan-cert').html(pesan_err(obj.error));
+                        SW.toast({
+                            title: obj.pesan,
+                            icon: 'error'
+                        })
                     }
                 }
             });
@@ -484,9 +486,8 @@
         //Is Used for validate a valid file.
         var uploadFile = document.getElementById("uplaodImgPay").files[0];
         if (!filterType.test(uploadFile.type)) {
-            Swal.fire({
-                title: 'Peringatan !',
-                text: 'Pilih gambar dengan format JPG atau PNG',
+            SW.toast({
+                title: 'Pilih gambar dengan format JPG atau PNG',
                 icon: 'error'
             });
             return;
@@ -497,13 +498,7 @@
 
     function generate_cert(data = {}) {
         <?php if ($pengumuman->isPublic  == 1 && !$showPay) : ?>
-            Swal.fire({
-                title: 'Harap tunggu tuan !',
-                text: 'Sedang mengerjakan sesuai yang anda minta.',
-                onBeforeOpen: () => {
-                    Swal.showLoading()
-                },
-            })
+            SW.loading()
 
             let doc = new jsPDF({
                 orientation: "l",
@@ -569,7 +564,7 @@
                 doc.save('QEC Certificate', {
                     returnPromise: true
                 }).then(() => {
-                    Swal.fire({
+                    SW.show({
                         title: 'Berhasil !',
                         text: 'Berhasil membuat dokumen sertifikat',
                         icon: 'success'

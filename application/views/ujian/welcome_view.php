@@ -9,9 +9,9 @@
 		<div class="card-body login-card-body">
 			<p class="login-box-msg">Silahkan masuk untuk melanjutkan</p>
 
-			<form method="post">
+			<form method="post" id="form-login">
 				<div class="input-group mb-3">
-					<input type="email" class="form-control" placeholder="Email">
+					<input type="email" class="form-control" placeholder="Email" name="username">
 					<div class="input-group-append">
 						<div class="input-group-text">
 							<span class="fas fa-envelope"></span>
@@ -19,7 +19,7 @@
 					</div>
 				</div>
 				<div class="input-group mb-3">
-					<input type="password" class="form-control" placeholder="Password">
+					<input type="password" class="form-control" placeholder="Password" name="password">
 					<div class="input-group-append">
 						<div class="input-group-text">
 							<span class="fas fa-lock"></span>
@@ -41,7 +41,7 @@
 
 			<div class="social-auth-links text-center">
 				<p>-- Belum Punya Akun ? --</p>
-				<a href="#" class="btn btn-block btn-success mb-3" data-toggle="modal" data-target="#modal-add">
+				<a href="#" class="btn btn-block btn-success mb-3" data-toggle="modal" data-target="#modal-tambah">
 					<i class="fas fa-user-edit mr-2"></i> Mendaftar sekarang
 				</a>
 				<!-- <a href="#" class="" data-toggle="modal" data-target="#modal-alur">Alur Pendaftaran</a>
@@ -57,7 +57,7 @@
 
 
 <!-- MODAL ADD PESERTA -->
-<div class="modal fade" tabindex="-1" role="dialog" id="modal-add">
+<div class="modal fade" tabindex="-1" role="dialog" id="modal-tambah">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -160,9 +160,9 @@
 					</div>
 				</div>
 
-				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary">Mendaftar</button>
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+				<div class="modal-footer d-flex" style="justify-content: space-between;">
+					<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Batal</button>
+					<button type="submit" class="btn btn-primary btn-sm">Mendaftar</button>
 				</div>
 
 				<?php echo form_close(); ?>
@@ -191,9 +191,9 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal-footer">
-				<button type="submit" id="lupa-simpan" class="btn btn-success">Kirim</button>
-				<a href="#" class="btn btn-danger" data-dismiss="modal">Batal</a>
+			<div class="modal-footer d-flex" style="justify-content: space-between;">
+				<a href="#" class="btn btn-default btn-sm" data-dismiss="modal">Batal</a>
+				<button type="submit" id="lupa-simpan" class="btn btn-primary btn-sm">Kirim</button>
 			</div>
 		</div>
 	</div>
@@ -238,16 +238,13 @@
 
 		$('#form-login').submit(function() {
 			if (grecaptcha.getResponse(gchap) == '' || grecaptcha.getResponse(gchap) == null) {
-				Swal.fire({
-					toast: true,
-					timer: 2000,
-					showConfirmButton: false,
+				SW.toast({
 					title: 'Captcha harus diisi.',
 					icon: 'warning'
 				})
 				return false;
 			}
-			$("#modal-proses").modal('show');
+			SW.loading()
 			$.ajax({
 				url: "<?php echo site_url(); ?>/welcome/login",
 				type: "POST",
@@ -258,8 +255,10 @@
 					if (obj.status == 1) {
 						window.open("<?php echo site_url(); ?>/tes_dashboard", "_self");
 					} else {
-						$('#form-pesan').html(pesan_err(obj.error));
-						$("#modal-proses").modal('hide');
+						SW.toast({
+							title: obj.error,
+							icon: 'error'
+						})
 						$('#username').focus();
 					}
 				}
@@ -275,16 +274,13 @@
 
 	$('#form-tambah').submit(function() {
 		if (grecaptcha.getResponse(gchap2) == '' || grecaptcha.getResponse(gchap2) == null) {
-			Swal.fire({
-				toast: true,
-				timer: 2000,
-				showConfirmButton: false,
+			SW.toast({
 				title: 'Captcha harus diisi.',
 				icon: 'warning'
 			})
 			return false;
 		}
-		$("#modal-proses").modal('show');
+		SW.loading()
 
 		let check1 = $('#customCheck1').is(':checked')
 		let check2 = $('#customCheck2').is(':checked')
@@ -298,21 +294,21 @@
 				success: function(respon) {
 					var obj = $.parseJSON(respon);
 					if (obj.status == 1) {
-						$("#modal-proses").modal('hide');
 						$("#modal-tambah").modal('hide');
-						notify_success(obj.pesan);
+						SW.toast({
+							title: obj.pesan,
+							icon: 'success'
+						})
 					} else {
-						$("#modal-proses").modal('hide');
-						$('#form-pesan-tambah').html(pesan_err(obj.pesan));
-						$('#modal-tambah').animate({
-							scrollTop: 0
+						SW.toast({
+							title: obj.pesan,
+							icon: 'error'
 						})
 					}
 				}
 			});
 		} else {
-			$("#modal-proses").modal('hide');
-			Swal.fire({
+			SW.show({
 				title: 'Uppss !',
 				text: 'Anda belum mencentang semua persyaratan dan persetujuan.',
 				icon: 'error'
@@ -322,7 +318,7 @@
 	});
 
 	$('#form-lupa').submit(function() {
-		$("#modal-proses").modal('show');
+		SW.loading()
 		$.ajax({
 			url: "<?php echo site_url() . '/' . $url; ?>/request_lupa",
 			type: "POST",
@@ -331,25 +327,19 @@
 			success: function(respon) {
 				var obj = $.parseJSON(respon);
 				if (obj.status == 1) {
-					$("#modal-proses").modal('hide');
 					$("#modal-lupa").modal('hide');
-					notify_success(obj.error);
+					SW.toast({
+						title: obj.error,
+						icon: 'success'
+					})
 				} else {
-					$("#modal-proses").modal('hide');
-					$('#form-pesan-lupa').html(pesan_err(obj.error));
+					SW.toast({
+						title: obj.error,
+						icon: 'error'
+					})
 				}
 			}
 		});
 		return false;
 	});
-
-	function notify_success(pesan) {
-		new PNotify({
-			title: 'Berhasil',
-			text: pesan,
-			type: 'success',
-			history: false,
-			delay: 4000,
-		});
-	}
 </script>
