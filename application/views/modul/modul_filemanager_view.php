@@ -22,7 +22,7 @@
                         <div id="form-pesan-upload"></div>
                         <div class="form-group">
                             <label class="control-label">File</label>
-                            <div class="input-group mb-3">
+                            <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
                                 </div>
@@ -32,9 +32,6 @@
                                 </div>
                             </div>
                             <small class="text-muted">File yang didukung adalah jpg, jpeg, png, mp3</small>
-                            <!-- 
-                            <input type="hidden" name="upload-posisi" id="upload-posisi">
-                            <input type="file" id="upload-file" name="upload-file"> -->
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -145,7 +142,7 @@
                 </div>
                 <p>Perhatian, file atau direktori yang dihapus dapat mempengaruhi Soal yang telah dibuat.</p>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer d-flex" style="justify-content: space-between;">
                 <button type="submit" id="btn-hapus" class="btn btn-danger">Hapus</button>
                 <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
             </div>
