@@ -89,6 +89,17 @@
                             </div>
                         </div>
 
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="">Pilihan Kelas</label>
+                                <select name="pilihan-kelas[]" id="pilihan-kelas" class="form-control" multiple>
+                                    <option value="sd">SD (Sekolah Dasar)</option>
+                                    <option value="smp">SMP (Sekolah menengah pertama)</option>
+                                    <option value="sma">SMA (Sekolah menengah atas)</option>
+                                </select>
+                            </div>
+                        </div>
+
 
 
                         <!-- <div class="form-group">
@@ -134,12 +145,16 @@
                 $('#main-mode').val(data.main_mode);
                 $('#tutup-daftar').val(data.tutup_daftar);
                 // $('#tutup-bayar').val(data.tutup_bayar);
+                $('#pilihan-kelas').val(JSON.parse(data.pilihan_kelas)).trigger('change')
+
             }
             SW.close()
         });
     }
 
     $(function() {
+        $('#pilihan-kelas').select2()
+
         load_data();
         $('#form-pengaturan').submit(function() {
             SW.loading()
@@ -147,6 +162,7 @@
                 url: "<?php echo site_url() . '/' . $url; ?>/simpan",
                 type: "POST",
                 data: $('#form-pengaturan').serialize(),
+
                 cache: false,
                 success: function(respon) {
                     var obj = $.parseJSON(respon);
