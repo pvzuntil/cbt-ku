@@ -65,7 +65,6 @@
                                 <tr>
                                     <th>No.</th>
                                     <th class="all">Nama</th>
-                                    <th>Kelompok</th>
                                     <th>Kelas</th>
                                     <th>Pilihan Lomba</th>
                                     <th>Asal Sekolah</th>
@@ -76,7 +75,6 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td> </td>
                                     <td> </td>
                                     <td> </td>
                                     <td> </td>
@@ -499,10 +497,6 @@
                     "bSearchable": false,
                     "bSortable": false,
                     "sWidth": "20px"
-                },
-                {
-                    "bSearchable": false,
-                    "bSortable": false
                 },
                 {
                     "bSearchable": false,

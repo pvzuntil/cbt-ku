@@ -241,11 +241,18 @@ class Peserta_daftar extends Member_Controller
 			$record[] = ++$i;
 			$record[] = $temp->user_firstname;
 
-			$query_group = $this->cbt_user_grup_model->get_by_kolom_limit('grup_id', $temp->user_grup_id, 1)->row();
+			// $query_group = $this->cbt_user_grup_model->get_by_kolom_limit('grup_id', $temp->user_grup_id, 1)->row();
 
-			$record[] = $query_group->grup_nama;
+			// $record[] = $query_group->grup_nama;
 			$record[] = $temp->kelas;
-			$record[] = $temp->lomba == 'all' ? "Matematika & Sains" : ucfirst($temp->lomba);
+			// $record[] = $temp->lomba == 'all' ? "Matematika & Sains" : ucfirst($temp->lomba);
+
+			$daftarLomba = $this->mlib->getLombaArray($temp->lomba);
+			$elementLomba = '';
+			foreach ($daftarLomba as $lomba) {
+				$elementLomba .= '<span class="badge badge-primary mr-1">' . $lomba . '</span>';
+			}
+			$record[] = $elementLomba;
 			$record[] = $temp->user_detail;
 
 			$details = '';

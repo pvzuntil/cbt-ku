@@ -40,7 +40,6 @@ class Cbt_user_pay_model extends CI_Model
             ->where($kolom, $isi)
             ->from($this->table)
             ->join('cbt_user', $this->table . '.cbt_user_id = cbt_user.user_id')
-            ->join('cbt_user_grup', 'cbt_user.user_grup_id = cbt_user_grup.grup_id')
             ->order_by('date_pay', 'DESC');
         return $this->db->get();
     }
@@ -223,7 +222,7 @@ class Cbt_user_pay_model extends CI_Model
 
     function get_data_export($groupName)
     {
-        $data = $this->db->select('user_id, user_email, user_firstname, grup_nama, user_detail, kelas, lomba, status, date_pay');
+        $data = $this->db->select('user_id, user_email, user_firstname, user_detail, kelas, lomba, status, date_pay');
 
         if ($groupName != 'semua') {
             $data->where('status', $groupName);
@@ -231,7 +230,6 @@ class Cbt_user_pay_model extends CI_Model
 
         $data
             ->join('cbt_user', 'cbt_user_pay.cbt_user_id = cbt_user.user_id')
-            ->join('cbt_user_grup', 'cbt_user.user_grup_id = cbt_user_grup.grup_id')
             ->from($this->table)
             ->order_by('status DESC, date_pay DESC');
 

@@ -86,7 +86,7 @@ class Peserta_pay extends Member_Controller
 				$data['detail'] = $query->user_detail;
 				$data['status'] = $query->status;
 				$data['imgPay'] = $query->img_pay;
-				$data['group'] = $query->grup_nama;
+				$data['lomba'] = count($this->mlib->getLombaArray($query->lomba));
 				$data['message'] = $query->message;
 			}
 		}
@@ -208,10 +208,13 @@ class Peserta_pay extends Member_Controller
 			$record[] = $temp->user_email;
 			$record[] = $temp->user_firstname;
 
-			$query_group = $this->cbt_user_grup_model->get_by_kolom_limit('grup_id', $temp->user_grup_id, 1)->row();
-
-			$record[] = $query_group->grup_nama;
-			$record[] = $temp->lomba == 'all' ? "Matematika & Sains" : ucfirst($temp->lomba);
+			// $record[] = $query_group->grup_nama;
+			$daftarLomba = $this->mlib->getLombaArray($temp->lomba);
+			$elementLomba = '';
+			foreach ($daftarLomba as $lomba) {
+				$elementLomba .= '<span class="badge badge-primary mr-1">' . $lomba . '</span>';
+			}
+			$record[] = $elementLomba;
 			$record[] = strftime("%A, %d %B %Y", strtotime($temp->date_pay));
 
 			if ($temp->status == 'wait') {
@@ -295,10 +298,10 @@ class Peserta_pay extends Member_Controller
 				$spreadsheet->setActiveSheetIndex(0)->setCellValue('A' . $row, ($row - 1));
 				$spreadsheet->setActiveSheetIndex(0)->setCellValue('B' . $row, $temp->user_email);
 				$spreadsheet->setActiveSheetIndex(0)->setCellValue('C' . $row, $temp->user_firstname);
-				$spreadsheet->setActiveSheetIndex(0)->setCellValue('D' . $row, $temp->grup_nama);
+				$daftarLomba = $this->mlib->getLomba($temp->lomba);
+				$spreadsheet->setActiveSheetIndex(0)->setCellValue('D' . $row, $daftarLomba);
 				$spreadsheet->setActiveSheetIndex(0)->setCellValue('E' . $row, $temp->user_detail);
 				$spreadsheet->setActiveSheetIndex(0)->setCellValue('F' . $row, $temp->kelas);
-				$spreadsheet->setActiveSheetIndex(0)->setCellValue('G' . $row, $temp->lomba == 'all' ? 'Matematika & Sains' : $temp->lomba);
 				$spreadsheet->setActiveSheetIndex(0)->setCellValue('H' . $row, $temp->status == 'allow' ? 'Diterima' : ($temp->status == 'deny' ? 'Ditolak' : 'Menunggu Konfirmasi'));
 				// $spreadsheet->setActiveSheetIndex(0)->setCellValue('I' . $row, $temp->active == '1' ? 'AKTIF' : 'BELUM AKTIF');
 				$spreadsheet->setActiveSheetIndex(0)->setCellValue('I' . $row, $temp->date_pay);
