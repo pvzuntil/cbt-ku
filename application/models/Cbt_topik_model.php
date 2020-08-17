@@ -80,7 +80,7 @@ class Cbt_topik_model extends CI_Model
         return $this->db->get();
     }
 
-    function get_datatable($start, $rows, $kolom, $isi, $modul = '')
+    function get_datatable($start, $rows, $kolom, $isi, $modul)
     {
         $this->db->where('(' . $kolom . ' LIKE "%' . $isi . '%" AND topik_modul_id=' . $modul . ')')
             ->from($this->table)

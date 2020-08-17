@@ -68,11 +68,11 @@ class Cbt_lomba_model extends CI_Model
     function get_all()
     {
         $this->db->from($this->table)
-            ->order_by('topik_id', 'ASC');
+            ->order_by('modul_id', 'ASC');
         return $this->db->get();
     }
 
-    function get_by_kolom_limit($kolom, $isi, $limit)
+    function get_by_kolom_limit($kolom, $isi, $limit = 1)
     {
         $this->db->where($kolom, $isi)
             ->from($this->table)

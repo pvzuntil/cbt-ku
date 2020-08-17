@@ -16,20 +16,18 @@ class Welcome extends CI_Controller
 		$this->load->model('cbt_user_model');
 		$this->load->library('session');
 		$this->load->model('cbt_juara_model');
+		$this->load->model('cbt_lomba_model');
 
 
 		$this->load->library('Send_email');
+		$this->load->library('GetKelas');
 	}
 
 	public function index()
 	{
-
-
 		// ========================================
 		$data['url'] = $this->url;
 		$data['timestamp'] = strtotime(date('Y-m-d H:i:s'));
-
-		$query_group = $this->cbt_user_grup_model->get_group();
 
 		$query = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'tutup_daftar', 1);
 		$data['tutup_daftar'] = 'ya';
@@ -37,19 +35,29 @@ class Welcome extends CI_Controller
 			$data['tutup_daftar'] = $query->row()->konfigurasi_isi;
 		}
 
+		$query = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'pilihan_kelas', 1);
+		if ($query->num_rows() > 0) {
+			$data['pilihan_kelas'] = $query->row()->konfigurasi_isi;
+		}
+
+		// $getKelas = new GetKelas();
+		$data['data_kelas'] = $this->getkelas->get($data['pilihan_kelas']);
+		// dd($data['data_kelas']);
+
 		$get_laporan = $this->cbt_juara_model->get_laporan();
 		$data['pengumuman'] = $get_laporan->row();
 
+		$query_group = $this->cbt_lomba_model->get_all();
 		if ($query_group->num_rows() > 0) {
 			$select = '';
 			$query_group = $query_group->result();
 			foreach ($query_group as $temp) {
-				$select = $select . '<option value="' . $temp->grup_id . '">' . $temp->grup_nama . '</option>';
+				$select = $select . '<option value="' . $temp->modul_id . '">' . $temp->modul_nama . '</option>';
 			}
 		} else {
-			$select = '<option value="100000">KOSONG</option>';
+			$select = '<option value="kosong" selected>-- Tidak ada Lomba --</option>';
 		}
-		$data['select_group'] = $select;
+		$data['select_lomba'] = $select;
 
 		if ($this->agent->is_browser()) {
 			if ($this->agent->browser() == 'Internet Explorer') {
@@ -157,8 +165,7 @@ class Welcome extends CI_Controller
 		$this->form_validation->set_rules('tambah-detail', 'Nama Sekolah', 'required|strip_tags');
 		$this->form_validation->set_rules('tambah-kelas', 'Kelas', 'required|strip_tags');
 		$this->form_validation->set_rules('tambah-telepon', 'Nomer Telepon', 'required|strip_tags|numeric|min_length[10]');
-		$this->form_validation->set_rules('tambah-lomba', 'Mata Lomba', 'required|strip_tags');
-		$this->form_validation->set_rules('tambah-group', 'Level', 'required|strip_tags');
+		$this->form_validation->set_rules('tambah-lomba[]', 'Mata Lomba', 'required|strip_tags');
 
 		if ($this->form_validation->run() == TRUE) {
 			$randomNumber = rand(000001, 999999);
@@ -167,39 +174,33 @@ class Welcome extends CI_Controller
 			$data['user_password'] = $this->input->post('tambah-password', true);
 			$data['user_firstname'] = $this->input->post('tambah-nama', true);
 			$data['user_detail'] = $this->input->post('tambah-detail', true);
-			$data['user_grup_id'] = $this->input->post('tambah-group', true);
 			$data['telepon'] = $this->input->post('tambah-telepon', true);
 			$data['kelas'] = $this->input->post('tambah-kelas', true);
-			$data['lomba'] = $this->input->post('tambah-lomba', true);
+			$data['lomba'] = json_encode($this->input->post('tambah-lomba', true));
 			$data['active'] = 0;
 			$data['kode'] = $randomNumber;
 
-			if ($this->cbt_user_grup_model->count_by_kolom('grup_id', $data['user_grup_id'])->row()->hasil > 0) {
-				if ($this->cbt_user_model->count_by_kolom('user_email', $data['user_email'])->row()->hasil > 0) {
-					$status['status'] = 0;
-					$status['pesan'] = 'Email sudah terpakai !';
-				} else {
-
-					$send = new Send_email();
-					$send = $send->send($email, 'verif', [
-						'randomNumber' => $randomNumber,
-						'user_firstname' => $data['user_firstname']
-					]);
-
-					if ($send['status']) {
-						$data['url_verif'] = $send['url'];
-						$this->cbt_user_model->save($data);
-
-						$status['status'] = 1;
-						$status['pesan'] = 'Berhasil mendaftar, silahkan cek email anda untuk memverifikasi akun';
-					} else {
-						$status['status'] = 0;
-						$status['pesan'] = 'Silahkan periksa koneksi internet anda !';
-					}
-				}
-			} else {
+			if ($this->cbt_user_model->count_by_kolom('user_email', $data['user_email'])->row()->hasil > 0) {
 				$status['status'] = 0;
-				$status['pesan'] = 'Data Group tidak tersedia, Silahkan tambah data Group';
+				$status['pesan'] = 'Email sudah terpakai !';
+			} else {
+
+				$send = new Send_email();
+				$send = $send->send($email, 'verif', [
+					'randomNumber' => $randomNumber,
+					'user_firstname' => $data['user_firstname']
+				]);
+
+				if ($send['status']) {
+					$data['url_verif'] = $send['url'];
+					$this->cbt_user_model->save($data);
+
+					$status['status'] = 1;
+					$status['pesan'] = 'Berhasil mendaftar, silahkan cek email anda untuk memverifikasi akun';
+				} else {
+					$status['status'] = 0;
+					$status['pesan'] = 'Silahkan periksa koneksi internet anda !';
+				}
 			}
 		} else {
 			$status['status'] = 0;

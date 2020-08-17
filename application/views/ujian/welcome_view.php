@@ -93,20 +93,21 @@
 							<label>Nama Lengkap</label>
 							<input type="text" class="form-control" id="tambah-nama" name="tambah-nama" placeholder="Nama Lengkap Peserta" autocomplete="off">
 						</div>
+						<div class="row">
+							<div class="form-group col-12 col-md-6">
+								<label>Asal Sekolah</label>
+								<input type="text" class="form-control" id="tambah-detail" name="tambah-detail" placeholder="Asal Sekolah" autocomplete="off">
+							</div>
 
-						<div class="form-group">
-							<label>Asal Sekolah</label>
-							<input type="text" class="form-control" id="tambah-detail" name="tambah-detail" placeholder="Asal Sekolah" autocomplete="off">
-						</div>
-
-						<div class="form-group">
-							<label>Kelas</label>
-							<select name="tambah-kelas" id="tambah-kelas" class="form-control input-sm">
-								<option value="">-- Pilih Kelas (TA. 2019/2020) --</option>
-								<?php for ($i = 1; $i < 10; $i++) : ?>
-									<option value="<?= $i ?>" 0>Kelas <?= $i ?></option>
-								<?php endfor ?>
-							</select>
+							<div class="form-group col-12 col-md-6">
+								<label>Kelas</label>
+								<select name="tambah-kelas" id="tambah-kelas" class="form-control">
+									<option value="">-- Pilih Kelas --</option>
+									<?php foreach ($data_kelas as $i) : ?>
+										<option value="<?= $i ?>">Kelas <?= $i ?></option>
+									<?php endforeach ?>
+								</select>
+							</div>
 						</div>
 
 						<div class="form-group">
@@ -114,47 +115,41 @@
 							<input type="text" class="form-control" id="tambah-telepon" name="tambah-telepon" placeholder="Masukkan Nomer Telepon" autocomplete="off">
 						</div>
 
-						<div class="row">
-							<div class="form-group col-sm-6">
+						<div class="form-group row">
+							<div class="col-12">
 								<label>Pilihan Lomba</label>
-								<select name="tambah-lomba" id="tambah-lomba" class="form-control input-sm">
-									<option value="">-- Pilih Lomba --</option>
-									<option value="matematika">Matematika</option>
-									<option value="sains">Sains</option>
-									<option value="all">Matematika & Sains</option>
-								</select>
 							</div>
-
-							<div class="form-group col-sm-6">
-								<label>Level</label>
-								<select name="tambah-group" id="tambah-group" class="form-control input-sm">
-									<option value="">-- Pilih Level --</option>
-									<?php if (!empty($select_group)) {
-										echo $select_group;
-									} ?>
+							<div class="col-12">
+								<select name="tambah-lomba[]" id="tambah-lomba" multiple class="form-control select2 custom-select" autocomplete="off" placeholder="Pilih Lomba" style="width: 100%;">
+									<option value="" disabled>-- Pilih Lomba --</option>
+									<?= $select_lomba ?>
 								</select>
 							</div>
 						</div>
 						<hr>
 						<div class="row">
-							<div class="col-xs-12">
-								<div class="custom-control custom-checkbox" style="display: flex;">
-									<input type="checkbox" class="custom-control-input" style="margin-right: 10px;" id="customCheck1" value="ya">
-									<label class="custom-control-label" for="customCheck1" style="text-align: justify;">Saya akan menyediakan sendiri semua fasilitas untuk mengikuti lomba (laptop/komputer, internet dan perangkat lainnya).</label>
+							<div class="col-12 col-md-6">
+								<div class="row">
+									<div class="col-xs-12">
+										<div class="custom-control custom-checkbox" style="display: flex;">
+											<input type="checkbox" class="custom-control-input" style="margin-right: 10px;" id="customCheck1" value="ya">
+											<label class="custom-control-label" for="customCheck1" style="text-align: justify;">Saya akan menyediakan sendiri semua fasilitas untuk mengikuti lomba (laptop/komputer, internet dan perangkat lainnya).</label>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12">
+										<div class="custom-control custom-checkbox" style="display: flex;">
+											<input type="checkbox" class="custom-control-input" style="margin-right: 10px;" id="customCheck2" value="ya">
+											<label class="custom-control-label" for="customCheck2" style="text-align: justify;">Saya akan jujur selama proses pendaftaran dan selama lomba berlangsung.</label>
+										</div>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-xs-12">
-								<div class="custom-control custom-checkbox" style="display: flex;">
-									<input type="checkbox" class="custom-control-input" style="margin-right: 10px;" id="customCheck2" value="ya">
-									<label class="custom-control-label" for="customCheck2" style="text-align: justify;">Saya akan jujur selama proses pendaftaran dan selama lomba berlangsung.</label>
+							<div class="col-12 col-md-6 d-flex mt-3 mt-md-0" style="justify-content: center; align-items: center;">
+								<div style="margin-bottom: 10px; display: flex; justify-content: flex-start;">
+									<div id="gchap2"></div>
 								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-xs-12" style="margin-bottom: 10px; display: flex; justify-content: flex-start;">
-								<div id="gchap2"></div>
 							</div>
 						</div>
 					</div>
@@ -224,6 +219,10 @@
 		}
 	}
 	$(function() {
+		$('#tambah-lomba').select2({
+			// dropdownParent: $('#modal-tambah')
+		})
+
 		$('#username').focus();
 
 		$('#show-password').iCheck({

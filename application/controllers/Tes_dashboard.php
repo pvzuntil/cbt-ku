@@ -44,6 +44,7 @@ class Tes_dashboard extends Tes_Controller
 		$this->load->model('cbt_tes_soal_model');
 		$this->load->model('cbt_tes_soal_jawaban_model');
 		$this->load->model('cbt_juara_model');
+		$this->load->model('cbt_lomba_model');
 
 		setlocale(LC_ALL, 'id-ID', 'id_ID');
 	}
@@ -69,6 +70,19 @@ class Tes_dashboard extends Tes_Controller
 
 		$get_laporan = $this->cbt_juara_model->get_laporan();
 		$data['pengumuman'] = $get_laporan->row();
+
+		$daftarLomba = '';
+
+		foreach (json_decode($currentUser->lomba) as $i => $pilihanLomba) {
+			if ($i != 0) {
+				$daftarLomba .= ', ';
+			}
+
+			$getLomba = $this->cbt_lomba_model->get_by_kolom('modul_id', $pilihanLomba)->row();
+			$daftarLomba .= ucfirst($getLomba->modul_nama);
+		}
+
+		$data['daftarLomba'] = $daftarLomba;
 
 		for ($i = 0; $i < count($this->willCheck); $i++) {
 			$getValue = $parseCurrentUser[$this->willCheck[$i]['tableName']];

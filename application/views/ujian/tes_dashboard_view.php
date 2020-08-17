@@ -7,8 +7,7 @@
             } ?>
         </h1>
         <div class="badge badge-primary">Kelas <?= $currentUser->kelas ?></div>
-        <div class="badge badge-primary">Lomba : <?= $currentUser->lomba == 'all' ? 'Matematika & Sains' : ucfirst($currentUser->lomba) ?></div>
-        <div class="badge badge-secondary"><?= explode('-', $group)[0] ?></div>
+        <div class="badge badge-primary">Lomba : <?= $daftarLomba ?></div>
     </div>
 </section>
 

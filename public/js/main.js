@@ -50,7 +50,7 @@ const SW = {
   },
   loading() {
     return this.show({
-      title: "Memperoses ...",
+      title: "Memproses ...",
       allowOutsideClick: false,
       allowEscapeKey: false,
       allowEnterKey: false,

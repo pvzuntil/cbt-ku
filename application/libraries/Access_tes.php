@@ -30,8 +30,6 @@ class Access_tes
 				if ($result->active == 1) {
 					$this->CI->session->set_userdata('cbt_tes_user_id', $result->user_email);
 					$this->CI->session->set_userdata('cbt_tes_nama', stripslashes($result->user_firstname));
-					$this->CI->session->set_userdata('cbt_tes_group', $result->grup_nama);
-					$this->CI->session->set_userdata('cbt_tes_group_id', $result->grup_id);
 					return 1;
 				} else {
 					return 3;
@@ -79,7 +77,5 @@ class Access_tes
 	{
 		$this->CI->session->unset_userdata('cbt_tes_user_id');
 		$this->CI->session->unset_userdata('cbt_tes_nama');
-		$this->CI->session->unset_userdata('cbt_tes_group_id');
-		$this->CI->session->unset_userdata('cbt_tes_group');
 	}
 }

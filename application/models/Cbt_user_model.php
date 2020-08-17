@@ -61,7 +61,7 @@ class Cbt_user_model extends CI_Model
 
     function get_by_username($username)
     {
-        $this->db->join('cbt_user_grup', 'cbt_user.user_grup_id = cbt_user_grup.grup_id')
+        $this->db
             ->where('user_email', $username)
             ->limit(1);
         $query = $this->db->get($this->table);

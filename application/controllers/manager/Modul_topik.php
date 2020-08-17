@@ -23,11 +23,11 @@ class Modul_topik extends Member_Controller
 		$data['url'] = $this->url;
 
 		// Jika modul kosong, ditambah default
-		if ($this->cbt_modul_model->count_all()->row()->hasil == 0) {
-			$data_modul['modul_nama'] = 'Default';
-			$data_modul['modul_aktif'] = 1;
-			$this->cbt_modul_model->save($data_modul);
-		}
+		// if ($this->cbt_modul_model->count_all()->row()->hasil == 0) {
+		// 	$data_modul['modul_nama'] = 'Default';
+		// 	$data_modul['modul_aktif'] = 1;
+		// 	$this->cbt_modul_model->save($data_modul);
+		// }
 
 		$query_modul = $this->cbt_modul_model->get_modul();
 		if ($query_modul->num_rows() > 0) {
@@ -37,7 +37,7 @@ class Modul_topik extends Member_Controller
 				$select = $select . '<option value="' . $temp->modul_id . '">' . $temp->modul_nama . '</option>';
 			}
 		} else {
-			$select = '<option value="" disabled selected>-- Tidak ada data lomba --</option>';
+			$select = '<option value="kosong" selected>-- Tidak ada data lomba --</option>';
 		}
 		$data['select_modul'] = $select;
 
@@ -218,6 +218,10 @@ class Modul_topik extends Member_Controller
 	{
 		// variable initialization
 		$modul = $this->input->get('modul');
+
+		if ($modul == 'kosong') {
+			$modul = 0;
+		}
 
 		$search = "";
 		$start = 0;
