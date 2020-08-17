@@ -16,7 +16,7 @@
 <?php
 
 $classBody = '';
-if ($url == 'login') {
+if (@$url == 'login') {
   $classBody = '';
 }
 ?>
@@ -24,13 +24,13 @@ if ($url == 'login') {
 <body class="text-sm pr-0 layout-fixed layout-navbar-fixed <?= $classBody ?>">
   <div class="wrapper">
 
-    <?php if ($url != 'login') : ?>
+    <?php if (@$url != 'login') : ?>
       <?php include 'required/navbar-admin.php' ?>
       <?php include 'required/sidemenu.php' ?>
     <?php endif ?>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper" <?php if ($url == 'login') : ?> style="margin-left: 0px !important; margin-top: 0px !important" <?php endif ?>>
+    <div class="content-wrapper" <?php if (@$url == 'login') : ?> style="margin-left: 0px !important; margin-top: 0px !important" <?php endif ?>>
       <?php
       if (!empty($content)) {
         echo $content;

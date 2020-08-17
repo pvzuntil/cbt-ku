@@ -1,16 +1,16 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Modul_topik extends Member_Controller
+class Modul_lomba extends Member_Controller
 {
-	private $kode_menu = 'modul-topik';
+	private $kode_menu = 'modul-lomba';
 	private $kelompok = 'modul';
-	private $url = 'manager/modul_topik';
+	private $url = 'manager/modul_lomba';
 
 	function __construct()
 	{
 		parent::__construct();
 		$this->load->model('cbt_modul_model');
-		$this->load->model('cbt_topik_model');
+		$this->load->model('cbt_lomba_model');
 		$this->load->model('cbt_soal_model');
 		$this->load->model('cbt_tes_topik_set_model');
 
@@ -22,52 +22,28 @@ class Modul_topik extends Member_Controller
 		$data['kode_menu'] = $this->kode_menu;
 		$data['url'] = $this->url;
 
-		// Jika modul kosong, ditambah default
-		if ($this->cbt_modul_model->count_all()->row()->hasil == 0) {
-			$data_modul['modul_nama'] = 'Default';
-			$data_modul['modul_aktif'] = 1;
-			$this->cbt_modul_model->save($data_modul);
-		}
-
-		$query_modul = $this->cbt_modul_model->get_modul();
-		if ($query_modul->num_rows() > 0) {
-			$select = '';
-			$query_modul = $query_modul->result();
-			foreach ($query_modul as $temp) {
-				$select = $select . '<option value="' . $temp->modul_id . '">' . $temp->modul_nama . '</option>';
-			}
-		} else {
-			$select = '<option value="" disabled selected>-- Tidak ada data lomba --</option>';
-		}
-		$data['select_modul'] = $select;
-
-		$this->template->display_admin($this->kelompok . '/topik_view', 'Daftar Topik', $data);
+		$this->template->display_admin($this->kelompok . '/lomba_view', 'Daftar Topik', $data);
 	}
 
 	function tambah()
 	{
 		$this->load->library('form_validation');
 
-		$this->form_validation->set_rules('tambah-topik', 'Nama Topik', 'required|strip_tags');
-		$this->form_validation->set_rules('tambah-modul-id', 'ID Modul', 'required|strip_tags');
-		$this->form_validation->set_rules('tambah-deskripsi', 'Deskripsi', 'required|strip_tags');
-		$this->form_validation->set_rules('tambah-status', 'Status', 'required|strip_tags');
+		$this->form_validation->set_rules('tambah-lomba', 'Nama Lomba', 'required|strip_tags');
 
 		if ($this->form_validation->run() == TRUE) {
-			$data['topik_modul_id'] = $this->input->post('tambah-modul-id', true);
-			$data['topik_nama'] = $this->input->post('tambah-topik', true);
-			$data['topik_detail'] = $this->input->post('tambah-deskripsi', true);
-			$data['topik_aktif'] = 1;
+			$data['modul_nama'] = $this->input->post('tambah-lomba', true);
+			$data['modul_aktif'] = 1;
 
-			//if($this->cbt_topik_model->count_by_kolom('topik_nama', $data['topik_nama'])->row()->hasil>0){
-			if ($this->cbt_topik_model->count_by_topik_modul($data['topik_nama'], $data['topik_modul_id'])->row()->hasil > 0) {
+			//if($this->cbt_lomba_model->count_by_kolom('topik_nama', $data['topik_nama'])->row()->hasil>0){
+			if ($this->cbt_lomba_model->count_by_topik_modul($data['modul_nama'])->row()->hasil > 0) {
 				$status['status'] = 0;
-				$status['pesan'] = 'Nama Topik sudah terpakai !';
+				$status['pesan'] = 'Nama Lomba sudah terpakai !';
 			} else {
-				$this->cbt_topik_model->save($data);
+				$this->cbt_lomba_model->save($data);
 
 				$status['status'] = 1;
-				$status['pesan'] = 'Topik berhasil disimpan ';
+				$status['pesan'] = 'Lomba berhasil disimpan ';
 			}
 		} else {
 			$status['status'] = 0;
@@ -81,14 +57,12 @@ class Modul_topik extends Member_Controller
 	{
 		$data['data'] = 0;
 		if (!empty($id)) {
-			$query = $this->cbt_topik_model->get_by_kolom('topik_id', $id);
+			$query = $this->cbt_lomba_model->get_by_kolom('modul_id', $id);
 			if ($query->num_rows() > 0) {
 				$query = $query->row();
 				$data['data'] = 1;
-				$data['id'] = $query->topik_id;
-				$data['topik'] = $query->topik_nama;
-				$data['deskripsi'] = $query->topik_detail;
-				$data['status'] = $query->topik_aktif;
+				$data['id'] = $query->modul_id;
+				$data['lomba'] = $query->modul_nama;
 			}
 		}
 		echo json_encode($data);
@@ -115,20 +89,20 @@ class Modul_topik extends Member_Controller
 						$this->db->trans_start();
 
 						// hapus topik di database
-						$this->cbt_topik_model->delete('topik_id', $kunci);
+						$this->cbt_lomba_model->delete('modul_id', $kunci);
 
 						// Menutup transaction mysql
 						$this->db->trans_complete();
 
-						// hapus file topik
-						$this->load->helper('directory');
-						$this->load->helper('file');
+						// // hapus file topik
+						// $this->load->helper('directory');
+						// $this->load->helper('file');
 
-						$folder = $this->config->item('upload_path') . '/topik_' . $kunci;
-						if (is_dir($folder)) {
-							delete_files($folder, TRUE);
-							rmdir($folder);
-						}
+						// $folder = $this->config->item('upload_path') . '/topik_' . $kunci;
+						// if (is_dir($folder)) {
+						// 	delete_files($folder, TRUE);
+						// 	rmdir($folder);
+						// }
 					}
 				}
 			}
@@ -152,11 +126,8 @@ class Modul_topik extends Member_Controller
 		$this->load->library('form_validation');
 
 		$this->form_validation->set_rules('edit-id', 'ID', 'required|strip_tags');
-		$this->form_validation->set_rules('edit-modul-id', 'ID Modul', 'required|strip_tags');
-		$this->form_validation->set_rules('edit-topik', 'Nama Topik', 'required|strip_tags');
-		$this->form_validation->set_rules('edit-deskripsi', 'Deskripsi', 'required|strip_tags');
+		$this->form_validation->set_rules('edit-lomba', 'Nama Lomba', 'required|strip_tags');
 		$this->form_validation->set_rules('edit-pilihan', 'Pilihan', 'required|strip_tags');
-		$this->form_validation->set_rules('edit-topik-asli', 'Nama Topik', 'required|strip_tags');
 
 		if ($this->form_validation->run() == TRUE) {
 			$pilihan = $this->input->post('edit-pilihan', true);
@@ -169,41 +140,40 @@ class Modul_topik extends Member_Controller
 					$status['pesan'] = 'Topik masih dipakai pada Tes, tidak bisa dihapus.';
 				} else {
 					// hapus topik di database
-					$this->cbt_topik_model->delete('topik_id', $id);
+					$this->cbt_lomba_model->delete('modul_id', $id);
 
-					// hapus file topik
-					$this->load->helper('directory');
-					$this->load->helper('file');
+					// // hapus file topik
+					// $this->load->helper('directory');
+					// $this->load->helper('file');
 
-					$folder = $this->config->item('upload_path') . '/topik_' . $id;
-					if (is_dir($folder)) {
-						delete_files($folder, TRUE);
-						rmdir($folder);
-					}
+					// $folder = $this->config->item('upload_path') . '/topik_' . $id;
+					// if (is_dir($folder)) {
+					// 	delete_files($folder, TRUE);
+					// 	rmdir($folder);
+					// }
 
 					$status['status'] = 1;
 					$status['pesan'] = 'Topik berhasil dihapus !';
 				}
 			} else if ($pilihan == 'simpan') { //simpan
-				$topik_asli = $this->input->post('edit-topik-asli', true);
-				$data['topik_nama'] = $this->input->post('edit-topik', true);
-				$data['topik_detail'] = $this->input->post('edit-deskripsi', true);
+				$topik_asli = $this->input->post('edit-lomba-asli', true);
+				$data['modul_nama'] = $this->input->post('edit-lomba', true);
 
-				if ($topik_asli != $data['topik_nama']) {
-					//if($this->cbt_topik_model->count_by_kolom('topik_nama', $data['topik_nama'])->row()->hasil>0){
-					if ($this->cbt_topik_model->count_by_topik_modul($data['topik_nama'], $modul_id)->row()->hasil > 0) {
+				if ($topik_asli != $data['modul_nama']) {
+					//if($this->cbt_lomba_model->count_by_kolom('topik_nama', $data['topik_nama'])->row()->hasil>0){
+					if ($this->cbt_lomba_model->count_by_topik_modul($data['modul_nama'])->row()->hasil > 0) {
 						$status['status'] = 0;
-						$status['pesan'] = 'Nama Topik sudah terpakai !';
+						$status['pesan'] = 'Nama Lomba sudah terpakai !';
 					} else {
-						$this->cbt_topik_model->update('topik_id', $id, $data);
+						$this->cbt_lomba_model->update('modul_id', $id, $data);
 
 						$status['status'] = 1;
-						$status['pesan'] = 'Topik berhasil disimpan ';
+						$status['pesan'] = 'Lomba berhasil disimpan ';
 					}
 				} else {
-					$this->cbt_topik_model->update('topik_id', $id, $data);
+					$this->cbt_lomba_model->update('modul_id', $id, $data);
 					$status['status'] = 1;
-					$status['pesan'] = 'Topik Berhasil disimpan';
+					$status['pesan'] = 'Lomba Berhasil disimpan';
 				}
 			}
 		} else {
@@ -233,10 +203,10 @@ class Modul_topik extends Member_Controller
 		$rows = $this->get_rows();
 
 		// run query to get user listing
-		$query = $this->cbt_topik_model->get_datatable($start, $rows, 'topik_nama', $search, $modul);
+		$query = $this->cbt_lomba_model->get_datatable($start, $rows, 'modul_nama', $search, $modul);
 		$iFilteredTotal = $query->num_rows();
 
-		$iTotal = $this->cbt_topik_model->get_datatable_count('topik_nama', $search, $modul)->row()->hasil;
+		$iTotal = $this->cbt_lomba_model->get_datatable_count('modul_nama', $search, $modul)->row()->hasil;
 
 		$output = array(
 			"sEcho" => intval($_GET['sEcho']),
@@ -253,18 +223,12 @@ class Modul_topik extends Member_Controller
 
 			$record[] = ++$i;
 
-			$jml_soal = $this->cbt_soal_model->count_by_kolom('soal_topik_id', $temp->topik_id)->row()->hasil;
+			// $jml_soal = $this->cbt_soal_model->count_by_kolom('soal_topik_id', $temp->topik_id)->row()->hasil;
 
-			$record[] = $temp->topik_nama;
-			$record[] = $temp->topik_detail;
-			$record[] = $jml_soal;
-			if ($temp->topik_aktif == 1) {
-				$record[] = 'Aktif';
-			} else {
-				$record[] = 'Tidak Aktif';
-			}
-			$record[] = '<a onclick="edit(\'' . $temp->topik_id . '\')" style="cursor: pointer;" class="btn btn-default btn-xs">Edit</a>';
-			$record[] = '<input type="checkbox" name="edit-topik-id[' . $temp->topik_id . ']" >';
+			$record[] = $temp->modul_nama;
+			// $record[] = $jml_soal;
+			$record[] = '<a onclick="edit(\'' . $temp->modul_id . '\')" style="cursor: pointer;" class="btn btn-default btn-xs">Edit</a>';
+			$record[] = '<input type="checkbox" name="edit-topik-id[' . $temp->modul_id . ']" >';
 
 			$output['aaData'][] = $record;
 		}

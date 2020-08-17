@@ -1,8 +1,8 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Cbt_topik_model extends CI_Model
+class Cbt_lomba_model extends CI_Model
 {
-    public $table = 'cbt_topik';
+    public $table = 'cbt_modul';
 
     function __construct()
     {
@@ -41,10 +41,10 @@ class Cbt_topik_model extends CI_Model
         return $this->db->get();
     }
 
-    function count_by_topik_modul($topik, $modul)
+    function count_by_topik_modul($topik)
     {
         $this->db->select('COUNT(*) AS hasil')
-            ->where('(topik_modul_id=' . $modul . ' AND topik_nama="' . $topik . '")')
+            ->where('(modul_nama="' . $topik . '")')
             ->from($this->table);
         return $this->db->get();
     }
@@ -80,9 +80,9 @@ class Cbt_topik_model extends CI_Model
         return $this->db->get();
     }
 
-    function get_datatable($start, $rows, $kolom, $isi, $modul = '')
+    function get_datatable($start, $rows, $kolom, $isi, $modul)
     {
-        $this->db->where('(' . $kolom . ' LIKE "%' . $isi . '%" AND topik_modul_id=' . $modul . ')')
+        $this->db->where('(' . $kolom . ' LIKE "%' . $isi . '%")')
             ->from($this->table)
             ->order_by($kolom, 'ASC')
             ->limit($rows, $start);
@@ -92,7 +92,7 @@ class Cbt_topik_model extends CI_Model
     function get_datatable_count($kolom, $isi, $modul)
     {
         $this->db->select('COUNT(*) AS hasil')
-            ->where('(' . $kolom . ' LIKE "%' . $isi . '%" AND topik_modul_id=' . $modul . ')')
+            ->where('(' . $kolom . ' LIKE "%' . $isi . '%")')
             ->from($this->table);
         return $this->db->get();
     }

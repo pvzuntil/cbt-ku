@@ -1,4 +1,4 @@
-    <nav class="main-header navbar navbar-expand navbar-dark navbar-cyan" <?php if ($url == 'login') : ?> style="margin-left: 0px !important;" <?php endif ?>>
+    <nav class="main-header navbar navbar-expand navbar-dark navbar-cyan" <?php if (@$url == 'login') : ?> style="margin-left: 0px !important;" <?php endif ?>>
         <ul class="navbar-nav">
             <!-- <li class="nav-item">
                     <h4>Halaman Administrator</h4>

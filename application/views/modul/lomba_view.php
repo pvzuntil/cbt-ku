@@ -2,7 +2,7 @@
 <section class="content-header">
     <div class="container-fluid">
         <h1>
-            Topik
+            Lomba
         </h1>
     </div>
 </section>
@@ -10,39 +10,14 @@
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
+
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header with-border">
-                        <div class="card-title">Pilih Modul</div>
-                    </div><!-- /.card-header -->
-
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label>Modul</label>
-                            <div id="data-kelas">
-                                <select name="modul" id="modul" class="form-control input-sm">
-                                    <?php if (!empty($select_modul)) {
-                                        echo $select_modul;
-                                    } ?>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <span>Pilih modul terlebih dahulu untuk menampilkan dan menambah topik</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header with-border">
-                        <div class="card-title">Daftar Topik</div>
+                        <div class="card-title">Daftar Lomba</div>
                         <div class="card-tools pull-right">
-                            <a style="cursor: pointer;" onclick="tambah()" class="btn btn-success btn-sm text-white">Tambah Topik</a>
+                            <a style="cursor: pointer;" onclick="tambah()" class="btn btn-success btn-sm text-white">Tambah Lomba</a>
                         </div>
                     </div><!-- /.card-header -->
 
@@ -53,19 +28,13 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th class="all">Nama Topik</th>
-                                    <th>Deskripsi</th>
-                                    <th>Jml. Soal</th>
-                                    <th>Status</th>
+                                    <th class="all">Nama Lomba</th>
                                     <th class="all">Action</th>
                                     <th class="all"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td> </td>
-                                    <td> </td>
-                                    <td> </td>
                                     <td> </td>
                                     <td> </td>
                                     <td> </td>
@@ -77,7 +46,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="row d-flex" style="justify-content: space-between;">
-                            <button type="button" id="btn-edit-hapus" class="btn btn-danger" title="Hapus Siswa yang dipilih">Hapus</button>
+                            <button type="button" id="btn-edit-hapus" class="btn btn-danger">Hapus</button>
                             <button type="button" id="btn-edit-pilih" class="btn btn-default">Pilih Semua</button>
                         </div>
                     </div>
@@ -92,25 +61,14 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <div id="trx-judul">Tambah Topik</div>
+                <div id="trx-judul">Tambah Lomba</div>
                 <button class="close" type="button" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
                 <div id="form-pesan"></div>
                 <div class="form-group">
-                    <label>Nama Topik</label>
-                    <input type="hidden" name="tambah-modul-id" id="tambah-modul-id">
-                    <input type="text" class="form-control" id="tambah-topik" name="tambah-topik" placeholder="Nama Topik">
-                </div>
-
-                <div class="form-group">
-                    <label>Deskripsi</label>
-                    <input type="text" class="form-control" id="tambah-deskripsi" name="tambah-deskripsi" placeholder="Deskripsi Topik">
-                </div>
-
-                <div class="form-group">
-                    <label>Status</label>
-                    <input type="text" class="form-control" id="tambah-status" name="tambah-status" value="AKTIF" readonly>
+                    <label>Nama Lomba</label>
+                    <input type="text" class="form-control" id="tambah-lomba" name="tambah-lomba" placeholder="Nama Lomba">
                 </div>
             </div>
             <div class="modal-footer">
@@ -128,28 +86,20 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <div id="trx-judul">Edit Topik</div>
+                <div id="trx-judul">Edit Lomba</div>
                 <button class="close" type="button" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
                 <div id="form-pesan-edit"></div>
                 <div class="form-group">
-                    <label>Nama Topik</label>
+                    <label>Nama Lomba</label>
                     <input type="hidden" name="edit-id" id="edit-id">
-                    <input type="hidden" name="edit-modul-id" id="edit-modul-id">
-                    <input type="hidden" name="edit-pilihan" id="edit-pilihan">
-                    <input type="hidden" name="edit-topik-asli" id="edit-topik-asli">
-                    <input type="text" class="form-control" id="edit-topik" name="edit-topik" placeholder="Nama Topik">
+                    <input type="hidden" name="edit-pilihan" id="edit-pilihan" value="edit">
+                    <input type="hidden" name="edit-lomba-asli" id="edit-lomba-asli">
+
+                    <input type="text" class="form-control" id="edit-lomba" name="edit-lomba" placeholder="Nama Lomba">
                 </div>
-                <div class="form-group">
-                    <label>Deskripsi</label>
-                    <input type="text" class="form-control" id="edit-deskripsi" name="edit-deskripsi" placeholder="Deskripsi Topik">
-                </div>
-                <div class="form-group">
-                    <label>Status</label>
-                    <input type="text" class="form-control" id="edit-status" name="edit-status" value="AKTIF" readonly>
-                </div>
-                <p>NB : Topik yang dihapus, maka semua bank soal akan ikut terhapus !</p>
+                <p>NB : Lomba yang dihapus, maka semua soal dan peserta yang memilih lomba tersebut akan ikut terhapus !</p>
             </div>
             <div class="modal-footer">
                 <div class="row d-flex w-100" style="justify-content: space-between;">
@@ -170,12 +120,12 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <div id="trx-judul">Hapus Topik</div>
+                <div id="trx-judul">Hapus Lomba</div>
                 <button class="close" type="button" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
                 <strong>Peringatan</strong>
-                Data Topik yang sudah dipilih akan dihapus beserta isi soal didalamnya.
+                Data lomba yang sudah dipilih akan dihapus beserta isi soal dan peserta yang memilih lomba.
                 <br /><br />
                 Apakah anda yakin untuk menghapus data Topik ?
             </div>
@@ -194,13 +144,10 @@
     }
 
     function tambah() {
-        $('#form-pesan').html('');
-        $('#tambah-topik').val('');
-        $('#tambah-modul-id').val('');
-        $('#tambah-deskripsi').val('');
+        $('#tambah-lomba').val('');
 
         $("#modal-tambah").modal("show");
-        $('#tambah-topik').focus();
+        $('#tambah-lomba').focus();
     }
 
     function edit(id) {
@@ -209,10 +156,8 @@
             if (data.data == 1) {
                 SW.close()
                 $('#edit-id').val(data.id);
-                $('#edit-topik').val(data.topik);
-                $('#edit-topik-asli').val(data.topik);
-                $('#edit-deskripsi').val(data.deskripsi);
-                $('#edit-modul-id').val('');
+                $('#edit-lomba').val(data.lomba);
+                $('#edit-lomba-asli').val(data.lomba);
 
                 $("#modal-edit").modal("show");
             }
@@ -289,7 +234,6 @@
         });
 
         $('#form-edit').submit(function() {
-            $('#edit-modul-id').val($('#modul').val());
             SW.loading();
             $.ajax({
                 url: "<?php echo site_url() . '/' . $url; ?>/edit",
@@ -317,7 +261,6 @@
         });
 
         $('#form-tambah').submit(function() {
-            $('#tambah-modul-id').val($('#modul').val());
             SW.loading();
             $.ajax({
                 url: "<?php echo site_url() . '/' . $url; ?>/tambah",
@@ -361,18 +304,6 @@
                 },
                 {
                     "bSearchable": false,
-                    "bSortable": false
-                },
-                {
-                    "bSearchable": false,
-                    "bSortable": false
-                },
-                {
-                    "bSearchable": false,
-                    "bSortable": false
-                },
-                {
-                    "bSearchable": false,
                     "bSortable": false,
                     "sWidth": "30px"
                 },
@@ -385,12 +316,7 @@
             "sAjaxSource": "<?php echo site_url() . '/' . $url; ?>/get_datatable/",
             "autoWidth": false,
             "responsive": true,
-            "fnServerParams": function(aoData) {
-                aoData.push({
-                    "name": "modul",
-                    "value": $('#modul').val()
-                });
-            },
+            "fnServerParams": function(aoData) {},
             'fnDrawCallback': function() {
                 callBackDatatable('#table-topik')
             }
