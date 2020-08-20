@@ -2,12 +2,20 @@
 
 class GetKelas
 {
-    // private $dataKelas;
+    private $ci;
 
-    // public function __construct($dataKelas)
-    // {
-    //     $this->dataKelas = json_decode($dataKelas);
-    // }
+    public function __construct()
+    {
+        $this->ci = &get_instance();
+    }
+
+
+    public function getConfigKelas()
+    {
+
+        $query = $this->ci->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'pilihan_kelas', 1);
+        return $query->row()->konfigurasi_isi;
+    }
 
     public function get($dataKelas)
     {
@@ -38,5 +46,10 @@ class GetKelas
         }
 
         return $data;
+    }
+
+    public function result()
+    {
+        return $this->get($this->getConfigKelas());
     }
 }

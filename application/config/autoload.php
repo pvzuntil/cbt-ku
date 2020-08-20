@@ -58,7 +58,15 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('session', 'database', 'access', 'template', 'MLib');
+$autoload['libraries'] = [
+    'session',
+    'database',
+    'access',
+    'template',
+    'MLib',
+    'GetKelas'
+];
+
 
 /*
 | -------------------------------------------------------------------

@@ -19,7 +19,7 @@
 
                     <div class="card-body">
                         <div class="row">
-                            <div class="form-group col-md-6 col-xs-12">
+                            <!-- <div class="form-group col-md-6 col-xs-12">
                                 <label>Level</label>
                                 <div id="data-level">
                                     <select name="level" id="level" class="form-control input-sm">
@@ -29,16 +29,16 @@
                                         } ?>
                                     </select>
                                 </div>
-                            </div>
+                            </div> -->
 
-                            <div class="form-group col-md-6 col-xs-12">
+                            <div class="form-group col-12">
                                 <label>Kelas</label>
                                 <div id="data-kelas">
                                     <select name="kelas" id="kelas" class="form-control input-sm">
                                         <option value="semua">Semua kelas</option>
-                                        <?php for ($i = 1; $i <= 9; $i++) : ?>
-                                            <option value="<?= $i ?>">Kelas <?= $i ?></option>
-                                        <?php endfor ?>
+                                        <?php foreach ($select_kelas as $kelas) : ?>
+                                            <option value="<?= $kelas ?>">Kelas <?= $kelas ?></option>
+                                        <?php endforeach ?>
                                     </select>
                                 </div>
                             </div>
@@ -135,7 +135,7 @@
                                 <label>Username</label>
                                 <input type="text" class="form-control" id="tambah-username" name="tambah-username" placeholder="Username Peserta">
                             </div> -->
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label>Email</label>
                     <input type="email" class="form-control" id="tambah-email" name="tambah-email" placeholder="Email Peserta">
                 </div>
@@ -191,6 +191,61 @@
                             } ?>
                         </select>
                     </div>
+                </div> -->
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" id="tambah-email" name="tambah-email" placeholder="Email Peserta" autocomplete="off">
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-12 col-md-6">
+                        <label>Password</label>
+                        <input type="password" class="form-control" id="tambah-password" name="tambah-password" placeholder="Password" autocomplete="off">
+                    </div>
+
+                    <div class="form-group col-12 col-md-6">
+                        <label>Konfirmasi Password</label>
+                        <input type="password" class="form-control" id="tambah-re-password" name="tambah-re-password" placeholder="ketik Ulang Password" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Nama Lengkap</label>
+                    <input type="text" class="form-control" id="tambah-nama" name="tambah-nama" placeholder="Nama Lengkap Peserta" autocomplete="off">
+                </div>
+                <div class="row">
+                    <div class="form-group col-12 col-md-6">
+                        <label>Asal Sekolah</label>
+                        <input type="text" class="form-control" id="tambah-detail" name="tambah-detail" placeholder="Asal Sekolah" autocomplete="off">
+                    </div>
+
+                    <div class="form-group col-12 col-md-6">
+                        <label>Kelas</label>
+                        <select name="tambah-kelas" id="tambah-kelas" class="form-control">
+                            <option value="">-- Pilih Kelas --</option>
+                            <?php foreach ($select_kelas as $i) : ?>
+                                <option value="<?= $i ?>">Kelas <?= $i ?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Nomer Telepon (WhatsApp)</label>
+                    <input type="text" class="form-control" id="tambah-telepon" name="tambah-telepon" placeholder="Masukkan Nomer Telepon" autocomplete="off">
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Pilihan Lomba</label>
+                    </div>
+                    <div class="col-12">
+                        <select name="tambah-lomba[]" id="tambah-lomba" multiple class="form-control select2 custom-select" autocomplete="off" placeholder="Pilih Lomba" style="width: 100%;">
+                            <option value="" disabled>-- Pilih Lomba --</option>
+                            <?= $select_lomba ?>
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -215,7 +270,7 @@
                 <div id="form-pesan-edit"></div>
                 <input type="hidden" name="edit-id" id="edit-id">
                 <input type="hidden" name="edit-pilihan" id="edit-pilihan">
-
+                <!-- 
                 <div class="form-group">
                     <label>Email</label>
                     <input type="text" class="form-control" id="edit-email" name="edit-email" placeholder="Email Peserta" readonly>
@@ -279,6 +334,62 @@
                             <?php if (!empty($select_group)) {
                                 echo $select_group;
                             } ?>
+                        </select>
+                    </div>
+                </div> -->
+
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" id="edit-email" name="edit-email" placeholder="Email Peserta" autocomplete="off" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="input-group mb-3">
+                        <input type="password" id="edit-password" name="edit-password" class="form-control" readonly>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="btn-show-password">
+                                <i id="icon-show-password" class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Nama Lengkap</label>
+                    <input type="text" class="form-control" id="edit-nama" name="edit-nama" placeholder="Nama Lengkap Peserta" autocomplete="off">
+                </div>
+                <div class="row">
+                    <div class="form-group col-12 col-md-6">
+                        <label>Asal Sekolah</label>
+                        <input type="text" class="form-control" id="edit-detail" name="edit-detail" placeholder="Asal Sekolah" autocomplete="off">
+                    </div>
+
+                    <div class="form-group col-12 col-md-6">
+                        <label>Kelas</label>
+                        <select name="edit-kelas" id="edit-kelas" class="form-control">
+                            <option value="">-- Pilih Kelas --</option>
+                            <?php foreach ($select_kelas as $i) : ?>
+                                <option value="<?= $i ?>">Kelas <?= $i ?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Nomer Telepon (WhatsApp)</label>
+                    <input type="text" class="form-control" id="edit-telepon" name="edit-telepon" placeholder="Masukkan Nomer Telepon" autocomplete="off">
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Pilihan Lomba</label>
+                    </div>
+                    <div class="col-12">
+                        <select name="edit-lomba[]" id="edit-lomba" multiple class="form-control select2 custom-select" autocomplete="off" placeholder="Pilih Lomba" style="width: 100%;">
+                            <option value="" disabled>-- Pilih Lomba --</option>
+                            <?= $select_lomba ?>
                         </select>
                     </div>
                 </div>
@@ -348,10 +459,9 @@
                 $('#edit-email').val(data.email);
                 $('#edit-detail').val(data.detail);
                 $('#edit-telepon').val(data.telepon);
-                $('#edit-group').val(data.group);
                 $('#edit-active').val(data.active);
                 $('#edit-kelas').val(data.kelas);
-                $('#edit-lomba').val(data.lomba);
+                $('#edit-lomba').val(JSON.parse(data.lomba)).trigger('change');
 
                 $("#modal-edit").modal("show");
                 SW.close()
@@ -535,10 +645,10 @@
             "autoWidth": false,
             "responsive": true,
             "fnServerParams": function(aoData) {
-                aoData.push({
-                    "name": "group",
-                    "value": $('#level').val()
-                });
+                // aoData.push({
+                //     "name": "group",
+                //     "value": $('#level').val()
+                // });
 
                 aoData.push({
                     "name": "kelas",

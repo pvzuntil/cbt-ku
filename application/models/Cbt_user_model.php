@@ -68,12 +68,9 @@ class Cbt_user_model extends CI_Model
         return ($query->num_rows() > 0) ? $query->row() : FALSE;
     }
 
-    function get_datatable($start, $rows, $kolom, $isi, $group, $kelas)
+    function get_datatable($start, $rows, $kolom, $isi, $kelas)
     {
         $query = '';
-        if ($group != 'semua') {
-            $query = 'AND user_grup_id=' . $group;
-        }
 
         if ($kelas != 'semua') {
             $query .= ' AND kelas=' . $kelas;
@@ -88,12 +85,9 @@ class Cbt_user_model extends CI_Model
         return $this->db->get();
     }
 
-    function get_datatable_count($kolom, $isi, $group, $kelas)
+    function get_datatable_count($kolom, $isi, $kelas)
     {
         $query = '';
-        if ($group != 'semua') {
-            $query = 'AND user_grup_id=' . $group;
-        }
 
         if ($kelas != 'semua') {
             $query .= ' AND kelas=' . $kelas;
