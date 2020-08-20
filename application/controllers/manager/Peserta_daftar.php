@@ -338,9 +338,9 @@ class Peserta_daftar extends Member_Controller
 		return $sort_dir;
 	}
 
-	function export($groupName, $kelas)
+	function export($kelas)
 	{
-		$query = $this->cbt_user_model->get_data_export($groupName, $kelas);
+		$query = $this->cbt_user_model->get_data_export($kelas);
 
 		$this->load->library('excel');
 
@@ -355,13 +355,12 @@ class Peserta_daftar extends Member_Controller
 				$spreadsheet->setActiveSheetIndex(0)->setCellValue('A' . $row, ($row - 1));
 				$spreadsheet->setActiveSheetIndex(0)->setCellValue('B' . $row, $temp->user_email);
 				$spreadsheet->setActiveSheetIndex(0)->setCellValue('C' . $row, $temp->user_firstname);
-				$spreadsheet->setActiveSheetIndex(0)->setCellValue('D' . $row, $temp->grup_nama);
-				$spreadsheet->setActiveSheetIndex(0)->setCellValue('E' . $row, $temp->user_detail);
-				$spreadsheet->setActiveSheetIndex(0)->setCellValue('F' . $row, $temp->kelas);
-				$spreadsheet->setActiveSheetIndex(0)->setCellValue('G' . $row, $temp->lomba == 'all' ? 'Matematika & Sains' : $temp->lomba);
-				$spreadsheet->setActiveSheetIndex(0)->setCellValue('H' . $row, $temp->telepon);
-				$spreadsheet->setActiveSheetIndex(0)->setCellValue('I' . $row, $temp->active == '1' ? 'AKTIF' : 'BELUM AKTIF');
-				$spreadsheet->setActiveSheetIndex(0)->setCellValue('J' . $row, $temp->user_regdate);
+				$spreadsheet->setActiveSheetIndex(0)->setCellValue('D' . $row, $temp->user_detail);
+				$spreadsheet->setActiveSheetIndex(0)->setCellValue('E' . $row, $temp->kelas);
+				$spreadsheet->setActiveSheetIndex(0)->setCellValue('F' . $row, $this->mlib->getlomba($temp->lomba));
+				$spreadsheet->setActiveSheetIndex(0)->setCellValue('G' . $row, $temp->telepon);
+				$spreadsheet->setActiveSheetIndex(0)->setCellValue('H' . $row, $temp->active == '1' ? 'AKTIF' : 'BELUM AKTIF');
+				$spreadsheet->setActiveSheetIndex(0)->setCellValue('I' . $row, $temp->user_regdate);
 
 				$row++;
 			}

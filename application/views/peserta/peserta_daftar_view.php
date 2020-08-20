@@ -668,9 +668,8 @@
 
     function export_excel() {
         // TODO
-        let level = $('#level').val()
         let kelas = $('#kelas').val()
 
-        window.open("<?php echo site_url() . '/' . $url; ?>/export/" + level + '/' + kelas, "_self");
+        window.open("<?php echo site_url() . '/' . $url; ?>/export/" + kelas, "_self");
     }
 </script>

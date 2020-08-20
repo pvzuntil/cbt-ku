@@ -302,9 +302,9 @@ class Peserta_pay extends Member_Controller
 				$spreadsheet->setActiveSheetIndex(0)->setCellValue('D' . $row, $daftarLomba);
 				$spreadsheet->setActiveSheetIndex(0)->setCellValue('E' . $row, $temp->user_detail);
 				$spreadsheet->setActiveSheetIndex(0)->setCellValue('F' . $row, $temp->kelas);
-				$spreadsheet->setActiveSheetIndex(0)->setCellValue('H' . $row, $temp->status == 'allow' ? 'Diterima' : ($temp->status == 'deny' ? 'Ditolak' : 'Menunggu Konfirmasi'));
+				$spreadsheet->setActiveSheetIndex(0)->setCellValue('G' . $row, $temp->status == 'allow' ? 'Diterima' : ($temp->status == 'deny' ? 'Ditolak' : 'Menunggu Konfirmasi'));
 				// $spreadsheet->setActiveSheetIndex(0)->setCellValue('I' . $row, $temp->active == '1' ? 'AKTIF' : 'BELUM AKTIF');
-				$spreadsheet->setActiveSheetIndex(0)->setCellValue('I' . $row, $temp->date_pay);
+				$spreadsheet->setActiveSheetIndex(0)->setCellValue('H' . $row, $temp->date_pay);
 
 				$row++;
 			}
