@@ -318,11 +318,11 @@
             "responsive": true,
             "fnServerParams": function(aoData) {},
             'fnDrawCallback': function(oSettings) {
-                SW.close()
+                NP.d()
                 callBackDatatable(oSettings)
             },
-            fnPreDrawCallback: function(){
-                SW.loading()
+            fnPreDrawCallback: function() {
+                NP.s()
             }
         });
     });

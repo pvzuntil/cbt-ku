@@ -239,14 +239,6 @@ function magnify(imgID, zoom) {
   }
 }
 
-$(() => {
-  init();
-
-  $.fn.modal.Constructor.prototype._enforceFocus = function () {};
-
-  $('.select2').select2()
-});
-
 (function ($) {
   $.fn.serializeToJSON = function () {
     var o = {};
@@ -264,3 +256,20 @@ $(() => {
     return o;
   };
 })(jQuery);
+
+const NP = {
+  s() {
+    NProgress.start()
+  },
+  d() {
+    NProgress.done()
+  }
+}
+
+$(() => {
+  init();
+
+  $.fn.modal.Constructor.prototype._enforceFocus = function () { };
+
+  $('.select2').select2()
+});

@@ -102,11 +102,11 @@
             "sAjaxSource": "<?php echo current_url(); ?>/get_all_menu/",
             "autoWidth": false,
             'fnDrawCallback': function(oSettings) {
-                SW.close()
+                NP.d()
                 callBackDatatable(oSettings)
             },
             fnPreDrawCallback: function() {
-                SW.loading()
+                NP.s()
             }
         });
     });

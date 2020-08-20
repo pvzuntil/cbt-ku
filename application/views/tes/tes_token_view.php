@@ -268,11 +268,11 @@
             "sAjaxSource": "<?php echo site_url() . '/' . $url; ?>/get_datatable/",
             "autoWidth": false,
             'fnDrawCallback': function(oSettings) {
-                SW.close()
+                NP.d()
                 callBackDatatable(oSettings)
             },
             fnPreDrawCallback: function() {
-                SW.loading()
+                NP.s()
             }
         });
     });

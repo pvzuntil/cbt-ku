@@ -101,11 +101,11 @@
             "sAjaxSource": "<?php echo current_url(); ?>/get_all_user/",
             "autoWidth": false,
             'fnDrawCallback': function(oSettings) {
-                SW.close()
+                NP.d()
                 callBackDatatable(oSettings)
             },
             fnPreDrawCallback: function() {
-                SW.loading()
+                NP.s()
             }
         });
     });

@@ -51,5 +51,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.7/cropper.min.css" integrity="sha512-oG+0IPCSL2awaygM/2l1hPUgHDNnOWji9utPHodoAGbXwLH9yvgD7uRjFxdiKnDr+rx8ejxXYSsUBkcKFR7i0w==" crossorigin="anonymous" />
 
   <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/select2.min.css" />
+  <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/nprogress.css" />
 
   <link href="<?php echo base_url(); ?>public/css/main.css" rel="stylesheet" type="text/css" />
