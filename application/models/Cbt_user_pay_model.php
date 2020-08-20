@@ -244,4 +244,9 @@ class Cbt_user_pay_model extends CI_Model
         }
         return $this->db->get()->row()->hasil;
     }
+
+    public function getLatesById($id)
+    {
+        return $this->db->select('*')->from($this->table)->where('cbt_user_id', $id)->order_by('id', 'DESC')->get()->row();
+    }
 }

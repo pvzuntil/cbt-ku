@@ -257,9 +257,18 @@ class Peserta_daftar extends Member_Controller
 
 			$details = '';
 			$details .= $temp->active == 1 ? '<div class="badge badge-success" style="margin-right: 5px">AKTIF</div>' : '<div class="badge badge-danger" style="margin-right: 5px">BELUM AKTIF</div>';
-			if ($temp->status == 'wait') {
+
+			$userPay = $this->cbt_user_pay_model->getLatesById($temp->user_id);
+
+			if (empty($userPay)) {
+				$statusPay = 'belom';
+			} else {
+				$statusPay = $userPay->status;
+			}
+
+			if ($statusPay == 'wait') {
 				$details .= '<div class="badge badge-secondary">MENUNGGU KONFIRMASI</div>';
-			} else if ($temp->status == 'allow') {
+			} else if ($statusPay == 'allow') {
 				$details .=
 					'<div class="badge badge-success">SUDAH MEMBAYAR</div>';
 			} else {

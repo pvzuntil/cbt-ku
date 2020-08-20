@@ -79,10 +79,10 @@ class Cbt_user_model extends CI_Model
             $query .= ' AND kelas=' . $kelas;
         }
 
-        $this->db->select('cbt_user.*, cbt_user_pay.status')
+        $this->db->select('cbt_user.*')
             ->where('(' . $kolom . ' LIKE "%' . $isi . '%" ' . $query . ' )')
             ->from($this->table)
-            ->join('cbt_user_pay', 'user_id = cbt_user_id', 'left')
+            // ->join('cbt_user_pay', 'user_id = cbt_user_id', 'left')
             ->order_by('user_regdate', 'ASC')
             ->limit($rows, $start);
         return $this->db->get();

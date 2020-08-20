@@ -133,5 +133,6 @@ $autoload['language'] = array();
 |	$autoload['model'] = array('first_model' => 'first');
 */
 $autoload['model'] = [
-    'cbt_lomba_model'
+    'cbt_lomba_model',
+    'cbt_user_pay_model'
 ];
