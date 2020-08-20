@@ -231,8 +231,12 @@
                     "value": $('#topik').val()
                 });
             },
-            'fnDrawCallback': function() {
-                callBackDatatable('#table-soal')
+            'fnDrawCallback': function(oSettings) {
+                SW.close()
+                callBackDatatable(oSettings)
+            },
+            fnPreDrawCallback: function() {
+                SW.loading()
             }
         });
 

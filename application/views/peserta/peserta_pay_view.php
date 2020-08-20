@@ -410,8 +410,12 @@
                     "value": $('#status').val()
                 });
             },
-            'fnDrawCallback': function() {
-                callBackDatatable('#table-peserta')
+            'fnDrawCallback': function(oSettings) {
+                SW.close()
+                callBackDatatable(oSettings)
+            },
+            fnPreDrawCallback: function() {
+                SW.loading()
             }
         });
 

@@ -245,8 +245,12 @@
                     "value": $('#topik-modul').val()
                 });
             },
-            'fnDrawCallback': function() {
-                callBackDatatable('#table-topik')
+            'fnDrawCallback': function(oSettings) {
+                SW.close()
+                callBackDatatable(oSettings)
+            },
+            fnPreDrawCallback: function() {
+                SW.loading()
             }
         });
     });

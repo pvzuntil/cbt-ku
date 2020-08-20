@@ -281,8 +281,12 @@
             "sAjaxSource": "<?php echo site_url() . '/' . $url; ?>/get_datatable/",
             "autoWidth": false,
             "responsive": true,
-            'fnDrawCallback': function() {
-                callBackDatatable('#table-tes')
+            'fnDrawCallback': function(oSettings) {
+                SW.close()
+                callBackDatatable(oSettings)
+            },
+            fnPreDrawCallback: function() {
+                SW.loading()
             }
         });
     });

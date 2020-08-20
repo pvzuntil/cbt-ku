@@ -100,7 +100,9 @@ const init = () => {
 
 };
 
-const callBackDatatable = (id) => {
+const callBackDatatable = (el) => {
+  let id = `#${el.nTable.id}`
+
   let tableWrapper = $("" + id + "_wrapper");
   tableWrapper.children(".row").css({
     width: "100%",

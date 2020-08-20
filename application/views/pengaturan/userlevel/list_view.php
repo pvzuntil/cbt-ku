@@ -83,8 +83,12 @@
             ],
             "sAjaxSource": "<?php echo current_url(); ?>/get_all_level/",
             "autoWidth": false,
-            'fnDrawCallback': function() {
-                callBackDatatable('#table-level')
+            'fnDrawCallback': function(oSettings) {
+                SW.close()
+                callBackDatatable(oSettings)
+            },
+            fnPreDrawCallback: function() {
+                SW.loading()
             }
         });
     });

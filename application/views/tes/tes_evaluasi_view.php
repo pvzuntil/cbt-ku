@@ -210,8 +210,12 @@
                     "value": $('#pilih-urutkan').val()
                 });
             },
-            'fnDrawCallback': function() {
-                callBackDatatable('#table-jawaban')
+            'fnDrawCallback': function(oSettings) {
+                SW.close()
+                callBackDatatable(oSettings)
+            },
+            fnPreDrawCallback: function() {
+                SW.loading()
             }
         });
     });

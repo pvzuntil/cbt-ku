@@ -451,8 +451,12 @@
                         "value": $('#tambah-soal-id').val()
                     });
                 },
-                'fnDrawCallback': function() {
-                    callBackDatatable('#table-jawaban')
+                'fnDrawCallback': function(oSettings) {
+                    SW.close()
+                    callBackDatatable(oSettings)
+                },
+                fnPreDrawCallback: function() {
+                    SW.loading()
                 }
             });
             $('#table-image').DataTable({
@@ -493,8 +497,12 @@
                         "value": $('#topik').val()
                     });
                 },
-                'fnDrawCallback': function() {
-                    callBackDatatable('#table-image')
+                'fnDrawCallback': function(oSettings) {
+                    SW.close()
+                    callBackDatatable(oSettings)
+                },
+                fnPreDrawCallback: function() {
+                    SW.loading()
                 }
             });
 

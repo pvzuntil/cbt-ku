@@ -101,8 +101,12 @@
             ],
             "sAjaxSource": "<?php echo current_url(); ?>/get_all_menu/",
             "autoWidth": false,
-            'fnDrawCallback': function() {
-                callBackDatatable('#table-menu')
+            'fnDrawCallback': function(oSettings) {
+                SW.close()
+                callBackDatatable(oSettings)
+            },
+            fnPreDrawCallback: function() {
+                SW.loading()
             }
         });
     });

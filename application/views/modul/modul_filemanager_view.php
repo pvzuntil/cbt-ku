@@ -322,8 +322,12 @@
                     "value": $('#posisi-file').val()
                 });
             },
-            'fnDrawCallback': function() {
-                callBackDatatable('#table-file')
+            'fnDrawCallback': function(oSettings) {
+                SW.close()
+                callBackDatatable(oSettings)
+            },
+            fnPreDrawCallback: function() {
+                SW.loading()
             }
         });
     });

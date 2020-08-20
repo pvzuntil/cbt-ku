@@ -370,8 +370,12 @@
                     "value": $('#pilih-keterangan').val()
                 });
             },
-            'fnDrawCallback': function() {
-                callBackDatatable('#table-hasil')
+            'fnDrawCallback': function(oSettings) {
+                SW.close()
+                callBackDatatable(oSettings)
+            },
+            fnPreDrawCallback: function() {
+                SW.loading()
             }
         });
     });

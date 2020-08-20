@@ -100,8 +100,12 @@
             ],
             "sAjaxSource": "<?php echo current_url(); ?>/get_all_user/",
             "autoWidth": false,
-            'fnDrawCallback': function() {
-                callBackDatatable('#table-user')
+            'fnDrawCallback': function(oSettings) {
+                SW.close()
+                callBackDatatable(oSettings)
+            },
+            fnPreDrawCallback: function() {
+                SW.loading()
             }
         });
     });
