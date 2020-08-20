@@ -29,7 +29,7 @@
 
                     <div class="card-body">
                         <div class="form-group col-sm-6">
-                            <label>Pilih Group Peserta</label>
+                            <label>Pilih Kelas</label>
                             <div id="data-group">
                                 <select name="group" id="group" class="form-control input-sm">
                                     <?php if (!empty($select_group)) {
@@ -37,7 +37,6 @@
                                     } ?>
                                 </select>
                             </div>
-                            <small class="help-block text-muted">Pilih Data Group Peserta yang akan di cetak</small>
                         </div>
 
                         <?php if (!empty($hasil)) {

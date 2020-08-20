@@ -21,16 +21,9 @@ class Peserta_kartu extends Member_Controller
 		$data['kode_menu'] = $this->kode_menu;
 		$data['url'] = $this->url;
 
-		$query_group = $this->cbt_user_grup_model->get_group();
-
-		if ($query_group->num_rows() > 0) {
-			$select = '';
-			$query_group = $query_group->result();
-			foreach ($query_group as $temp) {
-				$select = $select . '<option value="' . $temp->grup_id . '">' . $temp->grup_nama . '</option>';
-			}
-		} else {
-			$select = '<option value="0">KOSONG</option>';
+		$select = '';
+		foreach ($this->getkelas->result() as $temp) {
+			$select = $select . '<option value="' . $temp . '">Kelas ' . $temp . '</option>';
 		}
 		$data['select_group'] = $select;
 
@@ -46,7 +39,9 @@ class Peserta_kartu extends Member_Controller
 
 		$kartu = '<h3>Data Peserta Kosong</h3>';
 		if (!empty($grup_id)) {
-			$query_user = $this->cbt_user_model->get_by_kolom('user_grup_id', $grup_id);
+			$query_user = $this->cbt_user_model->get_by_kolom('kelas', $grup_id);
+			// dd($query_user->num_rows());
+			// dd($grup_id);
 			if ($query_user->num_rows() > 0) {
 				$kartu = '';
 				$query_user = $query_user->result();
@@ -55,12 +50,6 @@ class Peserta_kartu extends Member_Controller
 				$cbt_nama = 'Computer Based-Test';
 				if ($query_konfig->num_rows() > 0) {
 					$cbt_nama = $query_konfig->row()->konfigurasi_isi;
-				}
-
-				$query_group = $this->cbt_user_grup_model->get_by_kolom_limit('grup_id', $grup_id, 1);
-				$group = 'NULL';
-				if ($query_group->num_rows() > 0) {
-					$group = $query_group->row()->grup_nama;
 				}
 
 				foreach ($query_user as $temp) {
@@ -85,9 +74,9 @@ class Peserta_kartu extends Member_Controller
 									<td>' . $temp->user_password . '</td>
 								</tr>
 								<tr>
-									<td>Grup</td>
+									<td>Kelas</td>
 									<td>:</td>
-									<td>' . $group . '</td>
+									<td>' . $temp->kelas . '</td>
 								</tr>
 								<tr>
 									<td>Keterangan</td>
