@@ -41,7 +41,6 @@ class Tes_tambah extends Member_Controller
         $data['rentang_waktu'] = $tanggal_awal . ' - ' . $tanggal_akhir;
 
         $query_group = $this->cbt_user_grup_model->get_group();
-
         if ($query_group->num_rows() > 0) {
             $select = '';
             $query_group = $query_group->result();
@@ -61,20 +60,21 @@ class Tes_tambah extends Member_Controller
         }
         $data['select_group'] = $select;
 
+
         $query_modul = $this->cbt_modul_model->get_modul();
-        $counter = 0;
         if ($query_modul->num_rows() > 0) {
             $select = '';
             $query_modul = $query_modul->result();
             foreach ($query_modul as $temp) {
                 $select = $select . '<option value="' . $temp->modul_id . '">' . $temp->modul_nama . '</option>';
-                $counter++;
             }
-        }
-        if ($counter == 0) {
-            $select = '<option value="kosong">Tidak Ada Modul</option>';
+        } else {
+            $select = '<option value="kosong" selected>-- Tidak ada data lomba --</option>';
         }
         $data['select_modul'] = $select;
+
+        $data['select_kelas'] = $this->getkelas->result();
+
 
         if ($is_edit != 0) {
             $data['data_tes'] = '
@@ -115,12 +115,14 @@ class Tes_tambah extends Member_Controller
         $this->form_validation->set_rules('tambah-nama', 'Nama Tes', 'required|strip_tags');
         $this->form_validation->set_rules('tambah-deskripsi', 'Deskripsi Tes', 'required|strip_tags');
         $this->form_validation->set_rules('tambah-rentang-waktu', 'Rentang Waktu Pengerjaan Tes', 'required|strip_tags');
-        $this->form_validation->set_rules('tambah-waktu', 'Waktu Pengerjaan Tes', 'required|integer|strip_tags');
-        $this->form_validation->set_rules('tambah-group[]', 'Grup', 'required|strip_tags');
+        $this->form_validation->set_rules('tambah-kelas[]', 'Kelas', 'required|strip_tags');
         $this->form_validation->set_rules('tambah-lomba', 'Pilihan lomba', 'required|strip_tags');
+        $this->form_validation->set_rules('tambah-waktu', 'Waktu Pengerjaan Tes', 'required|integer|strip_tags');
         $this->form_validation->set_rules('tambah-poin', 'Poin Dasar', 'required|numeric|strip_tags');
         $this->form_validation->set_rules('tambah-poin-salah', 'Poin Jawaban Salah', 'required|numeric|strip_tags');
         $this->form_validation->set_rules('tambah-poin-kosong', 'Poin Jawaban Kosong', 'required|numeric|strip_tags');
+
+        // dd('sas');
 
         if ($this->form_validation->run() == TRUE) {
             $tes_id = $this->input->post('tambah-id', true);
@@ -172,7 +174,7 @@ class Tes_tambah extends Member_Controller
                 $is_process = 1;
                 // Menyimpan data tes
                 if (empty($tes_id)) {
-                    $data['lomba'] = $this->input->post('tambah-lomba', true);
+                    // $data['lomba'] = $this->input->post('tambah-lomba', true);
 
                     $tes_id = $this->cbt_tes_model->save($data);
                 } else {
@@ -186,21 +188,21 @@ class Tes_tambah extends Member_Controller
                         $status['pesan'] = 'Rentang Waktu Tes saja yang dapat diubah, karena Tes masih digunakan.';
                         $is_process = 0;
                     } else {
-                        $data['lomba'] = $this->input->post('tambah-lomba', true);
+                        // $data['lomba'] = $this->input->post('tambah-lomba', true);
                         $this->cbt_tes_model->update('tes_id', $tes_id, $data);
                     }
                 }
 
                 if ($is_process == 1) {
                     // Menyimpan data group yang mengikuti tes
-                    $groups = $this->input->post('tambah-group', true);
-                    $data_group['lomba'] = $this->input->post('tambah-lomba', true);
+                    $groups = $this->input->post('tambah-kelas[]', true);
+                    $data_group['modul_id'] = $this->input->post('tambah-lomba', true);
 
                     // menghapus data group berdasarkan tes terlebih dahulu
                     $this->cbt_tesgrup_model->delete('tstgrp_tes_id', $tes_id);
                     foreach ($groups as $group) {
                         $data_group['tstgrp_tes_id'] = $tes_id;
-                        $data_group['tstgrp_grup_id'] = $group;
+                        $data_group['kelas'] = $group;
 
                         // Jika group tidak kosong
                         if ($group != 0) {
@@ -352,6 +354,10 @@ class Tes_tambah extends Member_Controller
             $query = $this->cbt_tes_model->get_by_kolom('tes_id', $id);
             if ($query->num_rows() > 0) {
                 $query = $query->row();
+
+                $getLomba = $this->cbt_tesgrup_model->getLombaRaw($query->tes_id);
+                $getKelas = $this->cbt_tesgrup_model->getKelasRaw($query->tes_id);
+
                 $data['data'] = 1;
                 $data['id'] = $query->tes_id;
                 $data['nama'] = $query->tes_nama;
@@ -364,7 +370,8 @@ class Tes_tambah extends Member_Controller
                 $data['detail_hasil'] = $query->tes_detail_to_users;
                 $data['token'] = $query->tes_token;
                 $data['rentang_waktu'] = $query->tes_begin_time . ' - ' . $query->tes_end_time;
-                $data['lomba'] = $query->lomba;
+                $data['lomba'] = $getLomba;
+                $data['kelas'] = $getKelas;
             }
         }
         echo json_encode($data);
@@ -410,15 +417,15 @@ class Tes_tambah extends Member_Controller
             $record[] = ++$i;
 
             $keterangan = '
-                <span class="badge badge-pill badge-info m-1">Soal <span class="number">' . $temp->tset_jumlah . '</span></span>
-                <span class="badge badge-pill badge-success m-1">Jawaban <span class="number">' . $temp->tset_jawaban . '</span></span>';
+                <span class="badge badge-pill badge-info m-1 badge-lg">Soal <span class="number">' . $temp->tset_jumlah . '</span></span>
+                <span class="badge badge-pill badge-success m-1 badge-lg">Jawaban <span class="number">' . $temp->tset_jawaban . '</span></span>';
 
             $ket_acak = '';
             if ($temp->tset_acak_soal == 1) {
-                $keterangan .= '<span class="badge badge-pill badge-secondary m-1">Acak Soal</span>';
+                $keterangan .= '<span class="badge badge-pill badge-secondary m-1 badge-lg">Acak Soal</span>';
             }
             if ($temp->tset_acak_jawaban == 1) {
-                $keterangan .= '<span class="badge badge-pill badge-secondary m-1">Acak Jawaban</span>';
+                $keterangan .= '<span class="badge badge-pill badge-secondary m-1 badge-lg">Acak Jawaban</span>';
             }
 
             $query_topik = $this->cbt_topik_model->get_by_kolom_limit('topik_id', $temp->tset_topik_id, 1)->row();

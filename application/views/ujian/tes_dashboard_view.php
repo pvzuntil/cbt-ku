@@ -60,9 +60,6 @@
             <?php else : ?>
                 <div class="callout callout-info">
                     <h4>Informasi</h4>
-                    <?php if ($isShow  == 0) : ?>
-                        <p>Bukti pembayaran anda sudah kami konfirmasi, terima kasih :)</p>
-                    <?php endif ?>
 
                     <p>Silahkan pilih Mapel yang diikuti dari daftar lomba yang tersedia dibawah ini. Apabila tidak muncul, silahkan menghubungi Panitia.</p>
                     <?php if ($pengumuman->isPublic  == 1) : ?>
@@ -268,6 +265,14 @@
 
 <script type="text/javascript">
     $(function() {
+        <?php if ($isShow  == 0) : ?>
+            SW.show({
+                title: 'Terimakasih !',
+                text: 'Pembayaran anda sudah kami terima dengan baik !',
+                icon: 'success'
+            })
+        <?php endif ?>
+
         if ($('#user-pay-status').val() == 'wait') {
             magnify("imagePay", 3);
         }

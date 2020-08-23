@@ -450,11 +450,13 @@ class Tes_dashboard extends Tes_Controller
 
 		$username = $this->access_tes->get_username();
 		$currentUser = $this->cbt_user_model->get_by_kolom_limit('user_email', $username, 1)->row();
+
 		$user_id = $currentUser->user_id;
-		$mataLomba = $currentUser->lomba;
-		$group = $this->access_tes->get_group();
+		$userLomba = json_decode($currentUser->lomba);
+		$userkelas = $currentUser->kelas;
+
+		// $group = $this->access_tes->get_group();
 		// $grup_id = $this->cbt_user_grup_model->get_by_kolom_limit('grup_nama', $group, 1)->row()->grup_id;
-		$grup_id = $currentUser->user_grup_id;
 
 		// get search value (if any)
 		if (isset($_GET['sSearch']) && $_GET['sSearch'] != "") {
@@ -466,7 +468,8 @@ class Tes_dashboard extends Tes_Controller
 		$rows = $this->get_rows();
 
 		// run query to get user listing
-		$query = $this->cbt_tesgrup_model->get_datatable($start, $rows, $grup_id, $mataLomba);
+		$query = $this->cbt_tesgrup_model->get_datatable($start, $rows, $userkelas, $userLomba);
+		// dd($query);
 		$iFilteredTotal = $query->num_rows();
 
 		$iTotal = count($query->result());
@@ -525,7 +528,7 @@ class Tes_dashboard extends Tes_Controller
 						} else {
 							$record[] = '';
 							$record[] = '';
-							$record[] = '<a href="#" style="cursor: pointer;" class="btn btn-success btn-xs btn-disabled" disabled>Belum dimulai</a>';
+							$record[] = '<a href="#" style="cursor: pointer;" class="btn btn-default btn-xs btn-disabled" disabled>Belum dimulai</a>';
 						}
 					}
 				} else {
@@ -539,7 +542,7 @@ class Tes_dashboard extends Tes_Controller
 						$record[] = '';
 						$record[] = '';
 						// Jika masih dalam waktu pengerjaan, maka tes dilanjutkan
-						$record[] = '<a href="' . site_url() . '/tes_kerjakan/index/' . $temp->tes_id . '" style="cursor: pointer;" class="btn btn-default btn-xs">Lanjutkan</a>';
+						$record[] = '<a href="' . site_url() . '/tes_kerjakan/index/' . $temp->tes_id . '" style="cursor: pointer;" class="btn btn-primary btn-xs">Lanjutkan</a>';
 					} else {
 						$timeSpan = $query_test_user->time_span;
 						if (empty($timeSpan)) {

@@ -148,13 +148,15 @@ class Tes_daftar extends Member_Controller
 		$query = $query->result();
 		foreach ($query as $temp) {
 			$tes_id = $temp->tes_id;
-			$group_id = $this->cbt_tesgrup_model->get_by_kolom('tstgrp_tes_id', $tes_id)->row()->tstgrp_grup_id;
-			$group_nama = $this->cbt_user_grup_model->get_by_kolom('grup_id', $group_id)->row()->grup_nama;
+			// $group_id = $this->cbt_tesgrup_model->get_by_kolom('tstgrp_tes_id', $tes_id)->row()->tstgrp_grup_id;
+			// $group_nama = $this->cbt_user_grup_model->get_by_kolom('grup_id', $group_id)->row()->grup_nama;
 			$record = array();
 
 			$record[] = ++$i;
 			$record[] = $temp->tes_nama;
-			$record[] = $group_nama;
+			$getLomba = $this->cbt_tesgrup_model->getLomba($tes_id);
+			$getKelas = $this->cbt_tesgrup_model->getKelas($tes_id);
+			$record[] = $getKelas . $getLomba;
 			$record[] = $temp->tes_max_score;
 			$record[] = $temp->tes_begin_time;
 			$record[] = $temp->tes_end_time;

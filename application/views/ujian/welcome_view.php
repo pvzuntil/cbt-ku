@@ -219,6 +219,15 @@
 		}
 	}
 	$(function() {
+
+		<?php if ($this->session->flashdata('verif')) : ?>
+			SW.show({
+				title: 'Verifikasi Berhasil !',
+				text: 'Akun anda berhasil diverifikasi, silahkan login untuk melanjutkan !',
+				icon: 'success'
+			})
+		<?php endif ?>
+
 		$('#tambah-lomba').select2({
 			// dropdownParent: $('#modal-tambah')
 		})
@@ -294,8 +303,9 @@
 					var obj = $.parseJSON(respon);
 					if (obj.status == 1) {
 						$("#modal-tambah").modal('hide');
-						SW.toast({
-							title: obj.pesan,
+						SW.show({
+							title: 'Berhasil !',
+							text: obj.pesan,
 							icon: 'success'
 						})
 					} else {

@@ -40,15 +40,10 @@ class Tes_rekap_hasil extends Member_Controller
 
         $data['rentang_waktu'] = $tanggal_awal . ' - ' . $tanggal_akhir;
 
-        $query_group = $this->cbt_user_grup_model->get_group();
+        $query_group = $this->getkelas->result();
         $select = '';
-        if ($query_group->num_rows() > 0) {
-            $query_group = $query_group->result();
-            foreach ($query_group as $temp) {
-                $select = $select . '<option value="' . $temp->grup_id . '">' . $temp->grup_nama . '</option>';
-            }
-        } else {
-            $select = '<option value="0">Tidak Ada Group</option>';
+        foreach ($query_group as $temp) {
+            $select = $select . '<option value="' . $temp . '">Kelas ' . $temp . '</option>';
         }
         $data['select_group'] = $select;
 
@@ -80,7 +75,7 @@ class Tes_rekap_hasil extends Member_Controller
             $nama_grup = $this->input->post('nama-grup', true);
 
             // Mengambil Data Peserta berdasarkan grup
-            $query_user = $this->cbt_user_model->get_by_kolom('user_grup_id', $grup);
+            $query_user = $this->cbt_user_model->get_by_kolom('kelas', $grup);
             // Mengambil data Tes dalam rentang. Data tes diambil dari data daftar Tes
             $query_tes = $this->cbt_tesgrup_model->get_by_tanggal_and_grup($tanggal[0], $tanggal[1], $grup);
 
@@ -106,7 +101,7 @@ class Tes_rekap_hasil extends Member_Controller
                 foreach ($query_user as $user) {
                     $spreadsheet->setActiveSheetIndex(0)->setCellValue('A' . $row, ($row - 8));
                     $spreadsheet->setActiveSheetIndex(0)->setCellValue('B' . $row, $user->user_firstname);
-                    $spreadsheet->setActiveSheetIndex(0)->setCellValue('C' . $row, $nama_grup);
+                    $spreadsheet->setActiveSheetIndex(0)->setCellValue('C' . $row, $user->kelas);
 
                     $kolom = 4;
                     foreach ($query_tes as $tes) {

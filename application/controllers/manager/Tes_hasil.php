@@ -198,7 +198,6 @@ class Tes_hasil extends Member_Controller
 	{
 		// variable initialization
 		$tes_id = $this->input->get('tes');
-		$grup_id = $this->input->get('group');
 		$urutkan = $this->input->get('urutkan');
 		$waktu = $this->input->get('waktu');
 		$keterangan = $this->input->get('keterangan');
@@ -220,11 +219,11 @@ class Tes_hasil extends Member_Controller
 
 		// run query to get user listing
 		if ($status == 'mengerjakan') {
-			$query = $this->cbt_tes_user_model->get_datatable($start, $rows, $tes_id, $grup_id, $urutkan, $tanggal, $keterangan);
-			$iTotal = $this->cbt_tes_user_model->get_datatable_count($tes_id, $grup_id, $urutkan, $tanggal, $keterangan)->row()->hasil;
+			$query = $this->cbt_tes_user_model->get_datatable($start, $rows, $tes_id, $urutkan, $tanggal, $keterangan);
+			$iTotal = $this->cbt_tes_user_model->get_datatable_count($tes_id, $urutkan, $tanggal, $keterangan)->row()->hasil;
 		} else {
-			$query = $this->cbt_user_model->get_datatable_hasiltes($start, $rows, $tes_id, $grup_id, $urutkan, $tanggal, $keterangan);
-			$iTotal = $this->cbt_user_model->get_datatable_hasiltes_count($tes_id, $grup_id, $urutkan, $tanggal, $keterangan)->row()->hasil;
+			$query = $this->cbt_user_model->get_datatable_hasiltes($start, $rows, $tes_id, $urutkan, $tanggal, $keterangan);
+			$iTotal = $this->cbt_user_model->get_datatable_hasiltes_count($tes_id, $urutkan, $tanggal, $keterangan)->row()->hasil;
 		}
 
 		$iFilteredTotal = $query->num_rows();
@@ -272,7 +271,8 @@ class Tes_hasil extends Member_Controller
 			}
 
 			$record[] = $temp->tes_nama;
-			$record[] = $temp->grup_nama;
+			$record[] = '<span class="badge badge-lg badge-primary">Kelas ' . $temp->kelas . '</span>';
+			// $record[] = $temp->grup_nama;
 			if (empty($temp->tesuser_id)) {
 				$record[] = '<b>' . stripslashes($temp->user_firstname) . '</b>';
 			} else {

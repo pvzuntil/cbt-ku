@@ -29,14 +29,6 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label">Group</label>
-                                    <select name="pilih-group" id="pilih-group" class="form-control input-sm">
-                                        <?php if (!empty($select_group)) {
-                                            echo $select_group;
-                                        } ?>
-                                    </select>
-                                </div>
-                                <div class="form-group">
                                     <label class="control-label">Waktu Tes</label>
 
                                     <div class="input-group">
@@ -64,6 +56,8 @@
                                     <label class="control-label">Keterangan Peserta</label>
                                     <input type="text" name="pilih-keterangan" id="pilih-keterangan" placeholder="Keterangan Peserta Tes" class="form-control input-sm" />
                                 </div>
+                            </div>
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label class="control-label">Urutkan</label>
                                     <select name="pilih-urutkan" id="pilih-urutkan" class="form-control input-sm">
@@ -144,6 +138,8 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 </section><!-- /.content -->
 
 <div class="modal fade" id="modal-waktu" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
@@ -214,10 +210,8 @@
         });
 
         $('#btn-pilih').click(function() {
-            SW.loading()
             $('#check').val('0');
             refresh_table();
-            SW.close()
         });
 
         $('#btn-edit-hapus').click(function() {
@@ -348,10 +342,6 @@
                 aoData.push({
                     "name": "tes",
                     "value": $('#pilih-tes').val()
-                });
-                aoData.push({
-                    "name": "group",
-                    "value": $('#pilih-group').val()
                 });
                 aoData.push({
                     "name": "waktu",

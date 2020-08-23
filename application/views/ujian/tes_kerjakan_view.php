@@ -1,109 +1,66 @@
-<div class="container">
-    <div class="box" style="margin-top: 20px;">
-        <style>
-            .blink_text {
-
-                animation: 1s blinker linear infinite;
-                -webkit-animation: 1s blinker linear infinite;
-                -moz-animation: 1s blinker linear infinite;
-            }
-
-            @-moz-keyframes blinker {
-                0% {
-                    opacity: 1.0;
-                }
-
-                50% {
-                    opacity: 0.0;
-                }
-
-                100% {
-                    opacity: 1.0;
-                }
-            }
-
-            @-webkit-keyframes blinker {
-                0% {
-                    opacity: 1.0;
-                }
-
-                50% {
-                    opacity: 0.0;
-                }
-
-                100% {
-                    opacity: 1.0;
-                }
-            }
-
-            @keyframes blinker {
-                0% {
-                    opacity: 1.0;
-                }
-
-                50% {
-                    opacity: 0.0;
-                }
-
-                100% {
-                    opacity: 1.0;
-                }
-            }
-        </style>
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                Tes : <?php if (!empty($tes_name)) {
-                            echo $tes_name;
-                        } ?>
-            </h1>
-            <div class="breadcrumb">
-                <img src="<?php echo base_url(); ?>public/images/zoom.png" style="cursor: pointer;" height="20" onclick="zoomnormal()" title="Klik ukuran font normal" />&nbsp;&nbsp;
-                <img src="<?php echo base_url(); ?>public/images/zoom.png" style="cursor: pointer;" height="26" onclick="zoombesar()" title="Klik ukuran font lebih besar" />
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6">
+                <h1>
+                    Tes : <?php if (!empty($tes_name)) {
+                                echo $tes_name;
+                            } ?>
+                </h1>
             </div>
-        </section>
+            <div class="col-6 d-flex" style="justify-content: flex-end;">
+                <div class="breadcrumb">
+                    <img src="<?php echo base_url(); ?>public/images/zoom.png" style="cursor: pointer;" height="20" onclick="zoomnormal()" title="Klik ukuran font normal" />&nbsp;&nbsp;
+                    <img src="<?php echo base_url(); ?>public/images/zoom.png" style="cursor: pointer;" height="26" onclick="zoombesar()" title="Klik ukuran font lebih besar" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-        <!-- Main content -->
-        <section class="content">
-            <div class="row" style="padding: 0px 15px;">
-                <?php echo form_open('tes_kerjakan/simpan_jawaban', 'id="form-kerjakan"') ?>
-                <input type="hidden" name="tes-id" id="tes-id" value="<?php if (!empty($tes_id)) {
-                                                                            echo $tes_id;
-                                                                        } ?>">
-                <input type="hidden" name="tes-user-id" id="tes-user-id" value="<?php if (!empty($tes_user_id)) {
-                                                                                    echo $tes_user_id;
-                                                                                } ?>">
-                <input type="hidden" name="tes-soal-id" id="tes-soal-id" value="<?php if (!empty($tes_soal_id)) {
-                                                                                    echo $tes_soal_id;
-                                                                                } ?>">
-                <input type="hidden" name="tes-soal-nomor" id="tes-soal-nomor" value="<?php if (!empty($tes_soal_nomor)) {
-                                                                                            echo $tes_soal_nomor;
-                                                                                        } ?>">
-                <input type="hidden" name="tes-soal-jml" id="tes-soal-jml" value="<?php if (!empty($tes_soal_jml)) {
-                                                                                        echo $tes_soal_jml;
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <?php echo form_open('tes_kerjakan/simpan_jawaban', 'id="form-kerjakan" style="width: 100%"') ?>
+            <input type="hidden" name="tes-id" id="tes-id" value="<?php if (!empty($tes_id)) {
+                                                                        echo $tes_id;
+                                                                    } ?>">
+            <input type="hidden" name="tes-user-id" id="tes-user-id" value="<?php if (!empty($tes_user_id)) {
+                                                                                echo $tes_user_id;
+                                                                            } ?>">
+            <input type="hidden" name="tes-soal-id" id="tes-soal-id" value="<?php if (!empty($tes_soal_id)) {
+                                                                                echo $tes_soal_id;
+                                                                            } ?>">
+            <input type="hidden" name="tes-soal-nomor" id="tes-soal-nomor" value="<?php if (!empty($tes_soal_nomor)) {
+                                                                                        echo $tes_soal_nomor;
                                                                                     } ?>">
-                <input type="hidden" name="tes-soal-ragu" id="tes-soal-ragu" value="<?php if (!empty($tes_ragu)) {
-                                                                                        echo $tes_ragu;
-                                                                                    } ?>">
-                <div class="box box-success box-solid">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Soal <span id="judul-soal"><?php if (!empty($tes_soal_nomor)) {
+            <input type="hidden" name="tes-soal-jml" id="tes-soal-jml" value="<?php if (!empty($tes_soal_jml)) {
+                                                                                    echo $tes_soal_jml;
+                                                                                } ?>">
+            <input type="hidden" name="tes-soal-ragu" id="tes-soal-ragu" value="<?php if (!empty($tes_ragu)) {
+                                                                                    echo $tes_ragu;
+                                                                                } ?>">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header with-border">
+                        <h3 class="card-title">Soal <span id="judul-soal"><?php if (!empty($tes_soal_nomor)) {
                                                                                 echo 'ke ' . $tes_soal_nomor;
                                                                             } ?></span></h3>
-                        <div class="box-tools pull-right">
+                        <div class="card-tools pull-right">
                             <div class="pull-right">
                                 <div id="sisa-waktu" class="blink_text"></div>
                             </div>
                         </div>
-                    </div><!-- /.box-header -->
-                    <div class="box-body">
+                    </div><!-- /.card-header -->
+                    <div class="card-body">
                         <div id="isi-tes-soal" style="font-size: 15px;">
                             <?php if (!empty($tes_soal)) {
                                 echo $tes_soal;
                             } ?>
                         </div>
-                    </div><!-- /.box-body -->
-                    <div class="box-footer">
+                    </div><!-- /.card-body -->
+                    <div class="card-footer">
                         <button type="button" class="btn btn-default hide" id="btn-sebelumnya">Soal Sebelumnya</button>&nbsp;&nbsp;&nbsp;
                         <div class="btn btn-warning" id="btn-ragu" onclick="ragu()">
                             <input type="checkbox" style="width:10px;height:10px;" name="btn-ragu-checkbox" id="btn-ragu-checkbox" <?php if (!empty($tes_ragu)) {
@@ -112,77 +69,77 @@
                         </div>&nbsp;&nbsp;&nbsp;
                         <button type="button" class="btn btn-default" id="btn-selanjutnya">Soal Selanjutnya</button>
                     </div>
-                </div><!-- /.box -->
-                </form>
+                </div><!-- /.card -->
             </div>
-            <div class="row" style="padding: 0px 15px;">
-                <div class="box box-success box-solid">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Daftar Soal</h3>
-                    </div><!-- /.box-header -->
-                    <div class="box-body">
+            <?= form_close() ?>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h3 class="card-title">Daftar Soal</h3>
+                    </div><!-- /.card-header -->
+                    <div class="card-body">
                         <?php if (!empty($tes_daftar_soal)) {
                             echo $tes_daftar_soal;
                         } ?>
                         <p class="help-block">Soal yang sudah dijawab akan berwarna Biru.</p>
-                    </div><!-- /.box-body -->
-                    <div class="box-footer">
-                        <button class="btn btn-default pull-right" id="btn-hentikan">Selesai mengerjakan</button>
+                    </div><!-- /.card-body -->
+                    <div class="card-footer d-flex" style="justify-content: flex-end;">
+                        <button class="btn btn-danger" id="btn-hentikan">Selesai mengerjakan</button>
                     </div>
-                </div><!-- /.box -->
+                </div><!-- /.card -->
             </div>
-        </section><!-- /.content -->
+        </div>
+    </div>
+</section><!-- /.content -->
 
-        <div class="modal" style="max-height: 100%;overflow-y: auto;" id="modal-hentikan" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-            <?php echo form_open($url . '/hentikan_tes', 'id="form-hentikan"'); ?>
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button class="close" type="button" data-dismiss="modal">&times;</button>
-                        <div id="trx-judul">Konfirmasi Selesai mengerjakan</div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row-fluid">
-                            <div class="box-body">
-                                <div id="form-pesan"></div>
-                                <div class="callout callout-info">
-                                    <p>Apakah anda yakin selesai mengerjakan ?
-                                        <br />Jawaban yang sudah selesai tidak dapat diubah.
-                                    </p>
+<div class="modal fade" style="max-height: 100%;overflow-y: auto;" id="modal-hentikan" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <?php echo form_open($url . '/hentikan_tes', 'id="form-hentikan"'); ?>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div id="trx-judul">Konfirmasi Selesai mengerjakan</div>
+                <button class="close" type="button" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="form-pesan"></div>
+                <div class="callout callout-info">
+                    <p>Apakah anda yakin selesai mengerjakan ?
+                        <br />Jawaban yang sudah selesai tidak dapat diubah.
+                    </p>
 
-                                </div>
-                                <div class="form-group">
-                                    <label>Nama Tes</label>
-                                    <input type="hidden" name="hentikan-tes-id" id="hentikan-tes-id">
-                                    <input type="hidden" name="hentikan-tes-user-id" id="hentikan-tes-user-id">
-                                    <input type="text" class="form-control" id="hentikan-tes-nama" name="hentikan-tes-nama" readonly>
-                                </div>
+                </div>
+                <div class="form-group">
+                    <label>Nama Tes</label>
+                    <input type="hidden" name="hentikan-tes-id" id="hentikan-tes-id">
+                    <input type="hidden" name="hentikan-tes-user-id" id="hentikan-tes-user-id">
+                    <input type="text" class="form-control" id="hentikan-tes-nama" name="hentikan-tes-nama" readonly>
+                </div>
 
-                                <div class="form-group">
-                                    <label>Keterangan Soal</label>
-                                    <input type="text" class="form-control" id="hentikan-dijawab" name="hentikan-dijawab" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" id="hentikan-centang" name="hentikan-centang" value="1"> Centang dan klik tombol Selesai mengerjakan.
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box-footer">
-                        <button type="submit" id="tambah-simpan" class="btn btn-primary">Selesai mengerjakan</button>
-                        <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
+                <div class="form-group">
+                    <label>Keterangan Soal</label>
+                    <input type="text" class="form-control" id="hentikan-dijawab" name="hentikan-dijawab" readonly>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="hentikan-centang" name="hentikan-centang" value="1"> Centang dan klik tombol Selesai mengerjakan.
+                        </label>
                     </div>
                 </div>
             </div>
-
-            </form>
+            <div class="card-footer">
+                <div class="row d-flex" style="justify-content: space-between;">
+                    <button type="submit" id="tambah-simpan" class="btn btn-primary">Selesai mengerjakan</button>
+                    <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
+                </div>
+            </div>
         </div>
     </div>
-</div><!-- /.container -->
+
+    </form>
+</div>
 
 <script type="text/javascript">
     function zoombesar() {
@@ -196,7 +153,7 @@
     }
 
     function ragu() {
-        $("#modal-proses").modal('show');
+        NP.s()
 
         $.ajax({
             url: '<?php echo site_url() . '/' . $url; ?>/get_tes_soal_by_tessoal/' + $('#tes-soal-id').val(),
@@ -220,16 +177,25 @@
                         success: function(respon) {
                             var data = $.parseJSON(respon);
                             if (data.data == 1) {
-                                notify_success('Jawaban Ragu-ragu berhasil diubah');
+                                SW.toast({
+                                    title: 'Jawaban Ragu-ragu berhasil diubah',
+                                    icon: 'success'
+                                });
                             }
                         },
                         error: function(xmlhttprequest, textstatus, message) {
                             if (textstatus === "timeout") {
-                                $("#modal-proses").modal('hide');
-                                notify_error("Gagal mengubah Soal, Silahkan Refresh Halaman");
+                                NP.d()
+                                SW.toast({
+                                    title: "Gagal mengubah Soal, Silahkan Refresh Halaman",
+                                    icon: 'error'
+                                });
                             } else {
-                                $("#modal-proses").modal('hide');
-                                notify_error(textstatus);
+                                NP.d()
+                                SW.toast({
+                                    title: textstatus,
+                                    icon: 'error'
+                                });
                             }
                         }
                     });
@@ -263,22 +229,28 @@
                         }
                     }
                 }
-                $("#modal-proses").modal('hide');
+                NP.d()
             },
             error: function(xmlhttprequest, textstatus, message) {
                 if (textstatus === "timeout") {
-                    $("#modal-proses").modal('hide');
-                    notify_error("Gagal mengubah soal, Silahkan Refresh Halaman");
+                    NP.d()
+                    SW.toast({
+                        title: "Gagal mengubah soal, Silahkan Refresh Halaman",
+                        icon: 'error'
+                    });
                 } else {
-                    $("#modal-proses").modal('hide');
-                    notify_error(textstatus);
+                    NP.d()
+                    SW.toast({
+                        title: textstatus,
+                        icon: 'error'
+                    });
                 }
             }
         });
     }
 
     function soal(tessoal_id) {
-        $("#modal-proses").modal('show');
+        NP.s()
         $.ajax({
             url: '<?php echo site_url() . '/' . $url; ?>/get_soal_by_tessoal/' + tessoal_id + '/' + $('#tes-user-id').val(),
             type: "POST",
@@ -320,15 +292,21 @@
                 } else if (data.data == 2) {
                     window.location.reload();
                 }
-                $("#modal-proses").modal('hide');
+                NP.d()
             },
             error: function(xmlhttprequest, textstatus, message) {
                 if (textstatus === "timeout") {
-                    $("#modal-proses").modal('hide');
-                    notify_error("Gagal mengambil Soal, Silahkan Refresh Halaman");
+                    NP.d()
+                    SW.toast({
+                        title: "Gagal mengambil Soal, Silahkan Refresh Halaman",
+                        icon: 'error'
+                    });
                 } else {
-                    $("#modal-proses").modal('hide');
-                    notify_error(textstatus);
+                    NP.d()
+                    SW.toast({
+                        title: textstatus,
+                        icon: 'error'
+                    });
                 }
             }
         });
@@ -345,7 +323,10 @@
                  */
                 $.getJSON('<?php echo site_url() . '/' . $url; ?>/update_status_audio/' + $('#tes-soal-id').val(), function(data) {
                     if (data.data == 1) {
-                        notify_success(data.pesan);
+                        SW.toast({
+                            title: data.pesan,
+                            icon: 'success'
+                        });
                     }
                 });
             }
@@ -382,7 +363,7 @@
     }
 
     function hentikan_tes() {
-        $("#modal-proses").modal('show');
+        NP.s()
         $('#hentikan-centang').prop("checked", false);
         $.getJSON('<?php echo site_url() . '/' . $url; ?>/get_tes_info/' + $('#tes-id').val(), function(data) {
             if (data.data == 1) {
@@ -397,7 +378,7 @@
             } else {
                 window.location.reload();
             }
-            $("#modal-proses").modal('hide');
+            NP.d()
         });
     }
 
@@ -440,7 +421,7 @@
          * Submit form soal saat sudah menjawab
          */
         $('#form-kerjakan').submit(function() {
-            $("#modal-proses").modal('show');
+            NP.s()
             $.ajax({
                 url: "<?php echo site_url() . '/' . $url; ?>/simpan_jawaban",
                 type: "POST",
@@ -450,25 +431,37 @@
                 success: function(respon) {
                     var obj = $.parseJSON(respon);
                     if (obj.status == 1) {
-                        $("#modal-proses").modal('hide');
-                        notify_success(obj.pesan);
+                        NP.d()
+                        SW.toast({
+                            title: obj.pesan,
+                            icon: 'success'
+                        });
                         $('#btn-soal-' + obj.nomor_soal).removeClass('btn-default');
                         $('#btn-soal-' + obj.nomor_soal).removeClass('btn-warning');
                         $('#btn-soal-' + obj.nomor_soal).addClass('btn-primary');
                     } else if (obj.status == 2) {
                         window.location.reload();
                     } else {
-                        $("#modal-proses").modal('hide');
-                        notify_error(obj.pesan);
+                        NP.d()
+                        SW.toast({
+                            title: obj.pesan,
+                            icon: 'error'
+                        });
                     }
                 },
                 error: function(xmlhttprequest, textstatus, message) {
                     if (textstatus === "timeout") {
-                        $("#modal-proses").modal('hide');
-                        notify_error("Gagal menyimpan jawaban, Silahkan Refresh Halaman");
+                        NP.d()
+                        SW.toast({
+                            title: "Gagal menyimpan jawaban, Silahkan Refresh Halaman",
+                            icon: 'error'
+                        });
                     } else {
-                        $("#modal-proses").modal('hide');
-                        notify_error(textstatus);
+                        NP.d()
+                        SW.toast({
+                            title: textstatus,
+                            icon: 'error'
+                        });
                     }
                 }
             });
@@ -479,7 +472,7 @@
          * Submit form hentikan tes
          */
         $('#form-hentikan').submit(function() {
-            $("#modal-proses").modal('show');
+            NP.s()
             $.ajax({
                 url: "<?php echo site_url() . '/' . $url; ?>/hentikan_tes",
                 type: "POST",
@@ -491,17 +484,26 @@
                     if (obj.status == 1) {
                         window.location.reload();
                     } else {
-                        $("#modal-proses").modal('hide');
-                        notify_error(obj.pesan);
+                        NP.d()
+                        SW.toast({
+                            title: obj.pesan,
+                            icon: 'error'
+                        });
                     }
                 },
                 error: function(xmlhttprequest, textstatus, message) {
                     if (textstatus === "timeout") {
-                        $("#modal-proses").modal('hide');
-                        notify_error("Gagal menghentikan Tes, Silahkan Refresh Halaman");
+                        NP.d()
+                        SW.toast({
+                            title: "Gagal menghentikan Tes, Silahkan Refresh Halaman",
+                            icon: 'error'
+                        });
                     } else {
-                        $("#modal-proses").modal('hide');
-                        notify_error(textstatus);
+                        NP.d()
+                        SW.toast({
+                            title: textstatus,
+                            icon: 'error'
+                        });
                     }
                 }
             });

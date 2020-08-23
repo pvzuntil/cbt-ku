@@ -168,7 +168,7 @@ class Tes_kerjakan extends Tes_Controller
             }
         } else {
             $status['status'] = 0;
-            $status['pesan'] = validation_errors();
+            $status['pesan'] = array_values($this->form_validation->error_array())[0];
         }
 
         echo json_encode($status);
@@ -281,7 +281,7 @@ class Tes_kerjakan extends Tes_Controller
             }
         } else {
             $status['status'] = 0;
-            $status['pesan'] = validation_errors();
+            $status['pesan'] = array_values($this->form_validation->error_array())[0];
         }
 
         echo json_encode($status);
@@ -521,10 +521,31 @@ class Tes_kerjakan extends Tes_Controller
                                 $temp_jawaban = $jawaban->jawaban_detail;
                                 $temp_jawaban = str_replace("[base_url]", base_url(), $temp_jawaban);
 
+                                // dd();
+
                                 if ($jawaban->soaljawaban_selected == 1) {
-                                    $soal = $soal . '<div class="radio"><label><input type="radio" onchange="jawab()" name="soal-jawaban" value="' . $jawaban->soaljawaban_jawaban_id . '" checked> ' . $temp_jawaban . '</label></div>';
+                                    $soal = $soal . '
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" onchange="jawab()" name="soal-jawaban" value="' . $jawaban->soaljawaban_jawaban_id . '" checked id="jawaban-' . $jawaban->soaljawaban_jawaban_id . '">
+                                            <label class="form-check-label" for="jawaban-' . $jawaban->soaljawaban_jawaban_id . '">
+                                                ' . $temp_jawaban . '
+                                            </label>
+                                        </div>';
+
+                                    // <div class="radio">
+                                    //     <label>
+                                    //         <input type="radio" onchange="jawab()" name="soal-jawaban" value="' . $jawaban->soaljawaban_jawaban_id . '" checked> ' . $temp_jawaban . '
+                                    //     </label>
+                                    // </div>';
                                 } else {
-                                    $soal = $soal . '<div class="radio"><label><input type="radio" onchange="jawab()" name="soal-jawaban" value="' . $jawaban->soaljawaban_jawaban_id . '" > ' . $temp_jawaban . '</label></div>';
+                                    $soal = $soal . '
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" onchange="jawab()" name="soal-jawaban" value="' . $jawaban->soaljawaban_jawaban_id . '" id="jawaban-' . $jawaban->soaljawaban_jawaban_id . '">
+                                            <label class="form-check-label" for="jawaban-' . $jawaban->soaljawaban_jawaban_id . '">
+                                                ' . $temp_jawaban . '
+                                            </label>
+                                        </div>';
+                                    // $soal = $soal . '<div class="radio"><label><input type="radio" onchange="jawab()" name="soal-jawaban" value="' . $jawaban->soaljawaban_jawaban_id . '" > ' . $temp_jawaban . '</label></div>';
                                 }
                             }
                         }

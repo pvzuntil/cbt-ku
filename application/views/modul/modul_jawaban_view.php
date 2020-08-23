@@ -452,11 +452,11 @@
                     });
                 },
                 'fnDrawCallback': function(oSettings) {
-                    SW.close()
+                    NP.d()
                     callBackDatatable(oSettings)
                 },
                 fnPreDrawCallback: function() {
-                    SW.loading()
+                    NP.s()
                 }
             });
             $('#table-image').DataTable({
@@ -498,11 +498,11 @@
                     });
                 },
                 'fnDrawCallback': function(oSettings) {
-                    SW.close()
+                    NP.d()
                     callBackDatatable(oSettings)
                 },
                 fnPreDrawCallback: function() {
-                    SW.loading()
+                    NP.s()
                 }
             });
 

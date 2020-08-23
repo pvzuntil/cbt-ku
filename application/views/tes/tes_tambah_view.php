@@ -49,19 +49,22 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label">Group</label>
+                                    <label class="control-label">Kelas & Lomba</label>
                                     <div class="row">
                                         <div class="col-6">
-                                            <select class="form-control input-sm" id="tambah-group" name="tambah-group[]">
-                                                <?php if (!empty($select_group)) {
-                                                    echo $select_group;
-                                                } ?>
+                                            <select class="form-control input-sm select2" id="tambah-kelas" name="tambah-kelas[]" multiple>
+                                                <?php foreach ($select_kelas as $i) : ?>
+                                                    <option value="<?= $i ?>">Kelas <?= $i ?></option>
+                                                <?php endforeach ?>
                                             </select>
                                         </div>
                                         <div class="col-6">
-                                            <select class="form-control input-sm" id="tambah-lomba" name="tambah-lomba">
-                                                <option value="matematika">Matematika</option>
-                                                <option value="sains">Sains</option>
+                                            <input type="hidden" name="tambah-lomba" id="tambah-lomba">
+                                            <select class="form-control input-sm" id="tambah-lomba-select" name="tambah-lomba-select">
+                                                <option value="" selected disabled>-- Pilih Lomba --</option>
+                                                <?php if (!empty($select_modul)) {
+                                                    echo $select_modul;
+                                                } ?>
                                             </select>
                                         </div>
                                     </div>
@@ -100,7 +103,7 @@
                                 <div class="row">
                                     <div class="form-group col-12 col-md-4">
                                         <label class="control-label">Tunjukkan Hasil</label>
-                                        <div class="input-group mb-3">
+                                        <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">
                                                     <input type="checkbox" aria-label="Checkbox for following text input" name="tambah-tunjukkan-hasil" id="tambah-tunjukkan-hasil" value="1" checked>
@@ -112,7 +115,7 @@
 
                                     <div class="form-group col-12 col-md-4">
                                         <label class="control-label">Detail Hasil</label>
-                                        <div class="input-group mb-3">
+                                        <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">
                                                     <input type="checkbox" aria-label="Checkbox for following text input" name="tambah-detail-hasil" id="tambah-detail-hasil" value="1">
@@ -124,7 +127,7 @@
 
                                     <div class="form-group col-12 col-md-4">
                                         <label class="control-label">Token</label>
-                                        <div class="input-group mb-3">
+                                        <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">
                                                     <input type="checkbox" aria-label="Checkbox for following text input" name="tambah-token" id="tambah-token" value="1">
@@ -158,10 +161,10 @@
                                 <?php echo form_open($url . '/tambah_soal', 'id="form-tambah-soal"  class="form-horizontal"'); ?>
                                 <div id="form-pesan-soal"></div>
                                 <div class="form-group">
-                                    <label class="control-label">Modul</label>
+                                    <label class="control-label">Lomba</label>
                                     <div>
                                         <input type="hidden" name="soal-tes-id" id="soal-tes-id">
-                                        <select class="form-control input-sm" id="soal-modul" name="soal-modul">
+                                        <select class="form-control input-sm" id="soal-modul" name="soal-modul" disabled>
                                             <?php if (!empty($select_modul)) {
                                                 echo $select_modul;
                                             } ?>
@@ -218,7 +221,7 @@
                                 <div class="row">
                                     <div class="form-group col-12 col-md-6">
                                         <label class="control-label">Acak Soal</label>
-                                        <div class="input-group mb-3">
+                                        <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">
                                                     <input type="checkbox" aria-label="Checkbox for following text input" name="soal-acak-soal" id="soal-acak-soal" class="input-sm" value="1" checked>
@@ -229,7 +232,7 @@
                                     </div>
                                     <div class="form-group col-12 col-md-6">
                                         <label class="control-label">Acak Jawaban</label>
-                                        <div class="input-group mb-3">
+                                        <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">
                                                     <input type="checkbox" aria-label="Checkbox for following text input" name="soal-acak-jawaban" id="soal-acak-jawaban" class="input-sm" value="1" checked>
@@ -285,11 +288,13 @@
     }
 
     function refresh_topik() {
-        SW.loading()
-        var modul = $('#soal-modul').val();
+        NP.s()
+        var modul = $('#tambah-lomba').val();
+        $('#soal-modul').val(modul).trigger('change')
         $.getJSON('<?php echo site_url() . '/' . $url; ?>/get_topik_by_modul/' + modul, function(data) {
             if (data.data == 1) {
                 $('#soal-topik').html(data.select_topik);
+                NP.d();
             }
         });
     }
@@ -310,6 +315,11 @@
                 $('#tambah-poin-salah').val(data.poin_salah);
                 $('#tambah-rentang-waktu').val(data.rentang_waktu);
                 $('#tambah-lomba').val(data.lomba);
+                $('#tambah-lomba-select').val(data.lomba);
+                $('#tambah-lomba-select').attr('disabled', '');
+
+                $('#tambah-kelas').val(data.kelas).trigger('change');
+
                 if (data.tunjukkan_hasil == 1) {
                     $('#tambah-tunjukkan-hasil').prop("checked", true);
                 } else {
@@ -328,9 +338,9 @@
 
                 refresh_topik();
                 refresh_table();
-                SW.close()
 
                 $('#kolom-soal').removeClass('hide');
+                SW.close()
             }
         });
     }
@@ -389,7 +399,8 @@
             window.open("<?php echo site_url(); ?>/manager/tes_daftar", "_self");
         });
 
-        $("#soal-modul").change(function() {
+        $("#tambah-lomba-select").change(function() {
+            $('#tambah-lomba').val($('#tambah-lomba-select').val());
             refresh_topik();
         });
 

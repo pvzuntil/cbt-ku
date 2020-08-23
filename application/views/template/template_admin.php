@@ -2,6 +2,8 @@
 <html>
 
 <head>
+  <meta content='width=device-width, initial-scale=1, maximum-scale=10, user-scalable=yes' name='viewport'>
+
   <meta charset="UTF-8">
   <title><?php if (!empty($site_name)) {
             echo $site_name;

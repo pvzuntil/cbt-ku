@@ -191,16 +191,14 @@ class Cbt_tes_user_model extends CI_Model
      * datatable untuk hasil tes yang sudah mengerjakan
      *
      */
-    function get_datatable($start, $rows, $tes_id, $grup_id, $urutkan, $tanggal, $keterangan)
+    function get_datatable($start, $rows, $tes_id, $urutkan, $tanggal, $keterangan)
     {
         $sql = 'tesuser_creation_time>="' . $tanggal[0] . '" AND tesuser_creation_time<="' . $tanggal[1] . '"';
 
         if ($tes_id != 'semua') {
             $sql = $sql . ' AND tesuser_tes_id="' . $tes_id . '"';
         }
-        if ($grup_id != 'semua') {
-            $sql = $sql . ' AND user_grup_id="' . $grup_id . '"';
-        }
+
         $order = '';
         if ($urutkan == 'tertinggi') {
             $order = 'nilai DESC, detik ASC';
@@ -218,11 +216,10 @@ class Cbt_tes_user_model extends CI_Model
             $sql = $sql . ' AND user_detail LIKE "%' . $keterangan . '%"';
         }
 
-        $this->db->select('cbt_tes_user.*,cbt_user_grup.grup_nama, cbt_tes.*, cbt_user.*, SUM(`cbt_tes_soal`.`tessoal_nilai`) AS nilai, TIMESTAMPDIFF(SECOND, `tesuser_creation_time`, `end_time`) as detik ')
+        $this->db->select('cbt_tes_user.*, cbt_tes.*, cbt_user.*, SUM(`cbt_tes_soal`.`tessoal_nilai`) AS nilai, TIMESTAMPDIFF(SECOND, `tesuser_creation_time`, `end_time`) as detik ')
             ->where('( ' . $sql . ' )')
             ->from($this->table)
             ->join('cbt_user', 'cbt_tes_user.tesuser_user_id = cbt_user.user_id')
-            ->join('cbt_user_grup', 'cbt_user.user_grup_id = cbt_user_grup.grup_id')
             ->join('cbt_tes', 'cbt_tes_user.tesuser_tes_id = cbt_tes.tes_id')
             ->join('cbt_tes_soal', 'cbt_tes_soal.tessoal_tesuser_id = cbt_tes_user.tesuser_id')
             ->group_by('cbt_tes_user.tesuser_id')
@@ -231,15 +228,12 @@ class Cbt_tes_user_model extends CI_Model
         return $this->db->get();
     }
 
-    function get_datatable_count($tes_id, $grup_id, $urutkan, $tanggal, $keterangan)
+    function get_datatable_count($tes_id, $urutkan, $tanggal, $keterangan)
     {
         $sql = 'tesuser_creation_time>="' . $tanggal[0] . '" AND tesuser_creation_time<="' . $tanggal[1] . '"';
 
         if ($tes_id != 'semua') {
             $sql = $sql . ' AND tesuser_tes_id="' . $tes_id . '"';
-        }
-        if ($grup_id != 'semua') {
-            $sql = $sql . ' AND user_grup_id="' . $grup_id . '"';
         }
 
         if (!empty($keterangan)) {

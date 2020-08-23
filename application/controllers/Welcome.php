@@ -196,7 +196,7 @@ class Welcome extends CI_Controller
 					$this->cbt_user_model->save($data);
 
 					$status['status'] = 1;
-					$status['pesan'] = 'Berhasil mendaftar, silahkan cek email anda untuk memverifikasi akun';
+					$status['pesan'] = 'Berhasil mendaftar, silahkan cek email anda untuk memverifikasi akun. Periksa juga folder email spam anda !';
 				} else {
 					$status['status'] = 0;
 					$status['pesan'] = 'Silahkan periksa koneksi internet anda !';
