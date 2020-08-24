@@ -22,6 +22,22 @@ class MLib
 
         return $daftarLomba;
     }
+
+    public function getLombaHR($rawLomba)
+    {
+        $daftarLomba = '';
+        foreach (json_decode($rawLomba) as $i => $pilihanLomba) {
+            if ($i != 0) {
+                $daftarLomba .= ' <span class="number"> ';
+            }
+
+            $getLomba = $this->ci->cbt_lomba_model->get_by_kolom('modul_id', $pilihanLomba)->row();
+            $daftarLomba .= ucfirst($getLomba->modul_nama);
+        }
+
+        return $daftarLomba;
+    }
+
     public function getLombaArray($rawLomba)
     {
         $daftarLomba = [];

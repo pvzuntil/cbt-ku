@@ -6,8 +6,8 @@
                 echo $nama;
             } ?>
         </h1>
-        <div class="badge badge-primary">Kelas <?= $currentUser->kelas ?></div>
-        <div class="badge badge-primary">Lomba : <?= $daftarLomba ?></div>
+        <div class="badge badge-primary badge-lg">Kelas <?= $currentUser->kelas ?></div>
+        <div class="badge badge-primary badge-lg">Lomba : <?= $daftarLomba ?></div>
     </div>
 </section>
 

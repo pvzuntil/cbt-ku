@@ -40,7 +40,7 @@
 			</form>
 
 			<div class="social-auth-links text-center">
-				<p>-- Belum Punya Akun ? --</p>
+				<p class="mb-2">-- Belum Punya Akun ? --</p>
 				<a href="#" class="btn btn-block btn-success mb-3" data-toggle="modal" data-target="#modal-tambah">
 					<i class="fas fa-user-edit mr-2"></i> Mendaftar sekarang
 				</a>

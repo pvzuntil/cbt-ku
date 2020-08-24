@@ -73,7 +73,7 @@ class Tes_dashboard extends Tes_Controller
 		$get_laporan = $this->cbt_juara_model->get_laporan();
 		$data['pengumuman'] = $get_laporan->row();
 
-		$data['daftarLomba'] = $this->mlib->getLomba($currentUser->lomba);
+		$data['daftarLomba'] = $this->mlib->getLombaHR($currentUser->lomba);
 
 		for ($i = 0; $i < count($this->willCheck); $i++) {
 			$getValue = $parseCurrentUser[$this->willCheck[$i]['tableName']];
