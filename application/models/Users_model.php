@@ -182,7 +182,7 @@ class Users_model extends CI_Model
                 $linkParent = site_url() . '/' . $parent->url;
                 if ($result_child->num_rows() > 0) {
                     $classtreeView .= ' has-treeview';
-                    $menu_child = $menu_child . '<ul class="nav nav-treeview">';
+                    $menu_child = $menu_child . '<ul class="nav nav-treeview card mb-0" style="background: #17a2b84f!important">';
                     foreach ($result_child->result() as $child) {
                         $child_active = '';
                         if ($kode_menu == $child->kode_menu) {
