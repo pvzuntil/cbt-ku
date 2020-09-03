@@ -1,4 +1,4 @@
-    <nav class="main-header navbar navbar-expand navbar-dark navbar-cyan" style="margin-left: 0px !important;">
+    <nav class="main-header navbar navbar-expand navbar-dark navbar-orange" style="margin-left: 0px !important;">
         <div class="row" style="width :100%">
             <div class="col-12 col-sm-6 d-flex align-items-center">
                 <ul class="navbar-nav text-center text-md-left">
