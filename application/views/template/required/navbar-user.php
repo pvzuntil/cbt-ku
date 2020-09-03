@@ -3,7 +3,7 @@
             <div class="col-12 col-sm-6 d-flex align-items-center">
                 <ul class="navbar-nav text-center text-md-left">
                     <li class="nav-item d-flex" style="height: 100%; align-items: center; justify-content: center;">
-                        <a href="<?= base_url() ?>" style="font-weight: 600;" class="text-white ml-3">CBT - <?php if (!empty($site_name)) {
+                        <a href="<?= base_url() ?>" style="font-weight: 600;" class="text-white ml-3"><?php if (!empty($site_name)) {
                                                                                                                                     echo $site_name;
                                                                                                                                 } ?></a>
                     </li>

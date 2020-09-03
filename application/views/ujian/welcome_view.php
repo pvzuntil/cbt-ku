@@ -355,19 +355,4 @@
 		});
 		return false;
 	});
-
-	$(() => {
-		setTimeout(
-			() => {
-				Swal.fire({
-					toast: true,
-					title: 'Perkenalkan! tampilan baru dari web kami.',
-					position: 'top',
-					icon: 'info',
-					confirmButtonText: 'Tutup',
-				})
-			},
-			2000
-		)
-	})
 </script>
