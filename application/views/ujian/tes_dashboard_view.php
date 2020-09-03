@@ -1,5 +1,5 @@
 <!-- Content Header (Page header) -->
-<section class="content-header">
+<section class="content-header pt-5 pt-md-0">
     <div class="container-fluid">
         <h1>
             <?php if (!empty($nama)) {
@@ -64,9 +64,9 @@
                     <p>Silahkan pilih Mapel yang diikuti dari daftar lomba yang tersedia dibawah ini. Apabila tidak muncul, silahkan menghubungi Panitia.</p>
                     <?php if ($pengumuman->isPublic  == 1) : ?>
                         <!-- <p>Pengumuman juara telah tersedia, klik <a href="pengumuman" target="_blank">disini</a> untuk melihat.</p> -->
-                        <!-- TODO Button pengumuman -->
-                        <a href="../pengumuman" class="btn btn-success" target="_blank" style="text-decoration: none;">Lihat Pengumuman</a>
-                        <button class="btn btn-success" <?= $currentUser->downloadCert == 0 ? 'data-toggle="modal" data-target="#modal-finalisasi"' : 'id="cert-download"' ?>>Download Sertifikat</button>
+                        <br>
+                        <a href="../pengumuman" class="btn btn-success btn-sm text-white" target="_blank" style="text-decoration: none;">Lihat Pengumuman</a>
+                        <button class="btn btn-success btn-sm" <?= $currentUser->downloadCert == 0 ? 'data-toggle="modal" data-target="#modal-finalisasi"' : 'id="cert-download"' ?>>Download Sertifikat</button>
                     <?php endif ?>
                 </div>
                 <div class="card">

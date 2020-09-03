@@ -47,6 +47,10 @@
 				<!-- <a href="#" class="" data-toggle="modal" data-target="#modal-alur">Alur Pendaftaran</a>
             | -->
 				<a href="#" class="" data-toggle="modal" data-target="#modal-lupa">Lupa Password</a>
+				<?php if ($pengumuman->isPublic  == 1) : ?>
+					|
+					<a href="pengumuman" class="" target="_blank">Lihat Pengumuman</a>
+					<?php endif?>
 			</div>
 			<!-- /.social-auth-links -->
 		</div>
@@ -351,4 +355,19 @@
 		});
 		return false;
 	});
+
+	$(() => {
+		setTimeout(
+			() => {
+				Swal.fire({
+					toast: true,
+					title: 'Perkenalkan! tampilan baru dari web kami.',
+					position: 'top',
+					icon: 'info',
+					confirmButtonText: 'Tutup',
+				})
+			},
+			2000
+		)
+	})
 </script>

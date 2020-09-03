@@ -10,7 +10,8 @@
   <meta name="__base_url" content="<?= base_url() ?>">
   <?php include 'required/css.php' ?>
   <?php include 'required/js.php' ?>
-
+  <meta content='width=device-width, initial-scale=1, maximum-scale=10, user-scalable=yes' name='viewport'>
+  
 </head>
 
 <?php

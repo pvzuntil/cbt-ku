@@ -2,8 +2,13 @@
 <title>Site Maintenance</title>
 <style>
   body {
-    text-align: center;
-    padding: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding-right: 50px;
+    padding-left: 50px;
+    overflow: hidden;
   }
 
   h1 {
@@ -18,7 +23,6 @@
   article {
     display: block;
     text-align: left;
-    width: 650px;
     margin: 0 auto;
   }
 
@@ -33,6 +37,7 @@
   }
 </style>
 
+<body>
 <article>
   <h1>Kami akan segera kembali!</h1>
   <div>
@@ -42,6 +47,8 @@
       <a href="mailto:untillness@langkahjuara.com">hubungi kami</a>, jika ada
       sesuatu. Stay Tuned!
     </p>
+    <br>
     <p>&mdash; The Team Dev.</p>
   </div>
 </article>
+</body>
