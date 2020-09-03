@@ -40,7 +40,7 @@
                     <div class="row" style="display: flex; justify-content: center; flex-direction: column; align-items: center; flex-wrap: wrap;">
                         <input type="hidden" id="user-pay-status" value="<?= $userPay_status ?>">
                         <div class="col-sm-6 <?= $userPay_status == 'wait' ? 'img-magnifier-container' : '' ?>" style="margin-bottom: 15px; display: flex; justify-content: center;">
-                            <img src="<?= $userPay_status == 'none' || $userPay_status == 'deny'  ? site_url() . 'public/images/placeholder.png' : site_url() . $userPay->img_pay ?>" alt="" class="img-responsive elevation-1 img-thumbnail" id="imagePay">
+                            <img src="<?= $userPay_status == 'none' || $userPay_status == 'deny'  ? site_url() . 'public/images/placeholder.png' : site_url() . $userPay->img_pay ?>" alt="" class="img-responsive elevation-1 img-thumbnail" id="imagePay" style="cursor: pointer">
                         </div>
                         <?php if ($userPay_status != 'wait') : ?>
                             <p>Klik gambar untuk memilih foto</p>
@@ -265,12 +265,14 @@
 
 <script type="text/javascript">
     $(function() {
-        <?php if ($isShow  == 0) : ?>
-            SW.show({
-                title: 'Terimakasih !',
-                text: 'Pembayaran anda sudah kami terima dengan baik !',
-                icon: 'success'
-            })
+        <?php if (isset($isShow)) : ?>
+            <?php if ($isShow  == 0) : ?>
+                SW.show({
+                    title: 'Terimakasih !',
+                    text: 'Pembayaran anda sudah kami terima dengan baik !',
+                    icon: 'success'
+                })
+            <?php endif ?>
         <?php endif ?>
 
         if ($('#user-pay-status').val() == 'wait') {
