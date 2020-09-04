@@ -28,7 +28,7 @@ function smtp_mail($to, $subject, $message, $from_name, $from, $cc, $bcc, $debug
   // $mail->Port       = 465;                                      // Masukkan Port SMTP
   $mail->Port       = 587;                                      // Masukkan Port SMTP
   $mail->SMTPSecure = 'tls';                                    // Masukkan Pilihan Enkripsi ( `tls` atau `ssl` )
-  $mail->Username   = 'said@langkahjuara.com';                // Masukkan Email yang digunakan selama proses pengiriman email via SMTP
+  $mail->Username   = 'said@lomba.langkahjuara.com';                // Masukkan Email yang digunakan selama proses pengiriman email via SMTP
   $mail->Password   = 'saidsaid123';                              // Masukkan Password dari Email tsb
   $default_email_from       = 'sender@langkahjuara.com';        // Masukkan default from pada email
   $default_email_from_name  = 'QEC - Quantum Educational Center';           // Masukkan default nama dari from pada email
