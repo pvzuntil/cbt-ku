@@ -5,7 +5,7 @@ require_once('PHPMailer/PHPMailerAutoload.php');
 function smtp_mail($to, $subject, $message, $from_name, $from, $cc, $bcc, $debug = false)
 {
   $mail = new PHPMailer;
-  $mail->SMTPDebug = false; // Ubah menjadi true jika ingin menampilkan sistem debug SMTP Mailer
+  $mail->SMTPDebug = true; // Ubah menjadi true jika ingin menampilkan sistem debug SMTP Mailer
   $mail->isSMTP();
 
   // Hapus Semua Tujuan, CC dan BCC
