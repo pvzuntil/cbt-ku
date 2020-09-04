@@ -5,8 +5,8 @@ require_once('PHPMailer/PHPMailerAutoload.php');
 function smtp_mail($to, $subject, $message, $from_name, $from, $cc, $bcc, $debug = false)
 {
   $mail = new PHPMailer;
-  $mail->SMTPDebug = $debug; // Ubah menjadi true jika ingin menampilkan sistem debug SMTP Mailer
-  $mail->isMail();
+  $mail->SMTPDebug = false; // Ubah menjadi true jika ingin menampilkan sistem debug SMTP Mailer
+  $mail->isSMTP();
 
   // Hapus Semua Tujuan, CC dan BCC
   $mail->ClearAddresses();
@@ -19,16 +19,17 @@ function smtp_mail($to, $subject, $message, $from_name, $from, $cc, $bcc, $debug
         'verify_peer_name' => false,
         'allow_self_signed' => true
     )
-);
+  );
 
   /* -------------------------- Konfigurasi Dasar SMTP ---------------------------------- */
 
   $mail->SMTPAuth   = true;
   $mail->Host       = 'mail.langkahjuara.com';  // Masukkan Server SMTP
+  // $mail->Port       = 465;                                      // Masukkan Port SMTP
   $mail->Port       = 587;                                      // Masukkan Port SMTP
   $mail->SMTPSecure = 'tls';                                    // Masukkan Pilihan Enkripsi ( `tls` atau `ssl` )
-  $mail->Username   = 'untillness@langkahjuara.com';                // Masukkan Email yang digunakan selama proses pengiriman email via SMTP
-  $mail->Password   = 'untillNess1013';                              // Masukkan Password dari Email tsb
+  $mail->Username   = 'said@langkahjuara.com';                // Masukkan Email yang digunakan selama proses pengiriman email via SMTP
+  $mail->Password   = 'saidsaid123';                              // Masukkan Password dari Email tsb
   $default_email_from       = 'sender@langkahjuara.com';        // Masukkan default from pada email
   $default_email_from_name  = 'QEC - Quantum Educational Center';           // Masukkan default nama dari from pada email
 
