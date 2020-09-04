@@ -6,7 +6,7 @@ function smtp_mail($to, $subject, $message, $from_name, $from, $cc, $bcc, $debug
 {
   $mail = new PHPMailer;
   $mail->SMTPDebug = $debug; // Ubah menjadi true jika ingin menampilkan sistem debug SMTP Mailer
-  $mail->isSMTP();
+  $mail->isMail();
 
   // Hapus Semua Tujuan, CC dan BCC
   $mail->ClearAddresses();
