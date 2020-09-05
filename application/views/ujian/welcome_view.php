@@ -1,12 +1,12 @@
 <div class="login-box" style="margin-top: 100px;">
-	<div class="login-logo">
-		<a href="#" style="text-shadow: 2px 2px 0px rgba(150, 150, 150, 0.10);" class="text-bold"><?php if (!empty($site_name)) {
-						echo $site_name;
-					} ?> </a>
-	</div>
 	<!-- /.login-logo -->
 	<div class="card shadow-box">
 		<div class="card-body login-card-body">
+			<div class="login-logo">
+				<a href="#" style="text-shadow: 2px 2px 0px rgba(150, 150, 150, 0.10);" class="text-bold"><?php if (!empty($site_name)) {
+																												echo $site_name;
+																											} ?> </a>
+			</div>
 			<p class="login-box-msg">Silahkan masuk untuk melanjutkan</p>
 
 			<form method="post" id="form-login">
@@ -50,7 +50,7 @@
 				<?php if ($pengumuman->isPublic  == 1) : ?>
 					|
 					<a href="pengumuman" class="" target="_blank">Lihat Pengumuman</a>
-					<?php endif?>
+				<?php endif ?>
 			</div>
 			<!-- /.social-auth-links -->
 		</div>
