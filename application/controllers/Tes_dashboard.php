@@ -133,6 +133,17 @@ class Tes_dashboard extends Tes_Controller
 		}
 
 		// dd($userPay);
+		if ((int) $currentUser->kelas == 1 || (int) $currentUser->kelas == 2) {
+			$data['level'] = 1;
+		} else if ((int) $currentUser->kelas == 3 || (int) $currentUser->kelas == 4) {
+			$data['level'] = 2;
+		}else if ((int) $currentUser->kelas == 5 || (int) $currentUser->kelas == 6) {
+			$data['level'] = 3;
+		}else if ((int) $currentUser->kelas >= 7 && (int) $currentUser->kelas <= 9) {
+			$data['level'] = 4;
+		}else{
+			$data['level'] = '';
+		}
 
 		$this->template->display_tes($this->kelompok . '/tes_dashboard_view', 'Dashboard', $data);
 	}

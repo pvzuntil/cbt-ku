@@ -8,6 +8,7 @@
         </h1>
         <div class="badge badge-primary badge-lg">Kelas <?= $currentUser->kelas ?></div>
         <div class="badge badge-primary badge-lg">Lomba : <?= $daftarLomba ?></div>
+        <div class="badge badge-primary badge-lg">Level : <?= $level ?></div>
     </div>
 </section>
 
