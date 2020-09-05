@@ -1,5 +1,5 @@
 <!-- Content Header (Page header) -->
-<section class="content-header pt-5 pt-md-0">
+<section class="content-header pt-4 pt-md-0">
     <div class="container-fluid">
         <h1>
             <?php if (!empty($nama)) {
