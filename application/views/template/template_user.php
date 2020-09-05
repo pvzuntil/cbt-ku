@@ -23,7 +23,14 @@
       }
 
       .shadow-box {
-        box-shadow: 6px 6px 10px 0px #00000070;
+        /* box-shadow: 6px 6px 10px 0px #00000070; */
+        box-shadow:
+          0 2.3px 16.1px rgba(0, 0, 0, 0.06),
+          0 5.1px 24.7px rgba(0, 0, 0, 0.051),
+          0 9.7px 31.5px rgba(0, 0, 0, 0.046),
+          0 19.3px 39px rgba(0, 0, 0, 0.043),
+          0 48px 50.5px rgba(0, 0, 0, 0.04),
+          0 128px 83px rgba(0, 0, 0, 0.033);
       }
 
       .counter {
@@ -53,7 +60,7 @@
 $classBody = '';
 
 if (@$url == 'welcome') {
-  $classBody = 'hold-transition login-page';
+  $classBody = 'hold-transition login-page back-body';
 } else {
   $classBody = 'hold-transition';
 }

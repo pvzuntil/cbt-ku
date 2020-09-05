@@ -1,11 +1,11 @@
 <div class="login-box" style="margin-top: 100px;">
 	<div class="login-logo">
-		<a href="#"><?php if (!empty($site_name)) {
+		<a href="#" style="text-shadow: 2px 2px 0px rgba(150, 150, 150, 0.10);" class="text-bold"><?php if (!empty($site_name)) {
 						echo $site_name;
 					} ?> </a>
 	</div>
 	<!-- /.login-logo -->
-	<div class="card">
+	<div class="card shadow-box">
 		<div class="card-body login-card-body">
 			<p class="login-box-msg">Silahkan masuk untuk melanjutkan</p>
 
