@@ -145,61 +145,32 @@
                             </div><!-- /.card-header -->
 
                             <div class="card-body">
-                                <div class="form-group">
-                                    <label for="">Pilih kelas</label>
-                                    <select name="keals" id="form-kelas" class="form-control">
-                                        <?php
-                                        for ($i = 1; $i < 10; $i++) :
-                                        ?>
-                                            <option value="<?= $i ?>">Kelas <?= $i ?></option>
-                                        <?php
-                                        endfor ?>
-                                    </select>
-                                </div>
-                                <div class="card card-success">
-                                    <div class="card-header with-border">
-                                        <div class="card-title"><b>Matematika</b></div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Pilih lomba</label>
+                                            <select name="lomba" id="form-lomba" class="form-control">
+                                                <?= $select_modul ?>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="card-body">
-                                        <table id="table-juara-mtk" class="table table-bordered table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>Nama Peserta</th>
-                                                    <th>Asal Sekolah</th>
-                                                    <th>Score</th>
-                                                    <th>Waktu mengerjakan</th>
-                                                    <th>Juara</th>
-                                                    <th>Aksi</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td> </td>
-                                                    <td> </td>
-                                                    <td> </td>
-                                                    <td> </td>
-                                                    <td> </td>
-                                                    <td> </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="card-footer">
-                                        <div class="pull-right">
-                                            <button type="button" class="btn btn-sm btn-default" id="btn-cert-mtk">Cetak
-                                                semua sertifikat</button>
-                                            <button type="button" class="btn btn-sm btn-primary" id="btn-salin-mtk">Salin
-                                                Data</button>
+                                    <div class="col-xs-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Pilih kelas</label>
+                                            <select name="keals" id="form-kelas" class="form-control">
+                                                <?php foreach ($select_kelas as $kelas) : ?>
+                                                    <option value="<?= $kelas ?>">Kelas <?= $kelas ?></option>
+                                                <?php endforeach ?>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                                <!--  -->
                                 <div class="card card-success">
                                     <div class="card-header with-border">
-                                        <div class="card-title"><b>Sains</b></div>
+                                        <div class="card-title"><b id="label-lomba">Matematika</b></div>
                                     </div>
                                     <div class="card-body">
-                                        <table id="table-juara-sains" class="table table-bordered table-hover">
+                                        <table id="table-juara" class="table table-bordered table-hover">
                                             <thead>
                                                 <tr>
                                                     <th>Nama Peserta</th>
@@ -224,9 +195,9 @@
                                     </div>
                                     <div class="card-footer">
                                         <div class="pull-right">
-                                            <button type="button" class="btn btn-sm btn-default" id="btn-cert-sains">Cetak
+                                            <button type="button" class="btn btn-sm btn-default" id="btn-cert">Cetak
                                                 semua sertifikat</button>
-                                            <button type="button" class="btn btn-sm btn-primary" id="btn-salin-sains">Salin
+                                            <button type="button" class="btn btn-sm btn-primary" id="btn-salin">Salin
                                                 Data</button>
                                         </div>
                                     </div>
@@ -241,11 +212,11 @@
 </section>
 
 <div class="modal" id="modal-image" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-    <div class="modal-dialog" style="width: 950px">
+    <div class="modal-dialog modal-lg" style="width: 950px">
         <div class="modal-content">
             <div class="modal-header">
-                <button class="close" type="button" data-dismiss="modal">&times;</button>
                 <div id="trx-judul">Insert Image</div>
+                <button class="close" type="button" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="row-fluid">
@@ -261,14 +232,11 @@
                                     <div class="card-body">
                                         <div class="row-fluid">
                                             <div class="card-body">
-                                                <div id="form-pesan-upload-image"></div>
                                                 <div class="form-group">
-                                                    <label class="col-sm-2 control-label">File</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="file" id="image-file" name="image-file">
-                                                        <p class="help-block">File yang didukung adalah jpg, jpeg,
-                                                            png</p>
-                                                    </div>
+                                                    <label class="control-label">File</label>
+                                                    <input type="file" id="image-file" name="image-file">
+                                                    <small class="help-block text-muted">File yang didukung adalah jpg, jpeg,
+                                                        png</small>
                                                 </div>
                                             </div>
                                         </div>
@@ -341,8 +309,7 @@
 
 <script lang="javascript">
     function refresh_table() {
-        $('#table-juara-mtk').dataTable().fnReloadAjax();
-        $('#table-juara-sains').dataTable().fnReloadAjax();
+        $('#table-juara').dataTable().fnReloadAjax();
     }
 
     const toTitleCase = (phrase) => {
@@ -361,8 +328,18 @@
         $('#form-kelas').on('change', function() {
             $('#kelas').html($(this).val())
             refresh_table()
-
         })
+
+        $('#form-lomba').on('change', function() {
+            $('#label-lomba').html(
+                $('#form-lomba option:selected').data('label')
+            )
+            refresh_table()
+        })
+
+        $('#label-lomba').html(
+            $('#form-lomba option:selected').data('label')
+        )
 
         CKEDITOR.replace('tulis_laporan');
 
@@ -373,7 +350,7 @@
         });
 
         $('#form-upload-image').submit(function() {
-            $("#modal-proses").modal('show');
+            SW.loading()
             $.ajax({
                 url: "<?php echo site_url() . '/' . $url; ?>/upload_file",
                 type: "POST",
@@ -388,14 +365,18 @@
                         $('#image-preview').html(obj.image);
                         $('#image-isi').val(obj.image_isi);
                         $('#card-preview').removeClass('hide');
-                        $("#modal-proses").modal('hide');
                         $("#form-pesan-upload-image").html('');
                         $('#image-file').val('');
                         refresh_table_image();
-                        notify_success(obj.pesan);
+                        SW.toast({
+                            title: obj.pesan,
+                            icon: 'success'
+                        })
                     } else {
-                        $("#modal-proses").modal('hide');
-                        $('#form-pesan-upload-image').html(pesan_err(obj.pesan));
+                        SW.toast({
+                            title: obj.pesan,
+                            icon: 'error'
+                        })
                     }
                 }
             });
@@ -435,9 +416,16 @@
             ],
             "sAjaxSource": "<?php echo site_url() . '/' . $url; ?>/get_datatable_image/",
             "autoWidth": false,
+            'fnDrawCallback': function(oSettings) {
+                NP.d()
+                callBackDatatable(oSettings)
+            },
+            fnPreDrawCallback: function() {
+                NP.s()
+            }
         });
 
-        $('#table-juara-mtk').DataTable({
+        $('#table-juara').DataTable({
             "bPaginate": false,
             "bProcessing": false,
             "bServerSide": true,
@@ -481,76 +469,20 @@
                 });
                 aoData.push({
                     "name": "lomba",
-                    "value": 'matematika'
+                    "value": $('#form-lomba').val()
                 });
+            },'fnDrawCallback': function(oSettings) {
+                NP.d()
+                callBackDatatable(oSettings)
+            },
+            fnPreDrawCallback: function() {
+                NP.s()
             }
         });
 
-        $('#table-juara-sains').DataTable({
-            "bPaginate": false,
-            "bProcessing": false,
-            "bServerSide": true,
-            "searching": false,
-            "aoColumns": [{
-                    "bSearchable": false,
-                    "bSortable": false,
-                    // "sWidth": "20px"
-                },
-                {
-                    "bSearchable": false,
-                    "bSortable": false
-                },
-                {
-                    "bSearchable": false,
-                    "bSortable": false
-                },
-                {
-                    "bSearchable": false,
-                    "bSortable": false,
-                    "sWidth": "100px"
-                },
-                {
-                    "bSearchable": false,
-                    "bSortable": false,
-                    "sWidth": "90px"
-                }, {
-                    "bSearchable": false,
-                    "bSortable": false
-                },
-
-            ],
-            "sAjaxSource": "<?php echo site_url() . '/' . $url; ?>/get_datatable_juara/",
-            "autoWidth": false,
-            "responsive": true,
-            "fnServerParams": function(aoData) {
-                aoData.push({
-                    "name": "kelas",
-                    "value": $('#form-kelas').val()
-                });
-                aoData.push({
-                    "name": "lomba",
-                    "value": 'sains'
-                });
-            }
-        });
-
-        $('#btn-salin-mtk').on('click', function() {
+        $('#btn-salin').on('click', function() {
             salinData('matematika').then((data) => {
                 insertData(data, 'matematika')
-                Swal.fire({
-                    toast: true,
-                    timer: 2000,
-                    title: 'Berhasil menyalin data',
-                    icon: 'success',
-                    showConfirmButton: false,
-                    position: 'top-right'
-                })
-            })
-        })
-
-        $('#btn-salin-sains').on('click', function() {
-            salinData('sains').then((data) => {
-                insertData(data, 'sains')
                 Swal.fire({
                     toast: true,
                     timer: 2000,
@@ -609,15 +541,9 @@
             })
         })
 
-        $('#btn-cert-mtk').on('click', function() {
+        $('#btn-cert').on('click', function() {
             salinData('matematika').then(data => {
                 generate_cert(JSON.parse(data), 'juara', 'Matematika')
-            })
-        })
-
-        $('#btn-cert-sains').on('click', function() {
-            salinData('sains').then(data => {
-                generate_cert(JSON.parse(data), 'juara', 'Sains')
             })
         })
 
@@ -672,7 +598,7 @@
                 url: "<?php echo site_url() . '/' . $url; ?>/salin_data/",
                 data: {
                     kelas: $('#form-kelas').val(),
-                    lomba: lomba
+                    lomba: $('#form-lomba').val()
                 },
                 method: 'POST',
                 success: function(data) {

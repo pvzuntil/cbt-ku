@@ -35,16 +35,22 @@ class Cbt_juara_model extends CI_Model
 
     function get_datatable($start, $rows, $search, $lomba, $kelas, $salin = '')
     {
+        // ->limit($rows, $start);
+
+        $getTes = $this->db->select('*')
+            ->from('cbt_tesgrup')
+            ->where('cbt_tesgrup.modul_id = "' . $lomba . '" AND cbt_tesgrup.kelas = "' . $kelas . '"');
+        $idTes = $getTes->get()->row()->tstgrp_tes_id ?? 00;
 
         $this->db->select('user_firstname, user_detail, time_span, tes_duration_time, SUM(`cbt_tes_soal`.`tessoal_nilai`) AS nilai, TIMESTAMPDIFF(SECOND, `tesuser_creation_time`, `end_time`) as detik, user_id')
-            ->where('cbt_tes.lomba = "' . $lomba . '" AND cbt_user.kelas = "' . $kelas . '"')
+            ->where('cbt_tes.tes_id = "' . $idTes . '"')
             ->from('cbt_tes_user')
             ->join('cbt_user', 'cbt_tes_user.tesuser_user_id = cbt_user.user_id')
             ->join('cbt_tes', 'cbt_tes_user.tesuser_tes_id = cbt_tes.tes_id')
             ->join('cbt_tes_soal', 'cbt_tes_soal.tessoal_tesuser_id = cbt_tes_user.tesuser_id')
             ->group_by('cbt_tes_user.tesuser_id')
             ->order_by('nilai DESC, detik ASC');
-        // ->limit($rows, $start);
+
         if ($salin == 'salin') {
             $this->db->limit(6);
         }
