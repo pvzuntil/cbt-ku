@@ -64,9 +64,9 @@ class Peserta_kartu extends Member_Controller
 									<td width="210px">' . $temp->user_firstname . '</td>
 								</tr>
 								<tr>
-									<td>Username</td>
+									<td>Email</td>
 									<td>:</td>
-									<td>' . $temp->user_name . '</td>
+									<td>' . $temp->user_email . '</td>
 								</tr>
 								<tr>
 									<td>Password</td>
