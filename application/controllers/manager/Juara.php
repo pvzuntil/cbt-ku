@@ -12,6 +12,7 @@ class Juara extends Member_Controller
         $this->load->helper('file');
         $this->load->model('cbt_juara_model');
         $this->load->model('cbt_user_model');
+        $this->load->model('cbt_modul_model');
     }
 
     public function index()
@@ -19,14 +20,29 @@ class Juara extends Member_Controller
         $data['url'] = $this->url;
         $this->load->helper('form');
 
+
+		$query_modul = $this->cbt_modul_model->get_modul();
+		if ($query_modul->num_rows() > 0) {
+			$select = '';
+			$query_modul = $query_modul->result();
+			foreach ($query_modul as $temp) {
+				$select = $select . '<option value="' . $temp->modul_id . '" data-label="'.$temp->modul_nama.'">' . $temp->modul_nama . '</option>';
+			}
+		} else {
+			$select = '<option value="kosong" selected>-- Tidak ada data lomba --</option>';
+		}
+		$data['select_modul'] = $select;
+
+
         $query_cbt_user = $this->cbt_user_model->get_all_user();
+		$data['select_kelas'] = $this->getkelas->result();
 
         if ($query_cbt_user->num_rows() > 0) {
             $select = '';
             $query_cbt_user = $query_cbt_user->result();
             foreach ($query_cbt_user as $temp) {
                 $lomba = $temp->lomba == 'all' ? 'Matematika & Sains' : ucfirst($temp->lomba);
-                $select = $select . '<option value="' . $temp->user_id . '">' . $temp->user_firstname . ' - ' . $temp->user_email . ' - ' . $lomba . '</option>';
+                $select = $select . '<option value="' . $temp->user_id . '">' . $temp->user_firstname . ' - ' . $temp->user_email . ' - ' . $this->mlib->getLomba($lomba) . '</option>';
             }
         } else {
             $select = '<option value="100000">KOSONG</option>';
