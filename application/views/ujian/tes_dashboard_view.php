@@ -220,18 +220,19 @@
 <?php endif ?>
 
 <?php if ($currentUser->downloadCert == 0) : ?>
-    <div style="max-height: 100%;overflow-y:auto;" class="modal" id="modal-finalisasi" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div style="max-height: 100%;overflow-y:auto;" class="modal fade" id="modal-finalisasi" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
         <?php echo form_open($url . '/', 'id="form-cert"'); ?>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
+                    <h3 id="trx-judul text-center text-bold" style="font-weight: bold; text-align: center; margin: 0px">Finalisasi Data</h3>
                     <button class="close" type="button" data-dismiss="modal">&times;</button>
-                    <h3 id="trx-judul text-center text-bold" style="font-weight: bold; text-align: center">Finalisasi Data</h3>
-                    <p class="text-center">Periksa data dibawah ini, apakah penulisannya sudah benar atau tidak. Jika belum, silahkan koreksi kembali dan jika dikira sudah benar, langsung klik <b>Download</b></p>
-                    <p class="text-center">Data dibawah akan mempengaruhi sertifikat nanti.</p>
                 </div>
                 <div class="modal-body">
                     <div class="row-fluid">
+                        <p class="text-center">Periksa data dibawah ini, apakah penulisannya sudah benar atau tidak. Jika belum, silahkan koreksi kembali dan jika dikira sudah benar, langsung klik <b>Download</b></p>
+                        <hr>
+                        <p class="text-center">Data dibawah akan mempengaruhi sertifikat nanti.</p>
                         <div class="card-body">
                             <div id="form-pesan-cert"></div>
                             <div class="row">
@@ -261,8 +262,8 @@
 <?php endif ?>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
-<script src="<?php echo site_url() . '/'; ?>/public/images/cert/Nickainley-Normal-normal.js"></script>
-<script src="<?php echo site_url() . '/'; ?>/public/images/cert/OpenSans-Regular-normal.js"></script>
+<script src="<?php echo site_url() . '/'; ?>/public/images/cert/font.js"></script>
+
 
 <script type="text/javascript">
     $(function() {
@@ -519,6 +520,8 @@
                 floatPrecision: 16, // or "smart", default is 16
             });
 
+            doc = initFont(doc)
+
             function loadImage(url) {
                 return new Promise((resolve) => {
                     let img = new Image();
@@ -535,7 +538,7 @@
                     .join(' ');
             };
 
-            loadImage("<?php echo site_url() . '/'; ?>/public/images/cert/EDIT-CERT-TEMPLATE.png").then((logo) => {
+            loadImage("<?php echo site_url() . '/'; ?>/public/images/cert/main.png").then((logo) => {
                 // const doc = new jsPDF("p", "mm", "a4");
                 let width = doc.internal.pageSize.getWidth();
                 let height = doc.internal.pageSize.getHeight();
@@ -545,8 +548,6 @@
 
                 doc.addImage(logo, "PNG", 0, 0, width, height);
 
-                doc.setFont('Nickainley-Normal');
-                doc.setFontSize(55)
                 let textNama = data.nama;
                 splitedNama = textNama.split(' ')
 
@@ -563,14 +564,26 @@
                 }
 
                 textNama = toTitleCase(textNama)
-
                 let textSekolah = data.sekolah;
+                
+                doc.setFontStyle('normal');
+                doc.setFont('vibes');
+                doc.setFontSize(55)
+                doc.setTextColor(25, 33, 40);
+                doc.text(textNama, halfWidth, halfHeight - 7, 'center')
 
-                doc.text(textNama, halfWidth, halfHeight + 5, 'center')
+                doc.setFont('pop-normal');
+                doc.setFontSize(20)
+                doc.text(textSekolah, halfWidth, halfHeight + 5, 'center')
 
-                doc.setFont('OpenSans-Regular');
-                doc.setFontSize(19)
-                doc.text(textSekolah, halfWidth, halfHeight + 20, 'center')
+                doc.setFontSize(14)
+                doc.setFont('pop-normal');
+                doc.text('Atas partisipasinya sebagai', halfWidth, halfHeight + 19, 'center')
+
+                doc.setFont('pop-semibold');
+                doc.setFontSize(30)
+                doc.setTextColor(0, 149, 172);
+                doc.text('PESERTA', halfWidth, halfHeight + 32, 'center')
 
                 doc.save('QEC Certificate', {
                     returnPromise: true
