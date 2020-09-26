@@ -3,7 +3,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header text-center">
             <h1>
-                PENGUMUMAN JUARA KOMPETISI MATEMATIKA & SAINS ONLINE 2020
+                PENGUMUMAN JUARA KOMPETISI SAINS QUANTUM ONLINE - KSQO 2020
             </h1>
         </section>
     <?php endif ?>
