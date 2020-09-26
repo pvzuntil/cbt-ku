@@ -615,7 +615,8 @@
                 url: "<?php echo site_url() . '/' . $url; ?>/salin_data/",
                 data: {
                     kelas: $('#form-kelas').val(),
-                    lomba: $('#form-lomba').val()
+                    lomba: $('#form-lomba').val(),
+                    jenis: $('#form-jenis').val(),
                 },
                 method: 'POST',
                 success: function(data) {
@@ -627,7 +628,7 @@
     }
 
     function cert(id, lomba, medali) {
-        $('#pills-profile-tab').click()
+        $('#custom-tabs-three-profile-tab').click()
         $('#generate-cert-peserta').val(id)
         $('#generate-cert-peserta').trigger('change');
         $('#tambah-lomba').val(lomba)
