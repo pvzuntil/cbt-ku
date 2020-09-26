@@ -208,6 +208,7 @@ class Juara extends Member_Controller
     {
         $kelas = $this->input->get('kelas', true);
         $lomba = $this->input->get('lomba', true);
+        $jenis = $this->input->get('jenis', true);
         $search = "";
         $start = 0;
         $rows = 10;
@@ -222,7 +223,9 @@ class Juara extends Member_Controller
         $rows = $this->get_rows();
 
         // run query to get user listing
-        $query = $this->cbt_juara_model->get_datatable($start, $rows, $search, $lomba, $kelas);
+        $query = $this->cbt_juara_model->get_datatable($start, $rows, $search, $lomba, $kelas, '', $jenis);
+        // dd($query);
+        // dd($query->result());
 
         $iFilteredTotal = $query->num_rows();
 

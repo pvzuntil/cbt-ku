@@ -145,6 +145,15 @@
 
                             <div class="card-body">
                                 <div class="row">
+                                    <div class="col-xs-12 col-md-12">
+                                        <div class="form-group">
+                                            <label for="">Pilih jenis tes</label>
+                                            <select name="jenis" id="form-jenis" class="form-control">
+                                                <option value="DESC">TryOut</option>
+                                                <option value="ASC">Kompetisi</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="col-xs-12 col-md-6">
                                         <div class="form-group">
                                             <label for="">Pilih lomba</label>
@@ -307,7 +316,6 @@
 <script src="<?php echo site_url() . '/'; ?>/public/images/cert/OpenSans-Bold-bold.js"></script> -->
 
 <script lang="javascript">
-
     function refresh_table() {
         $('#table-juara').dataTable().fnReloadAjax();
     }
@@ -327,6 +335,10 @@
 
         $('#form-kelas').on('change', function() {
             $('#kelas').html($(this).val())
+            refresh_table()
+        })
+
+        $('#form-jenis').on('change', function() {
             refresh_table()
         })
 
@@ -471,7 +483,12 @@
                     "name": "lomba",
                     "value": $('#form-lomba').val()
                 });
-            },'fnDrawCallback': function(oSettings) {
+                aoData.push({
+                    "name": "jenis",
+                    "value": $('#form-jenis').val()
+                });
+            },
+            'fnDrawCallback': function(oSettings) {
                 NP.d()
                 callBackDatatable(oSettings)
             },

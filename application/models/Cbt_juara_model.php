@@ -33,13 +33,14 @@ class Cbt_juara_model extends CI_Model
         return $this->db->select('*')->from('cbt_juara')->get();
     }
 
-    function get_datatable($start, $rows, $search, $lomba, $kelas, $salin = '')
+    function get_datatable($start, $rows, $search, $lomba, $kelas, $salin = '', $jenis = '')
     {
         // ->limit($rows, $start);
 
         $getTes = $this->db->select('*')
             ->from('cbt_tesgrup')
-            ->where('cbt_tesgrup.modul_id = "' . $lomba . '" AND cbt_tesgrup.kelas = "' . $kelas . '"');
+            ->where('cbt_tesgrup.modul_id = "' . $lomba . '" AND cbt_tesgrup.kelas = "' . $kelas . '"')
+            ->order_by('id '. $jenis);
         $idTes = $getTes->get()->row()->tstgrp_tes_id ?? 00;
 
         $this->db->select('user_firstname, user_detail, time_span, tes_duration_time, SUM(`cbt_tes_soal`.`tessoal_nilai`) AS nilai, TIMESTAMPDIFF(SECOND, `tesuser_creation_time`, `end_time`) as detik, user_id')
