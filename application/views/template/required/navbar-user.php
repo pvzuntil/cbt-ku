@@ -27,7 +27,8 @@
                     </li>
                     <li class="nav-item ml-2">
                         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" id="btn-logout-user">
-                            <i class="fas fa-power-off"></i>
+                            <!-- <i class="fas fa-power-off"></i> -->
+                            Keluar
                         </a>
                     </li>
                 </ul>
