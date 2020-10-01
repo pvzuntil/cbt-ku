@@ -44,7 +44,7 @@ class Cbt_juara_model extends CI_Model
         $idTes = $getTes->get()->row()->tstgrp_tes_id ?? 00;
 
         $this->db->select('user_firstname, user_detail, time_span, tes_duration_time, SUM(`cbt_tes_soal`.`tessoal_nilai`) AS nilai, TIMESTAMPDIFF(SECOND, `tesuser_creation_time`, `end_time`) as detik, user_id')
-            ->where('cbt_tes.tes_id = "' . $idTes . '"')
+            ->where('cbt_tes.tes_id = "' . $idTes . '" AND cbt_user.kelas = "'.$kelas.'"')
             ->from('cbt_tes_user')
             ->join('cbt_user', 'cbt_tes_user.tesuser_user_id = cbt_user.user_id')
             ->join('cbt_tes', 'cbt_tes_user.tesuser_tes_id = cbt_tes.tes_id')
