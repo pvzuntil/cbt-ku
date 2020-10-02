@@ -535,11 +535,11 @@ class Tes_dashboard extends Tes_Controller
 						if ($waktuNow >= $waktuSelesaiTes) {
 							$record[] = '';
 							$record[] = '';
-							$record[] = '<a href="#" style="cursor: pointer;" class="btn btn-warning btn-xs btn-disabled" disabled>Expired</a>';
+							$record[] = '<button href="#" style="cursor: pointer;" class="btn btn-warning btn-xs btn-disabled" disable>Expired</button>';
 						} else {
 							$record[] = '';
 							$record[] = '';
-							$record[] = '<a href="#" style="cursor: pointer;" class="btn btn-default btn-xs btn-disabled" disabled>Belum dimulai</a>';
+							$record[] = '<button href="#" style="cursor: pointer;" class="btn btn-default btn-xs btn-disabled" disable>Belum dimulai</button>';
 						}
 					}
 				} else {
