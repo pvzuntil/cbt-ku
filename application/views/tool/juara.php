@@ -499,7 +499,7 @@
 
         $('#btn-salin').on('click', function() {
             salinData('matematika').then((data) => {
-                insertData(data, 'matematika')
+                insertData(data, $('#form-lomba option:selected').data('label'))
                 Swal.fire({
                     toast: true,
                     timer: 2000,
