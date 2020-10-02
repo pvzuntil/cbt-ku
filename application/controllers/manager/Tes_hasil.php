@@ -199,10 +199,7 @@ class Tes_hasil extends Member_Controller
 		// variable initialization
 		$tes_id = $this->input->get('tes');
 		$urutkan = $this->input->get('urutkan');
-		$waktu = $this->input->get('waktu');
-		$keterangan = $this->input->get('keterangan');
 		$status = $this->input->get('status');
-		$tanggal = explode(" - ", $waktu);
 
 		$search = "";
 		$start = 0;
@@ -219,14 +216,19 @@ class Tes_hasil extends Member_Controller
 
 		// run query to get user listing
 		if ($status == 'mengerjakan') {
-			$query = $this->cbt_tes_user_model->get_datatable($start, $rows, $tes_id, $urutkan, $tanggal, $keterangan);
-			$iTotal = $this->cbt_tes_user_model->get_datatable_count($tes_id, $urutkan, $tanggal, $keterangan)->row()->hasil;
+			$query = $this->cbt_tes_user_model->get_datatable($start, $rows, $tes_id, $urutkan);
+			$iTotal = $this->cbt_tes_user_model->get_datatable_count($tes_id, $urutkan);
 		} else {
-			$query = $this->cbt_user_model->get_datatable_hasiltes($start, $rows, $tes_id, $urutkan, $tanggal, $keterangan);
-			$iTotal = $this->cbt_user_model->get_datatable_hasiltes_count($tes_id, $urutkan, $tanggal, $keterangan)->row()->hasil;
+			$query = $this->cbt_tes_user_model->get_datatable_hasiltes($start, $rows, $tes_id, $urutkan);
+			$iTotal = $this->cbt_tes_user_model->get_datatable_hasiltes_count($tes_id, $urutkan);
 		}
-
+		
 		$iFilteredTotal = $query->num_rows();
+		
+		// get result after running query and put it in array
+		$i = $start;
+		$query = $query->result();
+		// $iTotal = count($query);
 
 		$output = array(
 			"sEcho" => intval($_GET['sEcho']),
@@ -234,10 +236,7 @@ class Tes_hasil extends Member_Controller
 			"iTotalDisplayRecords" => $iTotal,
 			"aaData" => array()
 		);
-
-		// get result after running query and put it in array
-		$i = $start;
-		$query = $query->result();
+		
 		foreach ($query as $temp) {
 			$record = array();
 
@@ -270,7 +269,7 @@ class Tes_hasil extends Member_Controller
 				$record[] = $temp->tes_duration_time . ' menit';
 			}
 
-			$record[] = $temp->tes_nama;
+			$record[] = $temp->tes_nama ?? '';
 			$record[] = '<span class="badge badge-lg badge-primary">Kelas ' . $temp->kelas . '</span>';
 			// $record[] = $temp->grup_nama;
 			if (empty($temp->tesuser_id)) {

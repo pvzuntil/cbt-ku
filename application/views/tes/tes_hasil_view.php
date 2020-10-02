@@ -28,21 +28,6 @@
                                         } ?>
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label">Waktu Tes</label>
-
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="inputGroup-sizing-default">
-                                                <i class="fas fa-clock"></i>
-                                            </span>
-                                        </div>
-                                        <input type="text" name="pilih-rentang-waktu" id="pilih-rentang-waktu" class="form-control input-sm" value="<?php if (!empty($rentang_waktu)) {
-                                                                                                                                                        echo $rentang_waktu;
-                                                                                                                                                    } ?>" readonly />
-                                    </div>
-                                    <small class="text-muted" id="info-waktu">Rentang waktu peserta saat memulai Tes</small>
-                                </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -52,10 +37,6 @@
                                         <option value="tidak">Peserta Belum Mengerjakan Tes</option>
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label">Keterangan Peserta</label>
-                                    <input type="text" name="pilih-keterangan" id="pilih-keterangan" placeholder="Keterangan Peserta Tes" class="form-control input-sm" />
-                                </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
@@ -63,9 +44,6 @@
                                     <select name="pilih-urutkan" id="pilih-urutkan" class="form-control input-sm">
                                         <option value="tertinggi">Nilai Tertinggi</option>
                                         <option value="terendah">Nilai Terendah</option>
-                                        <option value="waktu">Waktu Tes</option>
-                                        <option value="nama">Nama User</option>
-                                        <option value="tes">Tes</option>
                                     </select>
                                 </div>
                             </div>
@@ -344,20 +322,12 @@
                     "value": $('#pilih-tes').val()
                 });
                 aoData.push({
-                    "name": "waktu",
-                    "value": $('#pilih-rentang-waktu').val()
-                });
-                aoData.push({
                     "name": "urutkan",
                     "value": $('#pilih-urutkan').val()
                 });
                 aoData.push({
                     "name": "status",
                     "value": $('#pilih-status').val()
-                });
-                aoData.push({
-                    "name": "keterangan",
-                    "value": $('#pilih-keterangan').val()
                 });
             },
             'fnDrawCallback': function(oSettings) {

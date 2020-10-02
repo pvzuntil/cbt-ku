@@ -191,34 +191,26 @@ class Cbt_tes_user_model extends CI_Model
      * datatable untuk hasil tes yang sudah mengerjakan
      *
      */
-    function get_datatable($start, $rows, $tes_id, $urutkan, $tanggal, $keterangan)
+    function get_datatable($start, $rows, $tes_id, $urutkan)
     {
-        $sql = 'tesuser_creation_time>="' . $tanggal[0] . '" AND tesuser_creation_time<="' . $tanggal[1] . '"';
+        $sql = '';
 
         if ($tes_id != 'semua') {
-            $sql = $sql . ' AND tesuser_tes_id="' . $tes_id . '"';
+            $sql = $sql . 'tesuser_tes_id="' . $tes_id . '"';
         }
 
         $order = '';
         if ($urutkan == 'tertinggi') {
             $order = 'nilai DESC, detik ASC';
         } else if ($urutkan == 'terendah') {
-            $order = 'nilai ASC';
-        } else if ($urutkan == 'nama') {
-            $order = 'user_firstname ASC';
-        } else if ($urutkan == 'waktu') {
-            $order = 'tesuser_creation_time DESC';
-        } else {
-            $order = 'tesuser_tes_id ASC';
+            $order = 'nilai ASC, detik DESC';
         }
 
-        if (!empty($keterangan)) {
-            $sql = $sql . ' AND user_detail LIKE "%' . $keterangan . '%"';
-        }
-
-        $this->db->select('cbt_tes_user.*, cbt_tes.*, cbt_user.*, SUM(`cbt_tes_soal`.`tessoal_nilai`) AS nilai, TIMESTAMPDIFF(SECOND, `tesuser_creation_time`, `end_time`) as detik ')
-            ->where('( ' . $sql . ' )')
-            ->from($this->table)
+        $getData = $this->db->select('cbt_tes_user.*, cbt_tes.*, cbt_user.*, SUM(`cbt_tes_soal`.`tessoal_nilai`) AS nilai, TIMESTAMPDIFF(SECOND, `tesuser_creation_time`, `end_time`) as detik ');
+            if(!empty($sql)){
+                $getData->where($sql);
+            }
+            $getData->from($this->table)
             ->join('cbt_user', 'cbt_tes_user.tesuser_user_id = cbt_user.user_id')
             ->join('cbt_tes', 'cbt_tes_user.tesuser_tes_id = cbt_tes.tes_id')
             ->join('cbt_tes_soal', 'cbt_tes_soal.tessoal_tesuser_id = cbt_tes_user.tesuser_id')
@@ -228,23 +220,91 @@ class Cbt_tes_user_model extends CI_Model
         return $this->db->get();
     }
 
-    function get_datatable_count($tes_id, $urutkan, $tanggal, $keterangan)
+    function get_datatable_count($tes_id, $urutkan)
     {
-        $sql = 'tesuser_creation_time>="' . $tanggal[0] . '" AND tesuser_creation_time<="' . $tanggal[1] . '"';
+        $sql = '';
+
+        if ($tes_id != 'semua') {
+            $sql = $sql . 'tesuser_tes_id="' . $tes_id . '"';
+        }
+
+        $order = '';
+        if ($urutkan == 'tertinggi') {
+            $order = 'nilai DESC, detik ASC';
+        } else if ($urutkan == 'terendah') {
+            $order = 'nilai ASC, detik DESC';
+        }
+
+        $getData = $this->db->select('cbt_tes_user.*, cbt_tes.*, cbt_user.*, SUM(`cbt_tes_soal`.`tessoal_nilai`) AS nilai, TIMESTAMPDIFF(SECOND, `tesuser_creation_time`, `end_time`) as detik ');
+            if(!empty($sql)){
+                $getData->where($sql);
+            }
+            $getData->from($this->table)
+            ->join('cbt_user', 'cbt_tes_user.tesuser_user_id = cbt_user.user_id')
+            ->join('cbt_tes', 'cbt_tes_user.tesuser_tes_id = cbt_tes.tes_id')
+            ->join('cbt_tes_soal', 'cbt_tes_soal.tessoal_tesuser_id = cbt_tes_user.tesuser_id')
+            ->group_by('cbt_tes_user.tesuser_id')
+            ->order_by($order);
+        return count($this->db->get()->result());
+    }
+
+    function get_datatable_hasiltes($start, $rows, $tes_id, $urutkan)
+    {
+        $sql = 'cbt_tes_user.tesuser_id IS NULL AND cbt_user_pay.status = "allow"';
 
         if ($tes_id != 'semua') {
             $sql = $sql . ' AND tesuser_tes_id="' . $tes_id . '"';
         }
 
-        if (!empty($keterangan)) {
-            $sql = $sql . ' AND user_detail LIKE "%' . $keterangan . '%"';
+        $order = '';
+        if ($urutkan == 'tertinggi') {
+            $order = 'nilai DESC, detik ASC';
+        } else if ($urutkan == 'terendah') {
+            $order = 'nilai ASC, detik DESC';
         }
 
-        $this->db->select('COUNT(*) AS hasil')
-            ->where('( ' . $sql . ' )')
-            ->join('cbt_user', 'cbt_tes_user.tesuser_user_id = cbt_user.user_id', 'right')
-            ->from($this->table);
+        // $this->db->select('cbt_tes_user.*, cbt_tes.*, cbt_user.*')
+        $this->db->select('*')
+            ->where('cbt_tes_user.tesuser_id IS NULL')
+            ->from('cbt_user')
+            // ->from($this->table)
+            ->join('cbt_tes_user', 'cbt_user.user_id = cbt_tes_user.tesuser_user_id', 'left')
+            ->join('cbt_user_pay', 'cbt_user.user_id = cbt_user_pay.cbt_user_id')
+            // ->join('cbt_tes', 'cbt_tes_user.tesuser_tes_id = cbt_tes.tes_id')
+            // ->join('cbt_tes_soal', 'cbt_tes_soal.tessoal_tesuser_id = cbt_tes_user.tesuser_id')
+            // ->group_by('cbt_tes_user.tesuser_id')
+            // ->order_by($order)
+            ->limit($rows, $start);
         return $this->db->get();
+    }
+
+    function get_datatable_hasiltes_count($tes_id, $urutkan)
+    {
+        $sql = 'cbt_tes_user.tesuser_id IS NULL AND cbt_user_pay.status = "allow"';
+
+        if ($tes_id != 'semua') {
+            $sql = $sql . ' AND tesuser_tes_id="' . $tes_id . '"';
+        }
+
+        $order = '';
+        if ($urutkan == 'tertinggi') {
+            $order = 'nilai DESC, detik ASC';
+        } else if ($urutkan == 'terendah') {
+            $order = 'nilai ASC, detik DESC';
+        }
+
+        // $this->db->select('cbt_tes_user.*, cbt_tes.*, cbt_user.*')
+        $this->db->select('*')
+            ->where('cbt_tes_user.tesuser_id IS NULL')
+            ->from('cbt_user')
+            // ->from($this->table)
+            ->join('cbt_tes_user', 'cbt_user.user_id = cbt_tes_user.tesuser_user_id', 'left')
+            ->join('cbt_user_pay', 'cbt_user.user_id = cbt_user_pay.cbt_user_id');
+            // ->join('cbt_tes', 'cbt_tes_user.tesuser_tes_id = cbt_tes.tes_id')
+            // ->join('cbt_tes_soal', 'cbt_tes_soal.tessoal_tesuser_id = cbt_tes_user.tesuser_id')
+            // ->group_by('cbt_tes_user.tesuser_id');
+            // ->order_by($order)
+        return count($this->db->get()->result());
     }
 
     /**
