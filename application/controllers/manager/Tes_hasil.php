@@ -134,20 +134,15 @@ class Tes_hasil extends Member_Controller
 		echo json_encode($status);
 	}
 
-	function export($tes_id = null, $grup_id = null, $waktu = null, $urutkan = null, $status = null, $keterangan = null)
+	function export($tes_id = null, $status = null, $urutkan = null)
 	{
-		if (!empty($tes_id) and !empty($grup_id) and !empty($waktu) and !empty($urutkan) and !empty($status)) {
+		if (!empty($tes_id) and !empty($urutkan) and !empty($status)) {
 			$this->load->library('excel');
-			$waktu =  urldecode($waktu);
-			$tanggal = explode(" - ", $waktu);
-			if (!empty($keterangan)) {
-				$keterangan =  urldecode($keterangan);
-			}
 
 			if ($status == 'mengerjakan') {
-				$query = $this->cbt_tes_user_model->get_by_tes_group_urut_tanggal($tes_id, $grup_id, $urutkan, $tanggal, $keterangan);
+				$query = $this->cbt_tes_user_model->get_datatable(0, 0, $tes_id, $urutkan);
 			} else {
-				$query = $this->cbt_user_model->get_by_tes_group_urut_tanggal($tes_id, $grup_id, $urutkan, $tanggal, $keterangan);
+				$query = $this->cbt_tes_user_model->get_datatable_hasiltes(0, 0, $tes_id, $urutkan);
 			}
 
 			$inputFileName = './public/form/form-data-hasil-tes.xls';
@@ -160,11 +155,11 @@ class Tes_hasil extends Member_Controller
 				foreach ($query as $temp) {
 					$spreadsheet->setActiveSheetIndex(0)->setCellValue('A' . $row, ($row - 1));
 					$spreadsheet->setActiveSheetIndex(0)->setCellValue('B' . $row, $temp->tesuser_creation_time);
-					$spreadsheet->setActiveSheetIndex(0)->setCellValue('C' . $row, $temp->tes_nama);
-					$spreadsheet->setActiveSheetIndex(0)->setCellValue('D' . $row, $temp->user_name);
+					$spreadsheet->setActiveSheetIndex(0)->setCellValue('C' . $row, $temp->tes_nama ?? '');
+					$spreadsheet->setActiveSheetIndex(0)->setCellValue('D' . $row, $temp->user_email);
 					$spreadsheet->setActiveSheetIndex(0)->setCellValue('E' . $row, stripslashes($temp->user_firstname));
-					$spreadsheet->setActiveSheetIndex(0)->setCellValue('F' . $row, $temp->grup_nama);
-					$spreadsheet->setActiveSheetIndex(0)->setCellValue('G' . $row, $temp->nilai);
+					$spreadsheet->setActiveSheetIndex(0)->setCellValue('F' . $row, $temp->kelas);
+					$spreadsheet->setActiveSheetIndex(0)->setCellValue('G' . $row, $temp->nilai ?? 0);
 
 					$row++;
 				}

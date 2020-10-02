@@ -215,9 +215,11 @@ class Cbt_tes_user_model extends CI_Model
             ->join('cbt_tes', 'cbt_tes_user.tesuser_tes_id = cbt_tes.tes_id')
             ->join('cbt_tes_soal', 'cbt_tes_soal.tessoal_tesuser_id = cbt_tes_user.tesuser_id')
             ->group_by('cbt_tes_user.tesuser_id')
-            ->order_by($order)
-            ->limit($rows, $start);
-        return $this->db->get();
+            ->order_by($order);
+            if(!empty($rows)){
+                $getData->limit($rows, $start);
+            }
+        return $getData->get();
     }
 
     function get_datatable_count($tes_id, $urutkan)
@@ -256,26 +258,21 @@ class Cbt_tes_user_model extends CI_Model
             $sql = $sql . ' AND tesuser_tes_id="' . $tes_id . '"';
         }
 
-        $order = '';
-        if ($urutkan == 'tertinggi') {
-            $order = 'nilai DESC, detik ASC';
-        } else if ($urutkan == 'terendah') {
-            $order = 'nilai ASC, detik DESC';
-        }
-
         // $this->db->select('cbt_tes_user.*, cbt_tes.*, cbt_user.*')
-        $this->db->select('*')
+        $getData = $this->db->select('*')
             ->where('cbt_tes_user.tesuser_id IS NULL')
             ->from('cbt_user')
             // ->from($this->table)
             ->join('cbt_tes_user', 'cbt_user.user_id = cbt_tes_user.tesuser_user_id', 'left')
-            ->join('cbt_user_pay', 'cbt_user.user_id = cbt_user_pay.cbt_user_id')
+            ->join('cbt_user_pay', 'cbt_user.user_id = cbt_user_pay.cbt_user_id');
             // ->join('cbt_tes', 'cbt_tes_user.tesuser_tes_id = cbt_tes.tes_id')
             // ->join('cbt_tes_soal', 'cbt_tes_soal.tessoal_tesuser_id = cbt_tes_user.tesuser_id')
             // ->group_by('cbt_tes_user.tesuser_id')
             // ->order_by($order)
-            ->limit($rows, $start);
-        return $this->db->get();
+            if(!empty($rows)){
+                $getData->limit($rows, $start);
+            }
+        return $getData->get();
     }
 
     function get_datatable_hasiltes_count($tes_id, $urutkan)

@@ -163,13 +163,10 @@
 
     function export_excel() {
         var tes = $('#pilih-tes').val();
-        var group = $('#pilih-group').val();
-        var waktu = $('#pilih-rentang-waktu').val();
         var urutkan = $('#pilih-urutkan').val();
         var status = $('#pilih-status').val();
-        var keterangan = $('#pilih-keterangan').val();
 
-        window.open("<?php echo site_url() . '/' . $url; ?>/export/" + tes + "/" + group + "/" + waktu + "/" + urutkan + "/" + status + "/" + keterangan, "_self");
+        window.open("<?php echo site_url() . '/' . $url; ?>/export/" + tes + "/" + status + "/" + urutkan, "_self");
     }
 
     $(function() {
