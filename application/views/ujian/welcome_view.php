@@ -165,6 +165,16 @@
 				</div>
 
 				<?php echo form_close(); ?>
+			<?php else : ?>
+				<div class="modal-body">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12">
+							<div class="callout callout-danger">Mohon maaf, pendaftaran sudah di tutup. sampai jumpa di lain waktu :)</div>
+						</div>
+					</div>
+				</div>
+				</div>
 			<?php endif ?>
 		</div>
 	</div>
