@@ -40,6 +40,30 @@ class Dashboard extends Member_Controller
         $data['countPesertaPayIsWait'] = $this->cbt_user_pay_model->countDashboard('id', ['status', 'wait']);
         $data['countPesertaPayIsNope'] = $data['countPesertaAktif'] - $data['countPesertaPayIsPay'];
         $data['countTes'] = $this->cbt_tes_model->countDashboard('tes_id');
+
+        $getPesertaPay = $this->db->query('select * from cbt_user_pay inner join cbt_user on cbt_user.user_id = cbt_user_pay.cbt_user_id where status = "allow"')->result();
+        $getIdLomba = $this->db->query('select modul_id, modul_nama from cbt_modul')->result();
+        $lombaYangDiIkuti = [
+            'all' => 0,
+        ];
+
+        foreach ($getIdLomba as $idLomba) {
+            $lombaYangDiIkuti[$idLomba->modul_id] = 0;
+        }
+
+        foreach ($getPesertaPay as $pesertaPay) {
+            $ikutLomba = json_decode($pesertaPay->lomba);
+            foreach ($ikutLomba as $lomba) {
+                $lombaYangDiIkuti['all']++;
+                $lombaYangDiIkuti[$lomba]++;
+            }
+        }
+
+        $data['infoLomba'] = [
+            'lomba'=> $getIdLomba,
+            'count' => $lombaYangDiIkuti
+        ];
+
         // var_dump($countTes);
         // die();
         $this->template->display_admin('manager/dashboard_view', 'Dashboard', $data);
