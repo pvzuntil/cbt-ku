@@ -41,7 +41,7 @@ class Tes_hasil_detail extends Tes_Controller
 				$nilai = $this->cbt_tes_soal_model->get_nilai($tesuser_id)->row();
 				$data['nilai'] = $nilai->hasil . '  /  ' . $query_test->tes_max_score . '  (nilai / nilai maksimal) ';
 
-				$data['benar'] = ($nilai->total_soal - $nilai->jawaban_salah) . '  /  ' . $nilai->total_soal . '  (jawaban benar / total soal)';
+				$data['benar'] = ($nilai->total_soal - $nilai->jawaban_salah) . '  /  ' . $nilai->total_soal . '  (soal dijawab / total soal)';
 
 				$this->template->display_tes($this->kelompok . '/tes_hasil_detail_view', 'Hasil Tes Detail', $data);
 			} else {
