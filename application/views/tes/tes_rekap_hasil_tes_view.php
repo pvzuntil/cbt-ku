@@ -116,6 +116,7 @@
 						</div>
 					</div>
 					<div class="card-footer">
+						<button type="button" class="btn btn-default" id="btn-lihat-detail">Lihat</button>
 						<button type="button" class="btn btn-primary" id="btn-export-tes">Export</button>
 					</div>
 				</div>
@@ -180,5 +181,24 @@
 		let idUser = $('#select-peserta').val()
 		let idTes = $('#select-lomba').val()
 		export_tes(idUser, idTes)
+	})
+
+	$('#btn-lihat-detail').click(() => {
+		let idUser = $('#select-peserta').val()
+		let idTes = $('#select-lomba').val()
+		$.ajax({
+			url: '<?php echo site_url() . '/' . $url; ?>/load_detail',
+			method: 'POST',
+			data: {
+				idUser, idTes
+			},
+			beforeSend: () => {
+				SW.loading()
+			},
+			success: (res) => {
+				window.open(res, '_blank')
+				SW.close()
+			}
+		})
 	})
 </script>

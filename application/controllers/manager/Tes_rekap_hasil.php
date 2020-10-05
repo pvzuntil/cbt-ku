@@ -343,7 +343,7 @@ class Tes_rekap_hasil extends Member_Controller
                 $spreadsheet = IOFactory::load($inputFileName);
                 $spreadsheet->setActiveSheetIndex(0);
 
-                $spreadsheet->setActiveSheetIndex(0)->getColumnDimension('B')->setAutoSize(true);
+                // $spreadsheet->setActiveSheetIndex(0)->getColumnDimension('B')->setAutoSize(true);
                 $spreadsheet->setActiveSheetIndex(0)->getStyle('A9:A999')->getAlignment()->setHorizontal('center')->setVertical('center');
                 $spreadsheet->setActiveSheetIndex(0)->getStyle('C9:E999')->getAlignment()->setHorizontal('center')->setVertical('center');
 
@@ -375,6 +375,7 @@ class Tes_rekap_hasil extends Member_Controller
                     foreach ($data['content'] as $i => $soal) {
                         $rowSoal = $i + 9 + $indexSoal;
                         $spreadsheet->setActiveSheetIndex(0)->setCellValue('A' . ($rowSoal), ($i + 1));
+                        $spreadsheet->setActiveSheetIndex(0)->getStyle('B' . ($rowSoal))->getAlignment()->setWrapText(true);
                         $spreadsheet->setActiveSheetIndex(0)->setCellValue('B' . ($rowSoal), html_entity_decode(htmlspecialchars_decode($soal['soal']), ENT_QUOTES, 'UTF-8'));
                         $spreadsheet->setActiveSheetIndex(0)->setCellValue('C' . ($rowSoal), 'SOAL');
 
@@ -477,5 +478,14 @@ class Tes_rekap_hasil extends Member_Controller
         } else {
             redirect('manager/tes_rekap_hasil');
         }
+    }
+
+    public function load_detail()
+    {
+        $idUser = $this->input->post('idUser');
+        $idTes = $this->input->post('idTes');
+        $getTesUser = $this->db->query('SELECT * FROM cbt_tes_user WHERE tesuser_user_id = "' . $idUser . '" AND tesuser_tes_id = "' . $idTes . '"')->row();
+        echo site_url() . '/manager/tes_hasil_detail/index/' . $getTesUser->tesuser_id;
+        return;
     }
 }
