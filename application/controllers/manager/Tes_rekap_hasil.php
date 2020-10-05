@@ -398,8 +398,10 @@ class Tes_rekap_hasil extends Member_Controller
 
                             if ($indexKunci == $indexPilih) {
                                 $spreadsheet->getActiveSheet()->getStyle('A' . $rowSoal)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('3ADB17');
+                                $spreadsheet->getActiveSheet()->getStyle('D' . $rowSoal . ':E' . $rowSoal)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('3ADB17');
                             } else {
                                 $spreadsheet->getActiveSheet()->getStyle('A' . $rowSoal)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('DB1409');
+                                $spreadsheet->getActiveSheet()->getStyle('D' . $rowSoal . ':E' . $rowSoal)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('DB1409');
                             }
 
                             $indexSoal++;
