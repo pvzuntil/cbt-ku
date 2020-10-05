@@ -72,22 +72,113 @@
 			</div>
 		</div>
 		<?= form_close() ?>
+		<hr>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-header with-border">
+						<div class="card-title">Pilih Peserta</div>
+					</div><!-- /.card-header -->
+
+					<div class="card-body">
+						<div class="form-group">
+							<label>Nama Peserta</label>
+							<input type="hidden" id="nama-grup" name="nama-grup">
+							<div>
+								<select name="select-peserta" id="select-peserta" class="form-control input-sm select2" style="width: 100%;">
+									<!-- < value="">-- Pilih Peserta --</option> -->
+									<optgroup label="Pilih peserta"> <?php if (!empty($select_peserta)) {
+																			echo $select_peserta;
+																		} ?>
+									</optgroup>
+								</select>
+							</div>
+							<small class="text-muted">Pilih Peserta yang akan di Export</small>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-8">
+				<div class="card">
+					<div class="card-header with-border">
+						<div class="card-title">Rekapitulasi Hasil Lomba</div>
+					</div><!-- /.card-header -->
+
+					<div class="card-body form-horizontal">
+						<div class="form-group">
+							<label class="control-label">Pilih Lomba</label>
+							<div>
+								<select name="select-lomba" id="select-lomba" class="form-control input-sm select2" style="width: 100%;">
+									<option value="0">Pilih Lomba</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="card-footer">
+						<button type="button" class="btn btn-primary" id="btn-export-tes">Export</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </section><!-- /.content -->
 
 
 
 <script lang="javascript">
+	const loadLomba = (id) => {
+		$.ajax({
+			url: '<?php echo site_url() . '/' . $url; ?>/load_lomba',
+			method: 'POST',
+			data: {
+				id
+			},
+			beforeSend: () => {
+				SW.loading()
+			},
+			success: (res) => {
+				let data = JSON.parse(res)
+
+				$('#select-lomba').empty()
+				data.forEach((node) => {
+					$('#select-lomba').append(`
+						<option value="${node.id}">${node.name}</option>
+					`)
+				})
+				SW.close()
+			}
+		})
+	}
+
+	function export_tes(idUser, idTes) {
+		window.open("<?php echo site_url() . '/' . $url; ?>/tes_hasil_export/" + idUser + "/" + idTes);
+	}
+
 	$(function() {
+		$('.select2').select2();
+
 		$('#pilih-rentang-waktu').daterangepicker({
 			timePicker: false,
 			timePickerIncrement: 30,
 			format: 'YYYY-MM-DD'
 		});
+
+		loadLomba($('#select-peserta').val())
 	});
+
+	$('#select-peserta').change(function() {
+		loadLomba($(this).val())
+	})
 
 	$('#btn-export').click(function() {
 		$('#nama-grup').val($('#pilih-grup option:selected').text());
 		$('#form-export').submit();
 	});
+
+	$('#btn-export-tes').click(() => {
+		let idUser = $('#select-peserta').val()
+		let idTes = $('#select-lomba').val()
+		export_tes(idUser, idTes)
+	})
 </script>
