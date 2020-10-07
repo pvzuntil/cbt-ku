@@ -290,8 +290,8 @@ class Tes_rekap_hasil extends Member_Controller
                                 // ';
 
                                 $record['jawaban'][] = [
-                                    'kunci' => $temp_pilihan,
-                                    'pilih' => $temp_benar,
+                                    'pilih' => $temp_pilihan,
+                                    'kunci' => $temp_benar,
                                     'text' => $temp_jawaban,
                                 ];
                             }
