@@ -389,20 +389,14 @@ class Tes_rekap_hasil extends Member_Controller
                             $indexKunci = 0;
                             $indexPilih = 0;
 
-                            if ($jawaban['kunci'] == 1) {
-                                $indexKunci = $j;
-                            }
-
                             if ($jawaban['pilih'] == 1) {
-                                $indexPilih = $j;
-                            }
-
-                            if ($indexKunci == $indexPilih) {
-                                $spreadsheet->getActiveSheet()->getStyle('A' . $rowSoal)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('3ADB17');
-                                $spreadsheet->getActiveSheet()->getStyle('D' . $rowSoal . ':E' . $rowSoal)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('3ADB17');
-                            } else {
-                                $spreadsheet->getActiveSheet()->getStyle('A' . $rowSoal)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('DB1409');
-                                $spreadsheet->getActiveSheet()->getStyle('D' . $rowSoal . ':E' . $rowSoal)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('DB1409');
+                                if ($jawaban['pilih'] == $jawaban['kunci']) {
+                                    $spreadsheet->getActiveSheet()->getStyle('A' . $rowSoal)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('3ADB17');
+                                    $spreadsheet->getActiveSheet()->getStyle('D' . $rowSoal . ':E' . $rowSoal)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('3ADB17');
+                                } else {
+                                    $spreadsheet->getActiveSheet()->getStyle('A' . $rowSoal)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('DB1409');
+                                    $spreadsheet->getActiveSheet()->getStyle('D' . $rowSoal . ':E' . $rowSoal)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('DB1409');
+                                }
                             }
 
                             $indexSoal++;
