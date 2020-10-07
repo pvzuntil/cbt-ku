@@ -1,63 +1,70 @@
-<div class="login-box" style="margin-top: 100px;">
-	<!-- /.login-logo -->
-	<div class="card shadow-box">
-		<div class="card-body login-card-body">
-			<div class="login-logo">
-				<a href="#" style="text-shadow: 2px 2px 0px rgba(150, 150, 150, 0.10);" class="text-bold"><?php if (!empty($site_name)) {
-																												echo $site_name;
-																											} ?> </a>
-			</div>
-			<p class="login-box-msg">Silahkan masuk untuk melanjutkan</p>
+<div class="row" style="width: 100%;">
+	<div class="col-6 d-none d-md-flex" style="justify-content: center;">
+	
+	</div>
+	<div class="col-12 col-md-6 d-flex" style="justify-content: center;">
+		<div class="login-box">
+			<!-- /.login-logo -->
+			<div class="card shadow-box">
+				<div class="card-body login-card-body">
+					<div class="login-logo">
+						<a href="#" style="text-shadow: 2px 2px 0px rgba(150, 150, 150, 0.10);" class="text-bold"><?php if (!empty($site_name)) {
+																														echo $site_name;
+																													} ?> </a>
+					</div>
+					<p class="login-box-msg">Silahkan masuk untuk melanjutkan</p>
 
-			<form method="post" id="form-login">
-				<div class="input-group mb-3">
-					<input type="email" class="form-control" placeholder="Email" name="username">
-					<div class="input-group-append">
-						<div class="input-group-text">
-							<span class="fas fa-envelope"></span>
+					<form method="post" id="form-login">
+						<div class="input-group mb-3">
+							<input type="email" class="form-control" placeholder="Email" name="username">
+							<div class="input-group-append">
+								<div class="input-group-text">
+									<span class="fas fa-envelope"></span>
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
-				<div class="input-group mb-3">
-					<input type="password" class="form-control" placeholder="Password" name="password">
-					<div class="input-group-append">
-						<div class="input-group-text">
-							<span class="fas fa-lock"></span>
+						<div class="input-group mb-3">
+							<input type="password" class="form-control" placeholder="Password" name="password">
+							<div class="input-group-append">
+								<div class="input-group-text">
+									<span class="fas fa-lock"></span>
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-12 mb-2">
-						<div id="gchap" class="d-flex" style="justify-content: center; align-items: center;"></div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-12">
-						<button type="submit" class="btn btn-primary btn-block">Masuk</button>
-					</div>
-					<!-- /.col -->
-				</div>
-			</form>
+						<div class="row">
+							<div class="col-12 mb-2">
+								<div id="gchap" class="d-flex" style="justify-content: center; align-items: center;"></div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<button type="submit" class="btn btn-primary btn-block">Masuk</button>
+							</div>
+							<!-- /.col -->
+						</div>
+					</form>
 
-			<div class="social-auth-links text-center">
-				<p class="mb-2">-- Belum Punya Akun ? --</p>
-				<a href="#" class="btn btn-block btn-success mb-3" data-toggle="modal" data-target="#modal-tambah">
-					<i class="fas fa-user-edit mr-2"></i> Mendaftar sekarang
-				</a>
-				<!-- <a href="#" class="" data-toggle="modal" data-target="#modal-alur">Alur Pendaftaran</a>
+					<div class="social-auth-links text-center">
+						<p class="mb-2">-- Belum Punya Akun ? --</p>
+						<a href="#" class="btn btn-block btn-success mb-3" data-toggle="modal" data-target="#modal-tambah">
+							<i class="fas fa-user-edit mr-2"></i> Mendaftar sekarang
+						</a>
+						<!-- <a href="#" class="" data-toggle="modal" data-target="#modal-alur">Alur Pendaftaran</a>
             | -->
-				<a href="#" class="" data-toggle="modal" data-target="#modal-lupa">Lupa Password</a>
-				<?php if ($pengumuman->isPublic  == 1) : ?>
-					|
-					<a href="pengumuman" class="" target="_blank">Lihat Pengumuman</a>
-				<?php endif ?>
+						<a href="#" class="" data-toggle="modal" data-target="#modal-lupa">Lupa Password</a>
+						<?php if ($pengumuman->isPublic  == 1) : ?>
+							|
+							<a href="pengumuman" class="" target="_blank">Lihat Pengumuman</a>
+						<?php endif ?>
+					</div>
+					<!-- /.social-auth-links -->
+				</div>
+				<!-- /.login-card-body -->
 			</div>
-			<!-- /.social-auth-links -->
 		</div>
-		<!-- /.login-card-body -->
+		<!-- /.login-box -->
 	</div>
 </div>
-<!-- /.login-box -->
 
 
 <!-- MODAL ADD PESERTA -->
@@ -167,13 +174,13 @@
 				<?php echo form_close(); ?>
 			<?php else : ?>
 				<div class="modal-body">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-12">
-							<div class="callout callout-danger">Mohon maaf, pendaftaran sudah di tutup. sampai jumpa di lain waktu :)</div>
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-12">
+								<div class="callout callout-danger">Mohon maaf, pendaftaran sudah di tutup. sampai jumpa di lain waktu :)</div>
+							</div>
 						</div>
 					</div>
-				</div>
 				</div>
 			<?php endif ?>
 		</div>

@@ -4,7 +4,7 @@
                 <ul class="navbar-nav text-center text-md-left">
                     <li class="nav-item d-flex" style="height: 100%; align-items: center; justify-content: center;">
                         <a href="<?= base_url() ?>" style="font-weight: 600;" class="text-white ml-3"><?php if (!empty($site_name)) {
-                                                                                                                                    echo $site_name;
+                                                                                                                                    echo $site_name . ' - ' . $site_ket;
                                                                                                                                 } ?></a>
                     </li>
                 </ul>
