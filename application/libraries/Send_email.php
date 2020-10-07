@@ -28,7 +28,7 @@ class Send_email
         //     'newline' => "\r\n"
         // ];
         // $this->CI->load->library('email', $config);
-        // $this->CI->email->from('no-reply@qec.com', 'Quantum Educational Center');
+        // $this->CI->email->from('no-reply@YasaPintar!.com', 'Quantum Educational Center');
         // $this->CI->email->to($email);
 
         if ($type == 'lupa') {
@@ -63,10 +63,10 @@ class Send_email
         $emailMessage .= '<br />';
         $emailMessage .= '<br />';
         if ($type != 'lupa') {
-            $emailMessage .= '<p style="color: black">Jika kamu tidak merasa mendaftar akun di QEC, abaikan saja email ini</p>';
+            $emailMessage .= '<p style="color: black">Jika kamu tidak merasa mendaftar akun di YasaPintar!, abaikan saja email ini</p>';
         }
         $emailMessage .= '<p style="color: black">Terimakasih,</p>';
-        $emailMessage .= '<p style="color: black">Panitia QEC.</p>';
+        $emailMessage .= '<p style="color: black">Panitia YasaPintar!.</p>';
         // $this->CI->email->message($emailMessage);
 
         // $res = $this->CI->email->send();
