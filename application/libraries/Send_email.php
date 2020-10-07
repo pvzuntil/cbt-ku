@@ -28,15 +28,15 @@ class Send_email
         //     'newline' => "\r\n"
         // ];
         // $this->CI->load->library('email', $config);
-        // $this->CI->email->from('no-reply@YasaPintar!.com', 'Quantum Educational Center');
+        // $this->CI->email->from('no-reply@YasaPintar!.com', 'YasaPintar!');
         // $this->CI->email->to($email);
 
         if ($type == 'lupa') {
-            // $this->CI->email->subject('Reset Password Akun - Quantum Educational Center');
-            $subject = 'Reset Password Akun - Quantum Educational Center';
+            // $this->CI->email->subject('Reset Password Akun - YasaPintar!');
+            $subject = 'Reset Password Akun - YasaPintar!';
         } else {
-            // $this->CI->email->subject('Kode Verifikasi Akun - Quantum Educational Center');
-            $subject = 'Kode Verifikasi Akun - Quantum Educational Center';
+            // $this->CI->email->subject('Kode Verifikasi Akun - YasaPintar!');
+            $subject = 'Kode Verifikasi Akun - YasaPintar!';
         }
 
         if ($type == 'lupa') {
