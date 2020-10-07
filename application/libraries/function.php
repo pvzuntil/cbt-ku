@@ -29,8 +29,8 @@ function smtp_mail($to, $subject, $message, $from_name, $from, $cc, $bcc, $debug
   $mail->Port       = 587;                                      // Masukkan Port SMTP
   $mail->SMTPSecure = false;
   // $mail->SMTPSecure = 'tls';                                    // Masukkan Pilihan Enkripsi ( `tls` atau `ssl` )
-  $mail->Username   = 'said@lomba.yasapintar.com';                // Masukkan Email yang digunakan selama proses pengiriman email via SMTP
-  $mail->Password   = 'saidsaid123';                              // Masukkan Password dari Email tsb
+  $mail->Username   = 'untillness@yasapintar.com';                // Masukkan Email yang digunakan selama proses pengiriman email via SMTP
+  $mail->Password   = 'untillNess1013';                              // Masukkan Password dari Email tsb
   $default_email_from       = 'sender@yasapintar.com';        // Masukkan default from pada email
   $default_email_from_name  = 'YasaPintar !';           // Masukkan default nama dari from pada email
 
