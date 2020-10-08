@@ -11,6 +11,11 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content='width=device-width, initial-scale=1, maximum-scale=10, user-scalable=yes' name='viewport'>
 
+  <meta name="author" content="YasaPintar" />
+  <meta name="copyright" content="YasaPintar" />
+  <meta name="description" content="Kompetisi Online berbasis website di tuban jawa timmur" />
+  <meta name="keywords" content="YasaPintar kompetisi tuban kompetisi online" />
+
   <?php include 'required/css.php' ?>
   <?php include 'required/js.php' ?>
 
