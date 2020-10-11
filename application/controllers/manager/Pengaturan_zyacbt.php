@@ -62,6 +62,24 @@ class Pengaturan_zyacbt extends Member_Controller
 			$data['konfigurasi_isi'] = json_encode($this->input->post('pilihan-kelas', true));
 			$this->cbt_konfigurasi_model->update('konfigurasi_kode', 'pilihan_kelas', $data);
 
+			// PEMBAYARAN
+
+			$data['konfigurasi_isi'] = $this->input->post('bayar-rek', true);
+			$this->cbt_konfigurasi_model->update('konfigurasi_kode', 'bayar_rek', $data);
+
+			$data['konfigurasi_isi'] = $this->input->post('bayar-an', true);
+			$this->cbt_konfigurasi_model->update('konfigurasi_kode', 'bayar_an', $data);
+
+			$data['konfigurasi_isi'] = $this->input->post('bayar-bank', true);
+			$this->cbt_konfigurasi_model->update('konfigurasi_kode', 'bayar_bank', $data);
+
+			$data['konfigurasi_isi'] = $this->input->post('bayar-jenis', true);
+			$this->cbt_konfigurasi_model->update('konfigurasi_kode', 'bayar_jenis', $data);
+
+			$data['konfigurasi_isi'] = $this->input->post('bayar-tarif', true);
+			$this->cbt_konfigurasi_model->update('konfigurasi_kode', 'bayar_tarif', $data);
+
+
 			$status['status'] = 1;
 			$status['pesan'] = 'Pengaturan berhasil disimpan ';
 		} else {
@@ -114,6 +132,31 @@ class Pengaturan_zyacbt extends Member_Controller
 		$query = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'pilihan_kelas', 1);
 		if ($query->num_rows() > 0) {
 			$data['pilihan_kelas'] = $query->row()->konfigurasi_isi;
+		}
+
+		$query = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'bayar_rek', 1);
+		if ($query->num_rows() > 0) {
+			$data['bayar_rek'] = $query->row()->konfigurasi_isi;
+		}
+
+		$query = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'bayar_an', 1);
+		if ($query->num_rows() > 0) {
+			$data['bayar_an'] = $query->row()->konfigurasi_isi;
+		}
+
+		$query = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'bayar_bank', 1);
+		if ($query->num_rows() > 0) {
+			$data['bayar_bank'] = $query->row()->konfigurasi_isi;
+		}
+
+		$query = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'bayar_jenis', 1);
+		if ($query->num_rows() > 0) {
+			$data['bayar_jenis'] = $query->row()->konfigurasi_isi;
+		}
+
+		$query = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'bayar_tarif', 1);
+		if ($query->num_rows() > 0) {
+			$data['bayar_tarif'] = $query->row()->konfigurasi_isi;
 		}
 
 		// $query = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'tutup_bayar', 1);

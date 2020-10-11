@@ -33,8 +33,15 @@
                             <p>Silahkan unggah kembali bukti pembayaran dengan tepat.</p>
                         </div>
                     <?php else : ?>
+                    <?php
+                        $bayarRek = $conf_bayar[0]->konfigurasi_isi;
+                        $bayarAn = $conf_bayar[1]->konfigurasi_isi;
+                        $bayarJenis = $conf_bayar[2]->konfigurasi_isi;
+                        $bayarTarif = $conf_bayar[3]->konfigurasi_isi;
+                        $bayarBank = $conf_bayar[4]->konfigurasi_isi;
+                        ?>
                         <div class="callout callout-warning">
-                            <p>Silahkan Transfer biaya pendaftaran dan kirim bukti transfer. Rekening BCA no 3270 3964 87 an Moch Abdur Rokhim, kemudian unggah bukti pembayaran dibawah</p>
+                            <p>Silahkan Transfer biaya pendaftaran dan kirim bukti transfer. Rekening <?=$bayarBank?> No. <?=$bayarRek?> an <?= $bayarAn?> sebesar Rp. <?= number_format($bayarTarif, 0, '.', '.')?>, kemudian unggah bukti pembayaran dibawah</p>
                         </div>
                     <?php endif ?>
                     <hr>

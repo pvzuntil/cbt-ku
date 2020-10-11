@@ -120,7 +120,64 @@
                                 </select>
                             </div>
                         </div> -->
+
+                        <!-- <hr> -->
+
                     </div>
+                    <hr style="margin: 0px">
+                    <div class="card-header with-border">
+                        <div class="card-title">Pengaturan Pembayaran</div>
+                    </div><!-- /.card-header -->
+
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">No. Rekening</label>
+                                    <input type="number" class="form-control input-sm" id="bayar-rek" name="bayar-rek">
+                                    <small class="text-muted">
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Atas Nama</label>
+                                    <input type="text" class="form-control input-sm" id="bayar-an" name="bayar-an">
+                                    <small class="text-muted">
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="control-label">Nama Bank</label>
+                                    <input type="text" class="form-control input-sm" id="bayar-bank" name="bayar-bank">
+                                    <small class="text-muted">
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Jenis Pembayaran</label>
+                                    <select name="bayar-jenis" id="bayar-jenis" class="select custom-select form-control">
+                                        <option value="mapel">Per-mapel</option>
+                                        <option value="akun">Per-akun</option>
+                                    </select>
+                                    <small class="text-muted">
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Tarif</label>
+                                    <input type="number" class="form-control input-sm" id="bayar-tarif" name="bayar-tarif">
+                                    <small class="text-muted">
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="card-footer">
                         <button type="submit" id="btn-simpan" class="btn btn-primary btn-sm">Simpan Pengaturan</button>
                     </div>
@@ -146,6 +203,13 @@
                 $('#tutup-daftar').val(data.tutup_daftar);
                 // $('#tutup-bayar').val(data.tutup_bayar);
                 $('#pilihan-kelas').val(JSON.parse(data.pilihan_kelas)).trigger('change')
+
+                $('#bayar-rek').val(data.bayar_rek);
+                $('#bayar-an').val(data.bayar_an);
+                $('#bayar-bank').val(data.bayar_bank);
+                $('#bayar-jenis').val(data.bayar_jenis);
+                $('#bayar-tarif').val(data.bayar_tarif);
+
 
             }
             SW.close()
