@@ -64,6 +64,17 @@ class Dashboard extends Member_Controller
             'count' => $lombaYangDiIkuti
         ];
 
+
+		$query = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'bayar_tarif', 1);
+		if ($query->num_rows() > 0) {
+			$data['bayar_tarif'] = $query->row()->konfigurasi_isi;
+        }
+    
+		$query = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'bayar_jenis', 1);
+		if ($query->num_rows() > 0) {
+			$data['bayar_jenis'] = $query->row()->konfigurasi_isi;
+		}
+        
         // var_dump($countTes);
         // die();
         $this->template->display_admin('manager/dashboard_view', 'Dashboard', $data);
