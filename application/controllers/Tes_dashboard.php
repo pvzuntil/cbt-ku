@@ -149,6 +149,11 @@ class Tes_dashboard extends Tes_Controller
 		$query = $this->db->query('select konfigurasi_isi from cbt_konfigurasi where konfigurasi_kode like "bayar_%"')->result();
 		$data['conf_bayar'] = $query;
 
+		$query = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'bayar_aktif', 1);
+		if ($query->num_rows() > 0) {
+			$data['bayar_aktif'] = $query->row()->konfigurasi_isi;
+		}
+
 		$this->template->display_tes($this->kelompok . '/tes_dashboard_view', 'Dashboard', $data);
 	}
 

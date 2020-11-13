@@ -12,6 +12,7 @@ class Cbt_user_model extends CI_Model
     function save($data)
     {
         $this->db->insert($this->table, $data);
+        return $this->db->insert_id();
     }
 
     function delete($kolom, $isi)

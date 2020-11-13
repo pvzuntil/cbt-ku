@@ -34,22 +34,24 @@
                     <!-- /.info-box-content -->
                 </div>
             </div>
+            <?php if ($bayar_aktif == 'on') : ?>
 
-            <div class="col-sm-5">
-                <div class="info-box">
-                    <span class="info-box-icon bg-success"><i class="fas fa-money-bill-wave"></i></span>
+                <div class="col-sm-5">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-success"><i class="fas fa-money-bill-wave"></i></span>
 
-                    <div class="info-box-content">
-                        <span class="info-box-text">Peserta membayar</span>
-                        <span class="info-box-number"><?= $countPesertaPayIsPay ?></span>
-                        <span>
-                            <div class="badge bg-info">MENUNGGU : <?= $countPesertaPayIsWait ?></div>
-                            <div class="badge bg-red">BELUM MEMBAYAR : <?= $countPesertaPayIsNope ?></div>
-                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Peserta membayar</span>
+                            <span class="info-box-number"><?= $countPesertaPayIsPay ?></span>
+                            <span>
+                                <div class="badge bg-info">MENUNGGU : <?= $countPesertaPayIsWait ?></div>
+                                <div class="badge bg-red">BELUM MEMBAYAR : <?= $countPesertaPayIsNope ?></div>
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
                     </div>
-                    <!-- /.info-box-content -->
                 </div>
-            </div>
+            <?php endif ?>
 
             <div class="col-sm-3">
                 <div class="info-box">
@@ -62,24 +64,25 @@
                     <!-- /.info-box-content -->
                 </div>
             </div>
+            <?php if ($bayar_aktif == 'on') : ?>
+                <div class="col-sm-8">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-info"><i class="fas fa-money-bill-wave"></i></span>
 
-            <div class="col-sm-8">
-                <div class="info-box">
-                    <span class="info-box-icon bg-info"><i class="fas fa-money-bill-wave"></i></span>
-
-                    <div class="info-box-content">
-                        <span class="info-box-text">Estimasi Pemasukan | <?= $bayar_jenis == 'mapel' ? 'Per-mapel' : 'Per-akun' ?></span>
-                        <span class="info-box-number">Rp. <?= $bayar_jenis == 'mapel' ?  number_format((int) $infoLomba['count']['all'] * (int)$bayar_tarif, 0, '.', '.') : $countPesertaPayIsPay * (int)$bayar_tarif ?></span>
-                        <span>
-                            <div class="badge bg-info"><?= $infoLomba['count']['all'] ?> Lomba telah diikuti</div>
-                            <?php foreach ($infoLomba['lomba'] as $lomba) : ?>
-                                <div class="badge bg-success"><?= $lomba->modul_nama ?> : <?= $infoLomba['count'][$lomba->modul_id] ?> Peserta</div>
-                            <?php endforeach; ?>
-                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Estimasi Pemasukan | <?= $bayar_jenis == 'mapel' ? 'Per-mapel' : 'Per-akun' ?></span>
+                            <span class="info-box-number">Rp. <?= $bayar_jenis == 'mapel' ?  number_format((int) $infoLomba['count']['all'] * (int)$bayar_tarif, 0, '.', '.') : $countPesertaPayIsPay * (int)$bayar_tarif ?></span>
+                            <span>
+                                <div class="badge bg-info"><?= $infoLomba['count']['all'] ?> Lomba telah diikuti</div>
+                                <?php foreach ($infoLomba['lomba'] as $lomba) : ?>
+                                    <div class="badge bg-success"><?= $lomba->modul_nama ?> : <?= $infoLomba['count'][$lomba->modul_id] ?> Peserta</div>
+                                <?php endforeach; ?>
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
                     </div>
-                    <!-- /.info-box-content -->
                 </div>
-            </div>
+            <?php endif ?>
         </div>
 
         <div class="card">

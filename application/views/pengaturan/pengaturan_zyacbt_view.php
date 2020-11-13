@@ -132,6 +132,16 @@
 
                     <div class="card-body">
                         <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="bayar-aktif" name="bayar-aktif">
+                                        <label class="custom-control-label" for="bayar-aktif">Aktifkan Opsi Pembayaran</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">No. Rekening</label>
@@ -209,6 +219,8 @@
                 $('#bayar-bank').val(data.bayar_bank);
                 $('#bayar-jenis').val(data.bayar_jenis);
                 $('#bayar-tarif').val(data.bayar_tarif);
+
+                data.bayar_aktif == 'on' ? $('#bayar-aktif').attr('checked', '') : null
 
 
             }

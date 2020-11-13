@@ -73,6 +73,11 @@ class Dashboard extends Member_Controller
 		$query = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'bayar_jenis', 1);
 		if ($query->num_rows() > 0) {
 			$data['bayar_jenis'] = $query->row()->konfigurasi_isi;
+        }
+        
+        $query = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'bayar_aktif', 1);
+		if ($query->num_rows() > 0) {
+			$data['bayar_aktif'] = $query->row()->konfigurasi_isi;
 		}
         
         // var_dump($countTes);

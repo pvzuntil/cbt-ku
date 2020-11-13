@@ -152,6 +152,13 @@ class Users_model extends CI_Model
 
         if ($result->num_rows() > 0) {
             foreach ($result->result() as $temp) {
+                if ($temp->kode_menu == 'peserta-pay') {
+                    $queryBayarActive = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'bayar_aktif', 1);
+                    if($queryBayarActive->row()->konfigurasi_isi == ''){
+                        continue;
+                    }
+                }
+
                 $classtreeView = '';
 
                 if (empty($temp->parent)) {

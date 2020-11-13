@@ -193,7 +193,17 @@ class Welcome extends CI_Controller
 
 				if ($send['status']) {
 					$data['url_verif'] = $send['url'];
-					$this->cbt_user_model->save($data);
+					$idUser = $this->cbt_user_model->save($data);
+
+					$queryBayarActive = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'bayar_aktif', 1);
+					if (empty($queryBayarActive->row()->konfigurasi_isi)) {
+						$dataPay['cbt_user_id'] = $idUser;
+						$dataPay['status'] = 'allow';
+						$dataPay['message'] = 'from admin';
+						$dataPay['date_pay'] = date('Y-m-d H:i:s');
+
+						$this->cbt_user_pay_model->save($dataPay);
+					}
 
 					$status['status'] = 1;
 					$status['pesan'] = 'Berhasil mendaftar, silahkan cek email anda untuk memverifikasi akun. Periksa juga folder email spam anda !';

@@ -16,7 +16,7 @@
     <div class="container-fluid">
         <!-- Content Header (Page header) -->
         <!-- Main content -->
-        <?php if ($showPay) : ?>
+        <?php if ($showPay && $bayar_aktif == 'on') : ?>
             <div class="card">
                 <div class="card-header with-border">
                     <h3 class="card-title">Konfirmasi pembayaran</h3>

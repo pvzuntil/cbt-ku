@@ -79,6 +79,9 @@ class Pengaturan_zyacbt extends Member_Controller
 			$data['konfigurasi_isi'] = $this->input->post('bayar-tarif', true);
 			$this->cbt_konfigurasi_model->update('konfigurasi_kode', 'bayar_tarif', $data);
 
+			$data['konfigurasi_isi'] = $this->input->post('bayar-aktif', true);
+			$this->cbt_konfigurasi_model->update('konfigurasi_kode', 'bayar_aktif', $data);
+
 
 			$status['status'] = 1;
 			$status['pesan'] = 'Pengaturan berhasil disimpan ';
@@ -157,6 +160,11 @@ class Pengaturan_zyacbt extends Member_Controller
 		$query = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'bayar_tarif', 1);
 		if ($query->num_rows() > 0) {
 			$data['bayar_tarif'] = $query->row()->konfigurasi_isi;
+		}
+
+		$query = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'bayar_aktif', 1);
+		if ($query->num_rows() > 0) {
+			$data['bayar_aktif'] = $query->row()->konfigurasi_isi;
 		}
 
 		// $query = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'tutup_bayar', 1);
