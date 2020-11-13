@@ -21,21 +21,21 @@ class Juara extends Member_Controller
         $this->load->helper('form');
 
 
-		$query_modul = $this->cbt_modul_model->get_modul();
-		if ($query_modul->num_rows() > 0) {
-			$select = '';
-			$query_modul = $query_modul->result();
-			foreach ($query_modul as $temp) {
-				$select = $select . '<option value="' . $temp->modul_id . '" data-label="'.$temp->modul_nama.'">' . $temp->modul_nama . '</option>';
-			}
-		} else {
-			$select = '<option value="kosong" selected>-- Tidak ada data lomba --</option>';
-		}
-		$data['select_modul'] = $select;
+        $query_modul = $this->cbt_modul_model->get_modul();
+        if ($query_modul->num_rows() > 0) {
+            $select = '';
+            $query_modul = $query_modul->result();
+            foreach ($query_modul as $temp) {
+                $select = $select . '<option value="' . $temp->modul_id . '" data-label="' . $temp->modul_nama . '">' . $temp->modul_nama . '</option>';
+            }
+        } else {
+            $select = '<option value="kosong" selected>-- Tidak ada data lomba --</option>';
+        }
+        $data['select_modul'] = $select;
 
 
         $query_cbt_user = $this->cbt_user_model->get_all_user();
-		$data['select_kelas'] = $this->getkelas->result();
+        $data['select_kelas'] = $this->getkelas->result();
 
         if ($query_cbt_user->num_rows() > 0) {
             $select = '';
@@ -59,6 +59,12 @@ class Juara extends Member_Controller
         $laporan = $this->cbt_juara_model->get_laporan()->row();
         $data['isiLaporan'] = $laporan->isi;
         $data['isPublic'] = $laporan->isPublic;
+
+
+		$queryTempCert = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'temp_cert', 1);
+		if ($queryTempCert->num_rows() > 0) {
+			$data['temp_cert'] = $queryTempCert->row()->konfigurasi_isi;
+		}
 
         $this->template->display_admin('tool/juara', 'Dashboard', $data);
     }
@@ -378,5 +384,52 @@ class Juara extends Member_Controller
             'isPublic' => $isPublic
         ]);
         echo $isPublic;
+    }
+
+
+    function get_list_file()
+    {
+        // run query to get user listing
+        $posisi = 'public/images/sertifikat';
+        $query = directory_map($posisi, 0);
+
+        echo json_encode($query);
+    }
+
+    function post_temp_cert()
+    {
+        $imgPay = $this->input->post('imgCert');
+        $explodeImgPay = explode('data:image/', $imgPay);
+        $explodeImgPay = explode(';base64,', $explodeImgPay[1]);
+        $imgExt = $explodeImgPay[0];
+        $imgPay = $explodeImgPay[1];
+        $imgName = 'public/images/sertifikat/' . time() . '.' . $imgExt;
+
+        $file =  file_put_contents('./' . $imgName, base64_decode($imgPay));
+
+        // $this->cbt_user_pay_model->save([
+        //     'cbt_user_id' => $user_id,
+        //     'pay' => 1,
+        //     'status' => 'wait',
+        //     'date_pay' => date('Y-m-d H:i:s'),
+        //     'img_pay' => $imgName
+        // ]);
+
+
+        $status['status'] = 1;
+        $status['pesan'] = 'Berhasil mengupload file';
+        echo json_encode($status);
+    }
+
+    function update_temp_cert()
+    {
+
+        $data['konfigurasi_isi'] = $this->input->post('image', true);
+        $this->cbt_konfigurasi_model->update('konfigurasi_kode', 'temp_cert', $data);
+
+        $status['status'] = 1;
+        $status['pesan'] = 'Berhasil mengubah template sertifikat';
+        echo json_encode($status);
+
     }
 }

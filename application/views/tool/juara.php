@@ -17,7 +17,10 @@
                         <a class="nav-link active" id="custom-tabs-three-home-tab" data-toggle="pill" href="#custom-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home" aria-selected="true">Juara</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="custom-tabs-three-profile-tab" data-toggle="pill" href="#custom-tabs-three-profile" role="tab" aria-controls="custom-tabs-three-profile" aria-selected="false">Sertifikat</a>
+                        <a class="nav-link" id="custom-tabs-three-profile-tab" data-toggle="pill" href="#custom-tabs-three-profile" role="tab" aria-controls="custom-tabs-three-profile" aria-selected="false">Download Sertifikat</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="custom-tabs-three-profile-temp" data-toggle="pill" href="#custom-tabs-three-temp" role="tab" aria-controls="custom-tabs-three-temp" aria-selected="false">Template Sertifikat</a>
                     </li>
                 </ul>
             </div>
@@ -123,6 +126,36 @@
                                     <div class="col-sm-12">
                                         <button id="generate-cert" class="btn btn-primary btn-sm btn-block">Download
                                             Setifikat</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="custom-tabs-three-temp" role="tabpanel" aria-labelledby="custom-tabs-three-profile-temp">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-12" style="display: flex; justify-content: center; flex-direction: column; align-items: center; flex-wrap: wrap;">
+                                        <div class="col-8" style="margin-bottom: 15px; display: flex; justify-content: center; flex-direction: column;">
+                                            <label>Template sertifikat saat ini</label>
+                                            <img src="<?= site_url() . 'public/images/sertifikat/' . $temp_cert ?>" alt="" class="img-responsive elevation-1 img-thumbnail" id="imageCert">
+                                            <small class="text-muted">*Disarankan dengan ukuran kertas A4 landscape</small>
+                                        </div>
+                                        <input type="file" name="uplaodImgCert" id="uplaodImgCert" accept="image/*" style="display: none;">
+                                    </div>
+                                    <hr>
+                                    <div class="row mb-3">
+                                        <div class="col-12 d-flex" style="justify-content: center;">
+                                            <p>Klik gambar untuk memilih foto</p>
+                                        </div>
+                                    </div>
+                                    <div class="row" id="field-list-file">
+
+                                    </div>
+                                    <hr>
+                                    <div class="col-sm-12">
+                                        <button id="upload-new-cert" class="btn btn-primary btn-sm btn-block">Upload Baru</button>
                                     </div>
                                 </div>
                             </div>
@@ -356,7 +389,7 @@
         CKEDITOR.replace('tulis_laporan');
 
         $('#btn-image-insert').click(function() {
-            var image = $('#image-isi').val();
+            let image = $('#image-isi').val();
             CKEDITOR.instances.tulis_laporan.insertHtml(image);
             $("#modal-image").modal("hide");
         });
@@ -372,7 +405,7 @@
                 cache: false,
                 processData: false,
                 success: function(respon) {
-                    var obj = $.parseJSON(respon);
+                    let obj = $.parseJSON(respon);
                     if (obj.status == 1) {
                         $('#image-preview').html(obj.image);
                         $('#image-isi').val(obj.image_isi);
@@ -607,7 +640,135 @@
             })
 
         })
+
+        $('#custom-tabs-three-profile-temp').on('click', () => {
+            loadFileCert()
+        })
+
+        $('#upload-new-cert').on('click', () => {
+            $('#uplaodImgCert').click()
+        })
+
+        $('#uplaodImgCert').on('change', () => {
+            loadImageFile()
+        })
     });
+
+    const loadImageFile = function() {
+        let uploadImage = document.getElementById("uplaodImgCert");
+
+        //check and retuns the length of uploded file.
+        if (uploadImage.files.length === 0) {
+            return;
+        }
+
+        //Is Used for validate a valid file.
+        let uploadFile = document.getElementById("uplaodImgCert").files[0];
+        if (!filterType.test(uploadFile.type)) {
+            SW.toast({
+                title: 'Pilih gambar dengan format JPG atau PNG',
+                icon: 'error'
+            });
+            return;
+        }
+
+        fileReader.readAsDataURL(uploadFile);
+    }
+
+    let fileReader = new FileReader();
+    let filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+
+    fileReader.onload = function(event) {
+        let image = new Image();
+
+        image.onload = function() {
+            // document.getElementById("original-Img").src = image.src;
+            let canvas = document.createElement("canvas");
+            let context = canvas.getContext("2d");
+            canvas.width = image.width / 2;
+            canvas.height = image.height / 2;
+            context.drawImage(image,
+                0,
+                0,
+                image.width,
+                image.height,
+                0,
+                0,
+                canvas.width,
+                canvas.height
+            );
+
+            // document.getElementById("imageCert").src = canvas.toDataURL();
+
+            $.ajax({
+                url: '<?= site_url() ?>/manager/juara/post_temp_cert',
+                method: 'POST',
+                data: {
+                    imgCert: canvas.toDataURL()
+                },
+                beforeSend: () => {
+                    SW.loading()
+                },
+                success: (obj) => {
+                    loadFileCert()
+                }
+            })
+
+        }
+        image.src = event.target.result;
+    };
+
+    const loadFileCert = () => {
+        $.ajax({
+            url: '<?= site_url() ?>/manager/juara/get_list_file',
+            method: 'GET',
+            beforeSend: () => {
+                SW.loading()
+                $('#field-list-file').empty()
+            },
+            success: (res) => {
+                let data = JSON.parse(res)
+
+                if (data.length == 0) {
+                    $('#field-list-file').html(`
+                            <div class="col-12 d-flex" style="justify-content: center">Tidak ada template sertifikat</div>
+                        `)
+                } else {
+                    data.forEach((node, i) => {
+                        $('#field-list-file').append(`
+                                <div class="col-4 col-md-3 mb-2" style="cursor: pointer;" onclick="setTemplateCert('${node}')">
+                                    <img src="<?= site_url() ?>public/images/sertifikat/${node}" class="img-thumbnail">                       
+                                </div>
+                            `)
+                    })
+                }
+                SW.close()
+            }
+        })
+    }
+
+    const setTemplateCert = (image) => {
+        $.ajax({
+            url: '<?= site_url() ?>/manager/juara/update_temp_cert',
+            method: 'POST',
+            data: {
+                image
+            },
+            beforeSend: () => {
+                SW.loading()
+            },
+            success: (res) => {
+                let obj = JSON.parse(res)
+                SW.show({
+                    title: 'Berhasil',
+                    text: obj.pesan
+                }).then(() => {
+                    window.location.reload()
+                })
+            }
+
+        })
+    }
 
     const salinData = (lomba) => {
         return new Promise(function(resolve, reject) {
@@ -667,7 +828,7 @@
     }
 
     function copyToClipboard(element) {
-        var $temp = $("<input>");
+        let $temp = $("<input>");
         $("body").append($temp);
         $temp.val($(element).text()).select();
         document.execCommand("copy");
