@@ -1,6 +1,6 @@
 <div class="row" style="width: 100%;">
 	<div class="col-6 d-none d-md-flex" style="justify-content: center;">
-	
+
 	</div>
 	<div class="col-12 col-md-6 d-flex" style="justify-content: center;">
 		<div class="login-box">
@@ -45,10 +45,12 @@
 					</form>
 
 					<div class="social-auth-links text-center">
-						<p class="mb-2">-- Belum Punya Akun ? --</p>
-						<a href="#" class="btn btn-block btn-success mb-3" data-toggle="modal" data-target="#modal-tambah">
-							<i class="fas fa-user-edit mr-2"></i> Mendaftar sekarang
-						</a>
+						<?php if ($tutup_daftar == 'tidak') : ?>
+							<p class="mb-2">-- Belum Punya Akun ? --</p>
+							<a href="#" class="btn btn-block btn-success mb-3" data-toggle="modal" data-target="#modal-tambah">
+								<i class="fas fa-user-edit mr-2"></i> Mendaftar sekarang
+							</a>
+						<?php endif ?>
 						<!-- <a href="#" class="" data-toggle="modal" data-target="#modal-alur">Alur Pendaftaran</a>
             | -->
 						<a href="#" class="" data-toggle="modal" data-target="#modal-lupa">Lupa Password</a>
