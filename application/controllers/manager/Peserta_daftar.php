@@ -76,7 +76,7 @@ class Peserta_daftar extends Member_Controller
 			$data['telepon'] = $this->input->post('tambah-telepon', true);
 			$data['kelas'] = $this->input->post('tambah-kelas', true);
 			$data['lomba'] = json_encode($this->input->post('tambah-lomba', true));
-			$data['active'] = 0;
+			$data['active'] = 1;
 			$data['kode'] = $randomNumber;
 
 			if ($this->cbt_user_model->count_by_kolom('user_email', $data['user_email'])->row()->hasil > 0) {
@@ -84,22 +84,31 @@ class Peserta_daftar extends Member_Controller
 				$status['pesan'] = 'Email sudah terpakai !';
 			} else {
 
-				$send = new Send_email();
-				$send = $send->send($email, 'verif', [
-					'randomNumber' => $randomNumber,
-					'user_firstname' => $data['user_firstname']
-				]);
+				// $send = new Send_email();
+				// $send = $send->send($email, 'verif', [
+				// 	'randomNumber' => $randomNumber,
+				// 	'user_firstname' => $data['user_firstname']
+				// ]);
 
-				if ($send['status']) {
-					$data['url_verif'] = $send['url'];
-					$this->cbt_user_model->save($data);
+				// if ($send['status']) {
+					// $data['url_verif'] = $send['url'];
+					$idUser = $this->cbt_user_model->save($data);
+					$queryBayarActive = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'bayar_aktif', 1);
+					if (empty($queryBayarActive->row()->konfigurasi_isi)) {
+						$dataPay['cbt_user_id'] = $idUser;
+						$dataPay['status'] = 'allow';
+						$dataPay['message'] = 'from admin';
+						$dataPay['date_pay'] = date('Y-m-d H:i:s');
+
+						$this->cbt_user_pay_model->save($dataPay);
+					}
 
 					$status['status'] = 1;
 					$status['pesan'] = 'Data Peserta berhasil disimpan ';
-				} else {
-					$status['status'] = 0;
-					$status['pesan'] = 'Silahkan periksa koneksi internet anda !';
-				}
+				// } else {
+				// 	$status['status'] = 0;
+				// 	$status['pesan'] = 'Silahkan periksa koneksi internet anda !';
+				// }
 			}
 		} else {
 			$status['status'] = 0;
