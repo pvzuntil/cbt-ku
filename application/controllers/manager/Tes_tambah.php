@@ -121,6 +121,7 @@ class Tes_tambah extends Member_Controller
         $this->form_validation->set_rules('tambah-poin', 'Poin Dasar', 'required|numeric|strip_tags');
         $this->form_validation->set_rules('tambah-poin-salah', 'Poin Jawaban Salah', 'required|numeric|strip_tags');
         $this->form_validation->set_rules('tambah-poin-kosong', 'Poin Jawaban Kosong', 'required|numeric|strip_tags');
+        $this->form_validation->set_rules('type-tes', 'Type Tes', 'required|strip_tags');
 
         // dd('sas');
 
@@ -133,6 +134,7 @@ class Tes_tambah extends Member_Controller
             $data['tes_score_right'] = $this->input->post('tambah-poin', true);
             $data['tes_score_wrong'] = $this->input->post('tambah-poin-salah', true);
             $data['tes_score_unanswered'] = $this->input->post('tambah-poin-kosong', true);
+            $data['tes_type'] = $this->input->post('type-tes', true);
 
             $tunjukkan_hasil = $this->input->post('tambah-tunjukkan-hasil', true);
             if (!empty($tunjukkan_hasil)) {
@@ -203,7 +205,8 @@ class Tes_tambah extends Member_Controller
                     foreach ($groups as $group) {
                         $data_group['tstgrp_tes_id'] = $tes_id;
                         $data_group['kelas'] = $group;
-
+                        $data_group['type'] = $data['tes_type'];
+                        
                         // Jika group tidak kosong
                         if ($group != 0) {
                             $this->cbt_tesgrup_model->save($data_group);
@@ -372,6 +375,7 @@ class Tes_tambah extends Member_Controller
                 $data['rentang_waktu'] = $query->tes_begin_time . ' - ' . $query->tes_end_time;
                 $data['lomba'] = $getLomba;
                 $data['kelas'] = $getKelas;
+                $data['type'] = $query->tes_type;
             }
         }
         echo json_encode($data);

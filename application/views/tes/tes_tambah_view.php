@@ -99,6 +99,20 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="">Pilih Jenis Tes</label>
+                                    <input type="hidden" name="type-tes" id="type-tes">
+                                    <select class="form-control input-sm" id="type-tes-select" name="type-tes-select">
+                                        <option value="" selected disabled>-- Pilih Jenis Tes --</option>
+                                        <option value="ujian">Ujian</option>
+                                        <option value="tryout">Tryout</option>
+                                        <option value="simulasi">Simulasi</option>
+                                    </select>
+                                </div>
+                            </div>
+
                             <div class="col-12">
                                 <div class="row">
                                     <div class="form-group col-12 col-md-4">
@@ -317,6 +331,8 @@
                 $('#tambah-lomba').val(data.lomba);
                 $('#tambah-lomba-select').val(data.lomba);
                 $('#tambah-lomba-select').attr('disabled', '');
+                $('#type-tes-select').val(data.type);
+                $('#type-tes').val(data.type);
 
                 $('#tambah-kelas').val(data.kelas).trigger('change');
 
@@ -402,6 +418,10 @@
         $("#tambah-lomba-select").change(function() {
             $('#tambah-lomba').val($('#tambah-lomba-select').val());
             refresh_topik();
+        });
+
+        $("#type-tes-select").change(function() {
+            $('#type-tes').val($('#type-tes-select').val());
         });
 
         $('#form-tambah-tes').submit(function() {

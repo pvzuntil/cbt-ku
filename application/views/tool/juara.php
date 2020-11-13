@@ -182,8 +182,9 @@
                                         <div class="form-group">
                                             <label for="">Pilih jenis tes</label>
                                             <select name="jenis" id="form-jenis" class="form-control">
-                                                <option value="DESC">TryOut</option>
-                                                <option value="ASC">Kompetisi</option>
+                                                <option value="ujian">Ujian</option>
+                                                <option value="tryout">Tryout</option>
+                                                <option value="simulasi">Simulasi</option>
                                             </select>
                                         </div>
                                     </div>
