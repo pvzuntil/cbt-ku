@@ -2,7 +2,7 @@
 <section class="content-header">
     <div class="container-fluid">
         <h1>
-            Lomba
+            Pelajaran
         </h1>
     </div>
 </section>
@@ -15,9 +15,9 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header with-border">
-                        <div class="card-title">Daftar Lomba</div>
+                        <div class="card-title">Daftar Pelajaran</div>
                         <div class="card-tools pull-right">
-                            <a style="cursor: pointer;" onclick="tambah()" class="btn btn-success btn-sm text-white">Tambah Lomba</a>
+                            <a style="cursor: pointer;" onclick="tambah()" class="btn btn-success btn-sm text-white">Tambah Pelajaran</a>
                         </div>
                     </div><!-- /.card-header -->
 
@@ -28,7 +28,7 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th class="all">Nama Lomba</th>
+                                    <th class="all">Nama Pelajaran</th>
                                     <th class="all">Action</th>
                                     <th class="all"></th>
                                 </tr>
@@ -61,14 +61,14 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <div id="trx-judul">Tambah Lomba</div>
+                <div id="trx-judul">Tambah Pelajaran</div>
                 <button class="close" type="button" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
                 <div id="form-pesan"></div>
                 <div class="form-group">
-                    <label>Nama Lomba</label>
-                    <input type="text" class="form-control" id="tambah-lomba" name="tambah-lomba" placeholder="Nama Lomba">
+                    <label>Nama Pelajaran</label>
+                    <input type="text" class="form-control" id="tambah-lomba" name="tambah-lomba" placeholder="Nama Pelajaran">
                 </div>
             </div>
             <div class="modal-footer">
@@ -86,20 +86,20 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <div id="trx-judul">Edit Lomba</div>
+                <div id="trx-judul">Edit Pelajaran</div>
                 <button class="close" type="button" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
                 <div id="form-pesan-edit"></div>
                 <div class="form-group">
-                    <label>Nama Lomba</label>
+                    <label>Nama Pelajaran</label>
                     <input type="hidden" name="edit-id" id="edit-id">
                     <input type="hidden" name="edit-pilihan" id="edit-pilihan" value="edit">
                     <input type="hidden" name="edit-lomba-asli" id="edit-lomba-asli">
 
-                    <input type="text" class="form-control" id="edit-lomba" name="edit-lomba" placeholder="Nama Lomba">
+                    <input type="text" class="form-control" id="edit-lomba" name="edit-lomba" placeholder="Nama Pelajaran">
                 </div>
-                <p>NB : Lomba yang dihapus, maka semua soal dan peserta yang memilih lomba tersebut akan ikut terhapus !</p>
+                <p>NB : Pelajaran yang dihapus, maka semua soal dan peserta yang memilih lomba tersebut akan ikut terhapus !</p>
             </div>
             <div class="modal-footer">
                 <div class="row d-flex w-100" style="justify-content: space-between;">
@@ -120,7 +120,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <div id="trx-judul">Hapus Lomba</div>
+                <div id="trx-judul">Hapus Pelajaran</div>
                 <button class="close" type="button" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">

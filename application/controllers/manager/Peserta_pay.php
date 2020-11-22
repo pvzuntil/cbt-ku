@@ -133,7 +133,7 @@ class Peserta_pay extends Member_Controller
 		$this->form_validation->set_rules('edit-telepon', 'Nomer Telepon', 'required|strip_tags|numeric|min_length[10]');
 		$this->form_validation->set_rules('edit-active', 'Status', 'required|strip_tags');
 		$this->form_validation->set_rules('edit-kelas', 'Kelas', 'required|strip_tags');
-		$this->form_validation->set_rules('edit-lomba', 'Mata Lomba', 'required|strip_tags');
+		$this->form_validation->set_rules('edit-lomba', 'Mata Pelajaran', 'required|strip_tags');
 
 		if ($this->form_validation->run() == TRUE) {
 			$pilihan = $this->input->post('edit-pilihan', true);

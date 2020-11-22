@@ -29,7 +29,7 @@ class Modul_lomba extends Member_Controller
 	{
 		$this->load->library('form_validation');
 
-		$this->form_validation->set_rules('tambah-lomba', 'Nama Lomba', 'required|strip_tags');
+		$this->form_validation->set_rules('tambah-lomba', 'Nama Pelajaran', 'required|strip_tags');
 
 		if ($this->form_validation->run() == TRUE) {
 			$data['modul_nama'] = $this->input->post('tambah-lomba', true);
@@ -38,12 +38,12 @@ class Modul_lomba extends Member_Controller
 			//if($this->cbt_lomba_model->count_by_kolom('topik_nama', $data['topik_nama'])->row()->hasil>0){
 			if ($this->cbt_lomba_model->count_by_topik_modul($data['modul_nama'])->row()->hasil > 0) {
 				$status['status'] = 0;
-				$status['pesan'] = 'Nama Lomba sudah terpakai !';
+				$status['pesan'] = 'Nama Pelajaran sudah terpakai !';
 			} else {
 				$this->cbt_lomba_model->save($data);
 
 				$status['status'] = 1;
-				$status['pesan'] = 'Lomba berhasil disimpan ';
+				$status['pesan'] = 'Pelajaran berhasil disimpan ';
 			}
 		} else {
 			$status['status'] = 0;
@@ -126,7 +126,7 @@ class Modul_lomba extends Member_Controller
 		$this->load->library('form_validation');
 
 		$this->form_validation->set_rules('edit-id', 'ID', 'required|strip_tags');
-		$this->form_validation->set_rules('edit-lomba', 'Nama Lomba', 'required|strip_tags');
+		$this->form_validation->set_rules('edit-lomba', 'Nama Pelajaran', 'required|strip_tags');
 		$this->form_validation->set_rules('edit-pilihan', 'Pilihan', 'required|strip_tags');
 
 		if ($this->form_validation->run() == TRUE) {
@@ -163,17 +163,17 @@ class Modul_lomba extends Member_Controller
 					//if($this->cbt_lomba_model->count_by_kolom('topik_nama', $data['topik_nama'])->row()->hasil>0){
 					if ($this->cbt_lomba_model->count_by_topik_modul($data['modul_nama'])->row()->hasil > 0) {
 						$status['status'] = 0;
-						$status['pesan'] = 'Nama Lomba sudah terpakai !';
+						$status['pesan'] = 'Nama Pelajaran sudah terpakai !';
 					} else {
 						$this->cbt_lomba_model->update('modul_id', $id, $data);
 
 						$status['status'] = 1;
-						$status['pesan'] = 'Lomba berhasil disimpan ';
+						$status['pesan'] = 'Pelajaran berhasil disimpan ';
 					}
 				} else {
 					$this->cbt_lomba_model->update('modul_id', $id, $data);
 					$status['status'] = 1;
-					$status['pesan'] = 'Lomba Berhasil disimpan';
+					$status['pesan'] = 'Pelajaran Berhasil disimpan';
 				}
 			}
 		} else {

@@ -55,7 +55,7 @@ class Welcome extends CI_Controller
 				$select = $select . '<option value="' . $temp->modul_id . '">' . $temp->modul_nama . '</option>';
 			}
 		} else {
-			$select = '<option value="kosong" selected>-- Tidak ada Lomba --</option>';
+			$select = '<option value="kosong" selected>-- Tidak ada Pelajaran --</option>';
 		}
 		$data['select_lomba'] = $select;
 
@@ -165,7 +165,7 @@ class Welcome extends CI_Controller
 		$this->form_validation->set_rules('tambah-detail', 'Nama Sekolah', 'required|strip_tags');
 		$this->form_validation->set_rules('tambah-kelas', 'Kelas', 'required|strip_tags');
 		$this->form_validation->set_rules('tambah-telepon', 'Nomer Telepon', 'required|strip_tags|numeric|min_length[10]');
-		$this->form_validation->set_rules('tambah-lomba[]', 'Mata Lomba', 'required|strip_tags');
+		$this->form_validation->set_rules('tambah-lomba[]', 'Mata Pelajaran', 'required|strip_tags');
 
 		if ($this->form_validation->run() == TRUE) {
 			$randomNumber = rand(000001, 999999);

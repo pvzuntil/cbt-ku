@@ -73,7 +73,7 @@
                             <span class="info-box-text">Estimasi Pemasukan | <?= $bayar_jenis == 'mapel' ? 'Per-mapel' : 'Per-akun' ?></span>
                             <span class="info-box-number">Rp. <?= $bayar_jenis == 'mapel' ?  number_format((int) $infoLomba['count']['all'] * (int)$bayar_tarif, 0, '.', '.') : $countPesertaPayIsPay * (int)$bayar_tarif ?></span>
                             <span>
-                                <div class="badge bg-info"><?= $infoLomba['count']['all'] ?> Lomba telah diikuti</div>
+                                <div class="badge bg-info"><?= $infoLomba['count']['all'] ?> Pelajaran telah diikuti</div>
                                 <?php foreach ($infoLomba['lomba'] as $lomba) : ?>
                                     <div class="badge bg-success"><?= $lomba->modul_nama ?> : <?= $infoLomba['count'][$lomba->modul_id] ?> Peserta</div>
                                 <?php endforeach; ?>

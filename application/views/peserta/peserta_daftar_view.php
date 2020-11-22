@@ -66,7 +66,7 @@
                                     <th>No.</th>
                                     <th class="all">Nama</th>
                                     <th>Kelas</th>
-                                    <th>Pilihan Lomba</th>
+                                    <th>Pilihan Pelajaran</th>
                                     <th>Asal Sekolah</th>
                                     <th>Status</th>
                                     <th class="all">Action</th>
@@ -173,9 +173,9 @@
 
                 <div class="row">
                     <div class="form-group col-sm-6">
-                        <label>Pilihan Mata Lomba</label>
+                        <label>Pilihan Mata Pelajaran</label>
                         <select name="tambah-lomba" id="tambah-lomba" class="form-control input-sm">
-                            <option value="">-- Pilih Mata Lomba --</option>
+                            <option value="">-- Pilih Mata Pelajaran --</option>
                             <option value="matematika">Matematika</option>
                             <option value="sains">Sains</option>
                             <option value="all">Matematika & Sains</option>
@@ -238,11 +238,11 @@
 
                 <div class="form-group row">
                     <div class="col-12">
-                        <label>Pilihan Lomba</label>
+                        <label>Pilihan Pelajaran</label>
                     </div>
                     <div class="col-12">
-                        <select name="tambah-lomba[]" id="tambah-lomba" multiple class="form-control select2 custom-select" autocomplete="off" placeholder="Pilih Lomba" style="width: 100%;">
-                            <option value="" disabled>-- Pilih Lomba --</option>
+                        <select name="tambah-lomba[]" id="tambah-lomba" multiple class="form-control select2 custom-select" autocomplete="off" placeholder="Pilih Pelajaran" style="width: 100%;">
+                            <option value="" disabled>-- Pilih Pelajaran --</option>
                             <?= $select_lomba ?>
                         </select>
                     </div>
@@ -318,9 +318,9 @@
 
                 <div class="row">
                     <div class="form-group col-sm-6">
-                        <label>Pilihan Lomba</label>
+                        <label>Pilihan Pelajaran</label>
                         <select name="edit-lomba" id="edit-lomba" class="form-control input-sm">
-                            <option value="">-- Pilih Lomba --</option>
+                            <option value="">-- Pilih Pelajaran --</option>
                             <option value="matematika">Matematika</option>
                             <option value="sains">Sains</option>
                             <option value="all">Matematika & Sains</option>
@@ -384,11 +384,11 @@
 
                 <div class="form-group row">
                     <div class="col-12">
-                        <label>Pilihan Lomba</label>
+                        <label>Pilihan Pelajaran</label>
                     </div>
                     <div class="col-12">
-                        <select name="edit-lomba[]" id="edit-lomba" multiple class="form-control select2 custom-select" autocomplete="off" placeholder="Pilih Lomba" style="width: 100%;">
-                            <option value="" disabled>-- Pilih Lomba --</option>
+                        <select name="edit-lomba[]" id="edit-lomba" multiple class="form-control select2 custom-select" autocomplete="off" placeholder="Pilih Pelajaran" style="width: 100%;">
+                            <option value="" disabled>-- Pilih Pelajaran --</option>
                             <?= $select_lomba ?>
                         </select>
                     </div>

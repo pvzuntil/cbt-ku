@@ -21,7 +21,7 @@ class Tes_dashboard extends Tes_Controller
 		],
 		[
 			'tableName' => 'lomba',
-			'displayName' => 'Lomba',
+			'displayName' => 'Pelajaran',
 			'value' => false,
 			'type' => 'lomba',
 			'rule' => 'required'

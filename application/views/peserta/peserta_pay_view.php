@@ -51,7 +51,7 @@
                                     <th>No.</th>
                                     <th>Email</th>
                                     <th class="all">Nama</th>
-                                    <th>Pilihan Lomba</th>
+                                    <th>Pilihan Pelajaran</th>
                                     <th>Tanggal upload</th>
                                     <th class="all">Status</th>
                                     <th class="all">Action</th>
@@ -147,7 +147,7 @@
                     </div>
 
                     <div class="form-group col-sm-6">
-                        <label>Lomba</label>
+                        <label>Pelajaran</label>
                         <input type="text" class="form-control" id="show-level" name="show-level" readonly>
                     </div>
                 </div>
@@ -199,7 +199,7 @@
                 $('#show-nama').val(data.nama);
                 $('#show-email').val(data.email);
                 $('#show-detail').val(data.detail);
-                $('#show-level').val(data.lomba + ' Lomba');
+                $('#show-level').val(data.lomba + ' Pelajaran');
                 $('#imagePay').attr('src', '<?= site_url() ?>' + data.imgPay);
 
                 switch (data.status) {

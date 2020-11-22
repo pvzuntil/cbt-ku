@@ -116,9 +116,9 @@
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
-                                            <label>Lomba</label>
+                                            <label>Pelajaran</label>
                                             <select name="tambah-lomba" id="tambah-lomba" class="form-control input-sm">
-                                                <option value="">-- Pilih Lomba --</option>
+                                                <option value="">-- Pilih Pelajaran --</option>
                                                 <?= $select_modul ?>
                                             </select>
                                         </div>
@@ -801,7 +801,7 @@
     }
 
     function insertData(data, lomba) {
-        let dataJuara = '<h2><b>Juara Lomba ' + lomba.capitalize() + ' Kelas ' + $('#form-kelas').val() + '</b></h2>';
+        let dataJuara = '<h2><b>Juara Pelajaran ' + lomba.capitalize() + ' Kelas ' + $('#form-kelas').val() + '</b></h2>';
         if (data == false) {
             return Swal.fire({
                 toast: true,
