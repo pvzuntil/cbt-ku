@@ -76,9 +76,10 @@ class Peserta_daftar extends Member_Controller
 			$data['telepon'] = $this->input->post('tambah-telepon', true);
 			$data['kelas'] = $this->input->post('tambah-kelas', true);
 			$data['lomba'] = json_encode($this->input->post('tambah-lomba', true));
-			$data['active'] = 1;
 			$data['kode'] = $randomNumber;
 
+			getenv('MAIL_ACTIVE') == 'true' ? $data['active'] = 1 : $data['active'] = 1;
+			
 			if ($this->cbt_user_model->count_by_kolom('user_email', $data['user_email'])->row()->hasil > 0) {
 				$status['status'] = 0;
 				$status['pesan'] = 'Email sudah terpakai !';
