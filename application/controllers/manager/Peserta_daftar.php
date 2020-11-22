@@ -79,7 +79,7 @@ class Peserta_daftar extends Member_Controller
 			$data['kode'] = $randomNumber;
 
 			getenv('MAIL_ACTIVE') == 'true' ? $data['active'] = 1 : $data['active'] = 1;
-			
+
 			if ($this->cbt_user_model->count_by_kolom('user_email', $data['user_email'])->row()->hasil > 0) {
 				$status['status'] = 0;
 				$status['pesan'] = 'Email sudah terpakai !';
@@ -92,20 +92,20 @@ class Peserta_daftar extends Member_Controller
 				// ]);
 
 				// if ($send['status']) {
-					// $data['url_verif'] = $send['url'];
-					$idUser = $this->cbt_user_model->save($data);
-					$queryBayarActive = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'bayar_aktif', 1);
-					if (empty($queryBayarActive->row()->konfigurasi_isi)) {
-						$dataPay['cbt_user_id'] = $idUser;
-						$dataPay['status'] = 'allow';
-						$dataPay['message'] = 'from admin';
-						$dataPay['date_pay'] = date('Y-m-d H:i:s');
+				// $data['url_verif'] = $send['url'];
+				$idUser = $this->cbt_user_model->save($data);
+				$queryBayarActive = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'bayar_aktif', 1);
+				if (empty($queryBayarActive->row()->konfigurasi_isi)) {
+					$dataPay['cbt_user_id'] = $idUser;
+					$dataPay['status'] = 'allow';
+					$dataPay['message'] = 'from admin';
+					$dataPay['date_pay'] = date('Y-m-d H:i:s');
 
-						$this->cbt_user_pay_model->save($dataPay);
-					}
+					$this->cbt_user_pay_model->save($dataPay);
+				}
 
-					$status['status'] = 1;
-					$status['pesan'] = 'Data Peserta berhasil disimpan ';
+				$status['status'] = 1;
+				$status['pesan'] = 'Data Peserta berhasil disimpan ';
 				// } else {
 				// 	$status['status'] = 0;
 				// 	$status['pesan'] = 'Silahkan periksa koneksi internet anda !';
@@ -282,13 +282,16 @@ class Peserta_daftar extends Member_Controller
 				$statusPay = $userPay->status;
 			}
 
-			if ($statusPay == 'wait') {
-				$details .= '<div class="badge badge-secondary">MENUNGGU KONFIRMASI</div>';
-			} else if ($statusPay == 'allow') {
-				$details .=
-					'<div class="badge badge-success">SUDAH MEMBAYAR</div>';
-			} else {
-				$details .= '<div class="badge badge-danger">BELUM MEMBAYAR</div>';
+			$queryBayarActive = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'bayar_aktif', 1);
+			if (!empty($queryBayarActive->row()->konfigurasi_isi)) {
+				if ($statusPay == 'wait') {
+					$details .= '<div class="badge badge-secondary">MENUNGGU KONFIRMASI</div>';
+				} else if ($statusPay == 'allow') {
+					$details .=
+						'<div class="badge badge-success">SUDAH MEMBAYAR</div>';
+				} else {
+					$details .= '<div class="badge badge-danger">BELUM MEMBAYAR</div>';
+				}
 			}
 
 			$record[] = $details;
