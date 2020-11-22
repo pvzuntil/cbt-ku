@@ -7,8 +7,8 @@
             } ?>
         </h1>
         <div class="badge badge-primary badge-lg">Kelas <?= $currentUser->kelas ?></div>
-        <div class="badge badge-primary badge-lg">Pelajaran : <?= $daftarLomba ?></div>
-        <div class="badge badge-primary badge-lg">Level : <?= $level ?></div>
+        <!-- <div class="badge badge-primary badge-lg">Pelajaran : <?= $daftarLomba ?></div>
+        <div class="badge badge-primary badge-lg">Level : <?= $level ?></div> -->
     </div>
 </section>
 
@@ -275,7 +275,7 @@
 <script type="text/javascript">
     $(function() {
         <?php if (isset($isShow)) : ?>
-            <?php if ($isShow  == 0) : ?>
+            <?php if ($isShow  == 0 && $bayar_aktif == 'on') : ?>
                 SW.show({
                     title: 'Terimakasih !',
                     text: 'Pembayaran anda sudah kami terima dengan baik !',
