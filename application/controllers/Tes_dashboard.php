@@ -5,27 +5,27 @@ class Tes_dashboard extends Tes_Controller
 	private $kelompok = 'ujian';
 	private $url = 'tes_dashboard';
 	private $willCheck = [
-		[
-			'tableName' => 'telepon',
-			'displayName' => 'Nomer Telepon (WhatsApp)',
-			'value' => false,
-			'type' => 'text',
-			'rule' => 'required|numeric|min_length[10]',
-		],
-		[
-			'tableName' => 'kelas',
-			'displayName' => 'Kelas',
-			'value' => false,
-			'type' => 'kelas',
-			'rule' => 'required',
-		],
-		[
-			'tableName' => 'lomba',
-			'displayName' => 'Pelajaran',
-			'value' => false,
-			'type' => 'lomba',
-			'rule' => 'required'
-		]
+		// [
+		// 	'tableName' => 'telepon',
+		// 	'displayName' => 'Nomer Telepon (WhatsApp)',
+		// 	'value' => false,
+		// 	'type' => 'text',
+		// 	'rule' => 'required|numeric|min_length[10]',
+		// ],
+		// [
+		// 	'tableName' => 'kelas',
+		// 	'displayName' => 'Kelas',
+		// 	'value' => false,
+		// 	'type' => 'kelas',
+		// 	'rule' => 'required',
+		// ],
+		// [
+		// 	'tableName' => 'lomba',
+		// 	'displayName' => 'Pelajaran',
+		// 	'value' => false,
+		// 	'type' => 'lomba',
+		// 	'rule' => 'required'
+		// ]
 	];
 
 	function __construct()
