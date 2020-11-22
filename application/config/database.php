@@ -75,12 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	// 'username' => 'langkah2_untillness',
-	// 'password' => 'untillNess1013',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'trekillo',
+	'hostname' => getenv('DB_HOSTNAME'),
+	'username' => getenv('DB_USERNAME'),
+	'password' => getenv('DB_PASSWORD'),
+	'database' => getenv('DB_DATABASE'),
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
