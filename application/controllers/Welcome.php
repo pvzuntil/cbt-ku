@@ -55,7 +55,7 @@ class Welcome extends CI_Controller
 				$select = $select . '<option value="' . $temp->modul_id . '">' . $temp->modul_nama . '</option>';
 			}
 		} else {
-			$select = '<option value="kosong" selected>-- Tidak ada Lomba --</option>';
+			$select = '<option value="kosong" selected>-- Tidak ada Pelajaran --</option>';
 		}
 		$data['select_lomba'] = $select;
 
@@ -165,7 +165,7 @@ class Welcome extends CI_Controller
 		$this->form_validation->set_rules('tambah-detail', 'Nama Sekolah', 'required|strip_tags');
 		$this->form_validation->set_rules('tambah-kelas', 'Kelas', 'required|strip_tags');
 		$this->form_validation->set_rules('tambah-telepon', 'Nomer Telepon', 'required|strip_tags|numeric|min_length[10]');
-		$this->form_validation->set_rules('tambah-lomba[]', 'Mata Lomba', 'required|strip_tags');
+		$this->form_validation->set_rules('tambah-lomba[]', 'Mata Pelajaran', 'required|strip_tags');
 
 		if ($this->form_validation->run() == TRUE) {
 			$randomNumber = rand(000001, 999999);
@@ -177,22 +177,43 @@ class Welcome extends CI_Controller
 			$data['telepon'] = $this->input->post('tambah-telepon', true);
 			$data['kelas'] = $this->input->post('tambah-kelas', true);
 			$data['lomba'] = json_encode($this->input->post('tambah-lomba', true));
-			$data['active'] = 0;
 			$data['kode'] = $randomNumber;
+
+			getenv('MAIL_ACTIVE') == 'true' ? $data['active'] = 1 : $data['active'] = 1;
 
 			if ($this->cbt_user_model->count_by_kolom('user_email', $data['user_email'])->row()->hasil > 0) {
 				$status['status'] = 0;
 				$status['pesan'] = 'Email sudah terpakai !';
 			} else {
 
-				$send = new Send_email();
-				$send = $send->send($email, 'verif', [
-					'randomNumber' => $randomNumber,
-					'user_firstname' => $data['user_firstname']
-				]);
+				if (getenv('MAIL_ACTIVE') == 'true') {
+					$send = new Send_email();
+					$send = $send->send($email, 'verif', [
+						'randomNumber' => $randomNumber,
+						'user_firstname' => $data['user_firstname']
+					]);
 
-				if ($send['status']) {
-					$data['url_verif'] = $send['url'];
+					if ($send['status']) {
+						$data['url_verif'] = $send['url'];
+						$idUser = $this->cbt_user_model->save($data);
+
+						$queryBayarActive = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'bayar_aktif', 1);
+						if (empty($queryBayarActive->row()->konfigurasi_isi)) {
+							$dataPay['cbt_user_id'] = $idUser;
+							$dataPay['status'] = 'allow';
+							$dataPay['message'] = 'from admin';
+							$dataPay['date_pay'] = date('Y-m-d H:i:s');
+
+							$this->cbt_user_pay_model->save($dataPay);
+						}
+
+						$status['status'] = 1;
+						$status['pesan'] = 'Berhasil mendaftar, silahkan cek email anda untuk memverifikasi akun. Periksa juga folder email spam anda !';
+					} else {
+						$status['status'] = 0;
+						$status['pesan'] = 'Silahkan periksa koneksi internet anda !';
+					}
+				} else {
 					$idUser = $this->cbt_user_model->save($data);
 
 					$queryBayarActive = $this->cbt_konfigurasi_model->get_by_kolom_limit('konfigurasi_kode', 'bayar_aktif', 1);
@@ -206,10 +227,7 @@ class Welcome extends CI_Controller
 					}
 
 					$status['status'] = 1;
-					$status['pesan'] = 'Berhasil mendaftar, silahkan cek email anda untuk memverifikasi akun. Periksa juga folder email spam anda !';
-				} else {
-					$status['status'] = 0;
-					$status['pesan'] = 'Silahkan periksa koneksi internet anda !';
+					$status['pesan'] = 'Berhasil mendaftar, silahkan login untuk melajutkan !';
 				}
 			}
 		} else {

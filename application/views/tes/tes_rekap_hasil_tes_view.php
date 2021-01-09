@@ -102,15 +102,15 @@
 			<div class="col-md-8">
 				<div class="card">
 					<div class="card-header with-border">
-						<div class="card-title">Rekapitulasi Hasil Lomba</div>
+						<div class="card-title">Rekapitulasi Hasil Pelajaran</div>
 					</div><!-- /.card-header -->
 
 					<div class="card-body form-horizontal">
 						<div class="form-group">
-							<label class="control-label">Pilih Lomba</label>
+							<label class="control-label">Pilih Pelajaran</label>
 							<div>
 								<select name="select-lomba" id="select-lomba" class="form-control input-sm select2" style="width: 100%;">
-									<option value="0">Pilih Lomba</option>
+									<option value="0">Pilih Pelajaran</option>
 								</select>
 							</div>
 						</div>

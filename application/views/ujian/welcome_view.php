@@ -130,11 +130,11 @@
 
 						<div class="form-group row">
 							<div class="col-12">
-								<label>Pilihan Lomba</label>
+								<label>Pilihan Pelajaran</label>
 							</div>
 							<div class="col-12">
-								<select name="tambah-lomba[]" id="tambah-lomba" multiple class="form-control select2 custom-select" autocomplete="off" placeholder="Pilih Lomba" style="width: 100%;">
-									<option value="" disabled>-- Pilih Lomba --</option>
+								<select name="tambah-lomba[]" id="tambah-lomba" multiple class="form-control select2 custom-select" autocomplete="off" placeholder="Pilih Pelajaran" style="width: 100%;">
+									<option value="" disabled>-- Pilih Pelajaran --</option>
 									<?= $select_lomba ?>
 								</select>
 							</div>

@@ -7,8 +7,8 @@
             } ?>
         </h1>
         <div class="badge badge-primary badge-lg">Kelas <?= $currentUser->kelas ?></div>
-        <div class="badge badge-primary badge-lg">Lomba : <?= $daftarLomba ?></div>
-        <div class="badge badge-primary badge-lg">Level : <?= $level ?></div>
+        <!-- <div class="badge badge-primary badge-lg">Pelajaran : <?= $daftarLomba ?></div>
+        <div class="badge badge-primary badge-lg">Level : <?= $level ?></div> -->
     </div>
 </section>
 
@@ -79,14 +79,14 @@
                 </div>
                 <div class="card">
                     <div class="card-header with-border">
-                        <h3 class="card-title">Daftar Lomba</h3>
+                        <h3 class="card-title">Daftar Pelajaran</h3>
                     </div><!-- /.card-header -->
                     <div class="card-body">
                         <table id="table-tes" class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th class="all">Lomba</th>
+                                    <th class="all">Pelajaran</th>
                                     <th>Waktu Mulai Tes</th>
                                     <th>Waktu Selesai Tes</th>
                                     <!-- <th>Waktu Mulai mengerjakan - Waktu Selesai mengerjakan</th> -->
@@ -153,8 +153,8 @@
 
                         <div class="row">
                             <div class="form-group col-sm-6">
-                                <label>Pilihan Lomba</label>
-                                <input type="text" class="form-control" placeholder="Lomba" value="<?= $currentUser->lomba == 'all'  ? 'Matematika & Sains' : ucfirst($currentUser->lomba) ?>" readonly>
+                                <label>Pilihan Pelajaran</label>
+                                <input type="text" class="form-control" placeholder="Pelajaran" value="<?= $currentUser->lomba == 'all'  ? 'Matematika & Sains' : ucfirst($currentUser->lomba) ?>" readonly>
                             </div>
 
                             <div class="form-group col-sm-6">
@@ -197,7 +197,7 @@
                                         </select>
                                     <?php elseif ($check['type'] == 'lomba') : ?>
                                         <select name="<?= $check['tableName'] ?>" class="form-control input-sm">
-                                            <option value="">-- Pilih Lomba --</option>
+                                            <option value="">-- Pilih Pelajaran --</option>
                                             <option value="matematika">Matematika</option>
                                             <option value="sains">Sains</option>
                                             <option value="all">Matematika & Sains</option>
@@ -275,7 +275,7 @@
 <script type="text/javascript">
     $(function() {
         <?php if (isset($isShow)) : ?>
-            <?php if ($isShow  == 0) : ?>
+            <?php if ($isShow  == 0 && $bayar_aktif == 'on') : ?>
                 SW.show({
                     title: 'Terimakasih !',
                     text: 'Pembayaran anda sudah kami terima dengan baik !',

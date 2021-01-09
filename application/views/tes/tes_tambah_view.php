@@ -49,7 +49,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label">Kelas & Lomba</label>
+                                    <label class="control-label">Kelas & Pelajaran</label>
                                     <div class="row">
                                         <div class="col-6">
                                             <select class="form-control input-sm select2" id="tambah-kelas" name="tambah-kelas[]" multiple>
@@ -61,7 +61,7 @@
                                         <div class="col-6">
                                             <input type="hidden" name="tambah-lomba" id="tambah-lomba">
                                             <select class="form-control input-sm" id="tambah-lomba-select" name="tambah-lomba-select">
-                                                <option value="" selected disabled>-- Pilih Lomba --</option>
+                                                <option value="" selected disabled>-- Pilih Pelajaran --</option>
                                                 <?php if (!empty($select_modul)) {
                                                     echo $select_modul;
                                                 } ?>
@@ -175,7 +175,7 @@
                                 <?php echo form_open($url . '/tambah_soal', 'id="form-tambah-soal"  class="form-horizontal"'); ?>
                                 <div id="form-pesan-soal"></div>
                                 <div class="form-group">
-                                    <label class="control-label">Lomba</label>
+                                    <label class="control-label">Pelajaran</label>
                                     <div>
                                         <input type="hidden" name="soal-tes-id" id="soal-tes-id">
                                         <select class="form-control input-sm" id="soal-modul" name="soal-modul" disabled>
