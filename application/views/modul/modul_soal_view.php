@@ -257,8 +257,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button class="close" type="button" data-dismiss="modal">&times;</button>
                 <div id="trx-judul">Hapus Soal</div>
+                <button class="close" type="button" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="row-fluid">
@@ -274,8 +274,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" id="btn-hapus-soal" class="btn btn-primary">Hapus</button>
-                <a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>
+                <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
+                <button type="submit" id="btn-hapus-soal" class="btn btn-danger">Hapus</button>
             </div>
         </div>
     </div>
