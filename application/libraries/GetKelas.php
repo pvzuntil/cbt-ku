@@ -42,6 +42,12 @@ class GetKelas
                         array_push($data, $da);
                     }
                     break;
+                case 'umum':
+                    $daftarKelas = ['Umum'];
+                    foreach ($daftarKelas as $da) {
+                        array_push($data, $da);
+                    }
+                    break;
             }
         }
 

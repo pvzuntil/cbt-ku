@@ -95,7 +95,7 @@ class Cbt_tesgrup_model extends CI_Model
         $this->db
             ->from($this->table)
             ->join('cbt_tes', 'cbt_tesgrup.tstgrp_tes_id = cbt_tes.tes_id')
-            ->where('kelas = ' . $kelas . ' AND (' . $queryAnd . ')')
+            ->where('kelas = "' . $kelas . '" AND (' . $queryAnd . ')')
             // ->join('cbt_tes_user', 'cbt_tesgrup.tstgrp_tes_id = cbt_tes_user.tesuser_tes_id', 'left')
             ->order_by('tes_begin_time ASC, tes_nama ASC')
             ->limit($rows, $start);
@@ -113,7 +113,7 @@ class Cbt_tesgrup_model extends CI_Model
         }
 
         $this->db->select('COUNT(*) AS hasil')
-            ->where('kelas = ' . $kelas . ' AND (' . $queryAnd . ')')
+            ->where('kelas = "' . $kelas . '" AND (' . $queryAnd . ')')
             // ->where('(tstgrp_grup_id="' . $grup_id . '" AND tes_begin_time<=NOW() AND tes_end_time>=NOW())')
             // ->where('(tstgrp_grup_id="' . $grup_id . '" AND cbt_tesgrup.lomba = "' . $mataLomba . '")')
             // ->where('(tstgrp_grup_id="' . $grup_id . '")')

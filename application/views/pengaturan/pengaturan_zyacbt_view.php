@@ -96,6 +96,7 @@
                                     <option value="sd">SD (Sekolah Dasar)</option>
                                     <option value="smp">SMP (Sekolah menengah pertama)</option>
                                     <option value="sma">SMA (Sekolah menengah atas)</option>
+                                    <option value="umum">Umum</option>
                                 </select>
                             </div>
                         </div>
