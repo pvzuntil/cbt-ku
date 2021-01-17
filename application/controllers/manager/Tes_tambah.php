@@ -208,7 +208,7 @@ class Tes_tambah extends Member_Controller
                         $data_group['type'] = $data['tes_type'];
                         
                         // Jika group tidak kosong
-                        if ($group != 0) {
+                        if (!empty($group)) {
                             $this->cbt_tesgrup_model->save($data_group);
                         }
                     }
